@@ -16,7 +16,7 @@ export function getCaptcha(data) {
     return request({
         url: '/captcha/sent',
         method: 'post',
-        data: data
+        params: data
     })
 }
 // 校验验证码

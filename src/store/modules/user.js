@@ -46,11 +46,9 @@ const user = {
             })
         },
         // 获取用户信息
-        getUserInfo({ commit }) {
-            const userId = this.state.user.uid
-            console.log(this.state.user.uid)
+        getUserInfo({ commit,state }) {
             return new Promise((resolve, reject) => {
-                userDetail(userId).then((res) => {
+                userDetail(state.uid).then((res) => {
                     console.log(res)
                     resolve()
                 }).catch(err => {

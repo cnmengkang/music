@@ -8,17 +8,24 @@ const routes = [
   {
     path: '',
     component: Layout,
-    redirect: 'index',
+    redirect: '/discover',
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/index'),
-        name: 'index'
-      },
-      {
-        path: 'discover',
-        component: () => import('@/views/discoverMusic'),
-        name: 'discover'
+        path: '/discover',
+        component: () => import('@/views/discover'),
+        name: 'discover',
+        children: [
+          {
+            path: "/discover",
+            name: 'recommend',
+            component: () => import('@/views/discover/discover-recommend')
+          },
+          {
+            path: "/discover/custom-made",
+            name: 'custom-made',
+            component: () => import('@/views/discover/custom-made')
+          }
+        ]
       },
       // 发现音乐
       {
@@ -27,33 +34,33 @@ const routes = [
         name: 'blog'
       },
       {
-        path: 'videos',
+        path: 'video',
         component: () => import('@/views/videos'),
-        name: 'videos'
+        name: 'video'
       },
       // 视频
       {
-        path: 'focus',
-        component: () => import('@/views/focusOn'),
-        name: 'focus'
+        path: 'friend',
+        component: () => import('@/views/friend'),
+        name: 'friend'
       },
       // 关注
       {
-        path: 'live',
-        component: () => import('@/views/liveStreaming'),
-        name: 'live'
+        path: 'live-streaming',
+        component: () => import('@/views/live-streaming'),
+        name: 'live-streaming'
       },
       // 直播
       {
         path: 'private',
-        component: () => import('@/views/privateFM'),
+        component: () => import('@/views/private-fm'),
         name: 'private'
       },
       // 私人fm
       {
-        path: 'lovemusic',
-        component: () => import('@/views/loveMusic'),
-        name: 'lovemusic'
+        path: 'like-music',
+        component: () => import('@/views/like-music'),
+        name: 'like-music'
       },
       {
         path: "/about",

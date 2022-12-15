@@ -7,6 +7,9 @@ import Cookies from 'js-cookie'
 
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.config.productionTip = false;
+Vue.use(Element, {
+  size: Cookies.get('size') || 'medium', // set element-ui default size
+})
 Vue.use(Element)
 new Vue({
   router,

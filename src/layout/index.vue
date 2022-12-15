@@ -5,7 +5,7 @@
     </el-header>
     <!-- 顶部 -->
     <el-container>
-      <el-aside>
+      <el-aside width="200px">
         <asideNav />
       </el-aside>
       <!-- 左侧菜单 -->
@@ -33,7 +33,7 @@ export default {
 </script>
 <style lang="less">
 #app_index {
-  width: 1280px;
+  width: 1100px;
   margin: 0 auto;
   background: #fff;
   height: 100vh;
@@ -44,7 +44,6 @@ export default {
     line-height: 60px;
   }
   .el-main {
-    color: rgb(209, 193, 193);
     text-align: center;
     max-height: 520px;
     overflow-y: scroll;
