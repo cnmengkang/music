@@ -1,22 +1,16 @@
 import axios from 'axios'
-import { Message, Loading } from 'element-ui'
+import { Message } from 'element-ui'
 import { getToken } from './auth'
 // 自定义实例
-axios.defaults.withCredentials = true;
 const request = axios.create({
     baseURL: 'http://localhost:3000',
+    withCredentials: true, //关键
     timeout: 3000,
 })
 // 添加请求拦截器
 request.interceptors.request.use(config => {
     // 发送前处理的程序
-    // console.log('config', config);
-    config.headers["Content-Type"] = 'application/x-www-form-urlencoded';
-    // config.headers['Authorization'] = getToken();
-    // const isToken = (config.headers || {}).isToken === false;
-    // if (getToken() & !isToken) {
-    //     config.headers['Authorization'] = getToken();
-    // }
+    console.log('config', config);
     return config
 }, err => {
     // 失败后处理程序
@@ -29,8 +23,6 @@ request.interceptors.response.use(response => {
     const res = response.data;
     if (res.code == 200) {
         return res
-    } else if (res.code == 302) {
-        Message({ message: '请登录后重试', type: 'error' })
     }
     else {
         Message({ message: res.message, type: 'error' })

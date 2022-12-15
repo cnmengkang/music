@@ -34,7 +34,12 @@ export function CheckPhone(data) {
         url: "/cellphone/existence/check",
         method: "post",
         data: data,
-        headers:{isToken}
+    })
+}
+// 登录状态
+export function loginStatus(){
+    request({
+        url:'login/status'
     })
 }
 // 推出登录

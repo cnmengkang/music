@@ -1,8 +1,8 @@
 <template>
   <div id="discover-recommend">
     <el-carousel :interval="2000" type="card" :autoplay="false" height="200px">
-      <el-carousel-item v-for="item in banners" :key="item.targetId">
-        <a href="#">
+      <el-carousel-item v-for="item in banners" :key="item.imageUrl">
+        <a :href="item.url == '' ? '#' : item.url">
           <img :src="item.imageUrl" />
           <span :class="item.titleColor">{{ item.typeTitle }}</span>
         </a>
@@ -11,21 +11,24 @@
     <!-- banner -->
 
     <!-- 每日推荐歌单 -->
+    <el-button @click="getUserInfo">detil</el-button>
   </div>
 </template>
 <script>
-import { banner,recommend } from "@/api/discover";
+import { loginStatus } from "@/api/login";
+import { banner, recommend } from "@/api/discover";
 export default {
   name: "recommend",
   data() {
     return {
       type: 0,
-      banners: {},
+      banners: "",
     };
   },
   created() {
     this.getBanner();
-    this.getRecommend()
+    // this.getloginStatus();
+    this.getRecommend();
   },
   methods: {
     // banner
@@ -35,11 +38,26 @@ export default {
         this.banners = res.banners;
       });
     },
-    getRecommend(){
-      recommend().then((res=>{
-        console.log(res)
-      }))
-    }
+    // 登录状态
+    // getloginStatus() {
+    //   loginStatus().then((res) => {
+    //     console.log("status", res);
+    //   });
+    // },
+    getRecommend() {
+      recommend()
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getUserInfo() {
+      this.$store.dispatch("getUserInfo").then((res) => {
+        console.log(res);
+      });
+    },
   },
 };
 </script>

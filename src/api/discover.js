@@ -12,6 +12,6 @@ export function banner(type) {
 export function recommend() {
     return request({
         url: "recommend/resource",
-        method: "post",
+        method: "get",
     })
 }
