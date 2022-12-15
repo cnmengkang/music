@@ -1,63 +1,93 @@
 <template>
   <div id="discover-recommend">
-    <el-carousel :interval="2000" type="card" :autoplay="false" height="200px">
-      <el-carousel-item v-for="item in banners" :key="item.imageUrl">
-        <a :href="item.url == '' ? '#' : item.url">
-          <img :src="item.imageUrl" />
-          <span :class="item.titleColor">{{ item.typeTitle }}</span>
-        </a>
-      </el-carousel-item>
-    </el-carousel>
+    <div class="recommend-banner">
+      <el-carousel
+        :interval="2000"
+        type="card"
+        :autoplay="false"
+        height="200px"
+      >
+        <el-carousel-item v-for="item in banners" :key="item.imageUrl">
+          <a :href="item.url == '' ? '#' : item.url">
+            <img :src="item.imageUrl" />
+            <span :class="item.titleColor">{{ item.typeTitle }}</span>
+          </a>
+        </el-carousel-item>
+      </el-carousel>
+    </div>
     <!-- banner -->
-
+    <div class="recommend-resource">
+      <div class="resource-grid">
+        <h4 class="res-grid-title">推荐歌单</h4>
+        <ul>
+          <li >
+            <div class="box">
+              <el-avatar
+                shape="square"
+                :size="150"
+                src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+                alt="1111"
+              ></el-avatar>
+            </div>
+            <span class="title">每日歌曲推荐</span>
+          </li>
+          <li v-for="item in recommend" @click="getRecommendDetail(item.id)"  :key="item.id" >
+            <div class="box">
+              <el-avatar
+                shape="square"
+                :size="150"
+                :src="item.picUrl"
+                :alt="item.alg"
+              ></el-avatar>
+            </div>
+            <span class="title">{{ item.name }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
     <!-- 每日推荐歌单 -->
-    <el-button @click="getUserInfo">detil</el-button>
   </div>
 </template>
 <script>
-import { loginStatus } from "@/api/login";
-import { banner, recommend } from "@/api/discover";
+import { banner, recommend } from "@/api/discover/discover";
 export default {
   name: "recommend",
   data() {
     return {
       type: 0,
       banners: "",
+      recommend: "",
+      resDetail:{
+        id:"",
+        limit:10,
+        offset:1
+      }
     };
   },
   created() {
     this.getBanner();
-    // this.getloginStatus();
     this.getRecommend();
   },
   methods: {
     // banner
     getBanner() {
       banner(this.type).then((res) => {
-        console.log(res);
         this.banners = res.banners;
       });
     },
-    // 登录状态
-    // getloginStatus() {
-    //   loginStatus().then((res) => {
-    //     console.log("status", res);
-    //   });
-    // },
+    // 每日推荐歌单
     getRecommend() {
-      recommend()
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    getUserInfo() {
-      this.$store.dispatch("getUserInfo").then((res) => {
-        console.log(res);
+      recommend().then((res) => {
+        console.log("recommend", res);
+        this.recommend = res.recommend;
       });
     },
+    getRecommendDetail(id){
+      console.log(id)
+      this.$emit('detail',id)
+
+    }
+    // http://localhost:3000/playlist/track/all?id=5474813007&limit=10&offset=1
   },
 };
 </script>
@@ -99,5 +129,32 @@ export default {
       }
     }
   }
+  // banner
+  .recommend-resource {
+    .resource-grid {
+      h4 {
+        text-align: left;
+      }
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        li {
+          .box {
+            width: 20%;
+          }
+          .title {
+            font-size: 14px;
+            white-space: normal;
+            display: inline-block;
+            margin: 5px 0px;
+            text-align: left;
+            width: 150px;
+          }
+        }
+      }
+    }
+  }
+  // recommend
 }
 </style>

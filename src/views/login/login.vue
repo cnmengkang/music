@@ -105,7 +105,7 @@
 </template>
 <script>
 import { validateTel } from "@/utils/validate";
-import { getCaptcha, CheckVerify } from "@/api/login";
+import { getCaptcha, CheckVerify } from "@/api/user/login";
 export default {
   name: "login",
   data() {

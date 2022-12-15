@@ -1,5 +1,5 @@
-import { login } from '@/api/login';
-import { userDetail } from "@/api/user"
+import { login } from '@/api/user/login';
+import { userDetail } from "@/api/user/user"
 import { getToken, setToken } from '@/utils/auth'
 
 
@@ -46,7 +46,7 @@ const user = {
             })
         },
         // 获取用户信息
-        getUserInfo({ commit,state }) {
+        getUserInfo({ commit, state }) {
             return new Promise((resolve, reject) => {
                 userDetail(state.uid).then((res) => {
                     console.log(res)

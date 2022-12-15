@@ -82,7 +82,7 @@
   </div>
 </template>
 <script>
-import { getCaptcha, CheckVerify, CheckPhone } from "@/api/login";
+import { getCaptcha, CheckVerify, CheckPhone } from "@/api/user/login";
 import { validateTel, validatePass } from "@/utils/validate";
 export default {
   name: "register",

@@ -18,7 +18,14 @@ const routes = [
           {
             path: "/discover",
             name: 'recommend',
-            component: () => import('@/views/discover/discover-recommend')
+            component: () => import('@/views/discover/discover-recommend'),
+            children:[
+              {
+                path:'recommend/detail/:id',
+                name:'detail',
+                component:()=>import("@/views/discover/detail")
+              }
+            ]
           },
           {
             path: "/discover/custom-made",

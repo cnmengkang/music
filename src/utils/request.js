@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
-import { getToken } from './auth'
 // 自定义实例
 const request = axios.create({
     baseURL: 'http://localhost:3000',
@@ -10,7 +9,6 @@ const request = axios.create({
 // 添加请求拦截器
 request.interceptors.request.use(config => {
     // 发送前处理的程序
-    console.log('config', config);
     return config
 }, err => {
     // 失败后处理程序
@@ -19,13 +17,13 @@ request.interceptors.request.use(config => {
 // 响应拦截器
 request.interceptors.response.use(response => {
     // 成功之后执行的操作
-    console.log('res', response)
+    // console.log('res', response)
     const res = response.data;
-    if (res.code == 200) {
-        return res
+    if (res.code !== 200) {
+        Message({ message: res.message, type: 'error' })
     }
     else {
-        Message({ message: res.message, type: 'error' })
+        return res
 
     }
 }, err => {

@@ -1,13 +1,5 @@
 <template>
   <div id="navTabs-index">
-    <!-- <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane label="个性推荐" name="recommend">个性推荐</el-tab-pane>
-      <el-tab-pane label="专属定制" name="custom-made">专属定制</el-tab-pane>
-      <el-tab-pane label="歌单" name="playlist">歌单</el-tab-pane>
-      <el-tab-pane label="排行榜" name="top-list">排行榜</el-tab-pane>
-      <el-tab-pane label="最新音乐" name="new-music">最新音乐</el-tab-pane>
-    </el-tabs> -->
-
     <el-menu
       class="el-menu-demo"
       mode="horizontal"
