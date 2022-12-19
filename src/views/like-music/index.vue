@@ -4,17 +4,22 @@
   </div>
 </template>
 <script>
+import { likeList } from '@/api/user/user'
 export default {
   name: 'loveMusic',
-  data () {
+  data() {
     return {
     }
   },
+  created() {
+    this.getLikeList()
+  },
   methods: {
-  },
-  created () {
-  },
-  mounted () {
+    getLikeList() {
+      likeList(345288322).then((res) => {
+        console.log(res)
+      })
+    }
   },
 }
 </script>

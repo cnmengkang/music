@@ -20,7 +20,7 @@
       <div class="resource-grid">
         <h4 class="res-grid-title">推荐歌单</h4>
         <ul>
-          <li >
+          <li @click="getRecommendDetail">
             <div class="box">
               <el-avatar
                 shape="square"
@@ -85,6 +85,7 @@ export default {
     getRecommendDetail(id){
       console.log(id)
       this.$emit('detail',id)
+      this.$router.push({name:'detail',params:{id}})
 
     }
     // http://localhost:3000/playlist/track/all?id=5474813007&limit=10&offset=1

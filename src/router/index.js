@@ -19,18 +19,26 @@ const routes = [
             path: "/discover",
             name: 'recommend',
             component: () => import('@/views/discover/discover-recommend'),
-            children:[
-              {
-                path:'recommend/detail/:id',
-                name:'detail',
-                component:()=>import("@/views/discover/detail")
-              }
-            ]
+            // 个性推荐首页
+          },
+          {
+            path: 'recommend/detail/:id',
+            name: 'detail',
+            component: () => import("@/views/discover/detail")
+            // 个性推荐详情页
           },
           {
             path: "/discover/custom-made",
             name: 'custom-made',
             component: () => import('@/views/discover/custom-made')
+            // 专属定制
+          },
+          {
+            path: "/discover/toplist",
+            name: 'topList',
+            component: () => import('@/views/discover/topList/')
+
+            // 排行榜
           }
         ]
       },

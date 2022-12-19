@@ -168,7 +168,7 @@ export default {
           console.log("没有登录去注册");
         } else {
           console.log("已经存在,去登陆");
-          this.router.push();
+          this.router.push("/");
         }
       });
     },

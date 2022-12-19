@@ -15,6 +15,14 @@ export function userSubCount(){
         method:'post',
     })
 }
+// 我的喜欢音乐列表
+export function likeList(uid){
+    return request({
+        url:"/likelist",
+        method:'get',
+        data:{uid}
+    })
+}
 // 登录状态
 export function loginStatus() {
     return request({
