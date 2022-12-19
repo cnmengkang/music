@@ -14,9 +14,11 @@
         </div>
         <div class="detail-body">
             <ul>
-                <li v-for="item in songsList" :key="item.id">
-                    <div class="name">{{ item.name }}</div>
-                    <div class="name">{{ item.alia[0] }}</div>
+                <li v-for="(item, index) in songsList" :key="item.id">
+                    <div class="number">0{{ index + 1 }}</div>
+                    <div class="name">{{ item.name }} </div>
+                    <div class="tip">{{ item.alia[0] }}</div>
+                    <div class="zuozhe">{{ item.ar[0].name }}</div>
                 </li>
             </ul>
         </div>
@@ -31,10 +33,10 @@ export default {
             playlist: '',
             playAll: {
                 id: this.$route.params.id,
-                limit: 10,
+                limit: 50,
                 offset: 1
             },
-            songsList:''
+            songsList: ''
 
         }
     },
@@ -86,6 +88,29 @@ export default {
 
             h4 {
                 display: inline-block;
+            }
+        }
+    }
+
+    .detail-body {
+        ul {
+            li {
+                text-align: left;
+                font-size: 14px;
+                height: 35px;
+                line-height: 35px;
+
+                .number {
+                    padding: 0px 15px;
+                }
+
+                .name {
+                    margin-right: 5px;
+                }
+
+                div {
+                    display: inline-block;
+                }
             }
         }
     }
