@@ -2,7 +2,7 @@ import request from "@/utils/request"
 // 主页banner
 export function banner() {
     return request({
-        url: 'banner',
+        url: '/banner',
         method: 'post',
     })
 }

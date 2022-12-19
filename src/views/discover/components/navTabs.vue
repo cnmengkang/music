@@ -37,9 +37,13 @@ export default {
 #navTabs-index {
   position: sticky;
   top: 0px;
+  z-index:99;
+  padding: 15px 0px;
+  background: #fff;
   .el-menu-item {
     height: 40px;
     line-height: 40px;
+    padding-left:0px;
     span {
       color: #000;
     }

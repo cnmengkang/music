@@ -47,6 +47,7 @@ export default {
     text-align: center;
     max-height: 520px;
     overflow-y: scroll;
+    padding: 0px 20px;
 
     .el-aside {
       color: #333;
