@@ -112,8 +112,8 @@ export default {
     return {
       // 登录账号密码
       loginForm: {
-        phone: "19826599519",
-        password: "mengkang21",
+        phone: "",
+        password: "",
         captcha: "",
       },
       flag: true,
