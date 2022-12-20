@@ -1,17 +1,23 @@
 <template>
     <div class="topList">
-        <div class="top-grid" v-for="item in topListDetail" :key="item.id">
-            <div class="left list" @click="btnDetail(item.id)">
-                <img :src="item.coverImgUrl" />
-            </div>
-            <div class="right list">
-                <ul>
-                    <li v-for="(items, index) in item.tracks" :key="index">
-                        <span class="title">{{ index + 1 }}</span>
-                        <div>{{ items.first }}</div>
-                        <div class="second">{{ items.second }}</div>
-                    </li>
-                </ul>
+        <h3>官方榜</h3>
+        <div class="top-grid">
+            <div class="grid" v-for="item in topListDetail" :key="item.id">
+                <div class="left list" @click="btnDetail(item.id)">
+                    <img :src="item.coverImgUrl" />
+                </div>
+                <div class="right list" v-if="item.tracks.length >= 3">
+                    <ul>
+                        <li v-for="(items, index) in item.tracks" :key="index">
+                            <span class="title">{{ index + 1 }}</span>
+                            <div>{{ items.first }}</div>
+                            <div class="second">{{ items.second }}</div>
+                        </li>
+                        <span class="topListAll" @click="btnDetail(item.id)">查看全部&nbsp;<i
+                                class="el-icon-arrow-right"></i>
+                        </span>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -56,10 +62,20 @@ export default {
 </script>
 <style lang="less" scoped>
 .topList {
+    h3 {
+        text-align: left;
+    }
+
     .top-grid {
-        display: flex;
-        flex-wrap: wrap;
-        margin-bottom: 40px;
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .list {
+            
+        }
 
         .left {
             width: 20%;
@@ -75,38 +91,48 @@ export default {
             padding-left: 5%;
 
             ul {
-                li {
-                    text-align: left;
-                    height: 35px;
-                    line-height: 35px;
-                    border-radius: 4px;
-                    position: relative;
+                .topListAll {
                     font-size: 12px;
-                    color: #000;
+                    text-align: left;
+                    padding: 0px 10px;
+                    display: flex;
                     cursor: pointer;
-
-                    .title {
-                        padding: 0px 10px;
-                    }
-
-                    div {
-                        display: inline-block;
-                    }
-
-                    .second {
-                        position: absolute;
-                        right: 10px;
-                        color: #a59595;
-                    }
-                }
-
-                li:hover,
-                .li:active {
-                    background: #f2f2f2;
-                    border-radius: 4px;
+                    line-height: 35px;
+                    height: 35px;
+                    align-items: center;
                 }
             }
 
+            li {
+                text-align: left;
+                height: 35px;
+                line-height: 35px;
+                border-radius: 4px;
+                position: relative;
+                font-size: 12px;
+                color: #000;
+                cursor: pointer;
+
+                .title {
+                    padding: 0px 10px;
+                }
+
+                div {
+                    display: inline-block;
+                }
+
+                .second {
+                    position: absolute;
+                    right: 10px;
+                    color: #a59595;
+                }
+            }
+
+            li:hover,
+            .li:active {
+                background: #f2f2f2;
+                border-radius: 4px;
+            }
         }
 
     }
