@@ -35,4 +35,8 @@ ECDSA key fingerprint is SHA256:FQGC9Kn/eye1W8icdBgrQp+KkGYoFgbVr17bmjey0Wc.
 Are you sure you want to continue connecting (yes/no/[fingerprint]) 
 #==============================================
 
-
+<!-- 笔记 -->
+git add . 添加工作区所有文件
+git reset head  撤销所有暂存区文件
+git reset head name(文件名)   撤销指定文件名
+git status 查看当前暂存区文件

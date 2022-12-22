@@ -34,6 +34,29 @@ export function CheckPhone(data) {
         data: data,
     })
 }
+// 扫码登陆
+export function qrKey() {
+    return request({
+        url: '/login/qr/key',
+        method: 'post',
+    })
+}
+// 创建二维码
+export function qrCreate(key) {
+    return request({
+        url: '/login/qr/create',
+        method: 'post',
+        data: { key}
+    })
+}
+// 检测是否扫码成功
+export function qrCheckCode(key) {
+    return request({
+        url: "/login/qr/check",
+        method: 'post',
+        data: { key }
+    })
+}
 
 
 

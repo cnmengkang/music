@@ -15,4 +15,8 @@ img{
 #app{
   background: #f2f2f2f2;
 }
+.logo{
+  width:100px;
+  margin: 0 auto;;
+}
 </style>
