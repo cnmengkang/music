@@ -1,26 +1,26 @@
 import request from '@/utils/request'
 
 // 获取用户详情
-export function userDetail(uid) { 
+export function userDetail(uid) {
     return request({
         url: '/user/detail',
         method: 'post',
-        data: {uid} 
+        data: { uid }
     })
 }
 // 获取用户信息，歌单，收藏，mv,dj数量
-export function userSubCount(){
+export function userSubCount() {
     return request({
-        url:"/user/subcount",
-        method:'post',
+        url: "/user/subcount",
+        method: 'post',
     })
 }
 // 我的喜欢音乐列表
-export function likeList(uid){
+export function likeList(uid) {
     return request({
-        url:"/likelist",
-        method:'get',
-        data:{uid}
+        url: "/likelist",
+        method: 'post',
+        params: uid
     })
 }
 // 登录状态

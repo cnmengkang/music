@@ -22,10 +22,14 @@ request.interceptors.response.use(response => {
     const res = response.data;
     if (res.code !== 200) {
         Message({ message: res.message, type: 'error' })
+    } else if (res.code == 803) {
+        Message({ message: res.message, type: 'success' })
+    } else if (res.code == 800) {
+        Message({ message: res.message, type: 'warning' })
+
     }
     else {
         return res
-
     }
 }, err => {
     console.log('响应拦截器错误err', err)

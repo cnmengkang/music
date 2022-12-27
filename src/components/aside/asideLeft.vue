@@ -2,14 +2,8 @@
   <div id="aside-left">
     <el-row class="tac">
       <el-col :span="24">
-        <el-menu
-          class="el-menu-vertical-demo"
-          active-text-color="#000"
-          text-color="#303133"
-          router
-          @select="getPath"
-          :default-active="$route.path"
-        >
+        <el-menu class="el-menu-vertical-demo" active-text-color="#000" text-color="#303133" router @select="getPath"
+          :default-active="$route.path">
           <el-menu-item index="/discover">
             <span slot="title">发现音乐</span>
           </el-menu-item>
@@ -29,11 +23,11 @@
             <span slot="title">私人FM</span>
           </el-menu-item>
           <el-menu-item index="/like-music">
-            <i class="el-icon-document"></i>
+            <i class="icon iconfont icon-xihuan"></i>
             <span slot="title">我喜欢的音乐</span>
           </el-menu-item>
           <el-menu-item index="9">
-            <i class="el-icon-download"></i>
+            <i class="icon iconfont icon-down"></i>
             <span slot="title">本地与下载</span>
           </el-menu-item>
           <el-menu-item index="10">
@@ -64,16 +58,20 @@ export default {
 <style scoped lang="less">
 #aside-left {
   width: 200px;
+
   .tac {
     margin-top: 15px;
+
     .el-menu {
       .el-menu-item {
         height: 40px;
         line-height: 40px;
+
         span {
           color: #000;
         }
       }
+
       .is-active {
         font-weight: bold;
         font-size: 16px;

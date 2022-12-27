@@ -62,7 +62,7 @@
 </template>
 <script>
 import { validateTel } from "@/utils/validate";
-import { getCaptcha, CheckVerify, qrKey, qrCreate,qrCheckCode } from "@/api/user/login";
+import { getCaptcha, CheckVerify, qrKey, qrCreate, qrCheckCode } from "@/api/user/login";
 export default {
   name: "login",
   data() {
@@ -104,12 +104,12 @@ export default {
         ],
       },
       loading: false,
-      qr:{
-        key:'',
-        qrimg:true,
-        timestamp:new Date().getTime()
+      qrCodeImg: '',
+      qr: {
+        key: '',
+        qrimg: true,
+        timerstamp: new Date().getTime()
       },
-      qrCodeImg:''
     };
   },
   methods: {
@@ -146,20 +146,21 @@ export default {
     // 二维码登陆
     getQrKey() {
       qrKey().then((res) => {
-        console.log(res)
         this.qr.key = res.data.unikey;
-        this.getQrCreate(res.data.unikey)
+        this.getQrCreate(this.qr)
       })
     },
     // 二维码图片
     getQrCreate(key) {
+      console.log("key", key)
       qrCreate(key).then((res) => {
-        console.log(res)
         this.qrCodeImg = res.data.qrimg
       })
     },
-    getCodeOK(){
-      qrCheckCode(this.qr.key).then((res)=>{
+    // 
+    getCodeOK() {
+      console.log(this.qr)
+      qrCheckCode(this.qr).then((res) => {
         console.log(res)
       })
     }
@@ -170,7 +171,6 @@ export default {
 #login {
   width: 100%;
   height: 100vh;
-  /* background: url(../../static/images/wallhaven-lol.png) no-repeat 100%; */
   display: flex;
   align-items: center;
   justify-content: center;

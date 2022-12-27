@@ -38,15 +38,15 @@ export function CheckPhone(data) {
 export function qrKey() {
     return request({
         url: '/login/qr/key',
-        method: 'post',
     })
 }
 // 创建二维码
 export function qrCreate(key) {
     return request({
         url: '/login/qr/create',
-        method: 'post',
-        data: { key}
+        method: 'get',
+        params: key
+
     })
 }
 // 检测是否扫码成功
@@ -54,7 +54,8 @@ export function qrCheckCode(key) {
     return request({
         url: "/login/qr/check",
         method: 'post',
-        data: { key }
+        params:key
+
     })
 }
 

@@ -1,12 +1,7 @@
 <template>
   <div id="discover-recommend">
     <div class="recommend-banner">
-      <el-carousel
-        :interval="2000"
-        type="card"
-        :autoplay="false"
-        height="200px"
-      >
+      <el-carousel :interval="2000" type="card" :autoplay="false" height="200px">
         <el-carousel-item v-for="item in banners" :key="item.imageUrl">
           <a :href="item.url == '' ? '#' : item.url">
             <img :src="item.imageUrl" />
@@ -18,29 +13,21 @@
     <!-- banner -->
     <div class="recommend-resource">
       <div class="resource-grid">
-        <h4 class="res-grid-title">推荐歌单</h4>
+        <h2 class="res-grid-title">推荐歌单<i class="el-icon-arrow-right"></i> </h2>
         <ul>
           <li @click="getRecommendDetail">
             <div class="box">
-              <el-avatar
-                shape="square"
-                :size="150"
-                src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
-                alt="1111"
-              ></el-avatar>
+              <el-avatar shape="square" :size="150"
+                src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="1111"></el-avatar>
             </div>
             <span class="title">每日歌曲推荐</span>
           </li>
-          <li v-for="item in recommend" @click="getRecommendDetail(item.id)"  :key="item.id" >
+          <li v-for="item in recommend" @click="getRecommendDetail(item.id)" :key="item.id">
             <div class="box">
-              <el-avatar
-                shape="square"
-                :size="150"
-                :src="item.picUrl"
-                :alt="item.alg"
-              ></el-avatar>
+              <el-avatar shape="square" :size="150" :src="item.picUrl" :alt="item.alg"></el-avatar>
             </div>
-            <span class="title">{{ item.name }}</span>
+            <span class="playCount"><i class="el-icon-caret-right"></i>{{ item.playcount }}</span>
+            <p class="title">{{ item.name }}</p>
           </li>
         </ul>
       </div>
@@ -57,10 +44,10 @@ export default {
       type: 0,
       banners: "",
       recommend: "",
-      resDetail:{
-        id:"",
-        limit:10,
-        offset:1
+      resDetail: {
+        id: "",
+        limit: 10,
+        offset: 1
       }
     };
   },
@@ -82,10 +69,10 @@ export default {
         this.recommend = res.recommend;
       });
     },
-    getRecommendDetail(id){
+    getRecommendDetail(id) {
       console.log(id)
-      this.$emit('detail',id)
-      this.$router.push({name:'detail',params:{id}})
+      this.$emit('detail', id)
+      this.$router.push({ name: 'detail', params: { id } })
 
     }
     // http://localhost:3000/playlist/track/all?id=5474813007&limit=10&offset=1
@@ -97,10 +84,12 @@ export default {
   .el-carousel {
     .el-carousel__item {
       border-radius: 10px;
+
       a {
         width: 100%;
         height: 100%;
         display: inline-block;
+
         span {
           position: absolute;
           bottom: 44px;
@@ -111,39 +100,49 @@ export default {
           padding: 2px 10px;
           border-radius: 10px 0px;
         }
+
         .red {
           background: red;
         }
+
         .blue {
           background: blue;
         }
       }
+
       img {
         width: 100%;
         border-radius: 10px;
         position: relative;
       }
     }
+
     .el-carousel__indicators {
       .button {
         border-radius: 100%;
       }
     }
   }
+
   // banner
   .recommend-resource {
     .resource-grid {
       h4 {
         text-align: left;
       }
+
       ul {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+
         li {
+          position: relative;
+          cursor: pointer;
           .box {
             width: 20%;
           }
+
           .title {
             font-size: 14px;
             white-space: normal;
@@ -152,10 +151,19 @@ export default {
             text-align: left;
             width: 150px;
           }
+
+          .playCount {
+            display: block;
+            position: absolute;
+            top: 0px;
+            right: 5px;
+            color: #fff;
+          }
         }
       }
     }
   }
+
   // recommend
 }
 </style>

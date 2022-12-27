@@ -1,6 +1,6 @@
 <template>
     <div class="topList">
-        <h3>官方榜</h3>
+        <h2>官方榜</h2>
         <div class="top-grid">
             <div class="grid" v-for="item in topListDetail" :key="item.id">
                 <div class="left list" @click="btnDetail(item.id)">
@@ -62,25 +62,15 @@ export default {
 </script>
 <style lang="less" scoped>
 .topList {
-    h3 {
-        text-align: left;
-    }
-
     .top-grid {
         .grid {
             display: flex;
             flex-wrap: wrap;
             margin-bottom: 40px;
         }
-
-        .list {
-            
-        }
-
         .left {
             width: 20%;
             border-radius: 10px;
-
             img {
                 border-radius: 10px;
             }
@@ -96,7 +86,6 @@ export default {
                     text-align: left;
                     padding: 0px 10px;
                     display: flex;
-                    cursor: pointer;
                     line-height: 35px;
                     height: 35px;
                     align-items: center;
@@ -111,7 +100,6 @@ export default {
                 position: relative;
                 font-size: 12px;
                 color: #000;
-                cursor: pointer;
 
                 .title {
                     padding: 0px 10px;

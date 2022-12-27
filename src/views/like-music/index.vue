@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="love">
     loveMusic
+    <i class="icon iconfont icon-shezhi"></i>
   </div>
 </template>
 <script>
@@ -16,7 +17,8 @@ export default {
   },
   methods: {
     getLikeList() {
-      likeList(345288322).then((res) => {
+      console.log(this.$store.state.user.uid)
+      likeList(this.$store.state.user).then((res) => {
         console.log(res)
       })
     }

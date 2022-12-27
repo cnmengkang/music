@@ -1,15 +1,15 @@
 <template>
   <div id="discover-music">
-    <nav-tabs/>
+    <nav-tabs />
     <!-- 菜单tabs -->
-    <router-view/>
+    <router-view />
   </div>
 </template>
 <script>
 import navTabs from './components/navTabs'
 export default {
   name: "index",
-  components:{navTabs},
+  components: { navTabs },
   data() {
     return {
     };
@@ -17,11 +17,10 @@ export default {
   created() {
   },
   methods: {
-   
+
   },
 };
 </script>
 <style scoped lang="less">
-#discover-music {
-}
+#discover-music {}
 </style>

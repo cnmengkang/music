@@ -8,7 +8,10 @@
                 <span class="song">歌单</span>
                 <h2>{{ playlist.name }}</h2>
                 <div>最近更新：{{ playlist.createTime }}</div>
+                <label>标签：</label>
+                <div v-for="(item, index) in playlist.tags" :key="index">{{ item }}</div>
                 <span>歌曲：{{ playlist.trackCount }}</span>
+                <span>播放{{ playlist.playCount }}</span>
                 <div class="desc">简介：{{ playlist.description }}</div>
             </div>
         </div>
