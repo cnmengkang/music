@@ -17,7 +17,7 @@
       <!-- 容器 -->
     </el-container>
     <!-- 底部 -->
-    <el-footer>
+    <el-footer height="75px">
       <footers />
     </el-footer>
   </div>
@@ -37,11 +37,11 @@ export default {
   margin: 0 auto;
   background: #fff;
   height: 100vh;
+  position: relative;
   .el-header {
     background-color: #b3c0d1;
     color: #333;
     text-align: center;
-    line-height: 60px;
   }
   .el-main {
     text-align: center;
@@ -55,8 +55,8 @@ export default {
     }
   }
   .el-footer {
-    height: 75px;
     background-color: #ccc;
+    padding: 8px 20px;
   }
 }
 </style>

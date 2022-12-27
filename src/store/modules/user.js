@@ -12,6 +12,7 @@ const user = {
         uid: 345288322,
         nickname: null,
         avatarUrl: '',
+        playlist: ''
 
     },
     mutations: {
@@ -26,6 +27,10 @@ const user = {
         // 头像avatarUrl
         SET_AVATAR: (state, avatar) => {
             state.avatarUrl = avatar
+        },
+        // // 
+        PLAY_List: (state, data) => {
+            state.playlist = data
         }
     },
     actions: {
@@ -56,7 +61,7 @@ const user = {
                 })
 
             })
-        }
+        },
     }
 }
 export default user

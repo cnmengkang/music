@@ -18,7 +18,8 @@
         <div class="detail-body">
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="歌曲列表" name="first">
-                    <el-table :data="songsList" :key="songsList.id" style="width: 100%">
+                    <el-table @row-dblclick="getPlayRow($event)" :data="songsList" :key="songsList.id" stripe
+                        style="width: 100%">
                         <el-table-column type="index" :index="indexMethod">
                         </el-table-column>
                         <el-table-column prop="date" label="操作" width="50">
@@ -26,7 +27,6 @@
                             <i class="el-icon-download"></i>
                         </el-table-column>
                         <el-table-column prop="name" label="标题" width="320">
-
                         </el-table-column>
                         <el-table-column prop="ar[0].name" label="歌手">
                         </el-table-column>
@@ -79,8 +79,7 @@ export default {
             activeName: 'first',
             songsList: [],
             comment: "",
-            subscribers: ""
-
+            subscribers: "",
         }
     },
     created() {
@@ -124,9 +123,12 @@ export default {
         // 歌单收藏者
         getSubscribers() {
             subscribers(this.playAll).then((res) => {
-                console.log(res)
                 this.subscribers = res.subscribers
             })
+        },
+        // 获取双击说句(row)
+        getPlayRow(event) {
+            this.$store.commit('PLAY_List', event)
         }
 
     }
