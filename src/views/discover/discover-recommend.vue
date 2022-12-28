@@ -70,7 +70,7 @@ export default {
       });
     },
     getRecommendDetail(id) {
-      console.log(id)
+      console.log('个性推荐',id)
       this.$emit('detail', id)
       this.$router.push({ name: 'detail', params: { id } })
 

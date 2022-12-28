@@ -2,10 +2,6 @@
   <div id="login">
     <el-card>
       <div class="app-login">
-        <div class="logo">
-          <img :src="this.qrCodeImg" />
-
-        </div>
         <div class="login login-phone" v-if="flag">
           <el-form :model="loginForm" status-icon v-loading="loading" ref="ruleForm" :rules="loginRules"
             class="demo-ruleForm">
@@ -53,8 +49,7 @@
           <p>其他方式登录</p>
         </div>
         <div id="socialLogin">
-          <el-button icon="el-icon-edit" @click="getQrKey">扫码登陆</el-button>
-          <el-button icon="el-icon-edit" @click="getCodeOK">QQ</el-button>
+          <el-button icon="el-icon-edit" @click="goCode">扫码登陆</el-button>
         </div>
       </div>
     </el-card>
@@ -62,7 +57,7 @@
 </template>
 <script>
 import { validateTel } from "@/utils/validate";
-import { getCaptcha, CheckVerify, qrKey, qrCreate, qrCheckCode } from "@/api/user/login";
+import { getCaptcha, CheckVerify } from "@/api/user/login";
 export default {
   name: "login",
   data() {
@@ -143,28 +138,10 @@ export default {
         });
       });
     },
-    // 二维码登陆
-    getQrKey() {
-      qrKey().then((res) => {
-        this.qr.key = res.data.unikey;
-        this.getQrCreate(this.qr)
-      })
-    },
-    // 二维码图片
-    getQrCreate(key) {
-      console.log("key", key)
-      qrCreate(key).then((res) => {
-        this.qrCodeImg = res.data.qrimg
-      })
-    },
-    // 
-    getCodeOK() {
-      console.log(this.qr)
-      qrCheckCode(this.qr).then((res) => {
-        console.log(res)
-      })
+    goCode() {
+      this.$router.push({ path: '/qrCode' })
     }
-  },
+  }
 };
 </script>
 <style scope lang="less">
@@ -177,6 +154,10 @@ export default {
   background: #ccc;
 
   .app-login {
+    .el-form-item {
+      margin-bottom: 10px;
+    }
+
     h2 {
       text-align: center;
     }
@@ -233,19 +214,6 @@ export default {
         color: #000 !important;
         border-bottom: 2px solid #000;
       }
-    }
-  }
-}
-
-#login {
-  .app-login {
-    background: #fff;
-    width: 300px;
-    height: 410px;
-    border-radius: 4px;
-
-    .el-form-item {
-      margin-bottom: 10px;
     }
   }
 }

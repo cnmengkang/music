@@ -26,7 +26,6 @@ request.interceptors.response.use(response => {
         Message({ message: res.message, type: 'success' })
     } else if (res.code == 800) {
         Message({ message: res.message, type: 'warning' })
-
     }
     else {
         return res

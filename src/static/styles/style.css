@@ -137,13 +137,15 @@ table {
 img {
 	width: 100%;
 }
-h2{
+
+h2 {
 	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 15px;
 	font-family: 'element-icons';
 	text-align: left;
 }
+
 h3 {
 	font-size: 18px;
 	font-weight: bold;
@@ -151,6 +153,7 @@ h3 {
 	font-family: 'element-icons';
 	text-align: left;
 }
+
 h4 {
 	font-size: 16px;
 	font-weight: bold;
@@ -167,10 +170,12 @@ p {
 .border-r-10 {
 	border-radius: 10px;
 }
-a{
+
+a {
 	cursor: pointer;
 	color: #000;
 }
+
 /* 全局 */
 
 /* 整个滚动条背景 */
@@ -195,7 +200,7 @@ a{
 
 /* 滚动条轨道 */
 ::-webkit-scrollbar-track {
-	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 0 0 6px rgba(146, 138, 138, 0.3);
 	background-color: #fff;
 }
 
@@ -203,4 +208,30 @@ a{
 ::-webkit-scrollbar-corner {
 	background: steelblue;
 	border-radius: 50% 50%;
+}
+
+.logo {
+	width: 200px;
+	height: 200px;
+	margin: 0 auto;
+}
+
+#login .app-login,
+#register .app-register,
+#app-qr {
+	background: #fff;
+	width: 250px;
+	height: 350px;
+	border-radius: 4px;
+}
+
+.flex {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.text-left {
+	text-align: left;
 }

@@ -104,6 +104,7 @@ export default {
         indexMethod(index) {
             return index + 1 * 1
         },
+        // tab切换
         handleClick(tab) {
             console.log(tab)
             if (tab.index == 1) {
@@ -126,9 +127,9 @@ export default {
                 this.subscribers = res.subscribers
             })
         },
-        // 获取双击说句(row)
+        // 获取双击数据(row) 双击播放歌曲并获取数据
         getPlayRow(event) {
-            this.$store.commit('PLAY_List', event)
+            this.$store.dispatch('getSongUrl', event);
         }
 
     }

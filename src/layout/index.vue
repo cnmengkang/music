@@ -17,7 +17,7 @@
       <!-- 容器 -->
     </el-container>
     <!-- 底部 -->
-    <el-footer height="75px">
+    <el-footer height="70px">
       <footers />
     </el-footer>
   </div>

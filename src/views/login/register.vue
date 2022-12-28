@@ -5,42 +5,20 @@
         <router-link class="back" to="/login">&#x3c;&nbsp;返回登录</router-link>
         <div class="register">
           <h4>注册网易云音乐账号</h4>
-          <el-form
-            :model="registerForm"
-            status-icon
-            v-loading="loading"
-            ref="ruleForm"
-            :rules="registerRules"
-            class="demo-ruleForm"
-          >
+          <el-form :model="registerForm" status-icon v-loading="loading" ref="ruleForm" :rules="registerRules"
+            class="demo-ruleForm">
             <!-- 注册手机号密码 -->
             <div class="register-phone" v-if="flag">
               <el-form-item label="手机号" prop="phone">
-                <el-input
-                  type="phone"
-                  v-model.trim="registerForm.phone"
-                  prefix-icon="el-icon-mobile-phone"
-                  autocomplete="off"
-                  placeholder="请输入手机号"
-                  maxlength="11"
-                  clearable
-                ></el-input>
+                <el-input type="phone" v-model.trim="registerForm.phone" prefix-icon="el-icon-mobile-phone"
+                  autocomplete="off" placeholder="请输入手机号" maxlength="11" clearable></el-input>
               </el-form-item>
               <el-form-item label="密码" prop="password">
-                <el-input
-                  type="password"
-                  show-password
-                  v-model="registerForm.password"
-                  autocomplete="off"
-                  prefix-icon="el-icon-lock"
-                  maxlength="18"
-                  placeholder="请输入密码"
-                ></el-input>
+                <el-input type="password" show-password v-model="registerForm.password" autocomplete="off"
+                  prefix-icon="el-icon-lock" maxlength="18" placeholder="请输入密码"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="registerCaptcha"
-                  >注册</el-button
-                >
+                <el-button type="primary" @click="registerCaptcha">注册</el-button>
               </el-form-item>
             </div>
             <!-- 验证码校验+判断手机号是否已经注册 -->
@@ -49,22 +27,13 @@
                 为了安全，我们会向你的手机号发送短信校验码
               </h4>
               <el-form-item prop="captcha">
-                <el-input
-                  type="captcha"
-                  v-model.trim="registerForm.captcha"
-                  autocomplete="off"
-                  placeholder="请输入验证码"
-                  prefix-icon="el-icon-key"
-                >
-                  <el-button slot="append" @click="registerCaptcha"
-                    >重新发送</el-button
-                  >
+                <el-input type="captcha" v-model.trim="registerForm.captcha" autocomplete="off" placeholder="请输入验证码"
+                  prefix-icon="el-icon-key">
+                  <el-button slot="append" @click="registerCaptcha">重新发送</el-button>
                 </el-input>
               </el-form-item>
               <el-form-item>
-                <el-button class="mt-15" type="primary" @click="registerVerify"
-                  >下一步</el-button
-                >
+                <el-button class="mt-15" type="primary" @click="registerVerify">下一步</el-button>
               </el-form-item>
             </div>
           </el-form>
@@ -188,15 +157,18 @@ export default {
   align-items: center;
   justify-content: center;
   background: #ccc;
+
   .app-register {
     h2 {
       text-align: center;
     }
+
     .back {
       font-size: 12px;
       text-decoration: none;
       color: #606060;
     }
+
     .register-captcha {
       .register_img {
         width: 150px;
@@ -205,34 +177,42 @@ export default {
         margin: 0 auto;
         background: #ffc0cb42;
       }
+
       .mt-15 {
         margin-top: 15px;
       }
+
       img {
         width: 100%;
       }
+
       .captcha-title {
         font-size: 12px;
         color: #606060;
         padding: 15px 0px;
       }
     }
+
     .register-phone {
       .el-button {
         margin-top: 15px;
       }
     }
+
     .register {
       h4 {
         text-align: center;
       }
+
       .el-button {
         width: 100%;
       }
     }
+
     .login-oth {
       margin-bottom: 15px;
     }
+
     .login-oth,
     #socialLogin {
       display: flex;
@@ -240,12 +220,14 @@ export default {
       align-items: center;
       justify-content: center;
     }
+
     .login-oth p {
       text-align: center;
       font-size: 12px;
       margin: 0px 15px;
       width: 100%;
     }
+
     .login-oth::after,
     .login-oth::before {
       content: " ";
@@ -254,22 +236,12 @@ export default {
       display: inline-block;
       background: #ebebeb;
     }
+
     .sw {
       font-size: 12px;
       cursor: pointer;
       display: inline-block;
       padding: 10px 0px;
-    }
-  }
-}
-#register {
-  .app-register {
-    background: #fff;
-    width: 300px;
-    height: 410px;
-    border-radius: 4px;
-    .el-form-item {
-      margin-bottom: 10px;
     }
   }
 }
