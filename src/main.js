@@ -7,6 +7,15 @@ import Cookies from 'js-cookie'
 import '@/static/icon/icon.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/static/styles/style.css'
+// 全局css样式表
+import { parseTime, formatTime, numCount } from '@/utils/formdate'
+
+// 全局方法挂载
+// 时间日期格式化
+Vue.prototype.parseTime = parseTime
+Vue.prototype.formatTime = formatTime
+Vue.prototype.numCount = numCount
+
 Vue.config.productionTip = false;
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size

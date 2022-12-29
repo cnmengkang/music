@@ -26,7 +26,7 @@
             <div class="box">
               <el-avatar shape="square" :size="150" :src="item.picUrl" :alt="item.alg"></el-avatar>
             </div>
-            <span class="playCount"><i class="el-icon-caret-right"></i>{{ item.playcount }}</span>
+            <span class="playCount"><i class="el-icon-caret-right"></i>{{ numCount(item.playcount) }}</span>
             <p class="title">{{ item.name }}</p>
           </li>
         </ul>
@@ -65,17 +65,15 @@ export default {
     // 每日推荐歌单
     getRecommend() {
       recommend().then((res) => {
-        console.log("recommend", res);
+        // console.log("recommend", res);
         this.recommend = res.recommend;
       });
     },
     getRecommendDetail(id) {
-      console.log('个性推荐',id)
       this.$emit('detail', id)
-      this.$router.push({ name: 'detail', params: { id } })
+      this.$router.push({ name: 'detail', params: { id: id } })
 
     }
-    // http://localhost:3000/playlist/track/all?id=5474813007&limit=10&offset=1
   },
 };
 </script>
@@ -139,6 +137,7 @@ export default {
         li {
           position: relative;
           cursor: pointer;
+
           .box {
             width: 20%;
           }
@@ -163,7 +162,5 @@ export default {
       }
     }
   }
-
-  // recommend
 }
 </style>

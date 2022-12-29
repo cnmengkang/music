@@ -22,7 +22,7 @@ const routes = [
             // 个性推荐首页
           },
           {
-            path: 'recommend/detail/:id',
+            path: '/recommend/detail/:id',
             name: 'detail',
             component: () => import("@/views/discover/detail")
             // 个性推荐详情页
@@ -37,7 +37,6 @@ const routes = [
             path: "/discover/toplist",
             name: 'topList',
             component: () => import('@/views/discover/topList/')
-
             // 排行榜
           }
         ]

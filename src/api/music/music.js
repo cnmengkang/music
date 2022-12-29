@@ -9,3 +9,13 @@ export function songUrl(id) {
         params: {id}
     })
 }
+/*
+    获取音乐MV URl
+*/ 
+export function musicMv(id) {
+    return request({
+        url: '/mv/url',
+        method: "post",
+        params: {id}
+    })
+}

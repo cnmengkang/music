@@ -5,38 +5,59 @@
                 <img :src="playlist.coverImgUrl" alt="">
             </div>
             <div class="detail-right">
-                <span class="song">歌单</span>
-                <h2>{{ playlist.name }}</h2>
-                <div>最近更新：{{ playlist.createTime }}</div>
+                <div class="right-title  flex">
+                    <span class="song mr-10">歌单</span>
+                    <h1>{{ playlist.name }}</h1>
+                </div>
+                <!-- 标题 -->
+                <div class="right-creator flex">
+                    <img  class="mr-10":src="creator.avatarUrl" />
+                    <span>{{ creator.nickname }}</span>
+                    <div class="createTime">
+                        {{ parseTime(playlist.createTime, "{y}-{m}-{d}") }}创建
+                        <!-- 创建时间 -->
+                    </div>
+                </div>
+                <!-- 作者时间 -->
                 <label>标签：</label>
                 <div v-for="(item, index) in playlist.tags" :key="index">{{ item }}</div>
                 <span>歌曲：{{ playlist.trackCount }}</span>
-                <span>播放{{ playlist.playCount }}</span>
+                <span>播放：{{ numCount(playlist.playCount) }}</span>
                 <div class="desc">简介：{{ playlist.description }}</div>
             </div>
         </div>
         <div class="detail-body">
             <el-tabs v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane label="歌曲列表" name="first">
-                    <el-table @row-dblclick="getPlayRow($event)" :data="songsList" :key="songsList.id" stripe
-                        style="width: 100%">
+                <el-tab-pane label="歌曲列表" name="song">
+                    <el-table highlight-current-row @row-dblclick="getPlayRow($event)" :data="songsList"
+                        :key="songsList.id" stripe style="width: 100%">
                         <el-table-column type="index" :index="indexMethod">
                         </el-table-column>
                         <el-table-column prop="date" label="操作" width="50">
                             <i class="el-icon-star-off"></i>
                             <i class="el-icon-download"></i>
                         </el-table-column>
-                        <el-table-column prop="name" label="标题" width="320">
+                        <el-table-column show-overflow-tooltip label="标题" width="320">
+                            <template slot-scope="scope">
+                                <span class="name">{{ scope.row.name }}</span>
+                                <div class="mv" v-if="!scope.row.mv == 0">
+                                    <span @click="getMv(scope.row.mv)">{{ scope.row.mv == 0 ? '' : 'MV' }}<i
+                                            class="el-icon-caret-right"></i></span>
+                                </div>
+                            </template>
                         </el-table-column>
                         <el-table-column prop="ar[0].name" label="歌手">
                         </el-table-column>
-                        <el-table-column prop="al.name" label="专辑">
+                        <el-table-column show-overflow-tooltip prop="al.name" label="专辑">
                         </el-table-column>
-                        <el-table-column prop="address" label="时间" width="50">
+                        <el-table-column label="时间" width="65">
+                            <template slot-scope="scope">
+                                <span>{{ parseTime(scope.row.dt, "{i}:{s}") }}</span>
+                            </template>
                         </el-table-column>
                     </el-table>
                 </el-tab-pane>
-                <el-tab-pane label="评论" name="comment">
+                <el-tab-pane label="评论" name="reviews">
                     <div class="comment" v-for="(item, index) in comment" :key="index">
                         <div class="user-avatarUrl">
                             <img :src="item.user.avatarUrl" alt="">
@@ -65,7 +86,7 @@
     </div>
 </template>
 <script>
-import { detail, playTrack, commentPlayList, subscribers } from '@/api/discover/detail'
+import { detail, playTrack, commentPlayList, subscribers } from '@/api/discover/detail';
 export default {
     name: 'detail',
     data() {
@@ -73,51 +94,51 @@ export default {
             playlist: '',
             playAll: {
                 id: this.$route.params.id,
-                limit: 20,
-                offset: 1
+                limit: 50,
             },
-            activeName: 'first',
+            activeName: 'song',
             songsList: [],
             comment: "",
             subscribers: "",
+            creator: ''
         }
     },
     created() {
         const id = this.$route.params;
         this.getDetail(id)
-        this.getPlayTrack(id)
+        this.getPlayTrack()
     },
     methods: {
         // 
         getDetail(id) {
-            detail(id).then(res => {
-                console.log('detail', res)
+            detail(id).then((res) => {
+                console.log('playlist', res.playlist.creator)
                 this.playlist = res.playlist;
+                this.creator = res.playlist.creator
             })
         },
         getPlayTrack() {
             playTrack(this.playAll).then((res) => {
-                console.log('all', res)
+                // console.log('songsList', res)
                 this.songsList = res.songs
             })
         },
         indexMethod(index) {
             return index + 1 * 1
         },
+        // 单选
         // tab切换
         handleClick(tab) {
-            console.log(tab)
             if (tab.index == 1) {
                 this.getComment()
             } else if (tab.index == 2) {
-                console.log('收藏者')
                 this.getSubscribers()
             }
         },
         // 获取歌单评论
         getComment() {
             commentPlayList(this.playAll).then((res) => {
-                console.log(res)
+                // console.log('reviews', res)
                 this.comment = res.comments
             })
         },
@@ -130,13 +151,18 @@ export default {
         // 获取双击数据(row) 双击播放歌曲并获取数据
         getPlayRow(event) {
             this.$store.dispatch('getSongUrl', event);
+        },
+        // 获取mv
+        getMv(mv) {
+            console.log(mv)
         }
-
     }
 }
 </script>
 <style scoped lang="less">
 .detail {
+
+    // 顶部区域
     .detail-header {
         display: flex;
         align-items: center;
@@ -160,6 +186,13 @@ export default {
             align-items: center;
             gap: 5px 10px;
 
+            .right-creator {
+                img {
+                    width: 35px;
+                    border-radius: 20px;
+                }
+            }
+
             .song {
                 color: #f00;
                 border: 1px solid #f00;
@@ -168,39 +201,14 @@ export default {
                 border-radius: 3px;
             }
 
-            h2 {
-                display: inline-block;
-                width: 90%
-            }
-
             .desc {
                 font-size: 14px;
             }
         }
     }
 
+    // 内容区域
     .detail-body {
-        ul {
-            li {
-                text-align: left;
-                font-size: 14px;
-                height: 35px;
-                line-height: 35px;
-
-                .number {
-                    padding: 0px 15px;
-                }
-
-                .name {
-                    margin-right: 5px;
-                }
-
-                div {
-                    display: inline-block;
-                }
-            }
-        }
-
         .comment {
             display: flex;
             border-bottom: 1px solid #eee;
@@ -254,6 +262,18 @@ export default {
             }
         }
 
+        .mv {
+            display: inline-block;
+
+            span {
+                cursor: pointer;
+                border: 1px solid #f00;
+                padding: 0px 2px;
+                border-radius: 4px;
+                font-size: 12px;
+                color: red;
+            }
+        }
     }
 }
 </style>

@@ -9,6 +9,7 @@ const musicInfo = {
         name: '', //作者名
         avatar: '', //作者头像
         title: '', //歌名
+        songInfo:'',
     },
     mutations: {
         // 歌手姓名
@@ -25,13 +26,14 @@ const musicInfo = {
         },
         // 存储播放音乐信息
         MUSIC_INFO: (state, musicInfo) => {
-            console.log('state', state)
-            console.log('musicInfo', musicInfo)
             state.musicUrl = musicInfo.url
             state.musicType = musicInfo.encodeType
             state.musicMd5 = musicInfo.md5
             state.musicLevel = musicInfo.level
 
+        },
+        SINGER_INFO:(state,singerInfo)=>{
+            state.songInfo = singerInfo
         }
     },
     actions: {
