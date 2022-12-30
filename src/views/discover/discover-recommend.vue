@@ -1,4 +1,5 @@
 <template>
+  
   <div id="discover-recommend">
     <div class="recommend-banner">
       <el-carousel :interval="2000" type="card" :autoplay="false" height="200px">
@@ -26,7 +27,7 @@
             <div class="box">
               <el-avatar shape="square" :size="150" :src="item.picUrl" :alt="item.alg"></el-avatar>
             </div>
-            <span class="playCount"><i class="el-icon-caret-right"></i>{{ numCount(item.playcount) }}</span>
+            <span class="playCount font-12"><i class="el-icon-caret-right"></i>{{ numCount(item.playcount) }}</span>
             <p class="title">{{ item.name }}</p>
           </li>
         </ul>
@@ -108,11 +109,6 @@ export default {
         }
       }
 
-      img {
-        width: 100%;
-        border-radius: 10px;
-        position: relative;
-      }
     }
 
     .el-carousel__indicators {
@@ -154,7 +150,7 @@ export default {
           .playCount {
             display: block;
             position: absolute;
-            top: 0px;
+            top: 5px;
             right: 5px;
             color: #fff;
           }

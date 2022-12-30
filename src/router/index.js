@@ -22,12 +22,6 @@ const routes = [
             // 个性推荐首页
           },
           {
-            path: '/recommend/detail/:id',
-            name: 'detail',
-            component: () => import("@/views/discover/detail")
-            // 个性推荐详情页
-          },
-          {
             path: "/discover/custom-made",
             name: 'custom-made',
             component: () => import('@/views/discover/custom-made')
@@ -40,6 +34,12 @@ const routes = [
             // 排行榜
           }
         ]
+      },
+      {
+        path: '/recommend/detail/:id',
+        name: 'detail',
+        component: () => import("@/views/discover/detail")
+        // 个性推荐详情页
       },
       // 发现音乐
       {

@@ -49,10 +49,6 @@ export default {
     }
   }
 
-  .el-menu--horizontal > .el-menu-item.is-active,
-  .el-menu--horizontal > .el-menu-item {
-    border: none;
-  }
   .is-active {
     font-weight: bold;
     font-size: 16px;

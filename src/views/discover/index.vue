@@ -10,17 +10,6 @@ import navTabs from './components/navTabs'
 export default {
   name: "index",
   components: { navTabs },
-  data() {
-    return {
-    };
-  },
-  created() {
-  },
-  methods: {
-
-  },
+  
 };
 </script>
-<style scoped lang="less">
-#discover-music {}
-</style>

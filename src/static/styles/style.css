@@ -182,11 +182,42 @@ a {
 	cursor: pointer;
 	color: #000;
 }
-
+.mr-5{
+	margin-right: 5px;
+}
 .mr-10 {
 	margin-right: 10px;
 }
-
+/* margin-top:5 10 15 20 */
+.mt-5{
+	margin-top: 5px;
+}
+.mt-10{
+	margin-top: 10px;
+}
+.mt-15{
+	margin-top: 15px;
+}
+.mt-20{
+	margin-top: 20px;
+}
+/* margin-bottom:5 10 15 20 */
+.mb-0{
+	margin-bottom: 0px;
+}
+.mb-5{
+	margin-bottom: 5px;
+}
+.mb-10{
+	margin-bottom: 10px;
+}
+/* margin-left:0 5 10 15 */
+.ml-5{
+	margin-left: 5px;
+}
+.inline-b{
+	display: inline-block;
+}
 /* 全局 */
 
 /* 整个滚动条背景 */
@@ -203,24 +234,16 @@ a {
 ::-webkit-scrollbar-thumb {
 	width: 5px;
 	/* 上下两头给个圆角 */
-	background-color: #CBCBCB;
+	background-color: pink;
 	border-radius: 10px;
+	height: 50px;
 	/* 还可以给它加个阴影 */
-	box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
 }
 
 /* 滚动条轨道 */
 ::-webkit-scrollbar-track {
-	box-shadow: inset 0 0 6px rgba(146, 138, 138, 0.3);
 	background-color: #fff;
 }
-
-/* 当同时有垂直滚动条和水平滚动条时交汇的部分. */
-::-webkit-scrollbar-corner {
-	background: steelblue;
-	border-radius: 50% 50%;
-}
-
 .logo {
 	width: 200px;
 	height: 200px;
@@ -246,4 +269,14 @@ a {
 
 .text-left {
 	text-align: left;
+}
+/* 作者 */
+.font-14{
+	font-size:14px;
+}
+.font-12{
+	font-size:12px;
+}
+.blue{
+	color: rgb(95, 95, 243);
 }

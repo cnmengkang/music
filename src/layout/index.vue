@@ -44,10 +44,9 @@ export default {
     text-align: center;
   }
   .el-main {
-    text-align: center;
     max-height: 520px;
-    overflow-y: scroll;
-    padding: 0px 20px;
+    overflow-y: overlay;
+    padding: 0px 30px;
 
     .el-aside {
       color: #333;
