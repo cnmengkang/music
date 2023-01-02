@@ -28,6 +28,12 @@ const routes = [
             // 专属定制
           },
           {
+            path: '/discover/playlist',
+            name: 'playlist',
+            component: () => import("@/views/playlist")
+            // 歌单
+          },
+          {
             path: "/discover/toplist",
             name: 'topList',
             component: () => import('@/views/discover/topList/')
@@ -41,11 +47,17 @@ const routes = [
         component: () => import("@/views/discover/detail")
         // 个性推荐详情页
       },
+      {
+        path: 'daysong',
+        name: 'daysong',
+        component: () => import("@/views/discover/daysong")
+        // 每日歌曲推荐
+      },
       // 发现音乐
       {
-        path: 'blog',
-        component: () => import('@/views/blog'),
-        name: 'blog'
+        path: 'podcast',
+        component: () => import('@/views/podcast'),
+        name: 'podcast'
       },
       {
         path: 'video',

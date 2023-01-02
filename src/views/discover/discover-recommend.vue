@@ -1,8 +1,8 @@
 <template>
-  
+
   <div id="discover-recommend">
     <div class="recommend-banner">
-      <el-carousel :interval="2000" type="card" :autoplay="false" height="200px">
+      <el-carousel :interval="4000" type="card" indicator-position="none" height="200px">
         <el-carousel-item v-for="item in banners" :key="item.imageUrl">
           <a :href="item.url == '' ? '#' : item.url">
             <img :src="item.imageUrl" />
@@ -16,18 +16,20 @@
       <div class="resource-grid">
         <h2 class="res-grid-title">推荐歌单<i class="el-icon-arrow-right"></i> </h2>
         <ul>
-          <li @click="getRecommendDetail">
-            <div class="box">
-              <el-avatar shape="square" :size="150"
-                src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="1111"></el-avatar>
-            </div>
-            <span class="title">每日歌曲推荐</span>
-          </li>
-          <li v-for="item in recommend" @click="getRecommendDetail(item.id)" :key="item.id">
+          <router-link to="daysong">
+            <li>
+              <div class="box">
+                <el-avatar shape="square" :size="150"
+                  src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="1111"></el-avatar>
+              </div>
+              <span class="title">每日歌曲推荐</span>
+            </li>
+          </router-link>
+          <li v-for="(item) in personalized" @click="getRecommendDetail(item.id)" :key="item.id">
             <div class="box">
               <el-avatar shape="square" :size="150" :src="item.picUrl" :alt="item.alg"></el-avatar>
             </div>
-            <span class="playCount font-12"><i class="el-icon-caret-right"></i>{{ numCount(item.playcount) }}</span>
+            <span class="playCount font-12"><i class="el-icon-caret-right"></i>{{ numCount(item.playCount) }}</span>
             <p class="title">{{ item.name }}</p>
           </li>
         </ul>
@@ -37,44 +39,45 @@
   </div>
 </template>
 <script>
-import { banner, recommend } from "@/api/discover/discover";
+import { banner, personalized } from "@/api/discover/discover";
 export default {
   name: "recommend",
   data() {
     return {
-      type: 0,
       banners: "",
-      recommend: "",
-      resDetail: {
-        id: "",
-        limit: 10,
-        offset: 1
+      personalized:'',
+      person:{
+        limit:9
       }
     };
   },
-  created() {
-    this.getBanner();
-    this.getRecommend();
+  // 
+  computed: {
+  },
+  mounted() {
+    this.getBanner()
+    this.getPersonalized();
+
   },
   methods: {
     // banner
     getBanner() {
-      banner(this.type).then((res) => {
+      banner().then((res) => {
         this.banners = res.banners;
       });
     },
     // 每日推荐歌单
-    getRecommend() {
-      recommend().then((res) => {
-        // console.log("recommend", res);
-        this.recommend = res.recommend;
+    getPersonalized() {
+      personalized(this.person).then((res) => {
+        this.personalized = res.result
+          console.log(res)
       });
     },
     getRecommendDetail(id) {
       this.$emit('detail', id)
       this.$router.push({ name: 'detail', params: { id: id } })
 
-    }
+    },
   },
 };
 </script>
@@ -134,9 +137,7 @@ export default {
           position: relative;
           cursor: pointer;
 
-          .box {
-            width: 20%;
-          }
+   
 
           .title {
             font-size: 14px;

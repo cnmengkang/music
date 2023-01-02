@@ -1,7 +1,7 @@
 <template>
   <div id="app_index">
-    <el-header>
-      <navBar />
+    <el-header height="60px">
+      <headers />
     </el-header>
     <!-- 顶部 -->
     <el-container>
@@ -23,12 +23,12 @@
   </div>
 </template>
 <script>
-import navBar from "@/components/header/navbar.vue";
+import headers from "@/components/header";
 import asideNav from "@/components/aside";
-import footers from "@/components/footer/footer.vue";
+import footers from "@/components/footer/footer";
 export default {
   name: "index",
-  components: { navBar, asideNav, footers },
+  components: { headers, asideNav, footers },
 };
 </script>
 <style lang="less">
@@ -41,7 +41,6 @@ export default {
   .el-header {
     background-color: #b3c0d1;
     color: #333;
-    text-align: center;
   }
   .el-main {
     max-height: 520px;

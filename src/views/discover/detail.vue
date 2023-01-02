@@ -1,63 +1,13 @@
 <template>
     <div class="detail mt-20">
-        <div class="detail-header" :key="playlist.id">
-            <div class="detail-left">
-                <el-avatar :size="180" shape="square" icon="el-icon-user-solid" :src="playlist.coverImgUrl"></el-avatar>
-            </div>
-            <div class="detail-right">
-                <div class="right-title  flex">
-                    <span class="song mr-10">歌单</span>
-                    <h1>{{ playlist.name }}</h1>
-                </div>
-                <!-- 标题 -->
-                <div class="right-creator font-12 flex">
-                    <el-avatar :src="creator.avatarUrl" class="mr-10" :size="30"  />
-                    <span class="mr-10 blue">{{ creator.nickname }}</span>
-                    <div class="createTime">
-                        {{ parseTime(playlist.createTime, "{y}-{m}-{d}") }}创建
-                        <!-- 创建时间 -->
-                    </div>
-                </div>
-                <!-- 作者时间 -->
-                <div class="tips flex ">
-                    <label>标签：</label>
-                    <a class="blue mr-10" v-for="(item, index) in playlist.tags" :key="index">{{ item }}</a>
-                </div>
-                <span>歌曲：{{ playlist.trackCount }}</span>
-                <span>播放：{{ numCount(playlist.playCount) }}</span>
-                <div class="desc">简介：{{ playlist.description }}</div>
-            </div>
+        <div class="detail-header">
+            <song-head :tableHead="playlist"></song-head>
+            <!-- 详情页顶部 -->
         </div>
         <div class="detail-body">
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="歌曲列表" name="song">
-                    <el-table highlight-current-row @row-dblclick="getPlayRow($event)" :data="songsList"
-                        :key="songsList.id" stripe style="width: 100%">
-                        <el-table-column type="index" :index="indexMethod">
-                        </el-table-column>
-                        <el-table-column prop="date" label="操作" width="50">
-                            <i class="el-icon-star-off"></i>
-                            <i class="el-icon-download"></i>
-                        </el-table-column>
-                        <el-table-column show-overflow-tooltip label="标题" width="320">
-                            <template slot-scope="scope">
-                                <span class="name mr-10">{{ scope.row.name }}</span>
-                                <div class="mv" v-if="!scope.row.mv == 0">
-                                    <span @click="getMv(scope.row.mv)">{{ scope.row.mv == 0 ? '' : 'MV' }}<i
-                                            class="el-icon-caret-right"></i></span>
-                                </div>
-                            </template>
-                        </el-table-column>
-                        <el-table-column show-overflow-tooltip prop="ar[0].name" label="歌手">
-                        </el-table-column>
-                        <el-table-column show-overflow-tooltip prop="al.name" label="专辑">
-                        </el-table-column>
-                        <el-table-column label="时间" width="65">
-                            <template slot-scope="scope">
-                                <span>{{ parseTime(scope.row.dt, "{i}:{s}") }}</span>
-                            </template>
-                        </el-table-column>
-                    </el-table>
+                    <song-list :tableDate="list"></song-list>
                 </el-tab-pane>
                 <el-tab-pane name="reviews">
                     <span slot="label">评论({{ total }})</span>
@@ -67,7 +17,8 @@
                         </div>
                         <div class="user-info">
                             <span class="blue mb-5 inline-b">{{ item.user.nickname }}<span class="vip ml-5"
-                                    v-if="item.user.vipType != 0">VIP{{ item.user.vipRights.redVipLevel }}</span>：</span>
+                                    v-if="item.user.vipType != 0">VIP{{ item.user.vipRights.redVipLevel
+}}</span>：</span>
                             <span>{{ item.content }}</span>
                             <div class="reviews-2" v-for="(items, index) in item.beReplied" :key="index">
                                 <a class="blue font-12">@{{ items.user.nickname }}:</a>
@@ -85,7 +36,8 @@
                             </div>
                             <div class="user-info">
                                 <span class="nickName"> {{ item.nickname }}</span>
-                                <span style="color:red" v-if="item.gender != 0">{{ item.gender == 1 ? '男' : '女' }}</span>
+                                <span style="color:red" v-if="item.gender != 0">{{ item.gender == 1 ? '男' : '女'
+                                    }}</span>
                             </div>
                         </div>
                     </div>
@@ -96,46 +48,47 @@
 </template>
 <script>
 import { detail, playTrack, commentPlayList, subscribers } from '@/api/discover/detail';
+import songHead from '@/components/body/head'
+import songList from '@/components/body/songlist'
 export default {
+    components: { songHead, songList },
     name: 'detail',
     data() {
         return {
-            playlist: '',
+            playlist: {},
             playAll: {
                 id: this.$route.params.id,
                 limit: 30,
             },
             activeName: 'song',
-            songsList: [],
+            list: [],
             comment: "",
             subscribers: "",
-            creator: '',
             total: ''
         }
     },
-    created() {
+    mounted() {
         const id = this.$route.params;
         this.getDetail(id)
         this.getPlayTrack()
         this.getComment()
     },
+    created() {
+
+    },
     methods: {
         // 
         getDetail(id) {
             detail(id).then((res) => {
-                console.log('playlist', res)
+                console.log('playlist', res.playlist)
                 this.playlist = res.playlist;
-                this.creator = res.playlist.creator
             })
         },
         getPlayTrack() {
             playTrack(this.playAll).then((res) => {
                 console.log('songsList', res)
-                this.songsList = res.songs
+                this.list = res.songs
             })
-        },
-        indexMethod(index) {
-            return index + 1 * 1
         },
         // 单选
         // tab切换
@@ -161,60 +114,11 @@ export default {
                 this.subscribers = res.subscribers
             })
         },
-        // 获取双击数据(row) 双击播放歌曲并获取数据
-        getPlayRow(event) {
-            this.$store.dispatch('getSongUrl', event);
-        },
-        // 获取mv
-        getMv(mv) {
-            console.log(mv)
-        }
     }
 }
 </script>
 <style scoped lang="less">
 .detail {
-    // 顶部区域
-    .detail-header {
-        display: flex;
-        align-items: center;
-        text-align: left;
-
-        .detail-left {
-            width: 20%;
-            border-radius: 10px;
-
-  
-        }
-
-        .detail-right {
-            width: 75%;
-            padding-left: 5%;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 5px 10px;
-
-  
-            .tips {
-                span:last-type-of {
-                    display: none;
-                }
-            }
-
-            .song {
-                color: #f00;
-                border: 1px solid #f00;
-                padding: 0px 3px;
-                font-size: 14px;
-                border-radius: 3px;
-            }
-
-            .desc {
-                font-size: 14px;
-            }
-        }
-    }
 
     // 内容区域
     .detail-body {
@@ -250,7 +154,7 @@ export default {
                 height: 40px;
                 border-radius: 50%;
 
-     
+
             }
         }
 
@@ -274,18 +178,7 @@ export default {
             }
         }
 
-        .mv {
-            display: inline-block;
 
-            span {
-                cursor: pointer;
-                border: 1px solid #f00;
-                padding: 0px 2px;
-                border-radius: 4px;
-                font-size: 12px;
-                color: red;
-            }
-        }
     }
 }
 </style>

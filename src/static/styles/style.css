@@ -1,249 +1,70 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-	display: block;
-}
-
-body {
-	line-height: 1;
-}
-
-ol,
-ul {
-	list-style: none;
-}
-
-blockquote,
-q {
-	quotes: none;
-}
-
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-	content: '';
-	content: none;
-}
-
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-img {
-	width: 100%;
-}
-
-h1 {
-	font-size: 22px;
-	font-weight: bold;
-	font-family: 'element-icons';
-	text-align: left;
-}
-
-h2 {
-	font-size: 20px;
-	font-weight: bold;
-	margin-bottom: 15px;
-	font-family: 'element-icons';
-	text-align: left;
-}
-
-h3 {
-	font-size: 18px;
-	font-weight: bold;
-	margin-bottom: 15px;
-	font-family: 'element-icons';
-	text-align: left;
-}
-
-h4 {
-	font-size: 16px;
-	font-weight: bold;
-	margin-bottom: 15px;
-	font-family: 'element-icons';
-	text-align: left;
-}
-
-p {
-	font-size: 14px;
-	line-height: 20px;
-}
-
 .border-r-10 {
 	border-radius: 10px;
 }
-
-a {
-	cursor: pointer;
-	color: #000;
+.border-r-5 {
+	border-radius: 5px;
 }
-.mr-5{
+.mr-5 {
 	margin-right: 5px;
 }
+
 .mr-10 {
 	margin-right: 10px;
 }
+
+.mr-15 {
+	margin-right: 15px;
+}
+
+.mr-20 {
+	margin-right: 20px;
+}
+
 /* margin-top:5 10 15 20 */
-.mt-5{
+.mt-5 {
 	margin-top: 5px;
 }
-.mt-10{
+
+.mt-10 {
 	margin-top: 10px;
 }
-.mt-15{
+
+.mt-15 {
 	margin-top: 15px;
 }
-.mt-20{
+
+.mt-20 {
 	margin-top: 20px;
 }
+
 /* margin-bottom:5 10 15 20 */
-.mb-0{
+.mb-0 {
 	margin-bottom: 0px;
 }
-.mb-5{
+
+.mb-5 {
 	margin-bottom: 5px;
 }
-.mb-10{
+
+.mb-10 {
 	margin-bottom: 10px;
 }
+.mb-15 {
+	margin-bottom: 15px;
+}
+.mb-20 {
+	margin-bottom: 20px;
+}
 /* margin-left:0 5 10 15 */
-.ml-5{
+.ml-5 {
 	margin-left: 5px;
 }
-.inline-b{
+
+.inline-b {
 	display: inline-block;
 }
+
 /* 全局 */
-
-/* 整个滚动条背景 */
-::-webkit-scrollbar {
-	width: 10px;
-	background-color: #fff;
-}
-
-/* 滚动条上的按钮 (上下箭头). */
-::-webkit-scrollbar-button {
-	display: none;
-}
-
-::-webkit-scrollbar-thumb {
-	width: 5px;
-	/* 上下两头给个圆角 */
-	background-color: pink;
-	border-radius: 10px;
-	height: 50px;
-	/* 还可以给它加个阴影 */
-}
-
-/* 滚动条轨道 */
-::-webkit-scrollbar-track {
-	background-color: #fff;
-}
 .logo {
 	width: 200px;
 	height: 200px;
@@ -264,19 +85,25 @@ a {
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: flex-start;
-	width: 100%;
 }
-
+.grid{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
 .text-left {
 	text-align: left;
 }
+
 /* 作者 */
-.font-14{
-	font-size:14px;
+.font-14 {
+	font-size: 14px;
 }
-.font-12{
-	font-size:12px;
+
+.font-12 {
+	font-size: 12px;
 }
-.blue{
+
+.blue {
 	color: rgb(95, 95, 243);
 }

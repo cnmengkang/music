@@ -42,7 +42,7 @@ export default {
         // 所有榜单
         getTopList() {
             topList().then(res => {
-                console.log(res)
+                console.log('res',res)
                 this.topList = res.list
             })
         },
