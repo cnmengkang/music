@@ -64,6 +64,16 @@
   display: inline-block;
 }
 /* 全局 */
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+.justify-content-center {
+  justify-content: center;
+}
 .logo {
   width: 200px;
   height: 200px;

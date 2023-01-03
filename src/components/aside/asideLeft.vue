@@ -23,11 +23,11 @@
             <span slot="title">私人FM</span>
           </el-menu-item>
           <el-menu-item index="/like-music">
-            <i class="icon iconfont icon-xihuan"></i>
+            <i class="icon iconFont icon-xihuan"></i>
             <span slot="title">我喜欢的音乐</span>
           </el-menu-item>
           <el-menu-item index="9">
-            <i class="icon iconfont icon-down"></i>
+            <i class="icon iconFont icon-down"></i>
             <span slot="title">本地与下载</span>
           </el-menu-item>
           <el-menu-item index="10">
