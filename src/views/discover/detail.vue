@@ -77,13 +77,14 @@ export default {
 
     },
     methods: {
-        // 
+        // 获取详情页顶部数据
         getDetail(id) {
             detail(id).then((res) => {
                 console.log('playlist', res.playlist)
                 this.playlist = res.playlist;
             })
         },
+        // 获取歌单所有歌曲
         getPlayTrack() {
             playTrack(this.playAll).then((res) => {
                 console.log('songsList', res)

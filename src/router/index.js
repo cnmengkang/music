@@ -19,12 +19,14 @@ const routes = [
             path: "/discover",
             name: 'recommend',
             component: () => import('@/views/discover/discover-recommend'),
+            meta:{keepAlive:true}
             // 个性推荐首页
           },
           {
             path: "/discover/custom-made",
             name: 'custom-made',
-            component: () => import('@/views/discover/custom-made')
+            component: () => import('@/views/discover/custom-made'),
+            meta:{keepAlive:true}
             // 专属定制
           },
           {
@@ -50,7 +52,8 @@ const routes = [
       {
         path: 'daysong',
         name: 'daysong',
-        component: () => import("@/views/discover/daysong")
+        component: () => import("@/views/discover/daysong"),
+        meta:{keepAlive:true}
         // 每日歌曲推荐
       },
       // 发现音乐

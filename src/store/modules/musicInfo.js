@@ -42,7 +42,7 @@ const musicInfo = {
             const id = musicInfo.id;
             commit('SET_NAME',musicInfo.name)
             commit('SET_AVATAR',musicInfo.al.picUrl)
-            commit('SET_SONG_TITLE',musicInfo.ar[0].name)
+            commit('SET_SONG_TITLE',musicInfo.ar)
             return new Promise((resolve, reject) => {
                 songUrl(id).then((res) => {
                     console.log(res);

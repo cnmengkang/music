@@ -11,7 +11,7 @@
       <!-- 左侧菜单 -->
       <el-container>
         <el-main>
-          <router-view />
+            <router-view/>
         </el-main>
       </el-container>
       <!-- 容器 -->

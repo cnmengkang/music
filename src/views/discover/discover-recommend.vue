@@ -11,43 +11,24 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-    <!-- banner -->
-    <div class="recommend-resource">
-      <div class="resource-grid">
-        <h2 class="res-grid-title">推荐歌单<i class="el-icon-arrow-right"></i> </h2>
-        <ul>
-          <router-link to="daysong">
-            <li>
-              <div class="box">
-                <el-avatar shape="square" :size="150"
-                  src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="1111"></el-avatar>
-              </div>
-              <span class="title">每日歌曲推荐</span>
-            </li>
-          </router-link>
-          <li v-for="(item) in personalized" @click="getRecommendDetail(item.id)" :key="item.id">
-            <div class="box">
-              <el-avatar shape="square" :size="150" :src="item.picUrl" :alt="item.alg"></el-avatar>
-            </div>
-            <span class="playCount font-12"><i class="el-icon-caret-right"></i>{{ numCount(item.playCount) }}</span>
-            <p class="title">{{ item.name }}</p>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <h2 class="res-grid-title">推荐歌单<i class="el-icon-arrow-right"></i> </h2>
+    <!-- 每日推荐歌单 -->
+    <play-grid :playlist="personalized" />
     <!-- 每日推荐歌单 -->
   </div>
 </template>
 <script>
 import { banner, personalized } from "@/api/discover/discover";
+import playGrid from '@/components/body/playgrid'
 export default {
   name: "recommend",
+  components: { playGrid },
   data() {
     return {
       banners: "",
-      personalized:'',
-      person:{
-        limit:9
+      personalized: [],
+      person: {
+        limit: 9
       }
     };
   },
@@ -70,13 +51,7 @@ export default {
     getPersonalized() {
       personalized(this.person).then((res) => {
         this.personalized = res.result
-          console.log(res)
       });
-    },
-    getRecommendDetail(id) {
-      this.$emit('detail', id)
-      this.$router.push({ name: 'detail', params: { id: id } })
-
     },
   },
 };
@@ -137,7 +112,7 @@ export default {
           position: relative;
           cursor: pointer;
 
-   
+
 
           .title {
             font-size: 14px;

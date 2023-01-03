@@ -40,18 +40,22 @@ export default {
   z-index:99;
   padding: 15px 0px;
   background: #fff;
+  .el-menu{
+    border-bottom: none;
+  }
   .el-menu-item {
     height: 40px;
     line-height: 40px;
-    padding-left:0px;
+    padding: 0px;
+    margin-right: 20px;
     span {
       color: #000;
     }
   }
-
   .is-active {
     font-weight: bold;
     font-size: 16px;
+    border-bottom:2px solid #000;
   }
 }
 </style>

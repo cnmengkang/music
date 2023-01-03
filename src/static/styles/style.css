@@ -1,109 +1,104 @@
-.border-r-10 {
-	border-radius: 10px;
-}
-.border-r-5 {
-	border-radius: 5px;
-}
-.mr-5 {
-	margin-right: 5px;
-}
-
-.mr-10 {
-	margin-right: 10px;
-}
-
-.mr-15 {
-	margin-right: 15px;
-}
-
-.mr-20 {
-	margin-right: 20px;
-}
-
 /* margin-top:5 10 15 20 */
 .mt-5 {
-	margin-top: 5px;
+  margin-top: 5px;
 }
-
 .mt-10 {
-	margin-top: 10px;
+  margin-top: 10px;
 }
-
 .mt-15 {
-	margin-top: 15px;
+  margin-top: 15px;
 }
-
 .mt-20 {
-	margin-top: 20px;
+  margin-top: 20px;
 }
-
+/* margin-right:0 5 10 15 20 */
+.mr-5 {
+  margin-right: 5px;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+.mr-15 {
+  margin-right: 15px;
+}
+.mr-20 {
+  margin-right: 20px;
+}
 /* margin-bottom:5 10 15 20 */
 .mb-0 {
-	margin-bottom: 0px;
+  margin-bottom: 0px;
 }
-
 .mb-5 {
-	margin-bottom: 5px;
+  margin-bottom: 5px;
 }
-
 .mb-10 {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 .mb-15 {
-	margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 .mb-20 {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 /* margin-left:0 5 10 15 */
 .ml-5 {
-	margin-left: 5px;
+  margin-left: 5px;
 }
-
+.ml-10 {
+  margin-left: 10px;
+}
+.ml-15 {
+  margin-left: 15px;
+}
+.ml-20 {
+  margin-left: 20px;
+}
+/* 边框圆角 */
+.border-r-10 {
+  border-radius: 10px;
+}
+.border-r-5 {
+  border-radius: 5px;
+}
 .inline-b {
-	display: inline-block;
+  display: inline-block;
 }
-
 /* 全局 */
 .logo {
-	width: 200px;
-	height: 200px;
-	margin: 0 auto;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
 }
-
 #login .app-login,
 #register .app-register,
 #app-qr {
-	background: #fff;
-	width: 250px;
-	height: 350px;
-	border-radius: 4px;
+  background: #fff;
+  width: 250px;
+  height: 350px;
+  border-radius: 4px;
 }
-
 .flex {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
 }
-.grid{
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 .text-left {
-	text-align: left;
+  text-align: left;
 }
-
 /* 作者 */
 .font-14 {
-	font-size: 14px;
+  font-size: 14px;
 }
-
 .font-12 {
-	font-size: 12px;
+  font-size: 12px;
 }
-
 .blue {
-	color: rgb(95, 95, 243);
+  color: #5f5ff3;
 }

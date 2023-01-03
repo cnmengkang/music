@@ -1,14 +1,25 @@
 <template>
     <div id="footer">
         <div class="audio_list" v-if="!musicInfo.musicUrl.length == 0">
-            <div class="audio_img border-r-10" @click="drawer = true">
-                <img class="border-r-10" :src="musicInfo.avatar">
+            <div class="audio_img border-r-10 flex" @click="drawer = true">
+                <div class="avatar">
+                    <el-avatar  shape="square" :size="50" :src="musicInfo.avatar"></el-avatar>
+                </div>
+                <div class="audio_name ml-15">
+                    <p>{{ musicInfo.name }}</p>
+                    <template v-if="musicInfo.title">
+                        <p>{{ musicInfo.title }}</p>
+                        <p>{{ author}}</p>
+                    </template>
+                </div>
             </div>
-            <div class="audio_name">
-                <p>{{ musicInfo.name }}</p>
-                <p>{{ musicInfo.title }}</p>
+            <div class="play">
+                <div class="for">for</div>
+                <div class="prev">上</div>
+                <div class="prev">stop</div>
+                <div class="prev">下</div>
+                <div class="词"></div>
             </div>
-            <audio duration controls autoplay :src="musicInfo.musicUrl" :type="musicInfo.musicType" />
             <div class="audio_sound">
                 <div class="level">音质</div>
                 <div>音效</div>
@@ -17,6 +28,7 @@
                 </div>
             </div>
         </div>
+        <audio duration controls autoplay :src="musicInfo.musicUrl" :type="musicInfo.musicType" style="display:none" />
     </div>
 </template>
 <script>
@@ -28,11 +40,18 @@ export default {
         }
     },
     mounted() {
-        // console.log(this.musicInfo);
+        console.log(this.musicInfo)
+
     },
     // 计算属性
     computed: {
-        ...mapState(['musicInfo'])
+        ...mapState(['musicInfo']),
+        author(){
+            let author = this.musicInfo.title;
+            author.map((item)=>{
+                return item.name;
+            })
+        }
     },
     methods: {
 
@@ -46,12 +65,6 @@ export default {
         justify-content: flex-start;
         align-items: center;
         gap: 0px 15px;
-
-        .audio_img {
-            width: 50px;
-            height: 50px;
-        }
-
         .audio_sound {
             display: flex;
             gap: 0px 20px;

@@ -1,5 +1,5 @@
 <template>
-    <!-- 详情页面list区域组件 -->
+    <!-- list列表组件 -->
     <div class="song-list">
         <el-table highlight-current-row @row-dblclick="getPlayRow($event)" :data="tableDate" :key="tableDate.id" stripe
             style="width: 100%">
@@ -11,8 +11,8 @@
             </el-table-column>
             <el-table-column show-overflow-tooltip label="标题" width="320">
                 <template slot-scope="scope">
-                    <span class="name mr-10">{{ scope.row.name }}</span>
-                    <div class="mv" v-if="!scope.row.mv == 0">
+                    <span class="name">{{ scope.row.name }}</span>
+                    <div class="mv ml-10" v-if="!scope.row.mv == 0">
                         <span @click="getMv(scope.row.mv)">{{ scope.row.mv == 0 ? '' : 'MV' }}<i
                                 class="el-icon-caret-right"></i></span>
                     </div>
@@ -29,7 +29,7 @@
             </el-table-column>
         </el-table>
     </div>
-    <!-- 详情页面list区域组件 -->
+    <!-- list列表组件 -->
 </template>
 
 <script>
@@ -44,7 +44,7 @@ export default {
         indexMethod(index) {
             return index * 1
         },
-        // 点击获取当前音乐信息，并存储到vuex中
+        // 点击获取当前音乐信息，并存储到Vuex中
         getPlayRow(event) {
             this.$store.dispatch('getSongUrl', event);
         },
