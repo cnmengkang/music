@@ -4,21 +4,21 @@
       <div class="app-register">
         <router-link class="back" to="/login">&#x3c;&nbsp;返回登录</router-link>
         <div class="register">
-          <h4>注册网易云音乐账号</h4>
+          <!-- <h4>注册网易云音乐账号</h4> -->
           <el-form :model="registerForm" status-icon v-loading="loading" ref="ruleForm" :rules="registerRules"
             class="demo-ruleForm">
             <!-- 注册手机号密码 -->
             <div class="register-phone" v-if="flag">
-              <el-form-item label="手机号" prop="phone">
+              <el-form-item label="手机号" prop="phone" class="mb-15">
                 <el-input type="phone" v-model.trim="registerForm.phone" prefix-icon="el-icon-mobile-phone"
                   autocomplete="off" placeholder="请输入手机号" maxlength="11" clearable></el-input>
               </el-form-item>
-              <el-form-item label="密码" prop="password">
+              <el-form-item label="密码" prop="password" class="mb-15">
                 <el-input type="password" show-password v-model="registerForm.password" autocomplete="off"
                   prefix-icon="el-icon-lock" maxlength="18" placeholder="请输入密码"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="registerCaptcha">注册</el-button>
+                <el-button class="mt-0" type="primary" @click="registerCaptcha">注册</el-button>
               </el-form-item>
             </div>
             <!-- 验证码校验+判断手机号是否已经注册 -->
@@ -43,8 +43,9 @@
           <p>其他方式登录</p>
         </div>
         <div id="socialLogin">
-          <el-button icon="el-icon-edit" @click="chVerifyPhone">微信</el-button>
-          <el-button icon="el-icon-edit" @click="aa">QQ</el-button>
+          <router-link to="/qrCode">
+            <el-button icon="el-icon-edit">扫码登陆</el-button>
+          </router-link>
         </div>
       </div>
     </el-card>

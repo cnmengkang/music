@@ -49,7 +49,9 @@
           <p>其他方式登录</p>
         </div>
         <div id="socialLogin">
-          <el-button icon="el-icon-edit" @click="goCode">扫码登陆</el-button>
+          <router-link to="/qrCode">
+            <el-button icon="el-icon-edit">扫码登陆</el-button>
+          </router-link>
         </div>
       </div>
     </el-card>

@@ -1,4 +1,7 @@
 /* margin-top:5 10 15 20 */
+.mt-0 {
+  margin-top: 0px;
+}
 .mt-5 {
   margin-top: 5px;
 }
@@ -74,18 +77,21 @@
 .justify-content-center {
   justify-content: center;
 }
-.logo {
-  width: 200px;
-  height: 200px;
-  margin: 0 auto;
+#app {
+  background-color: #f2f2f2;
 }
-#login .app-login,
-#register .app-register,
-#app-qr {
+#app #login .app-login,
+#app #register .app-register,
+#app #qr .app-qr {
   background: #fff;
   width: 250px;
   height: 350px;
   border-radius: 4px;
+}
+.logo {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
 }
 .flex {
   display: flex;

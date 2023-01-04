@@ -11,7 +11,7 @@
       <!-- 左侧菜单 -->
       <el-container>
         <el-main>
-            <router-view/>
+          <router-view />
         </el-main>
       </el-container>
       <!-- 容器 -->
@@ -38,23 +38,26 @@ export default {
   background: #fff;
   height: 100vh;
   position: relative;
+
   .el-header {
     background-color: #b3c0d1;
     color: #333;
   }
+
   .el-main {
-    max-height: 520px;
+    height: 520px;
     overflow-y: overlay;
     padding: 0px 30px;
-
-    .el-aside {
-      color: #333;
-      text-align: left;
-    }
   }
+  .el-aside {
+      border-right: 1px solid #ccc;
+      overflow: hidden;
+    }
+
   .el-footer {
     background-color: #ccc;
     padding: 8px 20px;
+    position: relative;
   }
 }
 </style>

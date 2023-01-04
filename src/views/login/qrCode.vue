@@ -7,7 +7,7 @@
                 </div>
                 <div id="socialLogin">
                     <el-button icon="el-icon-edit"><router-link to="/login">手机号</router-link></el-button>
-                    <el-button icon="el-icon-edit" @click="getCodeOK"></el-button>
+                    <el-button icon="el-icon-edit" @click="getCodeOK">11</el-button>
                 </div>
             </div>
         </el-card>
@@ -25,13 +25,14 @@ export default {
                 qrimg: true,
                 timerstamp: new Date().getTime()
             },
+            timer: null,
         };
     },
-    created() {
-        this.getQrKey();
-    },
     mounted() {
-
+        this.getQrKey();
+        this.timer = setInterval(() => {
+            this.getCodeOK()
+        }, 2000)
     },
     methods: {
         // 二维码登陆
@@ -51,7 +52,11 @@ export default {
         // 
         getCodeOK() {
             qrCheckCode(this.qr).then((res) => {
-                console.log(res)
+                console.log(res.data)
+                if (res.data.code == 803) {
+                    clearInterval(this.timer)
+                    this.$router.push('/')
+                }
             })
         }
     },

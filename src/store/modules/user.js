@@ -11,19 +11,11 @@ const user = {
         password: '',
         uid: 345288322, //用户id
         avatarUrl: '',  //头像
-        playlist: '',
-        musicInfo: '', //保存当前播放音乐信息
-        musicUrl: '', //音乐url
-        musicLevel: '', //音乐音质
-        musicMd5: '', //音乐加密
-        musicType: '', //音乐类型
 
     },
 
     getters: {
-        getPlayList(state) {
-            return state.playlist
-        }
+
     },
     mutations: {
         // token
@@ -38,17 +30,7 @@ const user = {
         SET_AVATAR: (state, avatar) => {
             state.avatarUrl = avatar
         },
-        // 
-        // PLAY_LIST: (state, data) => {
-        //     state.playlist = data
-        // },
-        // 存储播放音乐信息
-        MUSIC_INFO: (state, musicInfo) => {
-            state.musicUrl = musicInfo.url
-            state.musicType = musicInfo.encodeType
-            state.musicMd5 = musicInfo.md5
-            state.musicLevel = musicInfo.level
-        }
+
     },
     actions: {
         // 登录

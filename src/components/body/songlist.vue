@@ -42,7 +42,7 @@ export default {
     methods: {
         // 序号
         indexMethod(index) {
-            return index * 1
+            return index + 1 * 1
         },
         // 点击获取当前音乐信息，并存储到Vuex中
         getPlayRow(event) {
