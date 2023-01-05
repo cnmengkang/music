@@ -48,6 +48,7 @@ export default {
     height: 520px;
     overflow-y: overlay;
     padding: 0px 30px;
+    margin-bottom: 30px;
   }
   .el-aside {
       border-right: 1px solid #ccc;

@@ -23,20 +23,28 @@
                         <el-button round size="mini" type="danger" icon="el-icon-video-play">播放全部</el-button>
                         <el-button round size="mini" type="danger" icon="el-icon-plus"></el-button>
                     </el-button-group>
-                    <el-button round size="mini" v-if="folder" icon="el-icon-folder-add">收藏({{numCount(tableHead.subscribedCount)}})</el-button>
-                    <el-button round size="mini" v-else icon="el-icon-folder-checked">已收藏({{numCount(tableHead.subscribedCount)}})</el-button>
-                    <el-button round size="mini" icon="el-icon-share">分享({{numCount(tableHead.shareCount)}})</el-button>
+                    <el-button round size="mini" v-if="folder"
+                        icon="el-icon-folder-add">收藏({{ numCount(tableHead.subscribedCount) }})</el-button>
+                    <el-button round size="mini" v-else
+                        icon="el-icon-folder-checked">已收藏({{ numCount(tableHead.subscribedCount) }})</el-button>
+                    <el-button round size="mini" icon="el-icon-share">分享({{ numCount(tableHead.shareCount) }})</el-button>
                     <el-button round size="mini" icon="el-icon-download">下载全部</el-button>
                 </div>
             </div>
             <div class="tips flex " v-if="tableHead.tags">
                 <label v-if="tableHead.tags.length != 0">标签：</label>
-                <el-link :underline="false" class="blue mr-5" v-for="(item, index) in tableHead.tags" :key="index">{{ item }}</el-link>
+                <el-link :underline="false" class="blue mr-5" v-for="(item, index) in tableHead.tags" :key="index">{{
+                    item
+                }}</el-link>
             </div>
-            <div class="font-14">
+            <div class="font-14" style="width:100%">
                 <span class="mr-20">歌曲：{{ tableHead.trackCount }}</span>
                 <span>播放：{{ numCount(tableHead.playCount) }}</span>
-                <p class="desc">简介：{{ tableHead.description }}</p>
+                <el-collapse accordion>
+                    <el-collapse-item title="简介">
+                        <div>{{ tableHead.description }}</div>
+                    </el-collapse-item>
+                </el-collapse>
             </div>
         </div>
     </div>
@@ -69,7 +77,6 @@ export default {
 <style lang="less" scoped>
 .head {
     display: flex;
-    align-items: center;
     text-align: left;
 
     .detail-left {
@@ -83,7 +90,6 @@ export default {
         flex-wrap: wrap;
         align-items: center;
         gap: 5px 10px;
-
         .song {
             color: #f00;
             border: 1px solid #f00;

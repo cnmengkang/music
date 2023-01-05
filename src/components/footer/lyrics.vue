@@ -1,33 +1,31 @@
 <template>
     <div class="lyrics">
-        歌词
+        <span v-if="musicInfo.lyric != 0">
+        {{ formatLyric(musicInfo.lyric) }}
+        </span>
     </div>
 </template>
-
 <script>
-import { lyric } from '@/api/music/music'
+import { mapState } from 'vuex'
 export default {
     components: {},
     props: {
-        lyricList: Object
+        // lyricList: {
+        //     type: Array
+        // }
     },
     data() {
         return {
- 
         };
     },
     created() {
-
+    },
+    mounted() {
+         
     },
     computed: {
+        ...mapState(['musicInfo']),
     },
-
-    mounted() {
-    },
-    methods: {
-
-
-    }
 };
 </script>
 <style lang="less" scoped>
@@ -35,13 +33,13 @@ export default {
     width: calc(100% - 200px);
     background: #ffffffad;
     position: absolute;
-    height: 35px;
-    line-height: 35px;
+    height: 30px;
+    line-height: 30px;
     text-align: center;
     right: 0px;
-    top: -35px;
+    top: -30px;
     z-index: 99;
-    font-size: 14px;
+    font-size: 12px;
     border-top: 1px solid #ccc;
     transition: all 1s linear;
     overflow: hidden;

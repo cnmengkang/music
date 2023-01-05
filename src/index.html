@@ -1,122 +1,35 @@
-<div class="item shipping-policy">
-  <div class="title toggle  no-modal">Free Shipping</div>
-  <div class="content">
-      <p style="padding: 0 10px 0 0;">Delivery Time = Processing Time + Shipping Time</p>
-      <div class="pro-table" >
-          <table style="border-spacing: 0px;border-collapse: collapse;padding-bottom: 20px;">
-              <tbody>
-              <tr>
-                  <td>Method</td>
-                  <td>Shipping Time</td>
-                  <td>Price</td>
-              </tr>
-              <tr>
-                  <td>Free Shipping</td>
-                  <td>7 - 10 Working Days</td>
-                  <td>Over £59</td>
-              </tr>
-              <tr>
-                  <td>Standard Shipping</td>
-                  <td>4-7 Working Days</td>
-                  <td><span>£8.99</span></td>
-              </tr>
-              <tr>
-                  <td style="
-line-height: 15px;
-">Expedited Shipping
-                  </td>
-                  <td style="vertical-align: middle;">3 Working Days</td>
-                  <td style="vertical-align: middle;"><span style="">£12.99</span></td>
-              </tr>
-              </tbody>
-          </table>
-      </div>
-      <p style="padding: 0 20px 0 0;margin: 0 0 5px 0;">For your convenience, we ship worldwide and offer free
-          standard shipping $59+ for most places. You can choose the shipping method during checkout.</p>
-      <a class="learn-more" href="/shipping-guide.htm">Learn More</a></div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="item return-policy">
-  <div class="title toggle no-modal">60-Day Return</div>
-  <div class="content">
-      <p>We want you to feel comfortable and confident when shopping at Vennie, that’s why we offer an easy 60-day
-          return & exchange policy.</p>
-      <a class="learn-more" href="/60-day-return-policy.htm">Learn More</a></div>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
 
-<div class="item warranty-policy">
-  <div class="title toggle no-modal">1 Year Warranty</div>
-  <div class="content">
-      <p>vennie fully stands behind the products we sell. Therefore, all of our products are covered by a one-year
-          warranty starting from the day when the original order was received.</p>
-  </div>
-</div>
+<body>
+    124
+    <script>
+        let arr = "[00:04.050]\n[00:12.570]难以忘记初次见你\n[00:16.860]一双迷人的眼睛\n[00:21.460]在我脑海里\n[00:23.960]你的身影 挥散不去\n[00:30.160]握你的双手感觉你的温柔\n[00:34.940]真的有点透不过气\n[00:39.680]你的天真 我想珍惜\n[00:43.880]看到你受委屈 我会伤心\n[00:48.180]喔\n[00:50.340]只怕我自己会爱上你\n[00:55.070]不敢让自己靠的太近\n[00:59.550]怕我没什么能够给你\n[01:04.030]爱你也需要很大的勇气\n[01:08.190]只怕我自己会爱上你\n[01:12.910]也许有天会情不自禁\n[01:17.380]想念只让自己苦了自己\n[01:21.840]爱上你是我情非得已\n[01:28.810]难以忘记初次见你\n[01:33.170]一双迷人的眼睛\n[01:37.700]在我脑海里 你的身影 挥散不去\n[01:46.360]握你的双手感觉你的温柔\n[01:51.120]真的有点透不过气\n[01:55.910]你的天真 我想珍惜\n[02:00.150]看到你受委屈 我会伤心\n[02:04.490]喔\n[02:06.540]只怕我自己会爱上你\n[02:11.240]不敢让自己靠的太近\n[02:15.750]怕我没什么能够给你\n[02:20.200]爱你也需要很大的勇气\n[02:24.570]只怕我自己会爱上你\n[02:29.230]也许有天会情不自禁\n[02:33.680]想念只让自己苦了自己\n[02:38.140]爱上你是我情非得已\n[03:04.060]什么原因 耶\n[03:07.730]我竟然又会遇见你\n[03:13.020]我真的真的不愿意\n[03:16.630]就这样陷入爱的陷阱\n[03:20.700]喔\n[03:22.910]只怕我自己会爱上你\n[03:27.570]不敢让自己靠的太近\n[03:32.040]怕我没什么能够给你\n[03:36.560]爱你也需要很大的勇气\n[03:40.740]只怕我自己会爱上你\n[03:45.460]也许有天会情不自禁\n[03:49.990]想念只让自己苦了自己\n[03:54.510]爱上你是我情非得已\n[03:58.970]爱上你是我情非得已\n[04:03.000]\n"
+        function formatLyric(arr) {
+            let a = arr.split(`\n`), o = a.map(i => {
+                let time = i.match(/\[.*\]/), lyric = i.replace(/\[.*\]/g, ``);
+                if (Array.isArray(time)) {
+                    time = time[0].replace(/\[|]/g, ``);
+                }
+                return { time, lyric };
+            }).map(it => {
+                let r = /[0-9]{0,2}:[0-9]{0,2}\.[0-9]{0,2}/g.test(it.time);
+                if (r) {
+                    let n = it.time.split(`:`), m = parseInt(n[0]) * 60 + parseFloat(n[1]);
+                    it.time = m;
+                }
+                return { ...it };
+            });
+            return o;
+        }
+    </script>
+</body>
 
-<style>
-  .pro-table td {
-      font-size: 12px;
-      border: 1px solid #9999;
-      padding: 1px;
-      text-align: center;
-      vertical-align: middle;
-      line-height: 15px;
-      height: 27px;
-  }
-
-  #product-policy .item .title {
-      line-height: 25px;
-      box-sizing: border-box;
-      color: #222;
-      padding: 10px 0 10px 0px;
-      position: relative;
-  }
-
-  #product-policy .item .content {
-      display: none;
-      line-height: 24px;
-  }
-
-  #product-policy .item .title.toggle:after {
-      transform: translateY(-50%) rotate(
-              0deg
-      );
-      -webkit-transform: translateY(-50%) rotate(
-              0deg
-      );
-      -moz-transform: translateY(-50%) rotate(0deg);
-      -o-transform: translateY(-50%) rotate(0deg);
-  }
-
-  #product-policy .item.active .title.toggle:after {
-      transform: translateY(-50%) rotate(
-              90deg
-      );
-      -webkit-transform: translateY(-50%) rotate(
-              90deg
-      );
-      -moz-transform: translateY(-50%) rotate(90deg);
-      -o-transform: translateY(-50%) rotate(90deg);
-  }
-
-  #product-policy .item.active .content {
-      display: block;
-  }
-
-  #product-policy .item {
-      border-bottom: solid 1px #fde9db;
-  }
-
-  #product-policy {
-padding:0px 15px;
-  }
-
-</style>
-<script>
-
-  jQuery('.item').on('click', function () {
-      var index = jQuery(this).index();
-      //jQuery(this).addClass('active').siblings().removeClass('active');
-      jQuery(this).toggleClass('active');
-  })
-
-</script>
+</html>

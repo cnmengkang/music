@@ -5,26 +5,32 @@
   </div>
 </template>
 <script>
-import { likeList } from '@/api/user/user'
+// import { lyric } from '@/api/music/music'
+// import lyricList from '@/components/footer/lyrics'
 export default {
   name: 'loveMusic',
+  components: { lyricList },
   data() {
     return {
     }
   },
-  created() {
-    this.getLikeList()
+  mounted() {
+    // this.getLikeList()
   },
   methods: {
-    getLikeList() {
-      console.log(this.$store.state.user.uid)
-      likeList(this.$store.state.user).then((res) => {
-        console.log(res)
-      })
-    }
+    // getLikeList() {
+    //   console.log(this.$store.state.user.uid)
+    //   likeList(this.$store.state.user).then((res) => {
+    //     console.log(res)
+    //   })
+    // }
+
+
   },
 }
 </script>
 <style lang="less" scoped>
-
+.love{
+  position: relative;
+}
 </style>
