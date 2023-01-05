@@ -26,9 +26,11 @@
 import headers from "@/components/header";
 import asideNav from "@/components/aside";
 import footers from "@/components/footer/footer";
+import lyrics from "@/components/footer/lyrics";
+
 export default {
   name: "index",
-  components: { headers, asideNav, footers },
+  components: { headers, asideNav, footers,lyrics },
 };
 </script>
 <style lang="less">
@@ -47,8 +49,7 @@ export default {
   .el-main {
     height: 520px;
     overflow-y: overlay;
-    padding: 0px 30px;
-    margin-bottom: 30px;
+    padding: 0px  30px 30px;
   }
   .el-aside {
       border-right: 1px solid #ccc;

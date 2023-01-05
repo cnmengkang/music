@@ -90,7 +90,7 @@
     border-radius: @margin-5;
 }
 
-.inline-b {
+.inline-block {
     display: inline-block;
 }
 
@@ -109,6 +109,7 @@
 
 #app {
     background-color: #f2f2f2;
+
     #login .app-login,
     #register .app-register,
     #qr .app-qr {
@@ -155,4 +156,25 @@
 
 .blue {
     color: rgb(95, 95, 243);
+}
+
+.mv,
+.vip {
+    color: red;
+    font-size: 12px;
+    height: 14px;
+    line-height: 14px;
+    display: inline-block;
+    border-radius: 4px;
+    border: 1px solid red;
+    padding: 0px 3px;
+    font-weight: bold;
+}
+.el-popover{
+    min-width: 20px;
+    padding: 10px 0px;
+}
+.popper__arrow{
+    left: 50% !important;
+    transform: translateX(-50%);
 }

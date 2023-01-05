@@ -12,8 +12,9 @@
             <el-table-column show-overflow-tooltip label="标题" width="320">
                 <template slot-scope="scope">
                     <span class="name">{{ scope.row.name }}</span>
-                    <div class="mv ml-10" v-if="!scope.row.mv == 0">
-                        <span @click="getMv(scope.row.mv)">{{ scope.row.mv == 0 ? '' : 'MV' }}<i
+                    <span class="vip ml-10" v-if="scope.row.fee==1">{{ scope.row.fee == 1 ? 'VIP' : '' }}</span>
+                    <div class="ml-10 inline-block" v-if="scope.row.mv != 0">
+                        <span class="mv" @click="getMv(scope.row.mv)">{{ scope.row.mv == 0 ? '' : 'MV' }}<i
                                 class="el-icon-caret-right"></i></span>
                     </div>
                 </template>
@@ -58,14 +59,6 @@ export default {
 .song-list {
     .mv {
         display: inline-block;
-        span {
-            cursor: pointer;
-            border: 1px solid #f00;
-            padding: 0px 2px;
-            border-radius: 4px;
-            font-size: 12px;
-            color: red;
-        }
     }
 }
 </style>

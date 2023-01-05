@@ -1,18 +1,17 @@
 <template>
-    <div class="lyrics">
-        <span v-if="musicInfo.lyric != 0">
-        {{ formatLyric(musicInfo.lyric) }}
-        </span>
-    </div>
+        <div class="lyrics">
+            <span v-if="musicInfo.lyric != 0">
+                {{ formatLyric(musicInfo.lyric) }}
+            </span>
+        </div>
+
 </template>
 <script>
 import { mapState } from 'vuex'
 export default {
     components: {},
     props: {
-        // lyricList: {
-        //     type: Array
-        // }
+  
     },
     data() {
         return {
@@ -21,7 +20,7 @@ export default {
     created() {
     },
     mounted() {
-         
+
     },
     computed: {
         ...mapState(['musicInfo']),
@@ -41,7 +40,6 @@ export default {
     z-index: 99;
     font-size: 12px;
     border-top: 1px solid #ccc;
-    transition: all 1s linear;
     overflow: hidden;
 }
 </style>

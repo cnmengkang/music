@@ -63,7 +63,7 @@
 .border-r-5 {
   border-radius: 5px;
 }
-.inline-b {
+.inline-block {
   display: inline-block;
 }
 /* 全局 */
@@ -117,4 +117,24 @@
 }
 .blue {
   color: #5f5ff3;
+}
+.mv,
+.vip {
+  color: red;
+  font-size: 12px;
+  height: 14px;
+  line-height: 14px;
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid red;
+  padding: 0px 3px;
+  font-weight: bold;
+}
+.el-popover {
+  min-width: 20px;
+  padding: 10px 0px;
+}
+.popper__arrow {
+  left: 50% !important;
+  transform: translateX(-50%);
 }
