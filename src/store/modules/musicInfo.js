@@ -6,7 +6,7 @@ const musicInfo = {
         musicLevel: '', //音乐音质
         musicMd5: '', //音乐加密
         musicType: '', //音乐类型
-        musicTime:'',//音乐总时长
+        musicTime: '',//音乐总时长
         // 底部战术信息
         name: '', //作者名
         avatar: '', //作者头像
@@ -16,7 +16,8 @@ const musicInfo = {
         singerName: '',
         singerAvatar: '',
         // 歌词
-        lyric: []
+        lyric: [],
+        isPlay: false
     },
     mutations: {
         // 歌手姓名
@@ -47,8 +48,11 @@ const musicInfo = {
         },
         MUSIC_LYRIC: (state, lyric) => {
             state.lyric = lyric.lyric
+        },
+        // 播放状态
+        iSPLAY: (state, isPlay) => {
+            state.isPlay= isPlay
         }
-
     },
     actions: {
         /*

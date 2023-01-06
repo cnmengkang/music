@@ -127,7 +127,7 @@ export function formatLyric(arr) {
 }
 // 返回00:00时间格式 传入一个带有小数点的number
 export function formatCurrentTime(currentTime) {
-    if(currentTime=='') return;
+    if (currentTime == '') return '00:00';
     const time = Math.trunc(currentTime) * 1000
     function preToFixed(num, length = 2) {
         return (Array(length).join(0) + num).slice(-length)

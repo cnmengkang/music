@@ -48,6 +48,7 @@ export default {
         // 点击获取当前音乐信息，并存储到Vuex中
         getPlayRow(event) {
             this.$store.dispatch('getSongInfo', event);
+            this.$store.commit('iSPLAY',true)
         },
         getMv(mv) {
             console.log(mv)

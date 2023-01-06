@@ -26,6 +26,8 @@ Vue.prototype.formatCurrentTime = formatCurrentTime
 // 全局弹窗
 Vue.prototype.$message = Message;
 Vue.config.productionTip = false;
+
+// bus 全局线程
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
 })
