@@ -26,11 +26,10 @@
 import headers from "@/components/header";
 import asideNav from "@/components/aside";
 import footers from "@/components/footer/footer";
-import lyrics from "@/components/footer/lyrics";
 
 export default {
   name: "index",
-  components: { headers, asideNav, footers,lyrics },
+  components: { headers, asideNav, footers },
 };
 </script>
 <style lang="less">

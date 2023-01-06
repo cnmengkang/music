@@ -1,11 +1,9 @@
 <template>
   <div class="love">
     loveMusic
-    <i class="icon iconfont icon-shezhi"></i>
   </div>
 </template>
 <script>
-// import { lyric } from '@/api/music/music'
 // import lyricList from '@/components/footer/lyrics'
 export default {
   name: 'loveMusic',
