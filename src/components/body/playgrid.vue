@@ -47,7 +47,8 @@ export default {
             console.log('id', id)
         },
         getDetail(id) {
-            this.$emit('detail', id)
+            // this.$emit('detail', id)
+            console.log('detail',1)
             this.$router.push({ name: 'detail', params: { id: id } })
         },
         getDaySong() {

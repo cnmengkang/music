@@ -12,9 +12,9 @@
             <el-table-column show-overflow-tooltip label="标题" width="320">
                 <template slot-scope="scope">
                     <span class="name">{{ scope.row.name }}</span>
-                    <span class="vip ml-10" v-if="scope.row.fee==1">{{ scope.row.fee == 1 ? 'VIP' : '' }}</span>
+                    <span class="vip ml-10" v-if="scope.row.fee == 1">{{ scope.row.fee == 1 ? 'VIP' : '' }}</span>
                     <div class="ml-10 inline-block" v-if="scope.row.mv != 0">
-                        <span class="mv" @click="getMv(scope.row.mv)">{{ scope.row.mv == 0 ? '' : 'MV' }}<i
+                        <span class="mv" @click="getMv(scope.row)">{{ scope.row.mv == 0 ? '' : 'MV' }}<i
                                 class="el-icon-caret-right"></i></span>
                     </div>
                 </template>
@@ -48,10 +48,12 @@ export default {
         // 点击获取当前音乐信息，并存储到Vuex中
         getPlayRow(event) {
             this.$store.dispatch('getSongInfo', event);
-            this.$store.commit('iSPLAY',true)
         },
-        getMv(mv) {
-            console.log(mv)
+        // 获取mv
+        getMv(res) {
+            console.log(res)
+            this.$store.dispatch('videos/getDetailMv', res);
+            this.$router.push({ name: 'mv', params: { id: res.id } })
         }
     }
 };

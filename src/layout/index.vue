@@ -30,6 +30,11 @@ import footers from "@/components/footer/footer";
 export default {
   name: "index",
   components: { headers, asideNav, footers },
+  data() {
+    return {
+      
+    }
+  },
 };
 </script>
 <style lang="less">
@@ -48,12 +53,13 @@ export default {
   .el-main {
     height: 520px;
     overflow-y: overlay;
-    padding: 0px  30px 30px;
+    padding: 0px 30px 30px;
   }
+
   .el-aside {
-      border-right: 1px solid #ccc;
-      overflow: hidden;
-    }
+    border-right: 1px solid #ccc;
+    overflow: hidden;
+  }
 
   .el-footer {
     background-color: #ccc;
