@@ -107,24 +107,6 @@ export function numCount(count) {
     }
     return count;
 }
-// 歌词格式化传入一个数组
-export function formatLyric(arr) {
-    let a = arr.split(`\n`), o = a.map(i => {
-        let time = i.match(/\[.*\]/), lyric = i.replace(/\[.*\]/g, ``);
-        if (Array.isArray(time)) {
-            time = time[0].replace(/\[|]/g, ``);
-        }
-        return { time, lyric };
-    }).map(it => {
-        let r = /[0-9]{0,2}:[0-9]{0,2}\.[0-9]{0,2}/g.test(it.time);
-        if (r) {
-            let n = it.time.split(`:`), m = parseInt(n[0]) * 60 + parseFloat(n[1]);
-            it.time = m;
-        }
-        return { ...it };
-    });
-    return o;
-}
 // 返回00:00时间格式 传入一个带有小数点的number
 export function formatCurrentTime(currentTime) {
     if (currentTime == '') return '00:00';

@@ -1,7 +1,7 @@
 <template>
     <div class="lyrics">
         <span v-if="musicInfo.lyric != 0">
-            {{ formatLyric(musicInfo.lyric) }}
+            {{ musicInfo.lyric }}
         </span>
     </div>
 </template>
@@ -23,6 +23,7 @@ export default {
     },
     computed: {
         ...mapState(['musicInfo']),
+
     },
 };
 </script>

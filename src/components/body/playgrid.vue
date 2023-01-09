@@ -6,8 +6,8 @@
                 <div class="play-img" @click="getDaySong">
                     <el-avatar shape="square" :size="150"
                         src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"></el-avatar>
-                    <el-button @click.stop="getVideoPlay" size="small" circle
-                        icon="icon iconFont icon-red_play"></el-button>
+                    <el-button @click.stop="getPlayList" size="small" circle
+                        class="iconFont icon-play-red"></el-button>
                 </div>
                 <p class="name">每日歌曲推荐</p>
             </li>
@@ -16,10 +16,9 @@
                     <el-avatar shape="square" :size="150" :src="item.coverImgUrl ? item.coverImgUrl : item.picUrl"
                         :alt="item.alg"></el-avatar>
                     <span class="playCount font-12">
-                        <i class="el-icon-caret-right"></i>
-                        {{ numCount(item.playCount) }}</span>
-                    <el-button @click.stop="getVideoPlay(item)" size="small" circle
-                        icon="icon iconFont icon-red_play"></el-button>
+                        <i class="el-icon-caret-right"></i>{{ numCount(item.playCount) }}</span>
+                    <el-button @click.stop="getPlayList(item)" size="small" circle
+                        class="iconFont icon-play-red"></el-button>
                 </div>
                 <p class="name">{{ item.name }}</p>
             </li>
@@ -42,9 +41,9 @@ export default {
     mounted() { },
     methods: {
         // 点击歌单红色播放按钮
-        getVideoPlay(e) {
+        getPlayList(e) {
             const id = e.id;
-            console.log('id', id)
+            this.$store.dispatch('getPlayTrack',id)
         },
         getDetail(id) {
             this.$emit('detail', id)
