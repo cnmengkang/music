@@ -1,0 +1,84 @@
+<div class="rsContent">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <a href="{{store direct_url='charms/'}}"><img alt=""
+                    src="{{skin_url='images/banner/newyearbanna-pc.jpg'}}" /></a>
+        </div>
+        <!--<div class="swiper-slide">
+              <a href="{{store direct_url='new-arrival/'}}"><img src="{{skin_url='images/banner/ring-banner1.jpg'}}" alt="" /></a>
+          </div>-->
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+<!--<script type="text/javascript">
+      var mysliderSwiper = new Swiper('.rsContent',{
+                   pagination : '.swiper-pagination',
+                   autoplay : 4000,
+              paginationClickable: true,
+                 calculateHeight: true,
+      loop:true
+      })
+      </script>-->
+
+<div class="owl-nav">
+    <div class="owl-prev" style="top: 84px;"></div>
+    <div class="owl-next" style="top: 84px;"></div>
+</div>
+
+<div class="center-center">
+    <div style="
+        font-size: 22px;
+        text-align: center;
+        line-height: 42px;
+        font-weight: 500;
+        margin-bottom: 15px;
+      ">
+        SHOP BY CATEGORY
+    </div>
+    <div class="center-first">
+        <div class="center-flex">
+            <a href="{{store direct_url='charms/'}}"><img alt="" src="{{skin url='images/banner/charms-banner.jpg'}}" />
+                <h4 class="font_h4"><span>CHARMS</span></h4>
+            </a>
+            <a href="{{store direct_url='bracelets/'}}"><img alt=""
+                    src="{{skin url='images/banner/braclet-banner.jpg}}" />
+                <h4 class="font_h4"><span>BRACELETS</span></h4>
+            </a>
+            <a href="{{store direct_url='necklaces/'}}"><img alt=""
+                    src="{{skin url='images/banner/necklace-banner.jpg'}}" />
+                <h4 class="font_h4"><span>NECKLACES</span></h4>
+            </a>
+            <a href="{{store direct_url='mens/'}}"><img alt="" src="{{skin url='images/banner/men-banner.jpg'}}" />
+                <h4 class="font_h4"><span>MEN'S</span></h4>
+            </a>
+        </div>
+        <div class="center-flex">
+            <a href="{{store direct_url='gifts/'}}" style="width: 100%; padding: 0"><img src="{{media url="wysiwyg/gifts-banner.jpg"}}" alt="" /></a>
+        </div>
+        {{block type="bmproducts/product_featured"
+        template="bmproducts/product/hotdeals.phtml" category_id="61" productsCount="10"
+        columnsCount="20"}}
+        <div class="center-flex" style="margin-top: 20px">
+            <a href="{{store direct_url='new-arrival/'}}" style="width: 100%; padding: 0"><img style="width: 100%;" src="{{media url="wysiwyg/new-banner.jpg"}}" alt="" /></a>
+        </div>
+        {{block type="reviewimage/review_home_list" name="home.review.list"
+        alias="reviews_home" template="reviewimage/review_home.phtml"
+        after="cms_page"}}
+
+        <style type="text/css">
+            .px-btn {
+                padding: 10px;
+            }
+
+            .btn-text {
+                background: #ffcf4b;
+                text-align: center;
+                padding: 10px;
+            }
+        </style>
+    </div>
+</div>
+
+{{block type="bmproducts/product_featured"
+template="bmproducts/product/listhome.phtml" category_id="17" productsCount="4"
+columnsCount="6"}}
