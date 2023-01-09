@@ -5,14 +5,14 @@
             style="width: 100%">
             <el-table-column type="index" :index="indexMethod">
             </el-table-column>
-            <el-table-column prop="date" label="操作" width="50">
-                <i class="el-icon-star-off"></i>
-                <i class="el-icon-download"></i>
+            <el-table-column prop="date" label="操作" width="70">
+                <i class="iconFont icon-love mr-10"></i>
+                <i class="iconFont icon-down"></i>
             </el-table-column>
             <el-table-column show-overflow-tooltip label="标题" width="320">
                 <template slot-scope="scope">
                     <span class="name">{{ scope.row.name }}</span>
-                    <span class="vip ml-10" v-if="scope.row.fee==1">{{ scope.row.fee == 1 ? 'VIP' : '' }}</span>
+                    <span class="vip ml-10" v-if="scope.row.fee == 1">{{ scope.row.fee == 1 ? 'VIP' : '' }}</span>
                     <div class="ml-10 inline-block" v-if="scope.row.mv != 0">
                         <span class="mv" @click="getMv(scope.row.mv)">{{ scope.row.mv == 0 ? '' : 'MV' }}<i
                                 class="el-icon-caret-right"></i></span>
@@ -48,7 +48,7 @@ export default {
         // 点击获取当前音乐信息，并存储到Vuex中
         getPlayRow(event) {
             this.$store.dispatch('getSongInfo', event);
-            this.$store.commit('iSPLAY',true)
+            this.$store.commit('iSPLAY', true)
         },
         getMv(mv) {
             console.log(mv)
