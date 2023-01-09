@@ -1,16 +1,20 @@
 @font-face {
   font-family: "iconFont"; /* Project id 3841370 */
-  src: url('//at.alicdn.com/t/c/font_3841370_tksz326zp.woff2?t=1673074046128') format('woff2'),
-       url('//at.alicdn.com/t/c/font_3841370_tksz326zp.woff?t=1673074046128') format('woff'),
-       url('//at.alicdn.com/t/c/font_3841370_tksz326zp.ttf?t=1673074046128') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_3841370_il22k3qi0b.woff2?t=1673265676479') format('woff2'),
+       url('//at.alicdn.com/t/c/font_3841370_il22k3qi0b.woff?t=1673265676479') format('woff'),
+       url('//at.alicdn.com/t/c/font_3841370_il22k3qi0b.ttf?t=1673265676479') format('truetype');
 }
 
 .iconFont {
   font-family: "iconFont" !important;
-  font-size: 18px;
+  font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-title-left:before {
+  content: "\e617";
 }
 
 .icon-prev:before {
@@ -35,6 +39,10 @@
 
 .icon-love-red:before {
   content: "\e64e";
+}
+
+.icon-play-count:before {
+  content: "\e6cf";
 }
 
 .icon-play-red:before {

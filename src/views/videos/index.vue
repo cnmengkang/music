@@ -22,7 +22,8 @@
         <!-- badyGrid -->
         <video-grid :videoGroups="videoGroups"></video-grid>
       </el-tab-pane>
-      <el-tab-pane label="MV" name="MV">MV</el-tab-pane>
+      <el-tab-pane label="MV" name="MV">MV
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -30,8 +31,9 @@
 import { videoList, videoCategory, videoGroup } from '@/api/video/video';
 import tabs from '@/components/body/tabs'
 import videoGrid from '@/components/body/videogrid'
+import headTitle from '@/components/header/title'
 export default {
-  components: { tabs, videoGrid },
+  components: { tabs, videoGrid,headTitle },
   name: "videos",
   data() {
     return {
@@ -53,7 +55,7 @@ export default {
     this.getVideoGroup(58100)
   },
   methods: {
-    handleClick(tab, event) {
+    handleClick(tab) {
       console.log('tab', tab);
     },
     // 获取全部分类按钮

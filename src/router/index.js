@@ -116,9 +116,9 @@ const routes = [
         name: 'Dashboard'
       },
       {
-        path: 'mv/:id',
-        component: () => import('@/views/videos/mv'),
-        name: 'mv'
+        path: 'videoPlay/:id',
+        component: () => import('@/views/videos/video-play'),
+        name: 'videoPlay'
       },
     ]
   },

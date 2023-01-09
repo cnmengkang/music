@@ -1,6 +1,7 @@
 <template>
     <!-- list列表组件 -->
     <div class="song-list">
+        <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true" />
         <el-table highlight-current-row @row-dblclick="getPlayRow($event)" :data="tableDate" :key="tableDate.id" stripe
             style="width: 100%">
             <el-table-column type="index" :index="indexMethod">
@@ -40,6 +41,13 @@ export default {
             type: Array
         }
     },
+    data() {
+        return {
+        }
+    },
+    computed: {
+
+    },
     methods: {
         // 序号
         indexMethod(index) {
@@ -47,12 +55,13 @@ export default {
         },
         // 点击获取当前音乐信息，并存储到Vuex中
         getPlayRow(event) {
-            this.$store.dispatch('getSongInfo', event);        },
+            this.$store.dispatch('getSongInfo', event);
+        },
         // 获取mv
         getMv(res) {
-            console.log(res)
+            console.log('mv', res)
             this.$store.dispatch('videos/getDetailMv', res);
-            this.$router.push({ name: 'mv', params: { id: res.id } })
+            this.$router.push({ name: 'videoPlay', params: { id: res.id } })
         }
     }
 };
