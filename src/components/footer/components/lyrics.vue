@@ -22,8 +22,7 @@ export default {
 
     },
     computed: {
-        ...mapState(['musicInfo']),
-
+        ...mapState(['musicInfo'])
     },
 };
 </script>

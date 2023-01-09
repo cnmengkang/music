@@ -4,6 +4,7 @@ Vue.use(VueRouter);
 
 // layout
 import Layout from '@/layout'
+import dashboard from '@/views/dashboard'
 const routes = [
   {
     path: '',
@@ -69,11 +70,6 @@ const routes = [
       },
       // 视频
       {
-        path: 'mv/:id',
-        component: () => import('@/views/videos/mv'),
-        name: 'mv'
-      },
-      {
         path: 'friend',
         component: () => import('@/views/friend'),
         name: 'friend'
@@ -106,6 +102,23 @@ const routes = [
         path: "/home",
         name: 'home',
         component: () => import('@/views/Home')
+      },
+    ]
+  },
+  {
+    path: '/video',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index'),
+        name: 'Dashboard'
+      },
+      {
+        path: 'mv/:id',
+        component: () => import('@/views/videos/mv'),
+        name: 'mv'
       },
     ]
   },

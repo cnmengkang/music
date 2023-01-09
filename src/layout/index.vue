@@ -32,7 +32,7 @@ export default {
   components: { headers, asideNav, footers },
   data() {
     return {
-      
+
     }
   },
 };

@@ -15,11 +15,11 @@ export function validateTel(rule, value, callback) {
 export function validatePass(rule, value, callback) {
     const reg = /^(?=.*\d)(?=.*[a-zA-Z0-9])\w{5,17}$/;
     if (!value) {
-        return  callback();
+        return callback();
     }
-    if(!reg.test(value)){
+    if (!reg.test(value)) {
         callback(new Error('密码必须包含数字字母'))
-    }else{
+    } else {
         callback()
     }
 }

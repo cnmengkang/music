@@ -1,6 +1,6 @@
 <template>
     <div class="audio">
-        <div class="audio-play">
+        <div class="audio-play flex">
             <div class="audio-top plays">
                 <span title="上一首" class="iconFont icon-prev"></span>
                 <span title="播放" class="play iconFont icon-play" v-if="isPlay" @click="play"></span>
@@ -93,7 +93,7 @@ export default {
         // audio事件自动更新当前播放时间
         updateCurrentTime(res) {
             let parse = parseInt(res.target.currentTime * 100) / 100;
-            console.log('当前播放时间', parse)
+            // console.log('当前播放时间', parse)
             this.currentTime = parse;
             this.value = parse / this.duration * 100;
         },
@@ -115,7 +115,7 @@ export default {
         },
         // 手动改变音量
         changeVolume(val) {
-            console.log('volume', val)
+            // console.log('volume', val)
             this.$refs.audio.volume = val / 100;
             this.volume = val
         }
@@ -123,14 +123,23 @@ export default {
 }
 </script>
 <style lang="less">
+.audio-play {
+    justify-content: center !important;
+}
+
 .start,
 .end {
     width: 8%;
     text-align: center;
 }
-.audio{
-    width:100%;
+
+.audio {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
 }
+
 .plays {
     display: flex;
     justify-content: center;
