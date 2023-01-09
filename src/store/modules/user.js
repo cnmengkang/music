@@ -11,7 +11,6 @@ const user = {
         password: '',
         uid: 345288322, //用户id
         avatarUrl: '',  //头像
-
     },
 
     getters: {

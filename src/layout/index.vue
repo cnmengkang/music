@@ -30,6 +30,11 @@ import footers from "@/components/footer/footer";
 export default {
   name: "index",
   components: { headers, asideNav, footers },
+  data() {
+    return {
+      
+    }
+  },
 };
 </script>
 <style lang="less">
