@@ -11,8 +11,9 @@
             <div slot="header" class="clearfix">
               <p class="text-left">全部视频</p>
             </div>
+            <!-- 标签列表 -->
             <div class="card_body">
-              <el-tag round v-for="(item, index) in videoList" @click="isActive(item, index)" :key="index"
+              <el-tag round v-for="(item, index) in videoListBtn" @click="isActive(item, index)" :key="index"
                 :class="activeClass == index ? 'active' : ''">
                 <a>{{ item.name }}</a>
               </el-tag>
@@ -22,7 +23,8 @@
         <!-- badyGrid -->
         <video-grid :videoGroups="videoGroups"></video-grid>
       </el-tab-pane>
-      <el-tab-pane label="MV" name="MV">MV
+      <el-tab-pane label="MV" name="MV">
+        <video-mv />
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -32,18 +34,19 @@ import { videoList, videoCategory, videoGroup } from '@/api/video/video';
 import tabs from '@/components/body/tabs'
 import videoGrid from '@/components/body/videogrid'
 import headTitle from '@/components/header/title'
+import videoMv from './mv.vue'
 export default {
-  components: { tabs, videoGrid,headTitle },
+  components: { tabs, videoGrid, headTitle, videoMv },
   name: "videos",
   data() {
     return {
-      videoList: [],
+      videoListBtn: [],
       activeClass: -1,
       isShow: false,
       name: '',
       activeName: 'video',
       tabList: [],
-      videoGroups: []
+      videoGroups: [],
     };
   },
   created() {
@@ -55,6 +58,7 @@ export default {
     this.getVideoGroup(58100)
   },
   methods: {
+    // 点击顶部视频MV调用接口
     handleClick(tab) {
       console.log('tab', tab);
     },
@@ -62,7 +66,7 @@ export default {
     getVideoList() {
       videoList().then((res) => {
         console.log(res)
-        this.videoList = res.data
+        this.videoListBtn = res.data
       })
     },
     // 获取右侧分类tabs菜单
@@ -84,17 +88,25 @@ export default {
     show() {
       this.isShow = true
     },
+    // 获取视频详情
     getVideoGroup(id) {
       videoGroup(id).then(res => {
         this.videoGroups = res.datas
         console.log(res)
       })
-    }
+    },
   }
 };
 </script>
 
 <style lang="less" scope>
+#videos-index .el-tabs .el-tabs__header {
+  position: sticky;
+  top: 0px;
+  z-index: 99;
+  background: #fff;
+}
+
 .box-card {
   width: 80%;
   height: 520px;

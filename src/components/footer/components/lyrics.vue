@@ -35,7 +35,7 @@ export default {
     line-height: 30px;
     text-align: center;
     right: 0px;
-    top: -30px;
+    top: -32px;
     z-index: 99;
     font-size: 12px;
     border-top: 1px solid #ccc;

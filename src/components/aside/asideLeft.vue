@@ -57,15 +57,15 @@ export default {
 </script>
 <style scoped lang="less">
 #aside-left {
-  width: 200px;
-
   .tac {
     margin-top: 15px;
 
     .el-menu {
+      border-right: none;
       .el-menu-item {
         height: 40px;
         line-height: 40px;
+        margin-bottom: 5px;
 
         span {
           color: #000;

@@ -4,6 +4,7 @@
 @margin-10: 10px;
 @margin-15: 15px;
 @margin-20: 20px;
+@margin-30: 30px;
 
 /* margin-top:5 10 15 20 */
 .mt-0 {
@@ -80,7 +81,9 @@
 .ml-20 {
     margin-left: @margin-20
 }
-
+.ml-30 {
+    margin-left: @margin-30
+}
 /* 边框圆角 */
 .border-r-10 {
     border-radius: @margin-10
@@ -104,7 +107,7 @@
 }
 
 .justify-content-center {
-    justify-content: center
+    justify-content: center !important;
 }
 
 #app {
@@ -140,9 +143,7 @@
 
 }
 
-.justify-content-center {
-    align-items: center;
-}
+
 
 .grid {
     display: flex;
@@ -155,6 +156,18 @@
 }
 
 /* 作者 */
+.font-30{
+    font-size: 30px;
+}
+.font-20{
+    font-size: 20px;
+}
+.font-18{
+    font-size: 18px;
+}
+.font-16{
+    font-size: 16px;
+}
 .font-14 {
     font-size: 14px;
 }
@@ -209,7 +222,20 @@
     overflow: hidden;
     white-space: nowrap;
 }
-.el-slider__runway{
+
+.el-slider__runway {
     margin: 0px;
 
+}
+
+.align-items-end {
+    align-items: flex-end;
+}
+
+.flex-wrap-nowrap {
+    flex-wrap: nowrap;
+}
+
+.w-60 {
+    width: 60%;
 }

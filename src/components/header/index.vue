@@ -1,7 +1,7 @@
 <template>
   <div class="header flex">
     <div class="header-logo">logo</div>
-    <back />
+    <back class="ml-30" />
     <search />
   </div>
 </template>
@@ -16,9 +16,8 @@ export default {
 <style lang="less" scoped>
 .header {
   height: 60px;
-
   .header-logo {
-    width: 200px;
+    width: 180px;
   }
 }
 </style>

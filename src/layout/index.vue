@@ -38,16 +38,20 @@ export default {
 };
 </script>
 <style lang="less">
+@border:1px solid #ccc;
+@backColor:#fff;
 #app_index {
   width: 1100px;
-  margin: 0 auto;
-  background: #fff;
-  height: 100vh;
+  margin: 50px auto;
   position: relative;
+  background: @backColor;
+  border-right: @border;
+  border-left: @border;
 
   .el-header {
-    background-color: #b3c0d1;
+    background-color:@backColor;
     color: #333;
+    border-bottom: @border;
   }
 
   .el-main {
@@ -57,13 +61,14 @@ export default {
   }
 
   .el-aside {
-    border-right: 1px solid #ccc;
+    border-right: @border;
     overflow: hidden;
   }
 
   .el-footer {
-    background-color: #ccc;
+    background-color: @backColor;
     position: relative;
+    border-top: @border;
   }
 }
 </style>

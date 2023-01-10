@@ -1,6 +1,6 @@
 <template>
     <div class="video-mv">
-        <template v-if="url.length != 0">
+        <div class="" v-if="url.length != 0">
             <h2><i class="iconFont icon-title-left"></i>MV详情</h2>
             <div class="video">
                 <video :src="url" autoplay controls></video>
@@ -10,7 +10,7 @@
                 <p class="ml-10">{{ name }}</p>
                 <p class="time">{{ parseTime(duration,"{i}:{s}") }}</p>
             </div>
-        </template>
+        </div>
         <el-empty v-else :image-size="200"></el-empty>
     </div>
 </template>
@@ -35,6 +35,7 @@ export default {
         duration: state => state.videos.duration
     }),
     methods: {
+
     },
 };
 </script>

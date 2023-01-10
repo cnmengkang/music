@@ -56,6 +56,9 @@
 .ml-20 {
   margin-left: 20px;
 }
+.ml-30 {
+  margin-left: 30px;
+}
 /* 边框圆角 */
 .border-r-10 {
   border-radius: 10px;
@@ -75,7 +78,7 @@
   width: 100%;
 }
 .justify-content-center {
-  justify-content: center;
+  justify-content: center !important;
 }
 #app {
   background-color: #f2f2f2;
@@ -103,9 +106,6 @@
 .justify-content-flex {
   justify-content: flex-start;
 }
-.justify-content-center {
-  align-items: center;
-}
 .grid {
   display: flex;
   flex-wrap: wrap;
@@ -115,6 +115,18 @@
   text-align: left;
 }
 /* 作者 */
+.font-30 {
+  font-size: 30px;
+}
+.font-20 {
+  font-size: 20px;
+}
+.font-18 {
+  font-size: 18px;
+}
+.font-16 {
+  font-size: 16px;
+}
 .font-14 {
   font-size: 14px;
 }
@@ -162,4 +174,13 @@
 }
 .el-slider__runway {
   margin: 0px;
+}
+.align-items-end {
+  align-items: flex-end;
+}
+.flex-wrap-nowrap {
+  flex-wrap: nowrap;
+}
+.w-60 {
+  width: 60%;
 }

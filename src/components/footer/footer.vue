@@ -53,11 +53,12 @@ export default {
     }
 
     .footer-audio {
-        width: calc(100% - 20%);
+        width: 60%;
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0 auto;
+        padding-left: 30px;
     }
 }
 </style>
