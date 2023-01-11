@@ -38,7 +38,7 @@ export default {
   methods: {
     getDaySong() {
       daySongs().then(res => {
-        console.log('day',res)
+        console.log('day', res)
         this.list = res.data.dailySongs
       })
     }

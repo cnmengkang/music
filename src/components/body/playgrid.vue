@@ -36,18 +36,22 @@ export default {
     },
     data() {
         return {
+            params:{
+                id:'',
+                limit:30,
+            }
         };
     },
     mounted() { },
     methods: {
         // 点击歌单红色播放按钮
         getPlayList(e) {
-            const id = e.id;
-            this.$store.dispatch('getPlayTrack',id)
+            console.log(e)
         },
         getDetail(id) {
-            // this.$emit('detail', id)
-            console.log('detail',1)
+            console.log('detail',id)
+            this.params.id = id
+            this.$store.dispatch('getPlayTrack',this.params)
             this.$router.push({ name: 'detail', params: { id: id } })
         },
         getDaySong() {

@@ -45,9 +45,6 @@ export default {
         return {
         }
     },
-    computed: {
-
-    },
     methods: {
         // 序号
         indexMethod(index) {

@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 获取歌单详情
+// 获取所有歌单
 export function detail(id) {
     return request({
         url: '/playlist/detail',
@@ -10,10 +10,15 @@ export function detail(id) {
 }
 // 获取歌单所有歌曲
 export function playTrack(data) {
+    const id = data.id
+    const limit = data.limit
     return request({
         url: '/playlist/track/all',
         method: 'post',
-        params: data
+        params: {
+            id: id,
+            limit: limit
+        }
     })
 }
 // 获取歌曲评论
@@ -33,10 +38,10 @@ export function commentPlayList(data) {
     })
 }
 // 歌单收藏者
-export function subscribers(data){
+export function subscribers(data) {
     return request({
-        url:'/playlist/subscribers',
-        method:'post',
-        params:data
+        url: '/playlist/subscribers',
+        method: 'post',
+        params: data
     })
 }

@@ -37,7 +37,7 @@ export default {
         ...mapState(['musicInfo']),
     },
     methods: {
-
+        
     }
 }
 </script>

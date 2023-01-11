@@ -26,6 +26,6 @@ export function lyric(id) {
     return request({
         url: '/lyric',
         method: "post",
-        params: {id}
+        params: { id }
     })
 }

@@ -17,8 +17,9 @@
                         </div>
                         <div class="user-info">
                             <span class="blue mb-5 inline-b">{{ item.user.nickname }}<span class="vip ml-5"
-                                    v-if="item.user.vipType != 0">VIP{{ item.user.vipRights.redVipLevel
-}}</span>：</span>
+                                    v-if="item.user.vipType != 0">VIP{{
+                                        item.user.vipRights.redVipLevel
+                                    }}</span>：</span>
                             <span>{{ item.content }}</span>
                             <div class="reviews-2" v-for="(items, index) in item.beReplied" :key="index">
                                 <a class="blue font-12">@{{ items.user.nickname }}:</a>
@@ -36,8 +37,9 @@
                             </div>
                             <div class="user-info">
                                 <span class="nickName"> {{ item.nickname }}</span>
-                                <span style="color:red" v-if="item.gender != 0">{{ item.gender == 1 ? '男' : '女'
-                                    }}</span>
+                                <span style="color:red" v-if="item.gender != 0">{{
+                                    item.gender == 1 ? '男' : '女'
+                                }}</span>
                             </div>
                         </div>
                     </div>
@@ -56,8 +58,8 @@ export default {
     data() {
         return {
             playlist: {},
-            playAll: {
-                id: this.$route.params.id,
+            params: {
+                id: '',
                 limit: 30,
             },
             activeName: 'song',
@@ -68,13 +70,15 @@ export default {
         }
     },
     mounted() {
-        const id = this.$route.params;
         this.getDetail(id)
         this.getPlayTrack()
         this.getComment()
     },
     created() {
+        // this.params.id = this.$route.params;
 
+    },
+    computed: {
     },
     methods: {
         // 获取详情页顶部数据
@@ -84,9 +88,9 @@ export default {
                 this.playlist = res.playlist;
             })
         },
-        // 获取歌单所有歌曲
+        // // 获取歌单所有歌曲
         getPlayTrack() {
-            playTrack(this.playAll).then((res) => {
+            playTrack(this.params).then((res) => {
                 console.log('songsList', res)
                 this.list = res.songs
             })
@@ -137,14 +141,11 @@ export default {
                     font-size: 12px;
                 }
 
-
-
                 .reviews-2 {
                     background: #f2f2f2;
                     padding: 8px 10px;
                     border-radius: 5px;
                 }
-
                 .vip {
                     color: red;
                 }
