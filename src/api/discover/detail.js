@@ -10,15 +10,10 @@ export function detail(id) {
 }
 // 获取歌单所有歌曲
 export function playTrack(data) {
-    const id = data.id
-    const limit = data.limit
     return request({
         url: '/playlist/track/all',
         method: 'post',
-        params: {
-            id: id,
-            limit: limit
-        }
+        params: data
     })
 }
 // 获取歌曲评论

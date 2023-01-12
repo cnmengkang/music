@@ -12,7 +12,9 @@
 
             <div class="right-creator font-12 flex">
                 <el-avatar v-if="tableHead.creator" :src="tableHead.creator.avatarUrl" class="mr-10" :size="30" />
-                <span class="mr-10 blue" v-if="tableHead.creator">{{ tableHead.creator.nickname }}</span>
+                <el-link :underline="false">
+                    <span class="mr-10 blue" v-if="tableHead.creator">{{ tableHead.creator.nickname }}</span>
+                </el-link>
                 <div class="createTime">
                     {{ parseTime(tableHead.createTime, "{y}-{m}-{d}") }}创建
                 </div>
@@ -23,11 +25,15 @@
                         <el-button round size="mini" type="danger" icon="el-icon-video-play">播放全部</el-button>
                         <el-button round size="mini" type="danger" icon="el-icon-plus"></el-button>
                     </el-button-group>
-                    <el-button round size="mini" v-if="folder"
-                        icon="el-icon-folder-add">收藏({{ numCount(tableHead.subscribedCount) }})</el-button>
-                    <el-button round size="mini" v-else
-                        icon="el-icon-folder-checked">已收藏({{ numCount(tableHead.subscribedCount) }})</el-button>
-                    <el-button round size="mini" icon="el-icon-share">分享({{ numCount(tableHead.shareCount) }})</el-button>
+                    <el-button round size="mini" v-if="folder" icon="el-icon-folder-add">收藏({{
+                        numCount(tableHead.subscribedCount)
+                    }})</el-button>
+                    <el-button round size="mini" v-else icon="el-icon-folder-checked">已收藏({{
+                        numCount(tableHead.subscribedCount)
+                    }})</el-button>
+                    <el-button round size="mini" icon="el-icon-share">分享({{
+                        numCount(tableHead.shareCount)
+                    }})</el-button>
                     <el-button round size="mini" icon="el-icon-download">下载全部</el-button>
                 </div>
             </div>
@@ -57,6 +63,7 @@ export default {
     props: {
         tableHead: {
             type: Object,
+            require: true
         },
     },
     data() {

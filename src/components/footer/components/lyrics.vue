@@ -1,8 +1,12 @@
 <template>
     <div class="lyrics">
-        <span v-if="musicInfo.lyric != 0">
-            {{ musicInfo.lyric }}
-        </span>
+        <ul v-if="lyric.length != 0">
+            <li>
+                {{ lyric }}
+            </li>
+        </ul>
+
+
     </div>
 </template>
 <script>
@@ -19,11 +23,17 @@ export default {
     created() {
     },
     mounted() {
-
     },
     computed: {
-        ...mapState(['musicInfo'])
+        ...mapState({
+            lyric: state => state.musicInfo.lyric,
+        }),
+        
     },
+    methods: {
+
+
+    }
 };
 </script>
 <style lang="less" scoped>
@@ -33,12 +43,18 @@ export default {
     position: absolute;
     height: 30px;
     line-height: 30px;
-    text-align: center;
     right: 0px;
     top: -32px;
     z-index: 99;
-    font-size: 12px;
     border-top: 1px solid #ccc;
     overflow: hidden;
+
+    ul {
+        li {
+            text-align: center;
+            font-size: 12px;
+
+        }
+    }
 }
 </style>

@@ -36,10 +36,7 @@ export default {
     },
     data() {
         return {
-            params:{
-                id:'',
-                limit:30,
-            }
+            
         };
     },
     mounted() { },
@@ -50,8 +47,6 @@ export default {
         },
         getDetail(id) {
             console.log('detail',id)
-            this.params.id = id
-            this.$store.dispatch('getPlayTrack',this.params)
             this.$router.push({ name: 'detail', params: { id: id } })
         },
         getDaySong() {

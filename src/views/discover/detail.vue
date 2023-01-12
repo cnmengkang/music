@@ -59,7 +59,7 @@ export default {
         return {
             playlist: {},
             params: {
-                id: '',
+                id: this.$route.params.id,
                 limit: 30,
             },
             activeName: 'song',
@@ -70,15 +70,16 @@ export default {
         }
     },
     mounted() {
+        const id = this.$route.params
         this.getDetail(id)
         this.getPlayTrack()
         this.getComment()
     },
     created() {
-        // this.params.id = this.$route.params;
 
     },
     computed: {
+    
     },
     methods: {
         // 获取详情页顶部数据
@@ -106,7 +107,7 @@ export default {
         },
         // 获取歌单评论
         getComment() {
-            commentPlayList(this.playAll).then((res) => {
+            commentPlayList(this.params).then((res) => {
                 console.log('reviews', res)
                 this.total = res.total
                 this.comment = res.comments
@@ -114,7 +115,7 @@ export default {
         },
         // 歌单收藏者
         getSubscribers() {
-            subscribers(this.playAll).then((res) => {
+            subscribers(this.params).then((res) => {
                 console.log(res.subscribers)
                 this.subscribers = res.subscribers
             })
@@ -146,6 +147,7 @@ export default {
                     padding: 8px 10px;
                     border-radius: 5px;
                 }
+
                 .vip {
                     color: red;
                 }

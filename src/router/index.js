@@ -93,16 +93,6 @@ const routes = [
         component: () => import('@/views/like-music'),
         name: 'like-music'
       },
-      {
-        path: "/about",
-        name: 'about',
-        component: () => import("@/views/About")
-      },
-      {
-        path: "/home",
-        name: 'home',
-        component: () => import('@/views/Home')
-      },
     ]
   },
   {

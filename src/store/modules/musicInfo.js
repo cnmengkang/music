@@ -1,5 +1,5 @@
 import { songUrl, lyric } from '@/api/music/music'
-import { playTrack } from '@/api/discover/detail'
+import { playTrack } from '@/api/discover/detail';
 const musicInfo = {
     state: {
         // 单曲音乐信息
@@ -20,7 +20,7 @@ const musicInfo = {
         lyric: [],
         isPlay: false,
         // 歌曲列表
-        songList:''
+        songList: ''
     },
     mutations: {
         // 歌手姓名
@@ -52,7 +52,7 @@ const musicInfo = {
         MUSIC_LYRIC: (state, lyric) => {
             state.lyric = lyric.lyric
         },
-        SONG_LIST:(state,list)=>{
+        SONG_LIST: (state, list) => {
             state.songList = list
         }
     },
@@ -78,10 +78,10 @@ const musicInfo = {
             })
         },
         getPlayTrack({ commit }, musicList) {
-            console.log('detail->id',musicList)
+            // console.log('detail->id', musicList)
             playTrack(musicList).then(res => {
-                commit('SONG_LIST',res.songs)
-                console.log(res)
+                commit('SONG_LIST', res.songs)
+                // console.log(res)
             })
         }
     }

@@ -82,7 +82,7 @@ export default {
         // 当音频加载完成会调用此事件
         loadedmetadata(res) {
             console.log('音频加载完成')
-            let duration = parseInt(res.target.duration * 100) / 100
+            let duration = parseInt(res.target.duration * 100) / 100;
             console.log(duration)
             this.duration = duration;
             this.isPlay = true
@@ -100,6 +100,7 @@ export default {
         },
         // 
         formatProcessToolTip() {
+            
         },
 
         // 音量控制=============================
