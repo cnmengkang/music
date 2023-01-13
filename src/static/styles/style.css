@@ -133,16 +133,17 @@
   color: #5f5ff3;
 }
 .mv,
-.vip {
+.vip,
+.originType {
   color: red;
   font-size: 12px;
   height: 14px;
   line-height: 14px;
-  display: inline-block;
+  display: inline;
   border-radius: 4px;
   border: 1px solid red;
   padding: 0px 3px;
-  font-weight: bold;
+  font-weight: 200;
 }
 .el-popover {
   min-width: 20px;
@@ -164,7 +165,6 @@
 }
 .ellipsis {
   text-overflow: ellipsis;
-  width: 100%;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -179,4 +179,8 @@
 }
 .w-60 {
   width: 60%;
+}
+.el-table .title .cell.el-tooltip {
+  display: flex;
+  align-items: center;
 }

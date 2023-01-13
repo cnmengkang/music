@@ -11,7 +11,7 @@
         <div v-if="musicInfo.musicUrl.length != 0" style="width:20%">
             11111111111
         </div>
-        <lyric></lyric>
+        <!-- <lyric></lyric> -->
         <!-- 歌词组件 -->
     </div>
 </template>
@@ -19,10 +19,10 @@
 import { mapState } from 'vuex'
 import singer from './components/singer'
 import audioPlay from './components/play'
-import lyric from './components/lyrics'
+// import lyric from './components/lyrics'
 export default {
     name: 'footers',
-    components: { singer, audioPlay, lyric },
+    components: { singer, audioPlay },
     data() {
         return {
         }
@@ -30,7 +30,6 @@ export default {
     created() {
     },
     mounted() {
-
     },
     // 计算属性
     computed: {

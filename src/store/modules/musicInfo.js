@@ -13,14 +13,14 @@ const musicInfo = {
         avatar: '', //作者头像
         title: '', //歌名
         id: '',//当前音乐id
+        singerId:'',
         // 单曲作者信息
         singerName: '',
         singerAvatar: '',
         // 歌词
-        lyric: [],
         isPlay: false,
         // 歌曲列表
-        songList: ''
+        songList: '',
     },
     mutations: {
         // 歌手姓名
@@ -45,12 +45,11 @@ const musicInfo = {
             state.musicTime = musicUrl.time
         },
         SINGER_INFO: (state, singer) => {
+            console.log('singer',singer)
             state.singerName = singer.name
             state.singerAvatar = singer.al.picUrl
             state.singerAuthor = singer.ar
-        },
-        MUSIC_LYRIC: (state, lyric) => {
-            state.lyric = lyric.lyric
+            state.singerId = singer.id
         },
         SONG_LIST: (state, list) => {
             state.songList = list
@@ -70,10 +69,6 @@ const musicInfo = {
                     console.log('songUrl', res)
                     commit('MUSIC_URL', res.data[0])
                     resolve()
-                })
-                lyric(id).then(res => {
-                    console.log('lyric', res)
-                    commit('MUSIC_LYRIC', res.lrc)
                 })
             })
         },

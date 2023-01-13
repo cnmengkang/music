@@ -28,6 +28,8 @@
             </el-popover>
         </div>
         <!-- 音量组件 -->
+        <!-- 歌词组件 -->
+        <lyric></lyric>
         <audio duration @timeupdate="updateCurrentTime" autoplay ref="audio" :src="musicInfo.musicUrl"
             :type="musicInfo.musicType" @loadedmetadata="loadedmetadata" />
     </div>
@@ -35,8 +37,9 @@
 
 <script>
 import { mapState } from 'vuex';
+import lyric from './lyrics.vue'
 export default {
-    components: {},
+    components: { lyric },
     props: {
 
     },
@@ -46,7 +49,7 @@ export default {
             isSound: true,
             currentTime: null, //当前时长
             value: 0,  //默认进度条
-            volume: 30,  //默认音量
+            volume: 20,  //默认音量
             duration: 0,//总时长
         };
     },
@@ -57,6 +60,7 @@ export default {
         }
     },
     mounted() {
+        console.log(this.$store.musicInfo)
         this.$refs.audio.volume = this.volume / 100;
     },
     methods: {
@@ -83,7 +87,7 @@ export default {
         loadedmetadata(res) {
             console.log('音频加载完成')
             let duration = parseInt(res.target.duration * 100) / 100;
-            console.log(duration)
+            // console.log(duration)
             this.duration = duration;
             this.isPlay = true
         },
@@ -93,20 +97,20 @@ export default {
         },
         // audio事件自动更新当前播放时间
         updateCurrentTime(res) {
-            let parse = parseInt(res.target.currentTime * 100) / 100;
             // console.log('当前播放时间', parse)
+            let parse = parseInt(res.target.currentTime * 100) / 100;
             this.currentTime = parse;
             this.value = parse / this.duration * 100;
         },
         // 
-        formatProcessToolTip() {
-            
+        formatProcessToolTip(res) {
+            // return parseInt(his.value / 100 * res)
         },
 
         // 音量控制=============================
         // 控制音量大小
         setSound(e) {
-            console.log('点击音量', this.volume)
+            // console.log('点击音量', this.volume)
             if (e != true) {
                 this.$refs.audio.volume = 0;
                 this.volume = 0;
@@ -125,7 +129,7 @@ export default {
         },
         // 手动改变音量
         changeVolume(val) {
-            console.log('volume', val)
+            // console.log('volume', val)
             if (val == 0) {
                 this.$refs.audio.volume = 0;
                 this.volume = 0;
@@ -137,7 +141,8 @@ export default {
 
             }
 
-        }
+        },
+        // 获取歌词
     }
 }
 </script>

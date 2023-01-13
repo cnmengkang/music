@@ -10,16 +10,19 @@
                 <i class="iconFont icon-love mr-10"></i>
                 <i class="iconFont icon-down"></i>
             </el-table-column>
-            <el-table-column show-overflow-tooltip label="标题" width="320">
+            <el-table-column show-overflow-tooltip label="标题" width="350" class-name="title">
                 <template slot-scope="scope">
-                    <span class="name">{{ scope.row.name }}</span>
-                    <span class="name-tips" v-if="scope.row.alia.length!=0">({{ scope.row.alia[0] }})</span>
-                    <span class="vip ml-10" v-if="scope.row.fee == 1">{{ scope.row.fee == 1 ? 'VIP' : '' }}</span>
-                    <div class="ml-10 inline-block" v-if="scope.row.mv != 0">
-                        <a>
-                            <span class="mv" @click="getMv(scope.row)">{{ scope.row.mv == 0 ? '' : 'MV' }}<i
+                    <div class="ellipsis">
+                        <span class="name">{{ scope.row.name }}</span>
+                        <span class="name-tips" v-if="scope.row.alia.length != 0">({{ scope.row.alia[0] }})</span>
+                    </div>
+                    <div class="aa">
+                        <span class="vip ml-10" v-if="scope.row.fee == 1">VIP</span>
+                        <span v-if="scope.row.mv != 0" @click="getMv(scope.row)" class="mv ml-5">MV<i
                                 class="el-icon-caret-right"></i></span>
-                        </a>
+                        <span class="originType ml-5" v-if="scope.row.originCoverType != 0">{{
+                            scope.row.originCoverType == 1 ? '原唱' : '翻唱'
+                        }}</span>
                     </div>
                 </template>
             </el-table-column>
@@ -38,6 +41,7 @@
 </template>
 
 <script>
+import { lyric } from '@/api/music/music'
 export default {
     props: {
         tableDate: {
@@ -55,14 +59,23 @@ export default {
         },
         // 点击获取当前音乐信息，并存储到Vuex中
         getPlayRow(event) {
+            console.log('event', event)
             this.$store.dispatch('getSongInfo', event);
+            // this.getLyric(event.id);
+
         },
         // 获取mv
         getMv(res) {
             console.log('mv', res)
             this.$store.dispatch('videos/getDetailMv', res);
             this.$router.push({ name: 'videoPlay', params: { id: res.id } })
-        }
+        },
+        // // 获取歌曲歌词信息
+        // getLyric(id) {
+        //     lyric(id).then(res => {
+        //         console.log(res)
+        //     })
+        // }
     }
 };
 </script>
@@ -71,9 +84,12 @@ export default {
     .mv {
         display: inline-block;
     }
-    .name-tips{
+
+    .name-tips {
         font-size: 12px;
-        color:#a39c9c;
+        color: #a39c9c;
     }
+
+
 }
 </style>

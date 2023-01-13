@@ -1,12 +1,10 @@
 <template>
     <div class="lyrics">
-        <ul v-if="lyric.length != 0">
+        <ul>
             <li>
-                {{ lyric }}
+                {{ singerId }}
             </li>
         </ul>
-
-
     </div>
 </template>
 <script>
@@ -18,6 +16,7 @@ export default {
     },
     data() {
         return {
+            
         };
     },
     created() {
@@ -26,9 +25,9 @@ export default {
     },
     computed: {
         ...mapState({
-            lyric: state => state.musicInfo.lyric,
+            singerId: state => state.musicInfo.singerId,
         }),
-        
+
     },
     methods: {
 
