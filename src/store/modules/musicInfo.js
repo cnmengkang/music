@@ -1,4 +1,4 @@
-import { songUrl, lyric } from '@/api/music/music'
+import { songUrl } from '@/api/music/music'
 import { playTrack } from '@/api/discover/detail';
 const musicInfo = {
     state: {
@@ -13,7 +13,7 @@ const musicInfo = {
         avatar: '', //作者头像
         title: '', //歌名
         id: '',//当前音乐id
-        singerId:'',
+        singerId: '',
         // 单曲作者信息
         singerName: '',
         singerAvatar: '',
@@ -21,6 +21,7 @@ const musicInfo = {
         isPlay: false,
         // 歌曲列表
         songList: '',
+        lyrics:null
     },
     mutations: {
         // 歌手姓名
@@ -45,21 +46,27 @@ const musicInfo = {
             state.musicTime = musicUrl.time
         },
         SINGER_INFO: (state, singer) => {
-            console.log('singer',singer)
+            console.log('singer', singer.id)
             state.singerName = singer.name
             state.singerAvatar = singer.al.picUrl
             state.singerAuthor = singer.ar
             state.singerId = singer.id
         },
         SONG_LIST: (state, list) => {
+            console.log(list)
             state.songList = list
+        },
+        // 存储歌词
+        SET_LYRICS:(state,list)=>{
+            state.lyrics = list
+            console.log('list',list)
         }
     },
     actions: {
         /*
             获取当前播放歌曲信息
             详情页面list双击传过来单首歌曲信息
-            存储到sate里面,发送请求获取歌曲的播放连接进行播放;
+            存储到state里面,发送请求获取歌曲的播放链接进行播放;
         */
         getSongInfo({ commit }, musicInfo) {
             const id = musicInfo.id;
@@ -72,13 +79,23 @@ const musicInfo = {
                 })
             })
         },
-        getPlayTrack({ commit }, musicList) {
-            // console.log('detail->id', musicList)
-            playTrack(musicList).then(res => {
+        // 点击播放全部按钮进行顺序播放音乐
+        getPlayAll({ commit }, id) {
+            console.log('id', id)
+            return new Promise((resolve, reject) => {
+                playTrack({id}).then(res => {
+                    // console.log(res.songs)
+                    commit('SONG_LIST', res.songs)
+                })
+            })
+        },
+        getMusicUrl({ commit }, musicUrl) {
+            songUrl(musicList).then(res => {
                 commit('SONG_LIST', res.songs)
                 // console.log(res)
+                
             })
-        }
+        },
     }
 }
 export default musicInfo

@@ -1,11 +1,15 @@
 <template>
     <!-- list列表组件 -->
     <div class="song-list">
-        <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true" />
-        <el-table highlight-current-row @row-dblclick="getPlayRow($event)" :data="tableDate" :key="tableDate.id" stripe
+        <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true"/>
+        <el-table highlight-current-row @row-dblclick="getPlayRow($event)"  :data="tableDate" :key="tableDate.id" stripe
             style="width: 100%">
-            <el-table-column type="index" :index="indexMethod">
+            <el-table-column label="序号" type="index">
+                <!-- <template slot-scope="scope">
+                    <span>aa{{ scope.row.id }}</span>
+                </template> -->
             </el-table-column>
+
             <el-table-column prop="date" label="操作" width="70">
                 <i class="iconFont icon-love mr-10"></i>
                 <i class="iconFont icon-down"></i>
@@ -53,15 +57,12 @@ export default {
         }
     },
     methods: {
-        // 序号
-        indexMethod(index) {
-            return index + 1 * 1
-        },
+
         // 点击获取当前音乐信息，并存储到Vuex中
         getPlayRow(event) {
-            console.log('event', event)
+            console.log('event', event.id)
             this.$store.dispatch('getSongInfo', event);
-            // this.getLyric(event.id);
+            this.getLyric(event.id)
 
         },
         // 获取mv
@@ -71,11 +72,45 @@ export default {
             this.$router.push({ name: 'videoPlay', params: { id: res.id } })
         },
         // // 获取歌曲歌词信息
-        // getLyric(id) {
-        //     lyric(id).then(res => {
-        //         console.log(res)
-        //     })
-        // }
+        getLyric(id) {
+            const regNewLine = /\n/;
+            const regTime = /\[\d{2}:\d{2}.\d{2,3}\]/;
+            const lyricsObjArr = []
+            lyric(id).then(res => {
+                let lineArr = res.lrc.lyric.split(regNewLine);
+                lineArr.forEach(item => {
+                    const obj = {}
+                    if (item === '') return
+                    const time = item.match(regTime)
+                    obj.lyric = item.split(']')[1].trim() === '' ? '' : item.split(']')[1].trim()
+                    obj.time = time ? this.formatLyricTime(time[0].slice(1, time[0].length - 1)) : 0
+                    obj.uid = Math.random().toString().slice(-6)
+                    if (obj.lyric === '') {
+                        // console.log('这一行没有歌词')
+                    } else {
+                        // console.log(obj)
+                        lyricsObjArr.push(obj)
+                    }
+                })
+                this.$store.commit('SET_LYRICS',lyricsObjArr)
+            })
+        },
+        // 时间转换函数
+        formatLyricTime(time) { // 格式化歌词的时间 转换成 sss:ms
+            const regMin = /.*:/
+            const regSec = /:.*\./
+            const regMs = /\./
+
+            const min = parseInt(time.match(regMin)[0].slice(0, 2))
+            let sec = parseInt(time.match(regSec)[0].slice(1, 3))
+            const ms = time.slice(time.match(regMs).index + 1, time.match(regMs).index + 3)
+            if (min !== 0) {
+                sec += min * 60
+            }
+            return Number(sec + '.' + ms)
+        },
+
+        
     }
 };
 </script>

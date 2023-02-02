@@ -9,11 +9,11 @@ export function detail(id) {
     })
 }
 // 获取歌单所有歌曲
-export function playTrack(data) {
+export function playTrack(id) {
     return request({
         url: '/playlist/track/all',
         method: 'post',
-        params: data
+        params: id
     })
 }
 // 获取歌曲评论

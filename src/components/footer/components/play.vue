@@ -2,10 +2,10 @@
     <div class="audio">
         <div class="audio-play flex">
             <div class="audio-top plays mb-10">
-                <span title="上一首" class="iconFont icon-prev"></span>
+                <span title="上一首" class="iconFont icon-prev" @click="prev"></span>
                 <span title="暂停" class="play iconFont icon-play" v-if="isPlay" @click="startPlayOrPause"></span>
                 <span title="播放" class="pause iconFont icon-pause" v-else @click="startPlayOrPause"></span>
-                <span title="下一首" class="iconFont icon-next"></span>
+                <span title="下一首" class="iconFont icon-next" @click="next"></span>
             </div>
             <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
                 <span v-if="hide" class="start font-12">{{ formatCurrentTime(currentTime) }}</span>
@@ -29,17 +29,20 @@
         </div>
         <!-- 音量组件 -->
         <!-- 歌词组件 -->
-        <lyric></lyric>
+        <!-- <lyric></lyric> -->
+        <div class="lyrics">
+        <ul>
+            <li v-for="(item, index) in musicInfo.lyrics" :key="item.uid" :data-index="index" ref="lyric">{{ item.lyric }}--{{ item.time }}</li>
+        </ul>
+    </div>
         <audio duration @timeupdate="updateCurrentTime" autoplay ref="audio" :src="musicInfo.musicUrl"
-            :type="musicInfo.musicType" @loadedmetadata="loadedmetadata" />
+            :type="musicInfo.musicType" @loadedmetadata="loadedmetadata" @ended="playEnded" />
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import lyric from './lyrics.vue'
 export default {
-    components: { lyric },
     props: {
 
     },
@@ -60,7 +63,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.$store.musicInfo)
         this.$refs.audio.volume = this.volume / 100;
     },
     methods: {
@@ -72,6 +74,7 @@ export default {
         pause() {
             this.$refs.audio.pause();
         },
+        // 点击调用播放与暂停事件
         startPlayOrPause() {
             if (this.currentTime == null) return;
             if (this.isPlay == true) {
@@ -85,9 +88,9 @@ export default {
         },
         // 当音频加载完成会调用此事件
         loadedmetadata(res) {
-            console.log('音频加载完成')
+            console.log('音频加载完成', res.target.duration)
             let duration = parseInt(res.target.duration * 100) / 100;
-            // console.log(duration)
+            console.log(duration)
             this.duration = duration;
             this.isPlay = true
         },
@@ -97,7 +100,6 @@ export default {
         },
         // audio事件自动更新当前播放时间
         updateCurrentTime(res) {
-            // console.log('当前播放时间', parse)
             let parse = parseInt(res.target.currentTime * 100) / 100;
             this.currentTime = parse;
             this.value = parse / this.duration * 100;
@@ -106,7 +108,6 @@ export default {
         formatProcessToolTip(res) {
             // return parseInt(his.value / 100 * res)
         },
-
         // 音量控制=============================
         // 控制音量大小
         setSound(e) {
@@ -143,6 +144,17 @@ export default {
 
         },
         // 获取歌词
+        // 当音乐播放停止时
+        playEnded() {
+            this.isPlay = false
+        },
+        //上一首
+        prev() {
+            console.log('prev')
+        },
+        next() {
+            console.log('next')
+        }
     }
 }
 </script>
@@ -174,5 +186,25 @@ export default {
         justify-content: center;
         gap: 0px 30px;
     }
+    .lyrics {
+    width: calc(100% - 200px);
+    background: #ffffffad;
+    position: absolute;
+    height: 30px;
+    line-height: 30px;
+    right: 0px;
+    top: -32px;
+    z-index: 99;
+    border-top: 1px solid #ccc;
+    overflow: hidden;
+
+    ul {
+        li {
+            text-align: center;
+            font-size: 12px;
+
+        }
+    }
+}
 }
 </style>

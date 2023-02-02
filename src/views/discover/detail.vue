@@ -85,14 +85,14 @@ export default {
         // 获取详情页顶部数据
         getDetail(id) {
             detail(id).then((res) => {
-                console.log('playlist', res.playlist)
+                // console.log('playlist', res.playlist)
                 this.playlist = res.playlist;
             })
         },
         // // 获取歌单所有歌曲
         getPlayTrack() {
             playTrack(this.params).then((res) => {
-                console.log('songsList', res)
+                console.log('songsList', res.songs)
                 this.list = res.songs
             })
         },
@@ -108,7 +108,7 @@ export default {
         // 获取歌单评论
         getComment() {
             commentPlayList(this.params).then((res) => {
-                console.log('reviews', res)
+                // console.log('reviews', res)
                 this.total = res.total
                 this.comment = res.comments
             })
@@ -116,7 +116,7 @@ export default {
         // 歌单收藏者
         getSubscribers() {
             subscribers(this.params).then((res) => {
-                console.log(res.subscribers)
+                // console.log(res.subscribers)
                 this.subscribers = res.subscribers
             })
         },
