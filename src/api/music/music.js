@@ -29,3 +29,11 @@ export function lyric(id) {
         params: { id }
     })
 }
+// 我喜欢的音乐列表(获取喜欢列表ids)
+export function likest(uid) {
+    return request({
+        url: 'likest',
+        method: 'post',
+        params: uid
+    })
+}

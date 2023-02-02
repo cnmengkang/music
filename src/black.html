@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="time">
+        <input type="text" placeholder="请输入时间进行倒计时">
+        <button class="btnTime">提交</button>
+        <p class="text"></p>
+    </div>
+    <script>
+        var time = document.querySelector('.time');
+        var downInput = document.querySelector('input');
+        var btnTime = document.querySelector('.btnTime');
+        var text = document.querySelector('.text');
+        function SetTimeOut(times) {
+            var down = downInput.value
+            console.log(down)
+            var timer = setInterval(() => {
+                down--
+                console.log(down)
+                text.textContent = down
+                if (down == 0) {
+                    clearInterval(timer)
+                }
+            }, 1000)
+        }
+        btnTime.addEventListener('click', SetTimeOut)
+    </script>
+</body>
+
+</html>

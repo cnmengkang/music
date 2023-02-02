@@ -11,15 +11,12 @@
         <div v-if="musicInfo.musicUrl.length != 0" style="width:20%">
             11111111111
         </div>
-        <!-- <lyric></lyric> -->
-        <!-- 歌词组件 -->
     </div>
 </template>
 <script>
 import { mapState } from 'vuex'
 import singer from './components/singer'
 import audioPlay from './components/play'
-// import lyric from './components/lyrics'
 export default {
     name: 'footers',
     components: { singer, audioPlay },

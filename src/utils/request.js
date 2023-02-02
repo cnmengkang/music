@@ -19,7 +19,7 @@ request.interceptors.request.use(config => {
 // 响应拦截器
 request.interceptors.response.use(response => {
     // 成功之后执行的操作
-    console.log('res', response)
+    // console.log('res', response)
     const res = response.data;
     if (res.code == 200) return res;
     if (res.code != 200) {

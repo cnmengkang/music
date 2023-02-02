@@ -17,7 +17,7 @@
                         :alt="item.alg"></el-avatar>
                     <span class="playCount font-12">
                         <i class="el-icon-caret-right"></i>{{ numCount(item.playCount) }}</span>
-                    <el-button @click.stop="getPlayList(item)" size="small" circle
+                    <el-button @click.stop="getPlayList(item.id)" size="small" circle
                         class="iconFont icon-play-red"></el-button>
                 </div>
                 <p class="name">{{ item.name }}</p>
@@ -31,7 +31,8 @@ export default {
     components: {},
     props: {
         playlist: {
-            type: Array
+            type: Array,
+            default:30
         }
     },
     data() {
@@ -39,11 +40,15 @@ export default {
             
         };
     },
+    computed:{
+        
+    },
     mounted() { },
     methods: {
-        // 点击歌单红色播放按钮
-        getPlayList(e) {
-            console.log(e)
+        // 点击播放全部音乐按钮获取当前歌单id
+        getPlayList(id) {
+            console.log(id)
+            this.$store.dispatch('getPlayAll',id)
         },
         getDetail(id) {
             console.log('detail',id)

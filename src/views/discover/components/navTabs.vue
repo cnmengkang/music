@@ -10,7 +10,7 @@
       <el-menu-item index="/discover">个性推荐</el-menu-item>
       <el-menu-item index="/discover/custom-made">专属定制</el-menu-item>
       <el-menu-item index="/discover/playlist">歌单</el-menu-item>
-      <el-menu-item index="/discover/toplist">排行榜</el-menu-item>
+      <!-- <el-menu-item index="/discover/toplist">排行榜</el-menu-item> -->
       <el-menu-item index="5">最新音乐</el-menu-item>
     </el-menu>
   </div>

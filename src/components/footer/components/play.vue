@@ -2,16 +2,16 @@
     <div class="audio">
         <div class="audio-play flex">
             <div class="audio-top plays mb-10">
-                <span title="上一首" class="iconFont icon-prev"></span>
+                <span title="上一首" class="iconFont icon-prev" @click="prev"></span>
                 <span title="暂停" class="play iconFont icon-play" v-if="isPlay" @click="startPlayOrPause"></span>
                 <span title="播放" class="pause iconFont icon-pause" v-else @click="startPlayOrPause"></span>
-                <span title="下一首" class="iconFont icon-next"></span>
+                <span title="下一首" class="iconFont icon-next" @click="next"></span>
             </div>
             <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
                 <span v-if="hide" class="start font-12">{{ formatCurrentTime(currentTime) }}</span>
                 <el-slider class="w-60" v-model="value" :show-tooltip="false" :format-tooltip="formatProcessToolTip"
                     @change="getCurrentTimer" />
-                <span v-if="hide" class="end font-12">{{ parseTime(musicInfo.musicTime, "{i}:{s}") }}</span>
+                <span v-if="hide" class="end font-12">{{ parseTime(musicTime, "{i}:{s}") }}</span>
             </div>
             <!-- 播放暂停按钮 -->
         </div>
@@ -29,20 +29,22 @@
         </div>
         <!-- 音量组件 -->
         <!-- 歌词组件 -->
-        <lyric></lyric>
-        <audio duration @timeupdate="updateCurrentTime" autoplay ref="audio" :src="musicInfo.musicUrl"
-            :type="musicInfo.musicType" @loadedmetadata="loadedmetadata" />
+        <!-- <lyric></lyric> -->
+        <div class="lyrics">
+            <ul ref="lyricUL">
+                <li v-for="(item, i) in lyricsObjArr" :key="item.uid" :data-index="i" ref="lyric">{{ item.lyric }}
+                </li>
+            </ul>
+        </div>
+        <audio duration @timeupdate="updateCurrentTime" autoplay ref="audio" :src="musicUrl" :type="musicType"
+            @loadedmetadata="loadedmetadata" @ended="playEnded" />
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import lyric from './lyrics.vue'
+import { lyric } from '@/api/music/music'
 export default {
-    components: { lyric },
-    props: {
-
-    },
     data() {
         return {
             isPlay: false,
@@ -51,17 +53,37 @@ export default {
             value: 0,  //默认进度条
             volume: 20,  //默认音量
             duration: 0,//总时长
-        };
-    },
-    computed: {
-        ...mapState(['musicInfo']),
-        hide() {
-            return this.currentTime != null
+            lyricsObjArr: []
         }
     },
+    computed: {
+        hide() {
+            return this.currentTime != null
+        },
+        ...mapState({
+            musicTime: state => state.musicInfo.musicTime,
+            musicType: state => state.musicInfo.musicTime,
+            musicUrl: state => state.musicInfo.musicUrl,
+        }),
+
+    },
     mounted() {
-        console.log(this.$store.musicInfo)
         this.$refs.audio.volume = this.volume / 100;
+    },
+    watch: {
+        currentTime() {
+            // 匹配歌词
+            for (let i = 0; i < this.lyricsObjArr.length; i++) {
+                if (this.currentTime > (parseInt(this.lyricsObjArr[i].time))) {
+                    const index = this.$refs.lyric[i].dataset.index
+                    if (i === parseInt(index)) {
+                        // this.lyricIndex = i
+                        this.$refs.lyricUL.style.transform = `translateY(${-(30 * (i + 1))}px)`
+                    }
+                }
+            }
+
+        }
     },
     methods: {
         // 开始
@@ -72,6 +94,7 @@ export default {
         pause() {
             this.$refs.audio.pause();
         },
+        // 点击调用播放与暂停事件
         startPlayOrPause() {
             if (this.currentTime == null) return;
             if (this.isPlay == true) {
@@ -85,11 +108,13 @@ export default {
         },
         // 当音频加载完成会调用此事件
         loadedmetadata(res) {
-            console.log('音频加载完成')
             let duration = parseInt(res.target.duration * 100) / 100;
             // console.log(duration)
             this.duration = duration;
             this.isPlay = true
+            this.lyricsObjArr = []
+            this.getLyric(this.$store.state.musicInfo.singerId)
+            console.log('音频加载完成', res.target.duration)
         },
         // slider进度条事件
         getCurrentTimer(e) {
@@ -97,16 +122,16 @@ export default {
         },
         // audio事件自动更新当前播放时间
         updateCurrentTime(res) {
-            // console.log('当前播放时间', parse)
             let parse = parseInt(res.target.currentTime * 100) / 100;
             this.currentTime = parse;
             this.value = parse / this.duration * 100;
+            // console.log('当前播放时间',parse)
+            // 匹配歌词
         },
         // 
         formatProcessToolTip(res) {
             // return parseInt(his.value / 100 * res)
         },
-
         // 音量控制=============================
         // 控制音量大小
         setSound(e) {
@@ -143,6 +168,54 @@ export default {
 
         },
         // 获取歌词
+        // 当音乐播放停止时
+        playEnded() {
+            this.isPlay = false
+        },
+        //上一首
+        prev() {
+            console.log('prev')
+        },
+        next() {
+            console.log('next')
+        },
+        // ======================歌词显示
+        // // 获取歌曲歌词信息
+        getLyric(id) {
+            const regNewLine = /\n/;
+            const regTime = /\[\d{2}:\d{2}.\d{2,3}\]/;
+            lyric(id).then(res => {
+                let lineArr = res.lrc.lyric.split(regNewLine);
+                lineArr.forEach(item => {
+                    const obj = {}
+                    if (item === '') return
+                    const time = item.match(regTime)
+                    obj.lyric = item.split(']')[1].trim() === '' ? '' : item.split(']')[1].trim()
+                    obj.time = time ? this.formatLyricTime(time[0].slice(1, time[0].length - 1)) : 0
+                    obj.uid = Math.random().toString().slice(-6)
+                    if (obj.lyric === '') {
+                        // console.log('这一行没有歌词')
+                    } else {
+                        this.lyricsObjArr.push(obj)
+                    }
+                })
+                console.log('lyrics', this.lyricsObjArr)
+            })
+        },
+        // 时间转换函数
+        formatLyricTime(time) { // 格式化歌词的时间 转换成 sss:ms
+            const regMin = /.*:/
+            const regSec = /:.*\./
+            const regMs = /\./
+
+            const min = parseInt(time.match(regMin)[0].slice(0, 2))
+            let sec = parseInt(time.match(regSec)[0].slice(1, 3))
+            const ms = time.slice(time.match(regMs).index + 1, time.match(regMs).index + 3)
+            if (min !== 0) {
+                sec += min * 60
+            }
+            return Number(sec + '.' + ms)
+        },
     }
 }
 </script>
@@ -163,6 +236,8 @@ export default {
         }
     }
 
+    .lyrics ul {}
+
     .start,
     .end {
         width: 8%;
@@ -173,6 +248,27 @@ export default {
         display: flex;
         justify-content: center;
         gap: 0px 30px;
+    }
+
+    .lyrics {
+        width: calc(100% - 200px);
+        background: #ffffffad;
+        position: absolute;
+        height: 30px;
+        line-height: 30px;
+        right: 0px;
+        top: -32px;
+        z-index: 99;
+        border-top: 1px solid #ccc;
+        overflow: hidden;
+
+        ul {
+            li {
+                text-align: center;
+                font-size: 12px;
+
+            }
+        }
     }
 }
 </style>

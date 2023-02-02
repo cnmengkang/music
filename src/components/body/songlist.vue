@@ -1,11 +1,15 @@
 <template>
     <!-- list列表组件 -->
     <div class="song-list">
-        <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true" />
-        <el-table highlight-current-row @row-dblclick="getPlayRow($event)" :data="tableDate" :key="tableDate.id" stripe
+        <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true"/>
+        <el-table highlight-current-row @row-dblclick="getPlayRow($event)"  :data="tableDate" :key="tableDate.id" stripe
             style="width: 100%">
-            <el-table-column type="index" :index="indexMethod">
+            <el-table-column label="序号" type="index">
+                <!-- <template slot-scope="scope">
+                    <span>aa{{ scope.row.id }}</span>
+                </template> -->
             </el-table-column>
+
             <el-table-column prop="date" label="操作" width="70">
                 <i class="iconFont icon-love mr-10"></i>
                 <i class="iconFont icon-down"></i>
@@ -41,7 +45,6 @@
 </template>
 
 <script>
-import { lyric } from '@/api/music/music'
 export default {
     props: {
         tableDate: {
@@ -53,29 +56,19 @@ export default {
         }
     },
     methods: {
-        // 序号
-        indexMethod(index) {
-            return index + 1 * 1
-        },
+
         // 点击获取当前音乐信息，并存储到Vuex中
         getPlayRow(event) {
-            console.log('event', event)
+            console.log('event', event.id)
             this.$store.dispatch('getSongInfo', event);
-            // this.getLyric(event.id);
-
+            
         },
         // 获取mv
         getMv(res) {
             console.log('mv', res)
             this.$store.dispatch('videos/getDetailMv', res);
             this.$router.push({ name: 'videoPlay', params: { id: res.id } })
-        },
-        // // 获取歌曲歌词信息
-        // getLyric(id) {
-        //     lyric(id).then(res => {
-        //         console.log(res)
-        //     })
-        // }
+        },  
     }
 };
 </script>
