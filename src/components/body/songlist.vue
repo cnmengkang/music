@@ -1,8 +1,8 @@
 <template>
     <!-- list列表组件 -->
     <div class="song-list">
-        <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true"/>
-        <el-table highlight-current-row @row-dblclick="getPlayRow($event)"  :data="tableDate" :key="tableDate.id" stripe
+        <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true" />
+        <el-table highlight-current-row @row-dblclick="getPlayRow($event)" :data="tableDate" :key="tableDate.id" stripe
             style="width: 100%">
             <el-table-column label="序号" type="index">
                 <!-- <template slot-scope="scope">
@@ -61,16 +61,16 @@ export default {
         getPlayRow(event) {
             console.log('event', event.id)
             this.$store.dispatch('getSongInfo', event);
-            
         },
         // 获取mv
         getMv(res) {
             console.log('mv', res)
             this.$store.dispatch('videos/getDetailMv', res);
             this.$router.push({ name: 'videoPlay', params: { id: res.id } })
-        },  
+        },
+
     }
-};
+}
 </script>
 <style lang="less" scoped>
 .song-list {

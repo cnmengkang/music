@@ -43,12 +43,13 @@ const musicInfo = {
             state.musicTime = musicUrl.time
         },
         SINGER_INFO: (state, singer) => {
-            // console.log('singer', singer)
+            console.log('singer', singer.id)
             state.singerName = singer.name
             state.singerAvatar = singer.al.picUrl
             state.singerAuthor = singer.ar
             state.singerId = singer.id
         },
+
     },
     actions: {
         /*
@@ -72,17 +73,10 @@ const musicInfo = {
         getPlayAll({ commit }, id) {
             console.log('id', id)
             return new Promise((resolve, reject) => {
-                playTrack({id}).then(res => {
+                playTrack({ id }).then(res => {
                     // console.log(res.songs)
                     commit('SONG_LIST', res.songs)
                 })
-            })
-        },
-        getMusicUrl({ commit }, musicUrl) {
-            songUrl(musicList).then(res => {
-                commit('SONG_LIST', res.songs)
-                // console.log(res)
-                
             })
         },
     }

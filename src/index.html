@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <li class="level0 nav-11 level-top ">
     <a href="/new-arrival/" class="level-top">
         <span>NUOVI ARRIVI</span>
@@ -366,3 +367,67 @@
         jQuery(this).siblings(".level-top").css("color", "#000");
     });
 </script>
+=======
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>纯css实现文字循环滚动效果</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 200px;
+            margin: 0 auto;
+            border: 1px solid #ff6700;
+            overflow: hidden;
+        }
+
+        .animate {
+            white-space: nowrap;
+            animation: 10s wordsLoop linear infinite normal;
+        }
+
+        @keyframes wordsLoop {
+            0% {
+                transform: translateX(200px);
+                -webkit-transform: translateX(200px);
+            }
+
+            100% {
+                transform: translateX(-100%);
+                -webkit-transform: translateX(-100%);
+            }
+        }
+
+        @-webkit-keyframes wordsLoop {
+            0% {
+                transform: translateX(200px);
+                -webkit-transform: translateX(200px);
+            }
+
+            100% {
+                transform: translateX(-100%);
+                -webkit-transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <p class="animate">
+            Time to Pretend (伪装时刻)
+        </p>
+    </div>
+</body>
+
+</html>
+>>>>>>> a32c3d8d540c935793d7dd606fd9f5630ffcc5a9

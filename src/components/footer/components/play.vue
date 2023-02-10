@@ -35,6 +35,7 @@
         </div>
         <audio duration @timeupdate="updateCurrentTime" autoplay ref="audio" :src="musicUrl" :type="musicType"
             @loadedmetadata="loadedmetadata" @ended="playEnded" />
+
     </div>
 </template>
 
@@ -42,6 +43,9 @@
 import { mapState } from 'vuex';
 import { lyric } from '@/api/music/music'
 export default {
+    props: {
+
+    },
     data() {
         return {
             isPlay: false,
@@ -75,7 +79,7 @@ export default {
                 const time = this.lyricsObjArr[i].time
                 const lyric = this.lyricsObjArr[i].lyric
                 if (this.currentTime > time) {
-                    if(lyric=='') return;
+                    if (lyric == '') return;
                     this.createLyrics = lyric
                 }
             }
@@ -211,7 +215,6 @@ export default {
             }
             return Number(sec + '.' + ms)
         }
-
     }
 }
 </script>
@@ -244,7 +247,7 @@ export default {
         gap: 0px 30px;
     }
 
-    .lyrics {
+.lyrics {
         width: calc(100% - 200px);
         background: #ffffffad;
         position: absolute;
