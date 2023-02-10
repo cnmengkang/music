@@ -1,3 +1,4 @@
+/* 全局变量（间距，圆角，宽高）*/
 .mt-5 {
   margin-top: 5px;
 }
@@ -183,4 +184,7 @@
 .el-table .title .cell.el-tooltip {
   display: flex;
   align-items: center;
+}
+.user-dropdown {
+  width: 280px;
 }

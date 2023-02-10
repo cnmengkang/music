@@ -1,5 +1,5 @@
 <template>
-    <div class="back mr-10">
+    <div class="back mr-10 ml-30">
         <el-button @click="goBack" plain circle size="mini" type="info" icon="el-icon-arrow-left"></el-button>
         <el-button @click="goForward" plain circle size="mini" type="info" icon="el-icon-arrow-right"></el-button>
     </div>
@@ -14,13 +14,13 @@ export default {
     },
     created() { },
     mounted() { },
-    methods:{
-        goBack(){
-            console.log('back',history.length)
+    methods: {
+        goBack() {
+            // console.log('back', history.length)
             history.back()
         },
-        goForward(){
-            console.log('forward',history.length)
+        goForward() {
+            // console.log('forward', history.length)
             history.forward()
         }
     }

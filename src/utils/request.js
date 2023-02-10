@@ -10,6 +10,11 @@ const request = axios.create({
 request.interceptors.request.use(config => {
     // 发送前处理的程序
     // console.log('config', config)
+    // if (config.method == 'post') {
+    //     console.log('post')
+    // } else {
+    //     console.log('get')
+    // }
     return config
 }, err => {
     // 失败后处理程序

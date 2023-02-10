@@ -38,8 +38,9 @@ export default {
 };
 </script>
 <style lang="less">
-@border:1px solid #ccc;
-@backColor:#fff;
+@border: 1px solid #ccc;
+@backColor: #fff;
+
 #app_index {
   width: 1100px;
   margin: 50px auto;
@@ -49,7 +50,7 @@ export default {
   border-left: @border;
 
   .el-header {
-    background-color:@backColor;
+    background-color: #ccc;
     color: #333;
     border-bottom: @border;
   }

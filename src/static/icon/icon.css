@@ -1,16 +1,29 @@
 @font-face {
-  font-family: "iconFont"; /* Project id 3841370 */
-  src: url('//at.alicdn.com/t/c/font_3841370_il22k3qi0b.woff2?t=1673265676479') format('woff2'),
-       url('//at.alicdn.com/t/c/font_3841370_il22k3qi0b.woff?t=1673265676479') format('woff'),
-       url('//at.alicdn.com/t/c/font_3841370_il22k3qi0b.ttf?t=1673265676479') format('truetype');
+  font-family: "iconFont";
+  /* Project id 3841370 */
+  src: url('//at.alicdn.com/t/c/font_3841370_xqfuqb1jh3.woff2?t=1675822432646') format('woff2'),
+    url('//at.alicdn.com/t/c/font_3841370_xqfuqb1jh3.woff?t=1675822432646') format('woff'),
+    url('//at.alicdn.com/t/c/font_3841370_xqfuqb1jh3.ttf?t=1675822432646') format('truetype');
 }
 
 .iconFont {
   font-family: "iconFont" !important;
-  font-size: 16px;
+  font-size: 18px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-user_revise:before {
+  content: "\e603";
+}
+
+.icon-level:before {
+  content: "\e629";
+}
+
+.icon-logout:before {
+  content: "\e63d";
 }
 
 .icon-title-left:before {
@@ -39,10 +52,6 @@
 
 .icon-love-red:before {
   content: "\e64e";
-}
-
-.icon-play-count:before {
-  content: "\e6cf";
 }
 
 .icon-play-red:before {

@@ -22,7 +22,6 @@ export default {
             searchDefault: '',
             state: '',
             searchHot: [],
-            searchSuggest: ''
         };
     },
     created() { },
@@ -49,33 +48,36 @@ export default {
         },
         handleSelect(item) {
             this.state = item.searchWord
-            console.log(item)
+            this.getSearch(item)
+            console.log('item',item)
         },
         // 点击搜索图标响应逻辑
         handleIconClick(icon) {
             let search = icon == '' ? this.searchDefault : icon;
             console.log('click', search)
             this.getSearch(search)
-
         },
         // 搜索建议
         getSearchSuggest(keywords) {
             searchSuggest(keywords).then(res => {
-                this.searchSuggest = res.result.songs
                 console.log(res.result.songs)
             })
         },
+        // 搜索结果
         getSearch(obj) {
             searchList(obj).then(res => {
                 console.log(res)
             })
         },
+        // 序号
         indexMethods(index) {
             return index * 1
         },
+        // 聚焦
         focus(event) {
             let search = event == '' ? this.searchDefault : event;
             console.log('focus', search)
+            this.getSearch(search)
         }
     }
 };

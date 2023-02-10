@@ -5,7 +5,9 @@
         <div class="videos">
           <div class="video-tabs">
             <el-button @click="show">{{ name?name: '全部视频' }}</el-button>
-            <tabs :tabList="tabList"></tabs>
+            <el-tabs @tab-click="handClickTabs">
+              <el-tab-pane v-for="(item) in tabList" :key="item.id" :label="item.name" :value="item.id"></el-tab-pane>
+            </el-tabs>
           </div>
           <el-card class="box-card" v-if="isShow">
             <div slot="header" class="clearfix">
@@ -95,6 +97,10 @@ export default {
         console.log(res)
       })
     },
+    handClickTabs(id) {
+      console.log(id.$attrs.value)
+      this.getVideoGroup(id.$attrs.value)
+    }
   }
 };
 </script>

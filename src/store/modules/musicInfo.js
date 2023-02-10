@@ -61,7 +61,8 @@ const musicInfo = {
             commit('SINGER_INFO', musicInfo)
             return new Promise((resolve, reject) => {
                 songUrl(id).then((res) => {
-                    console.log('songUrl', res)
+                    const fee = res.data[0].fee
+                    console.log('songUrl', res.data[0].fee)
                     commit('MUSIC_URL', res.data[0])
                     resolve()
                 })

@@ -2,12 +2,13 @@
     <div id="qr">
         <el-card>
             <div class="app-qr">
+                <h3 style="text-align:center">{{ title || '请使用网易手机版扫码登录！' }}</h3>
                 <div class="logo">
-                    <img :src="this.qrCodeImg" />
+                    <img :src="qrCodeImg" />
                 </div>
                 <div id="socialLogin">
                     <el-button icon="el-icon-edit"><router-link to="/login">手机号</router-link></el-button>
-                    <el-button icon="el-icon-edit" @click="getCodeOK">11</el-button>
+                    <el-button icon="el-icon-edit" @click="getLogin">11</el-button>
                 </div>
             </div>
         </el-card>
@@ -23,41 +24,47 @@ export default {
             qr: {
                 key: '',
                 qrimg: true,
-                timerstamp: new Date().getTime()
+                timerStamp: null,
             },
-            timer: null,
+            timer: 10,
+            title: ''
         };
     },
-    mounted() {
-        this.getQrKey();
-        this.timer = setInterval(() => {
-            this.getCodeOK()
-        }, 2000)
+    created() {
+        this.getQrKey()
     },
     methods: {
         // 二维码登陆
-        getQrKey() {
-            qrKey().then((res) => {
-                this.qr.key = res.data.unikey;
-                this.getQrCreate(this.qr)
-            })
+        async getQrKey() {
+            var res = await qrKey();
+            this.qr.key = res.data.unikey
+            const res2 = await qrCreate(this.qr);
+            this.qrCodeImg = res2.data.qrimg
+            this.getCheckCode()
         },
-        // 二维码图片
-        getQrCreate(key) {
-            console.log("key", key)
-            qrCreate(key).then((res) => {
-                this.qrCodeImg = res.data.qrimg
-            })
+        // 检测二维码状态
+        getCheckCode() {
+            const timer = setInterval(() => {
+                this.qr.timerStamp = new Date().getTime();
+                qrCheckCode(this.qr).then((res) => {
+                    const result = res.data
+                    console.log(result)
+                    if (result.code == 803) {
+                        clearInterval(timer)
+                        this.getLogin()
+                        this.$router.push('/')
+                    } else if (result.code == 800) {
+                        // 二维码过期
+                        this.title = result.message
+                        clearInterval(timer)
+                    } else if (result.code = 801) {
+                        this.title = result.message
+                    }
+                })
+            }, 3000)
         },
-        // 
-        getCodeOK() {
-            qrCheckCode(this.qr).then((res) => {
-                console.log(res.data)
-                if (res.data.code == 803) {
-                    clearInterval(this.timer)
-                    this.$router.push('/')
-                }
-            })
+        getLogin() {
+            this.$store.dispatch('LoginStatus');
         }
     },
 }
@@ -106,4 +113,3 @@ export default {
     }
 }
 </style>
-  

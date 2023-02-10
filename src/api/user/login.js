@@ -34,7 +34,7 @@ export function CheckPhone(data) {
         data: data,
     })
 }
-// 扫码登陆
+// 扫码登陆(获取key)
 export function qrKey() {
     return request({
         url: '/login/qr/key',
@@ -44,9 +44,8 @@ export function qrKey() {
 export function qrCreate(key) {
     return request({
         url: '/login/qr/create',
-        method: 'get',
+        method: 'post',
         params: key
-
     })
 }
 // 检测是否扫码成功
@@ -54,7 +53,7 @@ export function qrCheckCode(key) {
     return request({
         url: "/login/qr/check",
         method: 'post',
-        params:key
+        params: key
 
     })
 }

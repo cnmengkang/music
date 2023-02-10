@@ -26,7 +26,21 @@ export function likeList(uid) {
 // 登录状态
 export function loginStatus() {
     return request({
-        url: '/user/account',
+        url: '/login/status',
         method: 'post',
+    })
+}
+// 退出登录
+export function logout() {
+    return request({
+        url: "/logout",
+        method: 'post'
+    })
+}
+// vip信息
+export function vipInfo() {
+    return request({
+        url: "/vip/info",
+        method: 'post'
     })
 }

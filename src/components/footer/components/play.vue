@@ -31,10 +31,7 @@
         <!-- 歌词组件 -->
         <!-- <lyric></lyric> -->
         <div class="lyrics">
-            <ul ref="lyricUL">
-                <li v-for="(item, i) in lyricsObjArr" :key="item.uid" :data-index="i" ref="lyric">{{ item.lyric }}
-                </li>
-            </ul>
+            <p>{{ createLyrics }}</p>
         </div>
         <audio duration @timeupdate="updateCurrentTime" autoplay ref="audio" :src="musicUrl" :type="musicType"
             @loadedmetadata="loadedmetadata" @ended="playEnded" />
@@ -51,9 +48,10 @@ export default {
             isSound: true,
             currentTime: null, //当前时长
             value: 0,  //默认进度条
-            volume: 20,  //默认音量
+            volume: 30,  //默认音量
             duration: 0,//总时长
-            lyricsObjArr: []
+            lyricsObjArr: [],
+            createLyrics: ''
         }
     },
     computed: {
@@ -74,12 +72,11 @@ export default {
         currentTime() {
             // 匹配歌词
             for (let i = 0; i < this.lyricsObjArr.length; i++) {
-                if (this.currentTime > (parseInt(this.lyricsObjArr[i].time))) {
-                    const index = this.$refs.lyric[i].dataset.index
-                    if (i === parseInt(index)) {
-                        // this.lyricIndex = i
-                        this.$refs.lyricUL.style.transform = `translateY(${-(30 * (i + 1))}px)`
-                    }
+                const time = this.lyricsObjArr[i].time
+                const lyric = this.lyricsObjArr[i].lyric
+                if (this.currentTime > time) {
+                    if(lyric=='') return;
+                    this.createLyrics = lyric
                 }
             }
 
@@ -109,12 +106,11 @@ export default {
         // 当音频加载完成会调用此事件
         loadedmetadata(res) {
             let duration = parseInt(res.target.duration * 100) / 100;
-            // console.log(duration)
             this.duration = duration;
             this.isPlay = true
             this.lyricsObjArr = []
             this.getLyric(this.$store.state.musicInfo.singerId)
-            console.log('音频加载完成', res.target.duration)
+            console.log('音频加载完成' + 'duration', duration)
         },
         // slider进度条事件
         getCurrentTimer(e) {
@@ -125,8 +121,7 @@ export default {
             let parse = parseInt(res.target.currentTime * 100) / 100;
             this.currentTime = parse;
             this.value = parse / this.duration * 100;
-            // console.log('当前播放时间',parse)
-            // 匹配歌词
+            // console.log('当前播放时间', parse)
         },
         // 
         formatProcessToolTip(res) {
@@ -182,27 +177,27 @@ export default {
         // ======================歌词显示
         // // 获取歌曲歌词信息
         getLyric(id) {
-            const regNewLine = /\n/;
-            const regTime = /\[\d{2}:\d{2}.\d{2,3}\]/;
             lyric(id).then(res => {
-                let lineArr = res.lrc.lyric.split(regNewLine);
-                lineArr.forEach(item => {
-                    const obj = {}
-                    if (item === '') return
-                    const time = item.match(regTime)
-                    obj.lyric = item.split(']')[1].trim() === '' ? '' : item.split(']')[1].trim()
-                    obj.time = time ? this.formatLyricTime(time[0].slice(1, time[0].length - 1)) : 0
-                    obj.uid = Math.random().toString().slice(-6)
-                    if (obj.lyric === '') {
-                        // console.log('这一行没有歌词')
-                    } else {
-                        this.lyricsObjArr.push(obj)
-                    }
-                })
-                console.log('lyrics', this.lyricsObjArr)
+                const lyricList = res.lrc.lyric;
+                this.formLyricTime(lyricList)
             })
         },
-        // 时间转换函数
+
+        formLyricTime(lyric) {
+            const regNewLine = /\n/;
+            const lineArr = lyric.split(regNewLine);
+            const regTime = /\[\d{2}:\d{2}.\d{2,3}\]/;
+            lineArr.forEach(item => {
+                if (item === '') return
+                const obj = {}
+                const time = item.match(regTime)
+                obj.lyric = item.split(']')[1].trim() === '' ? '' : item.split(']')[1].trim();
+                obj.time = time ? this.formatLyricTime(time[0].slice(1, time[0].length - 1)) : 0;
+                obj.uid = Math.random().toString().slice(-6);
+                this.lyricsObjArr.push(obj);
+            })
+            // console.log(this.lyricsObjArr)
+        },
         formatLyricTime(time) { // 格式化歌词的时间 转换成 sss:ms
             const regMin = /.*:/
             const regSec = /:.*\./
@@ -215,7 +210,8 @@ export default {
                 sec += min * 60
             }
             return Number(sec + '.' + ms)
-        },
+        }
+
     }
 }
 </script>
@@ -235,8 +231,6 @@ export default {
             }
         }
     }
-
-    .lyrics ul {}
 
     .start,
     .end {
@@ -262,12 +256,11 @@ export default {
         border-top: 1px solid #ccc;
         overflow: hidden;
 
-        ul {
-            li {
-                text-align: center;
-                font-size: 12px;
+        p {
+            text-align: center;
+            font-size: 12px;
+            line-height: 30px;
 
-            }
         }
     }
 }

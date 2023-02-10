@@ -1,5 +1,5 @@
 import { login } from '@/api/user/login';
-import { userDetail } from "@/api/user/user"
+import { loginStatus } from "@/api/user/user"
 import { getToken, setToken } from '@/utils/auth'
 
 
@@ -9,10 +9,9 @@ const user = {
         token: getToken(),
         phone: '',
         password: '',
-        uid: 345288322, //用户id
-        avatarUrl: '',  //头像
+        uid: '', //用户id
+        userInfo: ''
     },
-
     getters: {
 
     },
@@ -21,14 +20,9 @@ const user = {
         SET_TOKEN: (state, token) => {
             state.token = token;
         },
-        // 用户名字
-        SET_NAME: (state, name) => {
-            state.nickname = name
-        },
-        // 头像avatarUrl
-        SET_AVATAR: (state, avatar) => {
-            state.avatarUrl = avatar
-        },
+        SET_USER_STATUS(state, loginStatus) {
+            state.userInfo = loginStatus;
+        }
 
     },
     actions: {
@@ -48,11 +42,14 @@ const user = {
                 });
             })
         },
-        // 获取用户信息
-        getUserInfo({ commit, state }) {
+        // 登录状态
+        LoginStatus({ commit, state }) {
             return new Promise((resolve, reject) => {
-                userDetail(state.uid).then((res) => {
-                    console.log(res)
+                loginStatus().then((res) => {
+                    const result = res.data
+                    if (result.data.code != 200) return;
+                    const uid = localStorage.setItem('uid', result.data.account.id)
+                    
                     resolve()
                 }).catch(err => {
                     reject(err)
