@@ -1,5 +1,5 @@
 <template>
-    <div class="video-mv">
+    <div class="video">
         <div class="" v-if="url.length != 0">
             <h2><i class="iconFont icon-title-left"></i>MV详情</h2>
             <div class="video">

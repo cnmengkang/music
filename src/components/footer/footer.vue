@@ -9,7 +9,7 @@
             <audio-play></audio-play>
         </div>
         <div v-if="musicInfo.musicUrl.length != 0" style="width:20%">
-            11111111111
+            
         </div>
     </div>
 </template>
@@ -47,7 +47,6 @@ export default {
     .footer-singer {
         width: 20%
     }
-
     .footer-audio {
         width: 60%;
         display: flex;

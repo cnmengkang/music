@@ -38,7 +38,6 @@ export default {
   mounted() {
     this.getBanner()
     this.getPersonalized();
-
   },
   methods: {
     // banner

@@ -11,6 +11,12 @@
 .mt-20 {
   margin-top: 20px;
 }
+.mt-25 {
+  margin-top: 25px;
+}
+.mt-30 {
+  margin-top: 30px;
+}
 /* margin-right:0 5 10 15 20 */
 .mr-5 {
   margin-right: 5px;
@@ -39,6 +45,9 @@
 }
 .mb-20 {
   margin-bottom: 20px;
+}
+.mb-50 {
+  margin-bottom: 50px;
 }
 /* margin-left:0 5 10 15 */
 .ml-5 {
@@ -187,4 +196,11 @@
 }
 .user-dropdown {
   width: 280px;
+}
+.text-center {
+  text-align: center;
+}
+.el-table .current-play {
+  color: red;
+  font-weight: bold;
 }

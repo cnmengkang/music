@@ -19,6 +19,8 @@ const musicInfo = {
         singerAvatar: '',
         // 歌曲列表
         songList: '',
+        total:'',
+        searchList:[]
     },
     mutations: {
         // 歌手姓名
@@ -43,12 +45,20 @@ const musicInfo = {
             state.musicTime = musicUrl.time
         },
         SINGER_INFO: (state, singer) => {
-            console.log('singer', singer.id)
+            console.log('singer', singer)
             state.singerName = singer.name
             state.singerAvatar = singer.al.picUrl
             state.singerAuthor = singer.ar
             state.singerId = singer.id
         },
+        SEARCH_LIST:(state,list)=>{
+            state.total = list.total
+            state.searchList = list.songs
+        },
+        // 全部播放按钮数据
+        SONG_LIST:(state,list)=>{
+            console.log('全部播放按钮数据',list)
+        }
 
     },
     actions: {
@@ -62,10 +72,10 @@ const musicInfo = {
             commit('SINGER_INFO', musicInfo)
             return new Promise((resolve, reject) => {
                 songUrl(id).then((res) => {
-                    const fee = res.data[0].fee
-                    console.log('songUrl', res.data[0].fee)
                     commit('MUSIC_URL', res.data[0])
                     resolve()
+                }).catch(err=>{
+                    console.log(err)
                 })
             })
         },
@@ -74,7 +84,6 @@ const musicInfo = {
             console.log('id', id)
             return new Promise((resolve, reject) => {
                 playTrack({ id }).then(res => {
-                    // console.log(res.songs)
                     commit('SONG_LIST', res.songs)
                 })
             })

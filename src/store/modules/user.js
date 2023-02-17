@@ -2,8 +2,6 @@ import { login } from '@/api/user/login';
 import { loginStatus } from "@/api/user/user"
 import { getToken, setToken } from '@/utils/auth'
 
-
-
 const user = {
     state: {
         token: getToken(),
@@ -13,7 +11,7 @@ const user = {
         userInfo: ''
     },
     getters: {
-
+        
     },
     mutations: {
         // token
@@ -23,7 +21,6 @@ const user = {
         SET_USER_STATUS(state, loginStatus) {
             state.userInfo = loginStatus;
         }
-
     },
     actions: {
         // 登录
@@ -37,9 +34,7 @@ const user = {
                     setToken(res.token)
                     commit('SET_TOKEN', res.token)
                     resolve()
-                }).catch((err) => {
-                    reject(err)
-                });
+                })
             })
         },
         // 登录状态
@@ -49,15 +44,10 @@ const user = {
                     const result = res.data
                     if (result.data.code != 200) return;
                     const uid = localStorage.setItem('uid', result.data.account.id)
-                    
                     resolve()
-                }).catch(err => {
-                    reject(err)
                 })
-
             })
         },
-
     }
 }
 export default user

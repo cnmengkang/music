@@ -32,7 +32,7 @@ export default {
     props: {
         playlist: {
             type: Array,
-            default:30
+            default:50
         }
     },
     data() {
@@ -47,7 +47,6 @@ export default {
     methods: {
         // 点击播放全部音乐按钮获取当前歌单id
         getPlayList(id) {
-            console.log(id)
             this.$store.dispatch('getPlayAll',id)
         },
         getDetail(id) {

@@ -25,6 +25,7 @@ export default {
 <style lang="less" scoped>
 .header {
   height: 60px;
+
   .header-logo {
     width: 180px;
     height: 60px;

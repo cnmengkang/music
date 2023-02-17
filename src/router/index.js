@@ -41,7 +41,7 @@ const routes = [
             name: 'topList',
             component: () => import('@/views/discover/topList/')
             // 排行榜
-          }
+          },
         ]
       },
       {
@@ -54,7 +54,6 @@ const routes = [
         path: 'daysong',
         name: 'daysong',
         component: () => import("@/views/discover/daysong"),
-        meta: { keepAlive: true }
         // 每日歌曲推荐
       },
       // 发现音乐
@@ -93,11 +92,17 @@ const routes = [
         component: () => import('@/views/like-music'),
         name: 'like-music'
       },
+      {
+        path: 'search',
+        component: () => import("@/views/search"),
+        name: 'search',
+        // 
+      },
     ]
   },
   {
     path: '/video',
-    component: Layout,
+    component: dashboard,
     redirect: '/dashboard',
     children: [
       {
@@ -145,4 +150,13 @@ const router = new VueRouter({
 //     }
 //   }
 // })
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+ 
+const originalReplace = VueRouter.prototype.replace
+VueRouter.prototype.replace = function replace (location) {
+  return originalReplace.call(this, location).catch(err => err)
+}
 export default router;

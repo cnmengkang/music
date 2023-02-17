@@ -1,19 +1,20 @@
 <template>
     <div class="search">
-        <el-autocomplete @focus="focus(state)" popper-class="my-autocomplete" v-model.trim="state"
-            :fetch-suggestions="querySearch" :placeholder="searchDefault" @select="handleSelect">
-            <i class="el-icon-search el-input__icon" slot="prefix" @click="handleIconClick(state)">
-            </i>
+        <el-autocomplete class="autoWidth" placement="bottom" @focus="focus(state)" popper-class="my-autocomplete"
+            v-model.trim="state" :fetch-suggestions="querySearch" size="small" :placeholder="searchDefault"
+            @select="handleSelect" @keyup.enter.native="handleIconClick(state)">
             <template slot-scope="{ item }">
-                <p class="name">{{ item.searchWord }}</p>
-                <span class="addr">{{ item.content }}</span>
+                <div class="item-content">
+                    <p class="name">{{ item.searchWord }}</p>
+                    <span class="addr">{{ item.content }}</span>
+                </div>
             </template>
+            <i slot="suffix" class="el-icon-search el-input__icon" @click="handleIconClick(state)"></i>
         </el-autocomplete>
     </div>
 </template>
-
 <script>
-import { searchDefault, searchHot, searchSuggest, searchList } from '@/api/search/search'
+import { searchDefault, searchHot, searchSuggest } from '@/api/search/search';
 export default {
     components: {},
     props: {},
@@ -22,6 +23,11 @@ export default {
             searchDefault: '',
             state: '',
             searchHot: [],
+            result: false,
+            params: {
+                limit: 50,
+                keywords: ''
+            }
         };
     },
     created() { },
@@ -29,11 +35,18 @@ export default {
         this.getSearchDefault();
         this.getSearchHot();
     },
+    computed: {
+        // 序号
+        indexMethods(index = 0) {
+            return index * 1
+        },
+    },
     methods: {
         // 默认搜索内容
         getSearchDefault() {
             searchDefault().then(res => {
-                this.searchDefault = res.data.showKeyword
+                console.log(res.data)
+                this.searchDefault = res.data.styleKeyword.keyWord
             })
         },
         // 获取搜索列表详情
@@ -42,47 +55,54 @@ export default {
                 this.searchHot = res.data
             })
         },
+        // 
         querySearch(queryString, cb) {
             cb(this.searchHot)
 
         },
+        // 点击下拉框内容触发函数
         handleSelect(item) {
             this.state = item.searchWord
-            this.getSearch(item)
-            console.log('item',item)
+            this.params.keywords = item.searchWord
+            this.getSearch()
         },
         // 点击搜索图标响应逻辑
         handleIconClick(icon) {
             let search = icon == '' ? this.searchDefault : icon;
-            console.log('click', search)
-            this.getSearch(search)
+            this.state = search
+            this.params.keywords = search;
+            this.getSearch()
         },
         // 搜索建议
         getSearchSuggest(keywords) {
             searchSuggest(keywords).then(res => {
-                console.log(res.result.songs)
+                console.log('建议', res)
             })
         },
         // 搜索结果
-        getSearch(obj) {
-            searchList(obj).then(res => {
-                console.log(res)
-            })
-        },
-        // 序号
-        indexMethods(index) {
-            return index * 1
+        getSearch() {
+            if (this.params == '') return;
+            this.$store.dispatch('search/getResult', this.params);
+            this.$router.push('/search')
         },
         // 聚焦
         focus(event) {
             let search = event == '' ? this.searchDefault : event;
             console.log('focus', search)
-            this.getSearch(search)
-        }
+        },
+        // // input值改变时触发
+        // SetInput(event) {
+        //     this.getSearchSuggest(event)
+        //     console.log(event)
+        // }
     }
 };
 </script>
 <style lang="less" scoped>
+.autoWidth {
+    width: 250px;
+}
+
 .my-autocomplete {
     li {
         .name {
@@ -98,6 +118,10 @@ export default {
         .highlighted .addr {
             color: #ddd;
         }
+    }
+
+    i {
+        cursor: pointer;
     }
 
 }

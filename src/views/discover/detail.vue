@@ -60,7 +60,7 @@ export default {
             playlist: {},
             params: {
                 id: this.$route.params.id,
-                limit: 30,
+                limit: '',
             },
             activeName: 'song',
             list: [],
@@ -92,7 +92,7 @@ export default {
         // // 获取歌单所有歌曲
         getPlayTrack() {
             playTrack(this.params).then((res) => {
-                console.log('songsList', res.songs)
+                console.log('songsList', res)
                 this.list = res.songs
             })
         },

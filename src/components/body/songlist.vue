@@ -2,17 +2,14 @@
     <!-- list列表组件 -->
     <div class="song-list">
         <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true" />
-        <el-table highlight-current-row @row-dblclick="getPlayRow($event)" :data="tableDate" :key="tableDate.id" stripe
-            style="width: 100%">
-            <el-table-column label="序号" type="index">
-                <!-- <template slot-scope="scope">
-                    <span>aa{{ scope.row.id }}</span>
-                </template> -->
-            </el-table-column>
-
-            <el-table-column prop="date" label="操作" width="70">
-                <i class="iconFont icon-love mr-10"></i>
-                <i class="iconFont icon-down"></i>
+        <el-table highlight-current-row @row-dblclick="getPlayRow" :data="tableDate" :current-row-key="tableDate.id"
+            :row-class-name="tableRowClassName" stripe>
+            <el-table-column label="序号" type="index" :index="indexMethod"> </el-table-column>
+            <el-table-column label="操作" width="70">
+                <template slot-scope="scope">
+                    <i class="iconFont icon-love mr-10"></i>
+                    <i class="iconFont icon-down " @click="downloadMusic(scope.row)"></i>
+                </template>
             </el-table-column>
             <el-table-column show-overflow-tooltip label="标题" width="350" class-name="title">
                 <template slot-scope="scope">
@@ -45,6 +42,7 @@
 </template>
 
 <script>
+import { songUrl } from '@/api/music/music'
 export default {
     props: {
         tableDate: {
@@ -53,14 +51,18 @@ export default {
     },
     data() {
         return {
+            CurrentRow: 0,
         }
     },
-    methods: {
+    computed: {
 
+    },
+    methods: {
         // 点击获取当前音乐信息，并存储到Vuex中
-        getPlayRow(event) {
-            console.log('event', event.id)
-            this.$store.dispatch('getSongInfo', event);
+        getPlayRow(row) {
+            this.CurrentRow = row.index
+            console.log('CurrentRow', this.CurrentRow)
+            this.$store.dispatch('getSongInfo', row);
         },
         // 获取mv
         getMv(res) {
@@ -68,7 +70,27 @@ export default {
             this.$store.dispatch('videos/getDetailMv', res);
             this.$router.push({ name: 'videoPlay', params: { id: res.id } })
         },
+        indexMethod(index = 1) {
+            return index * 1 + 1;
+        },
+        // 给每一行添加index
+        tableRowClassName({ row, rowIndex }) {
+            row.index = rowIndex + 1;
+            if (this.CurrentRow == rowIndex + 1) {
+                return 'current-play'
+            }
+        },
+        downloadMusic(row) {
+            console.log('download', row)
+            songUrl(row.id).then(res => {
+                const blob = new Blob([res.data])
+                const link = document.createElement('a')
+                link.href = window.URL.createObjectURL(blob)
+                link.download = res.data[0].url // 设置下载文件名
+                link.click() // 触发下载操作
+            })
 
+        }
     }
 }
 </script>
@@ -83,6 +105,8 @@ export default {
         color: #a39c9c;
     }
 
-
+    .hot {
+        background: red;
+    }
 }
 </style>

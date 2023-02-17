@@ -30,10 +30,10 @@ export function searchSuggest(keywords) {
     })
 }
 // 搜索建议
-export function searchList(keywords) {
+export function searchList(data) {
     return request({
         url: '/cloudsearch',
         method: 'post',
-        params: {keywords}
+        params: data
     })
 }

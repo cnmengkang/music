@@ -8,10 +8,10 @@
                 <span title="下一首" class="iconFont icon-next" @click="next"></span>
             </div>
             <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
-                <span v-if="hide" class="start font-12">{{ formatCurrentTime(currentTime) }}</span>
-                <el-slider class="w-60" v-model="value" :show-tooltip="false" :format-tooltip="formatProcessToolTip"
-                    @change="getCurrentTimer" />
-                <span v-if="hide" class="end font-12">{{ parseTime(musicTime, "{i}:{s}") }}</span>
+                <span v-if="hide" class="start font-14">{{ formatCurrentTime(currentTime) }}</span>
+                <el-slider class="w-60" v-model="sliderTime" :show-tooltip="false"
+                    :format-tooltip="formatProcessToolTip" @change="changeCurrenTime" />
+                <span v-if="hide" class="end font-14">{{ parseTime(musicTime, "{i}:{s}") }}</span>
             </div>
             <!-- 播放暂停按钮 -->
         </div>
@@ -35,11 +35,23 @@
         </div>
         <audio duration @timeupdate="updateCurrentTime" autoplay ref="audio" :src="musicUrl" :type="musicType"
             @loadedmetadata="loadedmetadata" @ended="playEnded" />
-
     </div>
 </template>
 
 <script>
+function realFormatSecond(second) {
+    var secondType = typeof second
+    if (secondType === 'number' || secondType === 'string') {
+        second = parseInt(second)
+        var hours = Math.floor(second / 3600)
+        second = second - hours * 3600
+        var mimute = Math.floor(second / 60)
+        second = second - mimute * 60
+        return hours + ':' + ('0' + mimute).slice(-2) + ':' + ('0' + second).slice(-2)
+    } else {
+        return '00:00'
+    }
+}
 import { mapState } from 'vuex';
 import { lyric } from '@/api/music/music'
 export default {
@@ -50,12 +62,13 @@ export default {
         return {
             isPlay: false,
             isSound: true,
-            currentTime: null, //当前时长
-            value: 0,  //默认进度条
+            currentTime: 0, //当前时长
+            sliderTime: 0,  //默认进度条
             volume: 30,  //默认音量
             duration: 0,//总时长
             lyricsObjArr: [],
-            createLyrics: ''
+            createLyrics: '',
+            maxTime: 0
         }
     },
     computed: {
@@ -66,6 +79,7 @@ export default {
             musicTime: state => state.musicInfo.musicTime,
             musicType: state => state.musicInfo.musicTime,
             musicUrl: state => state.musicInfo.musicUrl,
+            singerName: state => state.musicInfo.singerName
         }),
 
     },
@@ -83,38 +97,27 @@ export default {
                     this.createLyrics = lyric
                 }
             }
-
         }
     },
     methods: {
-        // 开始
-        play() {
-            this.$refs.audio.play();
-        },
-        // 暂停
-        pause() {
-            this.$refs.audio.pause();
-        },
         // 点击调用播放与暂停事件
         startPlayOrPause() {
             if (this.currentTime == null) return;
             if (this.isPlay == true) {
-                this.pause()
+                this.$refs.audio.pause();
                 this.isPlay = false
             } else {
                 this.isPlay = true
-                this.play()
-
+                this.$refs.audio.play();
             }
         },
         // 当音频加载完成会调用此事件
         loadedmetadata(res) {
-            let duration = parseInt(res.target.duration * 100) / 100;
-            this.duration = duration;
+            console.log('音频加载完成')
+            this.maxTime = res.target.duration;
             this.isPlay = true
             this.lyricsObjArr = []
             this.getLyric(this.$store.state.musicInfo.singerId)
-            console.log('音频加载完成' + 'duration', duration)
         },
         // slider进度条事件
         getCurrentTimer(e) {
@@ -122,38 +125,41 @@ export default {
         },
         // audio事件自动更新当前播放时间
         updateCurrentTime(res) {
-            let parse = parseInt(res.target.currentTime * 100) / 100;
-            this.currentTime = parse;
-            this.value = parse / this.duration * 100;
-            // console.log('当前播放时间', parse)
+            this.currentTime = parseInt(res.target.currentTime);
+            this.sliderTime = parseInt(this.currentTime / this.maxTime * 100);
         },
         // 
-        formatProcessToolTip(res) {
-            // return parseInt(his.value / 100 * res)
+        formatProcessToolTip(index = 0) {
+            index = parseInt(this.maxTime / 100 * index)
+            return realFormatSecond(index)
         },
         // 音量控制=============================
         // 控制音量大小
         setSound(e) {
-            // console.log('点击音量', this.volume)
             if (e != true) {
+                localStorage.setItem('volume', this.volume);
                 this.$refs.audio.volume = 0;
                 this.volume = 0;
                 this.isSound = false
             }
             else {
+                const val = Number(localStorage.getItem('volume'));
+                console.log(val)
                 this.isSound = true;
-                this.volume = 30;
-                this.$refs.audio.volume = 0.5;
+                this.volume = val;
+                this.$refs.audio.volume = val / 100;
             }
         },
-        // 音量条
+        // 音量条toolTip
         formatTooltip(val) {
             return val;
-
+        },
+        // 播放跳转
+        changeCurrenTime(index) {
+            this.currentTime = parseInt(index / 100 * this.maxTime)
         },
         // 手动改变音量
-        changeVolume(val) {
-            // console.log('volume', val)
+        changeVolume(val = 0) {
             if (val == 0) {
                 this.$refs.audio.volume = 0;
                 this.volume = 0;
@@ -162,9 +168,7 @@ export default {
                 this.$refs.audio.volume = val / 100;
                 this.volume = val
                 this.isSound = true
-
             }
-
         },
         // 获取歌词
         // 当音乐播放停止时
@@ -186,7 +190,7 @@ export default {
                 this.formLyricTime(lyricList)
             })
         },
-
+        //歌词格式化
         formLyricTime(lyric) {
             const regNewLine = /\n/;
             const lineArr = lyric.split(regNewLine);
@@ -202,11 +206,11 @@ export default {
             })
             // console.log(this.lyricsObjArr)
         },
+        // 歌词时间格式化
         formatLyricTime(time) { // 格式化歌词的时间 转换成 sss:ms
             const regMin = /.*:/
             const regSec = /:.*\./
             const regMs = /\./
-
             const min = parseInt(time.match(regMin)[0].slice(0, 2))
             let sec = parseInt(time.match(regSec)[0].slice(1, 3))
             const ms = time.slice(time.match(regMs).index + 1, time.match(regMs).index + 3)
@@ -214,8 +218,14 @@ export default {
                 sec += min * 60
             }
             return Number(sec + '.' + ms)
+        },
+    },
+    filters: {
+        formatSecond(second = 0) {
+            return realFormatSecond(second)
         }
     }
+
 }
 </script>
 <style lang="less" scoped>
@@ -237,7 +247,7 @@ export default {
 
     .start,
     .end {
-        width: 8%;
+        width: 10%;
         text-align: center;
     }
 
@@ -247,7 +257,7 @@ export default {
         gap: 0px 30px;
     }
 
-.lyrics {
+    .lyrics {
         width: calc(100% - 200px);
         background: #ffffffad;
         position: absolute;
