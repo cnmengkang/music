@@ -33,7 +33,7 @@
         <div class="lyrics">
             <p>{{ createLyrics }}</p>
         </div>
-        <audio duration @timeupdate="updateCurrentTime" autoplay ref="audio" :src="musicUrl" :type="musicType"
+        <audio duration  @timeupdate="updateCurrentTime" autoplay ref="audio" :src="musicUrl" :type="musicType"
             @loadedmetadata="loadedmetadata" @ended="playEnded" />
     </div>
 </template>
@@ -173,7 +173,8 @@ export default {
         // 获取歌词
         // 当音乐播放停止时
         playEnded() {
-            this.isPlay = false
+            this.isPlay = false;
+            console.log('播放结束')
         },
         //上一首
         prev() {

@@ -4,7 +4,7 @@
       <el-tab-pane label="视频" name="video">
         <div class="videos">
           <div class="video-tabs">
-            <el-button @click="show">{{ name?name: '全部视频' }}</el-button>
+            <el-button @click="show">{{ name ? name : '全部视频' }}</el-button>
             <el-tabs @tab-click="handClickTabs">
               <el-tab-pane v-for="(item) in tabList" :key="item.id" :label="item.name" :value="item.id"></el-tab-pane>
             </el-tabs>
@@ -29,9 +29,10 @@
         <video-mv />
       </el-tab-pane>
     </el-tabs>
-  </div>
+</div>
 </template>
 <script>
+
 import { videoList, videoCategory, videoGroup } from '@/api/video/video';
 import tabs from '@/components/body/tabs'
 import videoGrid from '@/components/body/videogrid'

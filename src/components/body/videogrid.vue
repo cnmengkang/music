@@ -1,7 +1,7 @@
 <template>
     <div class="video-grid mt-20">
         <div class="wrapper" v-if="videoGroups.length != 0">
-            <div class="cover border-r-5" v-for="item in videoGroups" :key="item.data.vid" v-infinite-scroll="load"
+            <div class="cover border-r-5" v-for="item in videoGroups" :key="item.data.vid" 
                 @click="getVideoDetail(item)">
                 <el-image class="border-r-5 wh" :src="item.data.coverUrl" lazy />
                 <span class="playCount"><i class="iconFont icon-play-count font-12 mr-5"></i>{{
@@ -43,10 +43,6 @@ export default {
         getDetailAuthor(res) {
             console.log(res.data.creator)
         },
-        load(){
-            console.log(1)
-        }
-
     },
     computed: {},
 };
@@ -58,6 +54,10 @@ export default {
         flex-wrap: wrap;
         justify-content: flex-start;
         gap: 15px;
+        .creator-nickname{
+            font-size: 12px;
+            color:#ccc;
+        }
     }
 
 

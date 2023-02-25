@@ -46,7 +46,7 @@ export default {
         getSearchDefault() {
             searchDefault().then(res => {
                 console.log(res.data)
-                this.searchDefault = res.data.styleKeyword.keyWord
+                this.searchDefault = res.data.showKeyword
             })
         },
         // 获取搜索列表详情

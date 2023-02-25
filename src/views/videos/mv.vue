@@ -1,6 +1,7 @@
 <template>
     <div class="video-mv">
         mv
+        <video-grid :videoGroups="videoGroups"></video-grid>
     </div>
 </template>
 

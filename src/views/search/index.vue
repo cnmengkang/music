@@ -4,7 +4,7 @@
             <h2 class="h2">搜索 "{{ title}}"</h2>
         </div>
         <div class="result-tabs">
-            tabs
+            tabs{{ total }}
         </div>
         <div class="result-list">
             <!-- list列表组件 -->
