@@ -47,4 +47,12 @@ export function videoUrl(id) {
         params: { id }
     })
 }
+// 获取全部视频列表
+export function videoAll(offset) {
+    return request({
+        url: "/video/timeline/all",
+        method: 'post',
+        params: { offset }
+    })
+}
 

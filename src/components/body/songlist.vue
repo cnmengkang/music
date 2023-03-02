@@ -7,8 +7,9 @@
             <el-table-column label="序号" type="index" :index="indexMethod"> </el-table-column>
             <el-table-column label="操作" width="70">
                 <template slot-scope="scope">
-                    <i class="iconFont icon-love mr-10"></i>
-                    <i class="iconFont icon-down " @click="downloadMusic(scope.row)"></i>
+                    <i :class="!active ? 'iconFont icon-love' : 'iconFont icon-love-red'" :index="indexMethod"
+                        @click="getLike(scope.row)"></i>
+                    <i class="iconFont icon-down ml-10" @click="downloadMusic(scope.row)"></i>
                 </template>
             </el-table-column>
             <el-table-column show-overflow-tooltip label="标题" width="350" class-name="title">
@@ -42,7 +43,7 @@
 </template>
 
 <script>
-import { songUrl } from '@/api/music/music'
+import { songUrl, like } from '@/api/music/music'
 export default {
     props: {
         tableDate: {
@@ -52,6 +53,7 @@ export default {
     data() {
         return {
             CurrentRow: 0,
+            active: false
         }
     },
     computed: {
@@ -80,6 +82,7 @@ export default {
                 return 'current-play'
             }
         },
+        // 下载
         downloadMusic(row) {
             console.log('download', row)
             songUrl(row.id).then(res => {
@@ -90,7 +93,17 @@ export default {
                 link.click() // 触发下载操作
             })
 
+        },
+        // 喜欢音乐
+        getLike(row) {
+            console.log(row)
+            like(row.id).then(res => {
+                if (res.code == 200) {
+                    this.active = !this.active
+                }
+            })
         }
+
     }
 }
 </script>
@@ -103,6 +116,10 @@ export default {
     .name-tips {
         font-size: 12px;
         color: #a39c9c;
+    }
+
+    .icon-love-red {
+        color: red;
     }
 
     .hot {

@@ -37,3 +37,11 @@ export function likest(uid) {
         params: uid
     })
 }
+// 喜欢音乐
+export function like(id) {
+    return request({
+        url: '/like',
+        method: 'post',
+        params: {id}
+    })
+}

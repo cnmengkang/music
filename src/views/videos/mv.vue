@@ -1,15 +1,16 @@
 <template>
     <div class="video-mv">
         mv
-        <video-grid :videoGroups="videoGroups"></video-grid>
+        {{ videoMvList }}
+        <video-grid :videoGroups="videoMvList"></video-grid>
     </div>
 </template>
 
 <script>
-import { videoMv } from '@/api/video/mv';
-
+import { videoMv } from '@/api/video/mv'
+import videoGrid from '@/components/body/videogrid'
 export default {
-    components: {  },
+    components: { videoGrid },
     props: {},
     data() {
         return {
@@ -22,22 +23,21 @@ export default {
             videoMvList: []
         };
     },
-    created() { },
-    mounted() {
+    created() {
         this.getVideoMv()
+    },
+    mounted() {
     },
     methods: {
         // 获取mv信息
         getVideoMv() {
             videoMv(this.params).then(res => {
+                console.log('mv', res)
                 this.videoMvList = res.data
-                console.log('mv', res.data)
             })
         }
     },
     computed: {},
 };
 </script>
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

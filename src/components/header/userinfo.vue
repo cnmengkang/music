@@ -42,9 +42,9 @@ export default {
             vipInfo: ''
         };
     },
-    computed:{
-        user(){
-            return this.user.length!=0;
+    computed: {
+        user() {
+            return this.user.length != 0;
         }
     },
     mounted() {
@@ -82,6 +82,14 @@ export default {
             if (!localStorage.getItem('uid')) {
                 this.show = false;
                 console.log('去登陆')
+                this.$confirm('登录享受更多资源, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+
+                    this.$router.push('/qrCode')
+                })
             } else {
                 this.show = true;
                 console.log('已登录')

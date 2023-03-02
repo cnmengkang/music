@@ -64,7 +64,7 @@ export default {
             isSound: true,
             currentTime: 0, //当前时长
             sliderTime: 0,  //默认进度条
-            volume: 30,  //默认音量
+            volume: 20,  //默认音量
             duration: 0,//总时长
             lyricsObjArr: [],
             createLyrics: '',
@@ -73,7 +73,7 @@ export default {
     },
     computed: {
         hide() {
-            return this.currentTime != null
+            return this.currentTime != 0
         },
         ...mapState({
             musicTime: state => state.musicInfo.musicTime,
@@ -102,7 +102,8 @@ export default {
     methods: {
         // 点击调用播放与暂停事件
         startPlayOrPause() {
-            if (this.currentTime == null) return;
+            console.log(this.currentTime)
+            if (this.currentTime == 0) return;
             if (this.isPlay == true) {
                 this.$refs.audio.pause();
                 this.isPlay = false
@@ -193,6 +194,7 @@ export default {
         },
         //歌词格式化
         formLyricTime(lyric) {
+            // console.log(lyric)
             const regNewLine = /\n/;
             const lineArr = lyric.split(regNewLine);
             const regTime = /\[\d{2}:\d{2}.\d{2,3}\]/;
