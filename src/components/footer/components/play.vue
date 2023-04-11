@@ -9,8 +9,8 @@
             </div>
             <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
                 <span v-if="hide" class="start font-14">{{ formatCurrentTime(currentTime) }}</span>
-                <el-slider class="w-60" v-model="sliderTime" :show-tooltip="false"
-                    :format-tooltip="formatProcessToolTip" @change="changeCurrenTime" />
+                <el-slider class="w-60" v-model="sliderTime" :show-tooltip="false" :format-tooltip="formatProcessToolTip"
+                    @change="changeCurrenTime" />
                 <span v-if="hide" class="end font-14">{{ parseTime(musicTime, "{i}:{s}") }}</span>
             </div>
             <!-- 播放暂停按钮 -->
@@ -33,7 +33,7 @@
         <div class="lyrics">
             <p>{{ createLyrics }}</p>
         </div>
-        <audio duration  @timeupdate="updateCurrentTime" autoplay ref="audio" :src="musicUrl" :type="musicType"
+        <audio duration @timeupdate="updateCurrentTime" autoplay ref="audio" :src="musicUrl" :type="musicType"
             @loadedmetadata="loadedmetadata" @ended="playEnded" />
     </div>
 </template>
