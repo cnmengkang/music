@@ -25,6 +25,4 @@ export default {
     computed: {},
 };
 </script>
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

@@ -75,6 +75,12 @@
 .inline-block {
   display: inline-block;
 }
+.w-60 {
+  width: 60%;
+}
+.w-80 {
+  width: 80%;
+}
 /* 全局 */
 .flex {
   display: flex;
@@ -187,9 +193,6 @@
 .flex-wrap-nowrap {
   flex-wrap: nowrap;
 }
-.w-60 {
-  width: 60%;
-}
 .el-table .title .cell.el-tooltip {
   display: flex;
   align-items: center;
@@ -203,4 +206,10 @@
 .el-table .current-play {
   color: red;
   font-weight: bold;
+}
+.el-tabs__header .el-tabs__nav-wrap::after {
+  background-color: #fff;
+}
+body {
+  color: #000;
 }

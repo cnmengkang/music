@@ -65,6 +65,7 @@ export default {
         },
         getLogin() {
             this.$store.dispatch('LoginStatus');
+            console.log('调用状态成功')
         }
     },
 }

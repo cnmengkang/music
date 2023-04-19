@@ -13,7 +13,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-#aside-index{
+#aside-index {
   padding: 0px 5px 0px 15px;
 }
 </style>

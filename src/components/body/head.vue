@@ -97,6 +97,7 @@ export default {
         flex-wrap: wrap;
         align-items: center;
         gap: 5px 10px;
+
         .song {
             color: #f00;
             border: 1px solid #f00;

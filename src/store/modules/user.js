@@ -11,7 +11,7 @@ const user = {
         userInfo: ''
     },
     getters: {
-        
+
     },
     mutations: {
         // token
@@ -20,6 +20,9 @@ const user = {
         },
         SET_USER_STATUS(state, loginStatus) {
             state.userInfo = loginStatus;
+        },
+        SET_UID(state, uid) {
+            state.uid = uid
         }
     },
     actions: {
@@ -41,10 +44,12 @@ const user = {
         LoginStatus({ commit, state }) {
             return new Promise((resolve, reject) => {
                 loginStatus().then((res) => {
-                    const result = res.data
+                    const result = res.data;
+                    console.log('result', result)
                     if (result.data.code != 200) return;
-                    const uid = localStorage.setItem('uid', result.data.account.id)
-                    resolve()
+                    const uid = localStorage.setItem('uid', result.data.account.id);
+                    commit('SET_UID', uid)
+                    resolve();
                 })
             })
         },

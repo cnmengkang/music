@@ -9,7 +9,7 @@
             </div>
             <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
                 <span v-if="hide" class="start font-14">{{ formatCurrentTime(currentTime) }}</span>
-                <el-slider class="w-60" v-model="sliderTime" :show-tooltip="false" :format-tooltip="formatProcessToolTip"
+                <el-slider class="w-80" v-model="sliderTime" :show-tooltip="false" :format-tooltip="formatProcessToolTip"
                     @change="changeCurrenTime" />
                 <span v-if="hide" class="end font-14">{{ parseTime(musicTime, "{i}:{s}") }}</span>
             </div>
@@ -114,25 +114,30 @@ export default {
         },
         // 当音频加载完成会调用此事件
         loadedmetadata(res) {
-            console.log('音频加载完成')
+            console.log('音频加载完成');
             this.maxTime = res.target.duration;
-            this.isPlay = true
-            this.lyricsObjArr = []
-            this.getLyric(this.$store.state.musicInfo.singerId)
+            this.isPlay = true;
+            this.lyricsObjArr = [];
+            this.getLyric(this.$store.state.musicInfo.id);
         },
         // slider进度条事件
         getCurrentTimer(e) {
-            console.log(e)
+            console.log(e);
         },
         // audio事件自动更新当前播放时间
         updateCurrentTime(res) {
             this.currentTime = parseInt(res.target.currentTime);
             this.sliderTime = parseInt(this.currentTime / this.maxTime * 100);
+            this.singerCurrentTime(res)
+        },
+        // bus
+        singerCurrentTime(res) {
+            this.$bus.$emit('getCurrentTime', res);
         },
         // 
         formatProcessToolTip(index = 0) {
-            index = parseInt(this.maxTime / 100 * index)
-            return realFormatSecond(index)
+            index = parseInt(this.maxTime / 100 * index);
+            return realFormatSecond(index);
         },
         // 音量控制=============================
         // 控制音量大小
@@ -141,11 +146,11 @@ export default {
                 localStorage.setItem('volume', this.volume);
                 this.$refs.audio.volume = 0;
                 this.volume = 0;
-                this.isSound = false
+                this.isSound = false;
             }
             else {
                 const val = Number(localStorage.getItem('volume'));
-                console.log(val)
+                console.log(val);
                 this.isSound = true;
                 this.volume = val;
                 this.$refs.audio.volume = val / 100;
@@ -157,39 +162,38 @@ export default {
         },
         // 播放跳转
         changeCurrenTime(index) {
-            this.currentTime = parseInt(index / 100 * this.maxTime)
+            this.currentTime = parseInt(index / 100 * this.maxTime);
         },
         // 手动改变音量
         changeVolume(val = 0) {
             if (val == 0) {
                 this.$refs.audio.volume = 0;
                 this.volume = 0;
-                this.isSound = false
+                this.isSound = false;
             } else {
                 this.$refs.audio.volume = val / 100;
-                this.volume = val
-                this.isSound = true
+                this.volume = val;
+                this.isSound = true;
             }
         },
-        // 获取歌词
         // 当音乐播放停止时
         playEnded() {
             this.isPlay = false;
-            console.log('播放结束')
+            console.log('播放结束');
         },
         //上一首
         prev() {
-            console.log('prev')
+            console.log('prev');
         },
         next() {
-            console.log('next')
+            console.log('next');
         },
         // ======================歌词显示
         // // 获取歌曲歌词信息
         getLyric(id) {
             lyric(id).then(res => {
                 const lyricList = res.lrc.lyric;
-                this.formLyricTime(lyricList)
+                this.formLyricTime(lyricList);
             })
         },
         //歌词格式化

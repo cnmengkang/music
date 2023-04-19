@@ -32,7 +32,6 @@ export default {
     props: {
         playlist: {
             type: Array,
-            default:50
         }
     },
     data() {
@@ -49,13 +48,15 @@ export default {
         getPlayList(id) {
             this.$store.dispatch('getPlayAll',id)
         },
+        // 点击跳转到详情页面
         getDetail(id) {
             console.log('detail',id)
             this.$router.push({ name: 'detail', params: { id: id } })
         },
+        // 获取每日推荐
         getDaySong() {
             this.$router.push('daysong')
-        }
+        },
     }
 };
 </script>

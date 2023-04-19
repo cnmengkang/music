@@ -10,7 +10,6 @@
           <p class="font-12">根据你的音乐口味，每天6：00生成</p>
         </div>
       </div>
-
     </div>
     <!-- 顶部 -->
     <div class="day-song-body">
@@ -29,21 +28,19 @@ export default {
     return {
       src: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
       list: [],
-    };
+    }
   },
-  created() {
+  mounted() {
     this.getDaySong()
   },
-  mounted() { },
   methods: {
     getDaySong() {
-      daySongs().then(res => {
+      daySongs(this.params).then(res => {
         console.log('day', res)
         this.list = res.data.dailySongs
       })
     }
   },
-  computed: {},
 };
 </script>
 <style lang="less" scoped>
@@ -51,7 +48,7 @@ export default {
   .day-song-head {
     .calendar {
       .left {
-        width: 100px;
+        width: 200px;
       }
     }
   }

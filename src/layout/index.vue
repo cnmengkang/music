@@ -48,6 +48,7 @@ export default {
   background: @backColor;
   border-right: @border;
   border-left: @border;
+  overflow: hidden;
 
   .el-header {
     background-color: #ccc;

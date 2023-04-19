@@ -58,7 +58,6 @@ export default {
             const res = await userDetail(uid);
             this.user = res.profile;
             this.level = res.level
-            console.log('状态', res)
             const vip = await vipInfo();
             this.vipInfo = vip.data
         },

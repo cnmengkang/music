@@ -33,14 +33,15 @@ const mutations = {
 const actions = {
     // 根据id获取mv信息
     getDetailMv({ commit }, mvInfo) {
-        mvDetail(mvInfo.mv).then(res => {
+        mvDetail(mvInfo).then(res => {
             console.log('res.data',res.data)
             commit('setSignerMv', res.data)
         })
-        mvUrl(mvInfo.mv).then(res => {
+        mvUrl(mvInfo).then(res => {
             commit('setUrl', res.data.url)
         })
     },
+    
     // 获取视频url
     getVideoPlay({ commit }, urls) {
         console.log(urls)

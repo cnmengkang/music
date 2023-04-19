@@ -1,6 +1,5 @@
 <template>
     <div class="video-mv">
-        mv
         {{ videoMvList }}
         <video-grid :videoGroups="videoMvList"></video-grid>
     </div>

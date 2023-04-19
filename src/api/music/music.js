@@ -1,12 +1,24 @@
 import request from '@/utils/request';
 /*
     获取音乐url
+    必选参数：id,level:level: 播放音质等级, 分为 standard => 标准,higher => 较高, exhigh=>极高, lossless=>无损, hires=>Hi-Res
 */
 export function songUrl(id) {
     return request({
         url: '/song/url',
         method: "post",
         params: { id }
+    })
+}
+/*
+    获取单曲详细信息
+    必选参数：ids
+*/
+export function songDetail(ids) {
+    return request({
+        url: '/song/detail',
+        method: "post",
+        params: { ids }
     })
 }
 /*
@@ -42,6 +54,15 @@ export function like(id) {
     return request({
         url: '/like',
         method: 'post',
-        params: {id}
+        params: { id }
+    })
+}
+// 最新音乐
+// 新歌速递
+export function topSong(data) {
+    return request({
+        url: '/top/song',
+        method: 'post',
+        params: data
     })
 }

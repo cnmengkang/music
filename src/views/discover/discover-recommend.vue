@@ -1,17 +1,20 @@
 <template>
-
   <div id="discover-recommend">
     <div class="recommend-banner">
       <el-carousel :interval="4000" type="card" indicator-position="none" height="200px">
         <el-carousel-item v-for="item in banners" :key="item.imageUrl">
           <a :href="item.url == '' ? '#' : item.url" target="_blank">
-            <el-image fit="fill" :src="item.imageUrl" :preview-src-list="[item.imageUrl]"  />
+            <el-image fit="fill" :src="item.imageUrl" :preview-src-list="[item.imageUrl]" />
             <span :class="item.titleColor">{{ item.typeTitle }}</span>
           </a>
         </el-carousel-item>
       </el-carousel>
     </div>
-    <h2 class="res-grid-title">推荐歌单<i class="el-icon-arrow-right"></i> </h2>
+    <h2 class="res-grid-title">
+      <router-link to="/discover/playlist">
+        推荐歌单<i class="el-icon-arrow-right"></i>
+      </router-link>
+    </h2>
     <!-- 每日推荐歌单 -->
     <play-grid :playlist="personalized" />
     <!-- 每日推荐歌单 -->

@@ -1,3 +1,4 @@
+// 主题se   
 /* 全局变量（间距，圆角，宽高）*/
 @margin-0: 0px;
 @margin-5: 5px;
@@ -7,11 +8,11 @@
 @margin-25: 25px;
 @margin-30: 30px;
 @margin-50: 50px;
-
+@width-60:60%;
+@width-80:80%;
 .mt-5 {
     margin-top: @margin-5;
 }
-
 .mt-10 {
     margin-top: @margin-10;
 }
@@ -107,7 +108,14 @@
 .inline-block {
     display: inline-block;
 }
-
+// width
+.w-60{
+    width: @width-60;
+}
+.w-80{
+    width: @width-80;
+}
+// width
 /* 全局 */
 .flex {
     display: flex;
@@ -123,7 +131,6 @@
 
 #app {
     background-color: #f2f2f2;
-
     #login .app-login,
     #register .app-register,
     #qr .app-qr {
@@ -243,9 +250,6 @@
     flex-wrap: nowrap;
 }
 
-.w-60 {
-    width: 60%;
-}
 
 .el-table .title .cell.el-tooltip {
     display: flex;
@@ -262,4 +266,12 @@
 .el-table .current-play {
     color: red;
     font-weight: bold;
+}
+.el-tabs__header{
+    .el-tabs__nav-wrap::after{
+        background-color: #fff;
+    }
+}
+body{
+    color:#000;
 }

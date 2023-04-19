@@ -45,7 +45,7 @@ export default {
         // 默认搜索内容
         getSearchDefault() {
             searchDefault().then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 this.searchDefault = res.data.showKeyword
             })
         },
@@ -76,7 +76,7 @@ export default {
         // 搜索建议
         getSearchSuggest(keywords) {
             searchSuggest(keywords).then(res => {
-                console.log('建议', res)
+                // console.log('建议', res)
             })
         },
         // 搜索结果
@@ -88,7 +88,7 @@ export default {
         // 聚焦
         focus(event) {
             let search = event == '' ? this.searchDefault : event;
-            console.log('focus', search)
+            // console.log('focus', search)
         },
         // // input值改变时触发
         // SetInput(event) {

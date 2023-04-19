@@ -1,4 +1,4 @@
-import { songUrl } from '@/api/music/music'
+import { songUrl, songDetail } from '@/api/music/music'
 import { playTrack } from '@/api/discover/detail';
 const musicInfo = {
     state: {
@@ -8,32 +8,25 @@ const musicInfo = {
         musicMd5: '', //音乐加密
         musicType: '', //音乐类型
         musicTime: '',//音乐总时长
-        // 底部战术信息
+        // 底部展示信息
         name: '', //作者名
         avatar: '', //作者头像
         title: '', //歌名
+        alia: '',
         id: '',//当前音乐id
-        singerId: '',
-        // 单曲作者信息
-        singerName: '',
-        singerAvatar: '',
         // 歌曲列表
         songList: '',
-        total:'',
-        searchList:[]
+        total: '',
+        searchList: [],
     },
     mutations: {
-        // 歌手姓名
-        SET_NAME: (state, name) => {
-            state.name = name
-        },
-        // 歌手头像
-        SET_AVATAR: (state, avatar) => {
-            state.avatar = avatar
-        },
-        // 歌曲名
-        SET_SONG_TITLE: (state, title) => {
-            state.title = title
+        // 存储当前单曲信息
+        SINGLE_DETAIL(state, single) {
+            state.title = single.al.name
+            state.avatar = single.al.picUrl
+            state.alia = single.alia
+            state.name = single.ar
+            state.id = single.id
         },
         // 存储播放音乐的url信息
         MUSIC_URL: (state, musicUrl) => {
@@ -44,22 +37,14 @@ const musicInfo = {
             state.id = musicUrl.id
             state.musicTime = musicUrl.time
         },
-        SINGER_INFO: (state, singer) => {
-            console.log('singer', singer)
-            state.singerName = singer.name
-            state.singerAvatar = singer.al.picUrl
-            state.singerAuthor = singer.ar
-            state.singerId = singer.id
-        },
-        SEARCH_LIST:(state,list)=>{
+        SEARCH_LIST: (state, list) => {
             state.total = list.total
             state.searchList = list.songs
         },
         // 全部播放按钮数据
-        SONG_LIST:(state,list)=>{
-            console.log('全部播放按钮数据',list)
+        SONG_LIST: (state, list) => {
+            console.log('全部播放按钮数据', list)
         }
-
     },
     actions: {
         /*
@@ -67,17 +52,20 @@ const musicInfo = {
             详情页面list双击传过来单首歌曲信息
             存储到state里面,发送请求获取歌曲的播放链接进行播放;
         */
-        getSongInfo({ commit }, musicInfo) {
-            const id = musicInfo.id;
-            commit('SINGER_INFO', musicInfo)
-            return new Promise((resolve, reject) => {
-                songUrl(id).then((res) => {
-                    commit('MUSIC_URL', res.data[0])
-                    resolve()
-                }).catch(err=>{
-                    console.log(err)
-                })
-            })
+        async getCurrentMusicUrl({ commit }, id) {
+            console.log(id)
+            const res = await songUrl(id);
+            commit('MUSIC_URL',res.data[0])
+            console.log('url', res)
+        },
+        // 获取当前音乐的详细信息
+        async getCurrentMusicDetail({ dispatch, commit }, ids) {
+            console.log('ids', ids)
+            const detail = await songDetail(ids);
+            const songs = detail.songs[0];
+            const privileges = detail.privileges
+            dispatch('getCurrentMusicUrl', ids)
+            commit('SINGLE_DETAIL', songs)
         },
         // 点击播放全部按钮进行顺序播放音乐
         getPlayAll({ commit }, id) {

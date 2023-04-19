@@ -1,6 +1,6 @@
 <template>
     <div class="footer">
-        <div class="footer-singer" v-if="musicInfo.musicUrl.length != 0">
+        <div class="footer-singer">
             <singer :singer="musicInfo"></singer>
             <!-- 作者信息组件 -->
         </div>
@@ -8,7 +8,7 @@
             <!-- 播放组件 -->
             <audio-play></audio-play>
         </div>
-        <div v-if="musicInfo.musicUrl.length != 0" style="width:20%">
+        <div  style="width:25%">
             
         </div>
     </div>
@@ -45,10 +45,10 @@ export default {
     justify-content: center;
     width:100%;
     .footer-singer {
-        width: 20%
+        width: 25%
     }
     .footer-audio {
-        width: 60%;
+        width: 50%;
         display: flex;
         align-items: center;
         justify-content: center;

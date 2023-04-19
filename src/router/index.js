@@ -42,6 +42,12 @@ const routes = [
             component: () => import('@/views/discover/topList/')
             // 排行榜
           },
+          {
+            path: "/discover/topsong",
+            name: 'topSong',
+            component: () => import('@/views/discover/topSong/')
+            // 排行榜
+          },
         ]
       },
       {

@@ -10,7 +10,6 @@
 
 4. vi config 新建config 文件 推出git 先按  esc 输入 :wq
 
-
 #==============================
 # gitee
 Host gitee.com
@@ -40,3 +39,4 @@ git add . 添加工作区所有文件
 git reset head  撤销所有暂存区文件
 git reset head name(文件名)   撤销指定文件名
 git status 查看当前暂存区文件
+ftp://cutepeeps.com:HqkT412331132fe3192sq201plw8K@34.228.113.129

@@ -1,6 +1,7 @@
 <template>
   <div class="playlist">
     <div class="playlist-head border-r-5 flex">
+      <div class="bgc" :style="{ background: 'url(' + url + ') 100%' }"></div>
       <div class="left mr-20">
         <el-avatar shape="square" :size="150" fit="cover" :src="url"></el-avatar>
       </div>
@@ -9,8 +10,9 @@
         <h3>雨之摇滚·倾听爱与自由乐章</h3>
       </div>
     </div>
-    <div class="playlist-">
+    <div class="playlist-list mt-20">
       <play-grid :playlist="playlist"></play-grid>
+      <pagination :total="totalPage" :page-size="pageSize" :current-page.sync="currentPage"></pagination>
     </div>
   </div>
 </template>
@@ -18,35 +20,85 @@
 <script>
 import { topPlaylist } from '@/api/discover/discover';
 import playGrid from '@/components/body/playgrid'
+import pagination from '@/components/pagination'
 export default {
-  components: { playGrid },
+  components: { playGrid, pagination },
   props: {},
   data() {
     return {
       url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+      playlist: [],
       topList: {
         cat: '',
-        limit: 50,
+        limit: 30,
+        offset: 1,
       },
-      playlist: []
+      totalPage: 0,
+      pageSize: 30,
+      currentPage: 1
     };
   },
-  created() { },
+  created() {
+  },
   mounted() {
     this.getTopPlaylist()
+  },
+  watch: {
+    currentPage(val) {
+      console.log(val)
+      this.topList.offset = val * this.topList.limit;
+      console.log(this.topList.offset)
+      this.getTopPlaylist();
+    }
   },
   methods: {
     getTopPlaylist() {
       topPlaylist(this.topList).then(res => {
-        this.playlist = res.playlists
+        console.log('topList', res)
+        this.totalPage = res.total;
+        this.playlist = res.playlists;
       })
     }
   }
 };
 </script>
 <style lang="less" scoped>
+@height: 152px;
+@width: 30px;
+
 .playlist-head {
-  background: #E4E7ED;
   padding: 15px;
+  height: @height;
+  overflow: hidden;
+  width: calc(100% - @width);
+  background-size: 100%;
+  position: relative;
+
+  .bgc {
+    width: 100%;
+    height: @height;
+    position: absolute;
+    top: 0px;
+    z-index: 1;
+    filter: blur(40px);
+    transform: scale(1.5);
+    z-index: 1;
+  }
+
+  .left {
+    top: 15px;
+  }
+
+  .right {
+    top: 50%;
+    left: @height + @width;
+    transform: translateY(-50%);
+  }
+
+  .left,
+  .right {
+    position: absolute;
+    z-index: 2;
+  }
 }
 </style>

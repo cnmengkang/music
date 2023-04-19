@@ -12,10 +12,6 @@ export default {
     return {
     };
   },
-  computed: {},
-  methods: {},
-  created() {},
-  mounted() {}
 };
 </script>
 <style lang="less" scoped>

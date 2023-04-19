@@ -6,7 +6,7 @@
           <div class="video-tabs">
             <el-button @click="show">{{ name ? name : '全部视频' }}</el-button>
             <el-tabs @tab-click="handClickTabs">
-              <el-tab-pane v-for="(item) in tabList" :key="item.id" :label="item.name" :value="item.id"></el-tab-pane>
+              <el-tab-pane v-for="item in tabList" :key="item.id" :label="item.name" :value="item.id"></el-tab-pane>
             </el-tabs>
           </div>
           <el-card class="box-card" v-if="isShow">
@@ -15,8 +15,8 @@
             </div>
             <!-- 标签列表 -->
             <div class="card_body">
-              <el-tag round v-for="(item, index) in videoListBtn" @click="isActive(item, index)" :key="index"
-                :class="activeClass == index ? 'active' : ''">
+              <el-tag round v-for="item in videoListBtn"   @click="isActive(item)" :key="item.id"
+                :class="activeClass == item.id ? 'active' : ''">
                 <a>{{ item.name }}</a>
               </el-tag>
             </div>
@@ -79,9 +79,10 @@ export default {
       })
     },
     // 点击获取分类id，并隐藏弹框
-    isActive(res, index) {
+    isActive(res) {
+      console.log(res.id)
       this.name = res.name
-      this.activeClass = index;
+      this.activeClass = res.id;
       this.isShow = false
       this.getVideoGroup(res.id)
     },
@@ -96,13 +97,16 @@ export default {
       })
     },
     // 点击右侧分类
-    handClickTabs(id) {
-      this.getVideoGroup(id.$attrs.value)
+    handClickTabs(val) {
+      this.name = val.label
+      const id = val.$attrs.value;
+      this.getVideoGroup(id)
       this.isShow = false
     },
     // 默认获取全部视频
     getVideoAll() {
       videoAll().then(res => {
+        console.log('allvideo',res)
         this.videoGroups = res.datas
         this.isShow = false
       })

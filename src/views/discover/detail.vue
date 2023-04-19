@@ -10,7 +10,7 @@
                     <song-list :tableDate="list"></song-list>
                 </el-tab-pane>
                 <el-tab-pane name="reviews">
-                    <span slot="label">评论({{ total }})</span>
+                    <span slot="label">评论 <small style="font-size:12px;">({{ totalReview }})</small> </span>
                     <div class="comment" v-for="(item, index) in comment" :key="index">
                         <div class="user-avatarUrl">
                             <el-avatar :size="40" :src="item.user.avatarUrl"></el-avatar>
@@ -61,16 +61,17 @@ export default {
             params: {
                 id: this.$route.params.id,
                 limit: '',
+                offset: 0
             },
             activeName: 'song',
             list: [],
             comment: "",
             subscribers: "",
-            total: ''
+            totalReview: '',  //总评论数
         }
     },
     mounted() {
-        const id = this.$route.params
+        const id = this.$route.params;
         this.getDetail(id)
         this.getPlayTrack()
         this.getComment()
@@ -79,13 +80,14 @@ export default {
 
     },
     computed: {
-    
+
     },
     methods: {
         // 获取详情页顶部数据
         getDetail(id) {
             detail(id).then((res) => {
-                // console.log('playlist', res.playlist)
+                this.totalPage = res.playlist.trackCount;
+                // console.log('playlist', res.playlist);
                 this.playlist = res.playlist;
             })
         },
@@ -109,7 +111,7 @@ export default {
         getComment() {
             commentPlayList(this.params).then((res) => {
                 // console.log('reviews', res)
-                this.total = res.total
+                this.totalReview = res.total
                 this.comment = res.comments
             })
         },
@@ -117,9 +119,9 @@ export default {
         getSubscribers() {
             subscribers(this.params).then((res) => {
                 // console.log(res.subscribers)
-                this.subscribers = res.subscribers
+                this.subscribers = res.subscribers;
             })
-        },
+        }
     }
 }
 </script>
@@ -157,8 +159,6 @@ export default {
                 width: 40px;
                 height: 40px;
                 border-radius: 50%;
-
-
             }
         }
 
@@ -177,12 +177,9 @@ export default {
                     width: 95px;
                     height: 95px;
                     border-radius: 50%;
-
                 }
             }
         }
-
-
     }
 }
 </style>

@@ -2,13 +2,14 @@
     <!-- list列表组件 -->
     <div class="song-list">
         <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true" />
-        <el-table highlight-current-row @row-dblclick="getPlayRow" :data="tableDate" :current-row-key="tableDate.id"
-            :row-class-name="tableRowClassName" stripe>
-            <el-table-column label="序号" type="index" :index="indexMethod"> </el-table-column>
+        <el-table highlight-current-row @row-dblclick="getPlayRow" size="mini" :data="tableDate" :current-row-key="tableDate.id"
+            :row-class-name="tableRowClassName"
+         stripe>
+            <el-table-column label="序号" type="index" :index="indexMethod"/>
             <el-table-column label="操作" width="70">
                 <template slot-scope="scope">
-                    <i :class="!active ? 'iconFont icon-love' : 'iconFont icon-love-red'" :index="indexMethod"
-                        @click="getLike(scope.row)"></i>
+                    <i :class="[scope.row.index == currentIndex ? 'icon-love-red' : 'iconFont icon-love']"
+                        type="selection" :index="scope.row.index" @click="getLike(scope.$index, scope.row)"></i>
                     <i class="iconFont icon-down ml-10" @click="downloadMusic(scope.row)"></i>
                 </template>
             </el-table-column>
@@ -28,10 +29,8 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column show-overflow-tooltip prop="ar[0].name" label="歌手">
-            </el-table-column>
-            <el-table-column show-overflow-tooltip prop="al.name" label="专辑">
-            </el-table-column>
+            <el-table-column show-overflow-tooltip prop="ar[0].name" label="歌手"/>
+            <el-table-column show-overflow-tooltip prop="al.name" label="专辑"/>
             <el-table-column label="时间" width="65">
                 <template slot-scope="scope">
                     <span>{{ parseTime(scope.row.dt, "{i}:{s}") }}</span>
@@ -43,36 +42,37 @@
 </template>
 
 <script>
+// iconFont icon-love-red
 import { songUrl, like } from '@/api/music/music'
 export default {
     props: {
         tableDate: {
-            type: Array
-        }
+            type: Array,
+            require:true
+        },
     },
     data() {
         return {
             CurrentRow: 0,
-            active: false
+            currentIndex: 0,
         }
     },
     computed: {
-
+        
     },
     methods: {
         // 点击获取当前音乐信息，并存储到Vuex中
         getPlayRow(row) {
+            console.log('当前音乐信息',row)
             this.CurrentRow = row.index
-            console.log('CurrentRow', this.CurrentRow)
             this.$store.dispatch('getSongInfo', row);
         },
         // 获取mv
         getMv(res) {
-            console.log('mv', res)
-            this.$store.dispatch('videos/getDetailMv', res);
-            this.$router.push({ name: 'videoPlay', params: { id: res.id } })
+            this.$store.dispatch('videos/getDetailMv', res.mv);
+            this.$router.push({ name: 'videoPlay', params: { id: res.mv } })
         },
-        indexMethod(index = 1) {
+        indexMethod(index = 0) {
             return index * 1 + 1;
         },
         // 给每一行添加index
@@ -95,11 +95,12 @@ export default {
 
         },
         // 喜欢音乐
-        getLike(row) {
-            console.log(row)
+        getLike(index, row) {
+            console.log(index + 1)
+            console.log(row.index)
             like(row.id).then(res => {
                 if (res.code == 200) {
-                    this.active = !this.active
+                    this.currentIndex = index + 1;
                 }
             })
         }
