@@ -1,34 +1,20 @@
 <template>
     <div class="audio">
         <div class="audio-play flex">
-            <div class="audio-top plays mb-10">
+            <div class="audio-top plays mb-5">
                 <span title="上一首" class="iconFont icon-prev" @click="prev"></span>
                 <span title="暂停" class="play iconFont icon-play" v-if="isPlay" @click="startPlayOrPause"></span>
                 <span title="播放" class="pause iconFont icon-pause" v-else @click="startPlayOrPause"></span>
                 <span title="下一首" class="iconFont icon-next" @click="next"></span>
             </div>
             <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
-                <span v-if="hide" class="start font-14">{{ formatCurrentTime(currentTime) }}</span>
-                <el-slider class="w-80" v-model="sliderTime" :show-tooltip="false" :format-tooltip="formatProcessToolTip"
+                <span v-if="hide" class="start font-14">{{ formatCurrentTime(currentTime) || '00:00' }}</span>
+                <el-slider class="w-60" v-model="sliderTime" :show-tooltip="false" :format-tooltip="formatProcessToolTip"
                     @change="changeCurrenTime" />
                 <span v-if="hide" class="end font-14">{{ parseTime(musicTime, "{i}:{s}") }}</span>
             </div>
             <!-- 播放暂停按钮 -->
         </div>
-        <!-- 进度条组件 -->
-        <div class="sound" v-if="hide">
-            <el-popover placement="top-start" trigger="hover" class="popover">
-                <el-slider :show-tooltip="false" :format-tooltip="formatTooltip" @change="changeVolume" v-model="volume"
-                    vertical height="80px">
-                </el-slider>
-                <span title="静音" slot="reference" v-if="isSound" class="font-30 iconFont icon-sound-start"
-                    @click="setSound(false)"></span>
-                <span title="恢复音量" slot="reference" v-else class="font-30 iconFont icon-sound-close"
-                    @click="setSound(true)"></span>
-            </el-popover>
-        </div>
-        <!-- 音量组件 -->
-        <!-- 歌词组件 -->
         <!-- <lyric></lyric> -->
         <div class="lyrics">
             <p>{{ createLyrics }}</p>
@@ -48,8 +34,9 @@ function realFormatSecond(second) {
         var mimute = Math.floor(second / 60)
         second = second - mimute * 60
         return hours + ':' + ('0' + mimute).slice(-2) + ':' + ('0' + second).slice(-2)
-    } else {
-        return '00:00'
+    }
+    else {
+        return '00:00';
     }
 }
 import { mapState } from 'vuex';
@@ -61,10 +48,8 @@ export default {
     data() {
         return {
             isPlay: false,
-            isSound: true,
             currentTime: 0, //当前时长
             sliderTime: 0,  //默认进度条
-            volume: 20,  //默认音量
             duration: 0,//总时长
             lyricsObjArr: [],
             createLyrics: '',
@@ -73,7 +58,7 @@ export default {
     },
     computed: {
         hide() {
-            return this.currentTime != 0
+            return this.maxTime > 0
         },
         ...mapState({
             musicTime: state => state.musicInfo.musicTime,
@@ -81,11 +66,12 @@ export default {
             musicUrl: state => state.musicInfo.musicUrl,
             singerName: state => state.musicInfo.singerName
         }),
-
     },
     mounted() {
-        this.$refs.audio.volume = this.volume / 100;
+        // 向sound文件传递audio元素，控制音量
+        this.$bus.$emit('audio', this.$refs.audio);
     },
+
     watch: {
         currentTime() {
             // 匹配歌词
@@ -102,7 +88,6 @@ export default {
     methods: {
         // 点击调用播放与暂停事件
         startPlayOrPause() {
-            console.log(this.currentTime)
             if (this.currentTime == 0) return;
             if (this.isPlay == true) {
                 this.$refs.audio.pause();
@@ -120,10 +105,6 @@ export default {
             this.lyricsObjArr = [];
             this.getLyric(this.$store.state.musicInfo.id);
         },
-        // slider进度条事件
-        getCurrentTimer(e) {
-            console.log(e);
-        },
         // audio事件自动更新当前播放时间
         updateCurrentTime(res) {
             this.currentTime = parseInt(res.target.currentTime);
@@ -140,41 +121,9 @@ export default {
             return realFormatSecond(index);
         },
         // 音量控制=============================
-        // 控制音量大小
-        setSound(e) {
-            if (e != true) {
-                localStorage.setItem('volume', this.volume);
-                this.$refs.audio.volume = 0;
-                this.volume = 0;
-                this.isSound = false;
-            }
-            else {
-                const val = Number(localStorage.getItem('volume'));
-                console.log(val);
-                this.isSound = true;
-                this.volume = val;
-                this.$refs.audio.volume = val / 100;
-            }
-        },
-        // 音量条toolTip
-        formatTooltip(val) {
-            return val;
-        },
         // 播放跳转
         changeCurrenTime(index) {
             this.currentTime = parseInt(index / 100 * this.maxTime);
-        },
-        // 手动改变音量
-        changeVolume(val = 0) {
-            if (val == 0) {
-                this.$refs.audio.volume = 0;
-                this.volume = 0;
-                this.isSound = false;
-            } else {
-                this.$refs.audio.volume = val / 100;
-                this.volume = val;
-                this.isSound = true;
-            }
         },
         // 当音乐播放停止时
         playEnded() {

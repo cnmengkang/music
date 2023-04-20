@@ -1,5 +1,4 @@
-import { songUrl, songDetail } from '@/api/music/music'
-import { playTrack } from '@/api/discover/detail';
+import { songUrl, songDetail, lyric } from '@/api/music/music';
 const musicInfo = {
     state: {
         // 单曲音乐信息
@@ -14,10 +13,10 @@ const musicInfo = {
         title: '', //歌名
         alia: '',
         id: '',//当前音乐id
-        // 歌曲列表
-        songList: '',
         total: '',
-        searchList: [],
+        // 控制底部显示隐藏
+        footerShow: false,
+        lyric: ''
     },
     mutations: {
         // 存储当前单曲信息
@@ -37,45 +36,44 @@ const musicInfo = {
             state.id = musicUrl.id
             state.musicTime = musicUrl.time
         },
-        SEARCH_LIST: (state, list) => {
-            state.total = list.total
-            state.searchList = list.songs
+        // 底部显示隐藏
+        FOOTER_SHOW: (state, show) => {
+            state.footerShow = show
         },
-        // 全部播放按钮数据
-        SONG_LIST: (state, list) => {
-            console.log('全部播放按钮数据', list)
+        // 歌词列表
+        SET_LYRIC: (state, lyric)=>{
+            state.lyric = lyric
         }
     },
     actions: {
-        /*
-            获取当前播放歌曲信息
-            详情页面list双击传过来单首歌曲信息
-            存储到state里面,发送请求获取歌曲的播放链接进行播放;
-        */
+        // 获取当前音乐的播放地址并存储到state里面。
         async getCurrentMusicUrl({ commit }, id) {
-            console.log(id)
+            // console.log(id)
             const res = await songUrl(id);
-            commit('MUSIC_URL',res.data[0])
-            console.log('url', res)
+            // console.log('url', res)
+            commit('MUSIC_URL', res.data[0])
         },
-        // 获取当前音乐的详细信息
+        // 获取当前音乐的详细信息，并存储到state里面,供底部使用数据
         async getCurrentMusicDetail({ dispatch, commit }, ids) {
-            console.log('ids', ids)
+            // console.log('ids', ids)
+            if (!ids) return;
+            commit('FOOTER_SHOW', true)
             const detail = await songDetail(ids);
             const songs = detail.songs[0];
             const privileges = detail.privileges
             dispatch('getCurrentMusicUrl', ids)
+            dispatch('getCurrentMusicLyric', ids)
             commit('SINGLE_DETAIL', songs)
         },
-        // 点击播放全部按钮进行顺序播放音乐
-        getPlayAll({ commit }, id) {
-            console.log('id', id)
+        // 获取当前音乐的歌词
+        getCurrentMusicLyric({ commit }, id) {
             return new Promise((resolve, reject) => {
-                playTrack({ id }).then(res => {
-                    commit('SONG_LIST', res.songs)
+                lyric(id).then(res => {
+                    commit('SET_LYRIC',res.lrc.lyric)
+                    resolve()
                 })
             })
-        },
+        }
     }
 }
 export default musicInfo

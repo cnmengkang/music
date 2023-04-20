@@ -6,22 +6,23 @@
         <div class="author-singer ellipsis">
             <div class="ellipsis">
                 <span>{{ singer.title }}</span>
-                <span class="alia" v-if="singer.alia.length!=0">({{ singer.alia[0] }})</span>
+                <span class="alia" v-if="singer.alia.length != 0">({{ singer.alia[0] }})</span>
             </div>
             <div class="mt-5">
-                <span class="font-12" v-for="item in singer.name" :key="item.id">{{ item.name }}<span v-if="item.length>1">/</span></span>
+                <span class="font-12" v-for="item in singer.name" :key="item.id">{{ item.name }}<span
+                        v-if="item.length > 1">/</span></span>
             </div>
         </div>
         <el-drawer :title="singer.title" :withHeader="true" @open="drawerOpen" size="100%" :modal="false"
             :visible.sync="drawer" :direction="direction">
             <div class="footer_drawer flex">
                 <div class="left flex justify-content-center">
-                    <el-avatar shape="circle" :size="200" :src="singer.singerAvatar" />
+                    <el-avatar shape="circle" :size="200" :src="singer.avatar" />
                 </div>
                 <div class="right">
                     <div class="right-head">
-                        <span class="font-12" v-for="item in singer.singerAuthor" :key="item.id">歌手：{{ item.name }}</span>
-                        <span>专辑：{{ singer.singerAlbum }}</span>
+                        <span class="font-12" v-for="item in singer.name" :key="item.id">歌手：{{ item.name }}</span>
+                        <span class="font-12">专辑：{{ singer.title }}</span>
                     </div>
                     <div class="right-body">
                         <ul ref="lyricUL">
@@ -108,7 +109,7 @@ export default {
             return Number(sec + '.' + ms)
         },
         drawerOpen() {
-            this.getLyric(this.$store.state.musicInfo.singerId);
+            this.getLyric(this.$store.state.musicInfo.id);
             this.$bus.$on('getCurrentTime', (res) => {
                 this.currentTime = parseInt(res.target.currentTime);
             })
@@ -124,9 +125,11 @@ export default {
     color: red !important;
     font-size: 20px;
 }
-.alia{
-    color:#ccc;
+
+.alia {
+    color: #ccc;
 }
+
 .author {
     width: 100%;
 
@@ -154,7 +157,6 @@ export default {
                 box-sizing: border-box;
                 position: relative;
                 overflow: hidden;
-
                 .right-body {
                     width: 100%;
                     overflow-y: scroll;
@@ -178,5 +180,4 @@ export default {
 
 .flex-wrap-nowrap {
     flex-wrap: nowrap;
-}
-</style>
+}</style>

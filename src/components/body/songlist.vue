@@ -2,7 +2,7 @@
     <!-- list列表组件 -->
     <div class="song-list">
         <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true" />
-        <el-table highlight-current-row @row-dblclick="getPlayRow" size="mini" :data="tableDate" :current-row-key="tableDate.id"
+        <el-table highlight-current-row @row-dblclick="getCurrentMusicId" size="mini" :data="tableDate" :current-row-key="tableDate.id"
             :row-class-name="tableRowClassName"
          stripe>
             <el-table-column label="序号" type="index" :index="indexMethod"/>
@@ -40,9 +40,7 @@
     </div>
     <!-- list列表组件 -->
 </template>
-
 <script>
-// iconFont icon-love-red
 import { songUrl, like } from '@/api/music/music'
 export default {
     props: {
@@ -61,11 +59,10 @@ export default {
         
     },
     methods: {
-        // 点击获取当前音乐信息，并存储到Vuex中
-        getPlayRow(row) {
-            console.log('当前音乐信息',row)
-            this.CurrentRow = row.index
-            this.$store.dispatch('getSongInfo', row);
+        // 双击获取当前单曲id
+        getCurrentMusicId(res) {
+            console.log(res.id)
+            this.$store.dispatch('getCurrentMusicDetail',res.id)
         },
         // 获取mv
         getMv(res) {

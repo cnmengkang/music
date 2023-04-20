@@ -1,15 +1,17 @@
 <template>
     <div class="footer">
-        <div class="footer-singer">
+        <div class="footer-singer" v-if="musicInfo.footerShow">
+            <!-- 左侧歌曲名作者名组件 -->
             <singer :singer="musicInfo"></singer>
-            <!-- 作者信息组件 -->
         </div>
         <div class="footer-audio">
             <!-- 播放组件 -->
             <audio-play></audio-play>
         </div>
-        <div  style="width:25%">
-            
+        <div style="width:25%" v-if="musicInfo.footerShow">
+            <!-- 音量组件 -->
+            <sound></sound>
+            <lyric :lyric="musicInfo"></lyric>
         </div>
     </div>
 </template>
@@ -17,9 +19,12 @@
 import { mapState } from 'vuex'
 import singer from './components/singer'
 import audioPlay from './components/play'
+import sound from './components/sound'
+import lyric from './components/lyric'
+
 export default {
     name: 'footers',
-    components: { singer, audioPlay },
+    components: { singer, audioPlay, sound,lyric },
     data() {
         return {
         }
@@ -33,7 +38,7 @@ export default {
         ...mapState(['musicInfo']),
     },
     methods: {
-        
+
     }
 }
 </script>
@@ -43,17 +48,18 @@ export default {
     flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
-    width:100%;
+    width: 100%;
+
     .footer-singer {
         width: 25%
     }
+
     .footer-audio {
         width: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0 auto;
-        padding-left: 30px;
     }
 }
 </style>

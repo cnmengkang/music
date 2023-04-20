@@ -109,7 +109,7 @@ export function numCount(count) {
 }
 // 返回00:00时间格式 传入一个带有小数点的number
 export function formatCurrentTime(currentTime) {
-    if (currentTime == '') return '00:00';
+    if (currentTime == 0) return;
     const time = Math.trunc(currentTime) * 1000
     function preToFixed(num, length = 2) {
         return (Array(length).join(0) + num).slice(-length)

@@ -11,7 +11,7 @@ const user = {
         userInfo: ''
     },
     getters: {
-
+        
     },
     mutations: {
         // token
