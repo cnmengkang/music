@@ -13,10 +13,9 @@ const musicInfo = {
         title: '', //歌名
         alia: '',
         id: '',//当前音乐id
-        total: '',
         // 控制底部显示隐藏
         footerShow: false,
-        lyric: ''
+        lyric: []
     },
     mutations: {
         // 存储当前单曲信息
@@ -41,7 +40,7 @@ const musicInfo = {
             state.footerShow = show
         },
         // 歌词列表
-        SET_LYRIC: (state, lyric)=>{
+        SET_LYRIC: (state, lyric) => {
             state.lyric = lyric
         }
     },
@@ -62,18 +61,19 @@ const musicInfo = {
             const songs = detail.songs[0];
             const privileges = detail.privileges
             dispatch('getCurrentMusicUrl', ids)
-            dispatch('getCurrentMusicLyric', ids)
+            // dispatch('getCurrentMusicLyric', ids)
             commit('SINGLE_DETAIL', songs)
         },
-        // 获取当前音乐的歌词
-        getCurrentMusicLyric({ commit }, id) {
-            return new Promise((resolve, reject) => {
-                lyric(id).then(res => {
-                    commit('SET_LYRIC',res.lrc.lyric)
-                    resolve()
-                })
-            })
-        }
+        // // 获取当前音乐的歌词
+        // getCurrentMusicLyric({ commit }, id) {
+        //     return new Promise((resolve, reject) => {
+        //         lyric(id).then(res => {
+        //             console.log(res)
+        //             commit('SET_LYRIC', res.lrc)
+        //             resolve()
+        //         })
+        //     })
+        // }
     }
 }
 export default musicInfo

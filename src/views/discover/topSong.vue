@@ -13,17 +13,16 @@
         </div>
     </div>
 </template>
-
 <script>
 import Tabs from '@/components/Tabs';
-import tableList from './components/tablesList.vue'
+import tableList from './components/tablesList'
 import { topSong } from '@/api/music/music'
 export default {
     components: { Tabs, tableList },
     props: {},
     data() {
         return {
-            params:{
+            params: {
                 type: 0,
             },
             topSongList: [],
@@ -34,7 +33,7 @@ export default {
                 { name: '韩国', type: 16 },
                 { name: '日本', type: 8 },
             ]
-        };
+        }
     },
     created() { },
     mounted() {
@@ -51,13 +50,14 @@ export default {
         // tabs1 点击事件
         handleTabClickType(tab) {
             console.log('Tab Clicked:', tab.$attrs.value);
+            this.topSongList = [];
+            this.params.type = tab.$attrs.value
+            this.getTopSong(this.params)
         },
     },
 }
 </script>
 <style lang="less" scoped>
-.top-song {}
-
 .el-tabs__nav-scroll {
     width: 50%;
     margin: 0 auto;

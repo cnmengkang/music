@@ -1,34 +1,35 @@
 <template>
     <div class="lyrics">
-        歌词
-        <!-- {{ lyric }} -->
+        <ul>
+            歌词
+        </ul>
     </div>
 </template>
-
 <script>
 export default {
-    components: {},
     props: {
         lyric: {
-            type: Object,
+            type: Array,
             require: true
         }
     },
     data() {
         return {
-
-
         };
     },
     created() {
 
     },
     mounted() {
+        // 获取当前播放音乐id
     },
     methods: {
 
     },
-    computed: {},
-}
+    computed: {
+    }
+};
 </script>
-<style lang="less" scoped></style>
+  
+<style scoped lang="less"></style>
+  

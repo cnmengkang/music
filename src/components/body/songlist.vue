@@ -16,10 +16,10 @@
             <el-table-column show-overflow-tooltip label="标题" width="350" class-name="title">
                 <template slot-scope="scope">
                     <div class="ellipsis">
-                        <span class="name">{{ scope.row.name }}</span>
+                        <span class="name" :title="scope.row.name">{{ scope.row.name }}</span>
                         <span class="name-tips" v-if="scope.row.alia.length != 0">({{ scope.row.alia[0] }})</span>
                     </div>
-                    <div class="aa">
+                    <div class="right">
                         <span class="vip ml-10" v-if="scope.row.fee == 1">VIP</span>
                         <span v-if="scope.row.mv != 0" @click="getMv(scope.row)" class="mv ml-5">MV<i
                                 class="el-icon-caret-right"></i></span>

@@ -8,11 +8,13 @@
 @margin-25: 25px;
 @margin-30: 30px;
 @margin-50: 50px;
-@width-60:60%;
-@width-80:80%;
+@width-60: 60%;
+@width-80: 80%;
+
 .mt-5 {
     margin-top: @margin-5;
 }
+
 .mt-10 {
     margin-top: @margin-10;
 }
@@ -97,8 +99,11 @@
 }
 
 /* 边框圆角 */
+.border-r-20 {
+    border-radius: @margin-20;
+}
 .border-r-10 {
-    border-radius: @margin-10
+    border-radius: @margin-10;
 }
 
 .border-r-5 {
@@ -108,14 +113,31 @@
 .inline-block {
     display: inline-block;
 }
+
 // width
-.w-60{
+.w-60 {
     width: @width-60;
 }
-.w-80{
+
+.w-80 {
     width: @width-80;
 }
+
 // width
+// color
+@red: #e60026;
+
+.red {
+    color: @red;
+}
+
+@font-20: 20px;
+
+.font-20 {
+    font-size: @font-20;
+}
+
+// color
 /* 全局 */
 .flex {
     display: flex;
@@ -131,6 +153,7 @@
 
 #app {
     background-color: #f2f2f2;
+
     #login .app-login,
     #register .app-register,
     #qr .app-qr {
@@ -229,9 +252,11 @@
     color: #f00;
     background-color: #f00;
 }
+
 .el-slider__bar {
     background-color: red;
 }
+
 .ellipsis {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -263,15 +288,18 @@
 .text-center {
     text-align: center;
 }
+
 .el-table .current-play {
     color: red;
     font-weight: bold;
 }
-.el-tabs__header{
-    .el-tabs__nav-wrap::after{
+
+.el-tabs__header {
+    .el-tabs__nav-wrap::after {
         background-color: #fff;
     }
 }
-body{
-    color:#000;
+
+body {
+    color: #000;
 }

@@ -1,11 +1,17 @@
 <template>
     <div>
-        <el-skeleton :rows="10"  animated :loading="data.length != 0 ? false : true" />
-        <el-table v-if="data.length.length != 0" @row-dblclick="getCurrentMusicId" :data="data" style="width: 100%" :show-header="false" stripe>
-            <el-table-column type="index" width="50" label="序号" />
+        <el-skeleton :rows="10" animated :loading="data.length != 0 ? false : true" />
+
+        <el-table v-if="data.length.length != 0" @row-dblclick="getCurrentMusicId" :data="data" style="width: 100%"
+            :show-header="false" stripe>
+            <el-table-column  width="50" label="序号">
+                <div class="124">{{title}}</div>
+            </el-table-column>
             <el-table-column label="头像" width="66">
                 <template slot-scope="scope">
                     <el-avatar shape="square" :size="size" :src="scope.row.album.blurPicUrl"></el-avatar>
+                    <span class="iconFont icon-play-red align-item-center red   border-r-20"
+                        @click="getCurrentMusicId(scope.row)"></span>
                 </template>
             </el-table-column>
             <el-table-column show-overflow-tooltip label="标题" class-name="title">
@@ -49,11 +55,12 @@ export default {
         return {
             size: 56,
             loading: true,
-            
+
         };
     },
-    created() { },
-    mounted() { },
+    computed: {
+        
+    },
     methods: {
         // 获取mv详情
         getMv(res) {
@@ -64,17 +71,26 @@ export default {
         // 双击获取当前单曲详细信息
         getCurrentMusicId(res) {
             console.log(res.id)
-            this.$store.dispatch('getCurrentMusicDetail',res.id)
+            this.$store.dispatch('getCurrentMusicDetail', res.id)
         },
-    },
-    computed: {
+    }
 
-    },
 };
 </script>
 <style lang="less" scoped>
 .el-table .warning-row {
     background: oldlace;
+}
+
+.align-item-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-35%, -60%);
+    background: #fff;
+    padding: 2px 6px;
+    font-size:14px;
+    cursor: pointer;
 }
 
 .alias {
@@ -83,5 +99,4 @@ export default {
 
 .el-table .success-row {
     background: #f0f9eb;
-}
-</style>
+}</style>

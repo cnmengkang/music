@@ -1,13 +1,19 @@
 <template>
   <div>
-    <el-table :data="tableData" :span-method="rowspanMethod">
-      <el-table-column prop="clzssName" label="班级">
+    <el-table :data="tableData" border>
+      <el-table-column prop="clzssName" label="班级" :rowspan="rowspanMethod">
       </el-table-column>
-      <el-table-column label="对象" prop="educationName">
-
+      <el-table-column label="对象">
+        <template slot-scope="scope">
+          <div class="border">{{ scope.row.airTaskClzssInfoDetailList[0].educationName }}</div>
+          <div>{{ scope.row.airTaskClzssInfoDetailList[1].educationName }}</div>
+        </template>
       </el-table-column>
-      <el-table-column label="时间" prop="createDate">
-
+      <el-table-column label="时间">
+        <template slot-scope="scope">
+          <div>{{ scope.row.airTaskClzssInfoDetailList[0].createDate }}</div>
+          <div>{{ scope.row.airTaskClzssInfoDetailList[1].createDate }}</div>
+        </template>
       </el-table-column>
     </el-table>
   </div>
@@ -73,26 +79,16 @@ export default {
           ],
         },
       ],
-    }
+    };
   },
   methods: {
-    rowspanMethod({ row, column, rowIndex, columnIndex }) {
-      console.log('row', row)
-      console.log('column', column)
-      console.log('rowIndex', rowIndex)
-      console.log('columnIndex', columnIndex)
-      if (rowIndex === 0) {
-        return {
-          rowspan: 1,
-          colspan: 2
-        };
+    rowspanMethod(row, index) {
+      if (index === 0) {
+        // 判断是否需要合并
+        const count = this.tableData.filter((item) => item.clzssName === row.clzssName).length;
+        return count;
       } else {
-        const arr = row.airTaskClzssInfoDetailList
-        arr.forEach(item => {
-          console.log(item.educationName)
-          console.log(item.createDate)
-          console.log(item.copies)
-        });
+        return 0;
       }
     },
 

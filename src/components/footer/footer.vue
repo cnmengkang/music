@@ -11,7 +11,7 @@
         <div style="width:25%" v-if="musicInfo.footerShow">
             <!-- 音量组件 -->
             <sound></sound>
-            <lyric :lyric="musicInfo"></lyric>
+            <lyric :lyric="musicInfo.lyric"></lyric>
         </div>
     </div>
 </template>

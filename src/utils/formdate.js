@@ -120,7 +120,5 @@ export function formatCurrentTime(currentTime) {
     const result = `${minute}:${second}`
     return result
 }
-// 表情包转换
 
 // ===================================================
-

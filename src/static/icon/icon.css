@@ -56,6 +56,7 @@
 
 .icon-play-red:before {
   content: "\ea83";
+  padding-left: 2px;
 }
 
 .icon-top_right:before {
