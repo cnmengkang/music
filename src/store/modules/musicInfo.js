@@ -1,4 +1,4 @@
-import { songUrl, songDetail, lyric } from '@/api/music/music';
+import { songUrl, songDetail } from '@/api/music/music';
 const musicInfo = {
     state: {
         // 单曲音乐信息

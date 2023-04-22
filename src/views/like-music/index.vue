@@ -1,112 +1,52 @@
 <template>
-  <div>
-    <el-table :data="tableData" :span-method="rowspanMethod">
-      <el-table-column prop="clzssName" label="班级">
-      </el-table-column>
-      <el-table-column label="对象" prop="educationName">
-
-      </el-table-column>
-      <el-table-column label="时间" prop="createDate">
-
-      </el-table-column>
-    </el-table>
+  <div class="like-music">
+    喜欢的音乐
+    <song-list :tableDate="list"></song-list>
   </div>
 </template>
 
 <script>
+import { likest, songDetail, userPlayList } from '@/api/music/music';
+import songList from '@/components/body/songlist'
 export default {
+  components: { songList },
+  props: {},
   data() {
     return {
-      tableData: [
-        {
-          id: 855,
-          airTaskId: 106,
-          clzssId: 5604,
-          clzssName: "1班",
-          fileStatus: 1,
-          fileUrl: null,
-          isDeleted: false,
-          createUserId: 12380008,
-          createTime: "2023-04-19 16:29:41",
-          updateUserId: null,
-          updateTime: null,
-          airTaskClzssInfoDetailList: [
-            {
-              educationName: "教师版",
-              createDate: "2023-04-21 11:49:57",
-              copies: 1,
-              studentNum: null,
-            },
-            {
-              educationName: "学生版",
-              createDate: "2023-04-21 11:49:57",
-              copies: 49,
-              studentNum: 49,
-            },
-          ],
-        },
-        {
-          id: 100,
-          airTaskId: 106,
-          clzssId: 5604,
-          clzssName: "2班",
-          fileStatus: 1,
-          fileUrl: null,
-          isDeleted: false,
-          createUserId: 12380008,
-          createTime: "2023-04-19 16:29:41",
-          updateUserId: null,
-          updateTime: null,
-          airTaskClzssInfoDetailList: [
-            {
-              educationName: "教师版",
-              createDate: "2023-04-21 11:49:57",
-              copies: 1,
-              studentNum: null,
-            },
-            {
-              educationName: "学生版",
-              createDate: "2023-04-21 11:49:57",
-              copies: 49,
-              studentNum: 49,
-            },
-          ],
-        },
-      ],
-    }
+      params:{
+        uid: 345288322,
+      },
+      list: []
+    };
+  },
+  created() { },
+  mounted() {
+    this.getLikeMusic();
+    this.getUserPlayList()
   },
   methods: {
-    rowspanMethod({ row, column, rowIndex, columnIndex }) {
-      console.log('row', row)
-      console.log('column', column)
-      console.log('rowIndex', rowIndex)
-      console.log('columnIndex', columnIndex)
-      if (rowIndex === 0) {
-        return {
-          rowspan: 1,
-          colspan: 2
-        };
-      } else {
-        const arr = row.airTaskClzssInfoDetailList
-        arr.forEach(item => {
-          console.log(item.educationName)
-          console.log(item.createDate)
-          console.log(item.copies)
-        });
-      }
+    // 获取我喜欢的音乐ids
+    getLikeMusic() {
+      likest(this.params).then(res => {
+        const ids = res.ids
+        this.getMusicSongDetail(ids.join(','))
+      })
     },
-
+    // 根据ids获取喜欢音乐详细信息
+    getMusicSongDetail(ids) {
+      songDetail(ids).then(res => {
+        this.list = res.songs
+        console.log(res)
+      })
+    },
+    // 登陆后获取用户信息，歌单，mv，dj，数量
+    getUserPlayList() {
+      userPlayList(this.params).then(res => {
+        console.log(res)
+      })
+    }
   },
+  computed: {},
 };
 </script>
-
-<style>
-.merge-class-name {
-  text-align: center;
-  line-height: 60px;
-}
-
-.border {
-  border-bottom: 1px solid #ccc;
-}
-</style>
+<style lang="less" scoped></style>

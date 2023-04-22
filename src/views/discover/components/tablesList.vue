@@ -4,8 +4,7 @@
 
         <el-table v-if="data.length.length != 0" @row-dblclick="getCurrentMusicId" :data="data" style="width: 100%"
             :show-header="false" stripe>
-            <el-table-column  width="50" label="序号">
-                <div class="124">{{title}}</div>
+            <el-table-column type="index" width="50" label="序号">
             </el-table-column>
             <el-table-column label="头像" width="66">
                 <template slot-scope="scope">
@@ -16,7 +15,7 @@
             </el-table-column>
             <el-table-column show-overflow-tooltip label="标题" class-name="title">
                 <template slot-scope="scope">
-                    <div class="">
+                    <div class="eli" :title="scope.row.name">
                         <span>{{ scope.row.name }}</span>
                         <span v-if="scope.row.alias.length" class="alias ml-5">({{ scope.row.alias[0] }})</span>
                     </div>
@@ -35,7 +34,7 @@
             <el-table-column show-overflow-tooltip prop="name" label="标题" width="180" />
             <el-table-column label="时间" width="65">
                 <template slot-scope="scope">
-                    <span>{{ parseTime(scope.row.bMusic.playTime, "{i}:{s}") }}</span>
+                    <span v-if="scope.row.bMusic">{{ parseTime(scope.row.bMusic.playTime, "{i}:{s}") }}</span>
                 </template>
             </el-table-column>
         </el-table>
@@ -59,7 +58,7 @@ export default {
         };
     },
     computed: {
-        
+
     },
     methods: {
         // 获取mv详情
@@ -89,7 +88,7 @@ export default {
     transform: translate(-35%, -60%);
     background: #fff;
     padding: 2px 6px;
-    font-size:14px;
+    font-size: 14px;
     cursor: pointer;
 }
 
@@ -99,4 +98,5 @@ export default {
 
 .el-table .success-row {
     background: #f0f9eb;
-}</style>
+}
+</style>

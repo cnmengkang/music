@@ -9,12 +9,6 @@ const request = axios.create({
 // 添加请求拦截器
 request.interceptors.request.use(config => {
     // 发送前处理的程序
-    // console.log('config', config)
-    // if (config.method == 'post') {
-    //     console.log('post')
-    // } else {
-    //     console.log('get')
-    // }
     return config
 }, err => {
     // 失败后处理程序
@@ -34,12 +28,16 @@ request.interceptors.response.use(response => {
         return response;
     }
 }, err => {
-    console.log('响应拦截器错误err', err)
     const error = err.response.data;
+    console.log('响应拦截器错误err', error)
     // 响应错误处理逻辑
     if (error.code != 200) {
         Message({ message: error.message, type: 'error' })
+    } else if (error.code == '-462') {
+        console.log('462')
+        Message({ message: '需要验证！', type: 'error' })
+    }else{
+        console.log('error错误')
     }
-    return Promise.reject(err)
 })
 export default request

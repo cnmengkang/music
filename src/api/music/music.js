@@ -42,11 +42,11 @@ export function lyric(id) {
     })
 }
 // 我喜欢的音乐列表(获取喜欢列表ids)
-export function likest(uid) {
+export function likest(data) {
     return request({
-        url: 'likest',
+        url: 'likelist',
         method: 'post',
-        params: uid
+        params: data
     })
 }
 // 喜欢音乐
@@ -62,6 +62,14 @@ export function like(id) {
 export function topSong(data) {
     return request({
         url: '/top/song',
+        method: 'post',
+        params: data
+    })
+}
+// 获取用户歌单
+export function userPlayList(data) {
+    return request({
+        url: '/user/playlist',
         method: 'post',
         params: data
     })

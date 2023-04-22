@@ -7,22 +7,23 @@ const user = {
         token: getToken(),
         phone: '',
         password: '',
-        uid: '', //用户id
-        userInfo: ''
+        userName: '',
+        userAvatar: '',
+        userId: ''
     },
     getters: {
-        
+
     },
     mutations: {
-        // token
-        SET_TOKEN: (state, token) => {
-            state.token = token;
+        SETS_USER_INFO: (state, userInfo) => {
+            console.log(userInfo)
+            state.userId = userInfo.userId
+            state.userName = userInfo.nickname
+            state.userAvatar = userInfo.avatarUrl
         },
-        SET_USER_STATUS(state, loginStatus) {
-            state.userInfo = loginStatus;
-        },
-        SET_UID(state, uid) {
-            state.uid = uid
+        SET_ACCOUNT: (state, account) => {
+            state.phone = account.phone
+            state.password = account.password
         }
     },
     actions: {
@@ -33,9 +34,6 @@ const user = {
             return new Promise((resolve, reject) => {
                 login(phone, password).then((res) => {
                     console.log(res)
-                    this.id = res.profile.userId;
-                    setToken(res.token)
-                    commit('SET_TOKEN', res.token)
                     resolve()
                 })
             })
@@ -44,11 +42,12 @@ const user = {
         LoginStatus({ commit, state }) {
             return new Promise((resolve, reject) => {
                 loginStatus().then((res) => {
-                    const result = res.data;
+                    console.log(res)
+                    const result = res.data.data;
                     console.log('result', result)
-                    if (result.data.code != 200) return;
-                    const uid = localStorage.setItem('uid', result.data.account.id);
-                    commit('SET_UID', uid)
+                    commit('SETS_USER_INFO', result.profile)
+                    if (result.code != 200) return;
+                    console.log('Login success')
                     resolve();
                 })
             })

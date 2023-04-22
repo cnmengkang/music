@@ -11,8 +11,7 @@
                 <span v-if="hide" class="start font-14">{{ formatCurrentTime(currentTime) || '00:00' }}</span>
                 <el-slider class="w-60" v-model="sliderTime" :show-tooltip="false" :format-tooltip="formatProcessToolTip"
                     @change="changeCurrenTime" />
-                <!-- <span v-if="hide" class="end font-14">{{ parseTime(musicTime, "{i}:{s}") }}</span> -->
-                <span v-if="hide" class="end font-14">{{ musicTime }}</span>
+                <span v-if="hide" class="end font-14">{{ parseTime(musicTime, "{i}:{s}") }}</span>
             </div>
             <!-- 播放暂停按钮 -->
         </div>
@@ -42,6 +41,7 @@ function realFormatSecond(second) {
 }
 import { mapState } from 'vuex';
 import { lyric } from '@/api/music/music'
+import AudioPlayer from '@/utils/AudioPlayer'
 export default {
     props: {
 
@@ -91,11 +91,11 @@ export default {
         startPlayOrPause() {
             if (this.currentTime == 0) return;
             if (this.isPlay == true) {
-                this.$refs.audio.pause();
+                this.player.pause();
                 this.isPlay = false
             } else {
                 this.isPlay = true
-                this.$refs.audio.play();
+                this.player.play();
             }
         },
         // 当音频加载完成会调用此事件

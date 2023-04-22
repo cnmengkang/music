@@ -16,6 +16,8 @@
 </template>
 <script>
 import { qrKey, qrCreate, qrCheckCode } from "@/api/user/login";
+import { setCookies } from '@/utils/auth'
+
 export default {
     name: "qrCode",
     data() {
@@ -31,7 +33,7 @@ export default {
         };
     },
     created() {
-        this.getQrKey()
+        this.getQrKey();
     },
     methods: {
         // 二维码登陆
@@ -47,10 +49,11 @@ export default {
             const timer = setInterval(() => {
                 this.qr.timerStamp = new Date().getTime();
                 qrCheckCode(this.qr).then((res) => {
-                    const result = res.data
+                    const result = res.data;
                     console.log(result)
                     if (result.code == 803) {
                         clearInterval(timer)
+                        setCookies(result.cookie)
                         this.getLogin()
                         this.$router.push('/')
                     } else if (result.code == 800) {

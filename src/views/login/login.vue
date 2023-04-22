@@ -2,6 +2,7 @@
   <div id="login">
     <el-card>
       <div class="app-login">
+        <p>暂时需要验证,请使用扫码登录！</p>
         <div class="login login-phone" v-if="flag">
           <el-form :model="loginForm" status-icon v-loading="loading" ref="ruleForm" :rules="loginRules"
             class="demo-ruleForm">
@@ -114,8 +115,9 @@ export default {
     loginPhone() {
       this.$refs.ruleForm.validate((valid) => {
         if (!valid) return;
-        this.$store.dispatch("Login", this.loginForm).then(() => {
-          this.$router.push('/')
+        this.$store.dispatch("Login", this.loginForm).then((res) => {
+          console.log(res)
+          // this.$router.push('/')
         });
       });
     },
