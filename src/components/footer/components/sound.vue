@@ -23,14 +23,14 @@ export default {
     };
   },
   created() {
-    this.$bus.$on('audio', el => {
-      this.soundAudio = el;
-    })
+    // this.$bus.$on('audio', el => {
+    //   this.soundAudio = el;
+    // })
   },
   mounted() {
     // 首次加载默认音量控制
-    this.soundAudio.volume = this.volume / 100;
-    console.log(`当前音量${this.volume} max=100`)
+    // this.soundAudio.volume = this.volume / 100;
+    // console.log(`当前音量${this.volume} max=100`)
   },
   methods: {
     // 点击控制音量大小
