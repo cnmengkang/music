@@ -1,44 +1,93 @@
 <template>
     <div class="footer">
         <div class="footer-singer" v-if="musicInfo.footerShow">
-            <!-- 左侧歌曲名作者名组件 -->
             <singer :singer="musicInfo"></singer>
         </div>
         <div class="footer-audio">
-            <!-- 播放组件 -->
-            <audio-play></audio-play>
+            <div class="audio">
+                <div class="audio-play flex">
+                    <div class="audio-top plays mb-5">
+                        <span title="上一首" class="iconFont icon-prev" @click="prev"></span>
+                        <span title="暂停" class="play iconFont icon-play" v-if="isBtnShow"
+                            @click="startPlayOrPause(false)"></span>
+                        <span title="播放" class="pause iconFont icon-pause" v-else @click="startPlayOrPause(true)"></span>
+                        <span title="下一首" class="iconFont icon-next" @click="next"></span>
+                    </div>
+                    <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
+                        <span v-if="hide" class="start font-14">{{ player.currentTime || "00:00" }}</span>
+                        <el-slider class="w-60" v-model="sliderValue" :show-tooltip="false" />
+                        <span v-if="hide" class="end font-14">{{ player.duration || "00:00" }}</span>
+                    </div>
+                </div>
+            </div>
         </div>
         <div style="width:25%" v-if="musicInfo.footerShow">
-            <!-- 音量组件 -->
-            <sound></sound>
-            <lyric :lyric="musicInfo.lyric"></lyric>
+            <sound :player="player"></sound>
         </div>
+        <lyric></lyric>
     </div>
 </template>
 <script>
+import AudioPlayer from '@/utils/AudioPlayer'
+import  LyricsFormatter  from '@/utils/formLyrics'
 import { mapState } from 'vuex'
 import singer from './components/singer'
-import audioPlay from './components/play'
 import sound from './components/sound'
 import lyric from './components/lyric'
 
 export default {
     name: 'footers',
-    components: { singer, audioPlay, sound,lyric },
+    components: { singer, sound, lyric },
     data() {
         return {
+            player: null,
+            sliderValue: 0,
+            isBtnShow: false,
+            currentTime: 0,
         }
     },
     created() {
+        this.player = new AudioPlayer();
     },
     mounted() {
+
+    },
+    watch: {
+        musicUrl(newSrc) {
+            console.log(newSrc)
+            this.player.isPlayUrl(newSrc);
+            this.isBtnShow = true;
+        }
     },
     // 计算属性
     computed: {
-        ...mapState(['musicInfo']),
+        hide() {
+            return this.player.currentTime != 0;
+        },
+        ...mapState({
+            musicUrl: state => state.musicInfo.musicUrl,
+            musicInfo: state => state.musicInfo
+        })
     },
     methods: {
-
+        prev() { },
+        next() { },
+        startPlayOrPause(val) {
+            if (val) {
+                this.player.play();
+                this.isBtnShow = true;
+                this.player.isPlaying = true;
+            } else {
+                this.player.pause();
+                this.isBtnShow = false;
+                this.player.isPlaying = false;
+            }
+        },
+        getLyrics(id){
+            this.$store.dispatch('getCurrentMusicLyric',id).then(res=>{
+                console.log(res)
+            })
+        }
     }
 }
 </script>
@@ -60,6 +109,55 @@ export default {
         align-items: center;
         justify-content: center;
         margin: 0 auto;
+
+        .audio {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .audio-play {
+                justify-content: center !important;
+
+                .audio-top {
+                    span {
+                        font-size: 22px;
+                    }
+                }
+            }
+
+            .start,
+            .end {
+                width: 10%;
+                text-align: center;
+            }
+
+            .plays {
+                display: flex;
+                justify-content: center;
+                gap: 0px 30px;
+            }
+
+            .lyrics {
+                width: calc(100% - 200px);
+                background: #ffffffad;
+                position: absolute;
+                height: 30px;
+                line-height: 30px;
+                right: 0px;
+                top: -32px;
+                z-index: 99;
+                border-top: 1px solid #ccc;
+                overflow: hidden;
+
+                p {
+                    text-align: center;
+                    font-size: 12px;
+                    line-height: 30px;
+
+                }
+            }
+        }
     }
 }
 </style>
