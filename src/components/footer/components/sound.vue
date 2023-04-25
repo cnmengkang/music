@@ -1,7 +1,7 @@
 <template>
   <div class="sound">
     <el-popover placement="top-start" trigger="hover" class="popover">
-      <el-slider :show-tooltip="false" :format-tooltip="formatTooltip" @change="changeVolume" v-model="volume" vertical
+      <el-slider :show-tooltip="true" :format-tooltip="formatTooltip" @change="changeVolume" v-model="volume" vertical
         height="80px">
       </el-slider>
       <span title="静音" slot="reference" v-if="isSound" class="font-30 iconFont icon-sound-start"
@@ -9,12 +9,9 @@
       <span title="恢复音量" slot="reference" v-else class="font-30 iconFont icon-sound-close" @click="setSound(true)"></span>
     </el-popover>
   </div>
-  <!-- 音量组件 -->
 </template>
-
 <script>
 export default {
-  components: {},
   props: {
     player: {
       type: Object,
@@ -24,11 +21,8 @@ export default {
   data() {
     return {
       isSound: true,
-      volume: 50,  //默认音量
+      volume: 20,  //默认音量
     }
-  },
-  created() {
-
   },
   mounted() {
     this.player.setVolume(this.volume / 100)
@@ -51,7 +45,7 @@ export default {
     },
     // 音量条toolTip
     formatTooltip(val) {
-      return val / 100;
+      return val;
     },
     // 滑动控制音量大小
     changeVolume(val = 0) {

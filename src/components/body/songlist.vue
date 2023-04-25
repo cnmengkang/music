@@ -2,14 +2,13 @@
     <!-- list列表组件 -->
     <div class="song-list">
         <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true" />
-        <el-table highlight-current-row @row-dblclick="getCurrentMusicId" size="mini" :data="tableDate" :current-row-key="tableDate.id"
-            :row-class-name="tableRowClassName"
-         stripe>
-            <el-table-column label="序号" type="index" :index="indexMethod"/>
+        <el-table highlight-current-row @row-dblclick="getCurrentMusicId" size="mini" :data="tableDate"
+            :current-row-key="tableDate.id" :row-class-name="tableRowClassName" stripe>
+            <el-table-column label="序号" type="index" :index="indexMethod" />
             <el-table-column label="操作" width="70">
                 <template slot-scope="scope">
-                    <i :class="[scope.row.index == currentIndex ? 'icon-love-red' : 'iconFont icon-love']"
-                        type="selection" :index="scope.row.index" @click="getLike(scope.$index, scope.row)"></i>
+                    <i :class="[scope.row.index == currentIndex ? 'icon-love-red' : 'iconFont icon-love']" type="selection"
+                        :index="scope.row.index" @click="getLike(scope.$index, scope.row)"></i>
                     <i class="iconFont icon-down ml-10" @click="downloadMusic(scope.row)"></i>
                 </template>
             </el-table-column>
@@ -29,8 +28,8 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column show-overflow-tooltip prop="ar[0].name" label="歌手"/>
-            <el-table-column show-overflow-tooltip prop="al.name" label="专辑"/>
+            <el-table-column show-overflow-tooltip prop="ar[0].name" label="歌手" />
+            <el-table-column show-overflow-tooltip prop="al.name" label="专辑" />
             <el-table-column label="时间" width="65">
                 <template slot-scope="scope">
                     <span>{{ parseTime(scope.row.dt, "{i}:{s}") }}</span>
@@ -46,7 +45,7 @@ export default {
     props: {
         tableDate: {
             type: Array,
-            require:true
+            require: true
         },
     },
     data() {
@@ -56,13 +55,13 @@ export default {
         }
     },
     computed: {
-        
+
     },
     methods: {
         // 双击获取当前单曲id
-        getCurrentMusicId(res) {
-            console.log(res.id)
-            this.$store.dispatch('getCurrentMusicDetail',res.id)
+        getCurrentMusicId(row) {
+            console.log(row.id)
+            this.$store.dispatch('getCurrentMusicDetail', row.id)
         },
         // 获取mv
         getMv(res) {
@@ -93,7 +92,6 @@ export default {
         },
         // 喜欢音乐
         getLike(index, row) {
-            console.log(index + 1)
             console.log(row.index)
             like(row.id).then(res => {
                 if (res.code == 200) {
@@ -101,7 +99,6 @@ export default {
                 }
             })
         }
-
     }
 }
 </script>

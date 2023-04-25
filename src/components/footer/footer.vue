@@ -14,27 +14,37 @@
                         <span title="下一首" class="iconFont icon-next" @click="next"></span>
                     </div>
                     <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
-                        <span v-if="hide" class="start font-14">{{ player.currentTime || "00:00" }}</span>
-                        <el-slider class="w-60" v-model="sliderValue" :show-tooltip="false" />
-                        <span v-if="hide" class="end font-14">{{ player.duration || "00:00" }}</span>
+                        <span v-if="musicUrl" class="start font-14">{{ currentTime || "00:00"
+                        }}</span>
+                        <el-slider class="w-80" v-model="sliderValue" :show-tooltip="false" />
+                        <span v-if="musicUrl" class="end font-14">{{ duration || "00:00" }}</span>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- 音量 -->
         <div style="width:25%" v-if="musicInfo.footerShow">
             <sound :player="player"></sound>
         </div>
-        <lyric></lyric>
+        <!-- 音量 -->
+        <!-- 歌词 -->
+        <div class="lyrics">
+            <lyric v-if="lyrics.length > 0" :lyric="lyrics" :currentTime="player.currentTime"></lyric>
+        </div>
+        <!-- 歌词 -->
+        <!-- 弹出层 -->
+        <div class="prover">
+            
+        </div>
     </div>
 </template>
 <script>
-import AudioPlayer from '@/utils/AudioPlayer'
-import  LyricsFormatter  from '@/utils/formLyrics'
+import { formatTIme } from '@/utils/formLyrics';
 import { mapState } from 'vuex'
+import AudioPlayer from '@/utils/AudioPlayer'
 import singer from './components/singer'
 import sound from './components/sound'
 import lyric from './components/lyric'
-
 export default {
     name: 'footers',
     components: { singer, sound, lyric },
@@ -43,35 +53,33 @@ export default {
             player: null,
             sliderValue: 0,
             isBtnShow: false,
-            currentTime: 0,
         }
     },
     created() {
         this.player = new AudioPlayer();
     },
-    mounted() {
-
-    },
     watch: {
         musicUrl(newSrc) {
-            console.log(newSrc)
-            this.player.isPlayUrl(newSrc);
+            const id = this.$store.state.musicInfo.id;
+            this.player.isPlayUrl(newSrc, id);
             this.isBtnShow = true;
         }
     },
     // 计算属性
     computed: {
-        hide() {
-            return this.player.currentTime != 0;
-        },
         ...mapState({
             musicUrl: state => state.musicInfo.musicUrl,
-            musicInfo: state => state.musicInfo
-        })
+            musicInfo: state => state.musicInfo,
+            lyrics: state => state.musicInfo.lyric
+        }),
+        currentTime() {
+            return formatTIme(this.player.currentTime)
+        },
+        duration() {
+            return formatTIme(this.player.duration)
+        }
     },
     methods: {
-        prev() { },
-        next() { },
         startPlayOrPause(val) {
             if (val) {
                 this.player.play();
@@ -83,15 +91,14 @@ export default {
                 this.player.isPlaying = false;
             }
         },
-        getLyrics(id){
-            this.$store.dispatch('getCurrentMusicLyric',id).then(res=>{
-                console.log(res)
-            })
-        }
+        prev() { },
+        next() { },
     }
 }
 </script>
 <style scope lang="less">
+
+
 .footer {
     display: flex;
     flex-wrap: nowrap;
@@ -138,25 +145,25 @@ export default {
                 gap: 0px 30px;
             }
 
-            .lyrics {
-                width: calc(100% - 200px);
-                background: #ffffffad;
-                position: absolute;
-                height: 30px;
-                line-height: 30px;
-                right: 0px;
-                top: -32px;
-                z-index: 99;
-                border-top: 1px solid #ccc;
-                overflow: hidden;
+        }
+    }
 
-                p {
-                    text-align: center;
-                    font-size: 12px;
-                    line-height: 30px;
+    .lyrics {
+        width: calc(100% - 200px);
+        background: #ffffffad;
+        position: absolute;
+        height: 30px;
+        line-height: 30px;
+        right: 0px;
+        top: -32px;
+        z-index: 99;
+        border-top: 1px solid #ccc;
 
-                }
-            }
+        p {
+            text-align: center;
+            font-size: 12px;
+            line-height: 30px;
+
         }
     }
 }

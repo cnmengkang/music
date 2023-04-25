@@ -1,53 +1,48 @@
 <template>
-    <div id="private-fm">
-        私人fm
-        <button @click="play">开始</button>
+    <div>
+        <audio ref="audio" @ended="next" :src="currentSong.url"></audio>
+        <button @click="prev">上一首</button>
+        <button @click="play">播放</button>
         <button @click="pause">暂停</button>
-        <button @click="getClick">点击触发播放音乐功能</button>
-        {{ player }}
-        <div></div>
-        <button v-if="player != null">{{ formatCurrentTime(getCurrentTime) || "00:00" }}</button>
-        <el-slider v-model="value"></el-slider>
-        <button v-if="player != null">{{ formatCurrentTime(getDuration) }}</button>
+        <button @click="next">下一首</button>
     </div>
 </template>
+  
 <script>
-import AudioPlayer from '@/utils/AudioPlayer'
-import LyricsFormatter from '@/utils/formLyrics'
 export default {
     data() {
         return {
-            player: null,
-            lyrics: "[00:00.000] 作词 : 龍猛寺寬度\n[00:00.071] 作曲 : 龍猛寺寬度\n[00:00.142] 编曲 : 李星彤/曹宇\n[00:00.213] 制作人 : 刘天宇\n[00:00.284] 混音 : 陈泽宇@MATTMIXING\n[00:00.355] 母带 : 陈泽宇@MATTMIXING\n[00:00.426] 京胡 : 王彩云\n[00:00.497] 和声 : 海青\n[00:00.568] 企划 : 刘天宇\n[00:00.639] 统筹 : 梁雪霏/张伟瀚\n[00:00.710]三姐\n[00:04.450]千错万错\n[00:06.564]乃是为夫一人之错\n[00:12.471]你你你你你你\n[00:14.954]你就宽恕了罢\n[00:21.218]啊~我的妻\n[00:24.713]王氏宝钏\n[00:28.216]可怜你守在寒窑\n[00:29.966]可怜你孤孤单单\n[00:31.701]苦等我薛男平贵\n[00:33.720]整整一十八年\n[00:35.701]啊～我的妻\n[00:38.467]王氏宝钏\n[00:41.958]我不该心起疑窦\n[00:43.960]我不该口吐轻言\n[00:45.453]落得个忘恩负义\n[00:47.206]宛如欺了天\n[00:49.461]待我将这一十八载\n[00:52.951]从头说一番\n[00:55.703]方知我薛平男\n[00:57.464]昼夜回家赶\n[00:58.957]只为夫妻两团圆\n[01:23.959]忆昔当年泪不干\n[01:27.202]彩楼绣球配良缘\n[01:30.455]平贵降了红鬃战\n[01:33.954]唐王犒封我督府官\n[01:37.451]西凉国 造了反\n[01:40.949]你的父上殿把本参\n[01:44.216]逼我披挂到阵前\n[01:47.213]拆散鸳鸯 天各一边\n[01:51.201]黄沙滚 烽烟漫\n[01:54.453]到后来我番邦驾坐在银安\n[01:58.456]那一日宾鸿大雁衔罗衫\n[02:01.869]才知道 三姐受熬煎\n[02:09.127]啊～我的妻\n[02:12.622]王氏宝钏\n[02:16.123]可怜你守在寒窑\n[02:18.128]可怜你孤孤单单\n[02:19.619]苦等我薛男平贵\n[02:21.382]整整一十八年\n[02:23.620]啊～我的妻\n[02:26.376]王氏宝钏\n[02:30.125]我不该心起疑窦\n[02:31.633]我不该口吐轻言\n[02:33.371]落得个忘恩负义\n[02:35.122]宛如欺了天\n[02:37.378]待我将这一十八载\n[02:40.867]从头说一番\n[02:45.367]方知我薛平男\n[02:47.376]昼夜回家赶\n[02:49.126]只为夫妻两团圆\n[02:56.368]八月十五月儿圆\n[03:03.617]想起了夫妻们寒窑受尽了惨然\n[03:10.615]抛下那西凉的江山无人管\n[03:17.123]身骑着红鬃烈马走三关\n[03:26.384]啊～我的妻\n[03:29.883]王氏宝钏\n[03:33.369]可怜你守在寒窑\n[03:35.117]可怜你孤孤单单\n[03:36.850]苦等我薛男平贵\n[03:38.591]整整一十八年\n[03:40.847]啊～我的妻\n[03:43.355]王氏宝钏\n[03:47.091]我不该心起疑窦\n[03:48.840]我不该口吐轻言\n[03:50.598]落得个忘恩负义\n[03:52.348]宛如欺了天\n[03:54.595]待我将这一十八载\n[03:57.850]从头说一番\n[04:02.594]方知我薛平男\n[04:04.341]昼夜回家赶\n[04:06.092]只为夫妻两团圆\n",
-            lyricsArr:[],
-            value:0,
-            src:'http://m701.music.126.net/20230423231127/a72308bc6f1cebf13ea1a7f5fb01f56c/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/14204368279/8138/7d92/ffff/fdc2ab6b70a8bfe628058201ae7b5af2.mp3'
-        }
-    },
-    mounted() {
-        LyricsFormatter.format(this.lyrics);
-    },
-    methods: {
-        // 点击触发
-        getClick() {
-            this.player = new AudioPlayer(this.src);
-        },
-        play() {
-            this.player.play();
-        },
-        pause() {
-            this.player.pause();
-        },
-
+            playlist: [
+                { title: '歌曲 1', artist: '艺术家 1', url: 'http://m7.music.126.net/20230425181411/68ba0eb421ae834acead58971a93c1c1/ymusic/0fd6/4f65/43ed/a8772889f38dfcb91c04da915b301617.mp3' },
+                { title: '歌曲 2', artist: '艺术家 2', url: 'http://m7.music.126.net/20230425181411/68ba0eb421ae834acead58971a93c1c1/ymusic/0fd6/4f65/43ed/a8772889f38dfcb91c04da915b301617.mp3' }
+            ],
+            currentIndex: 0,
+            isPlaying: false
+        };
     },
     computed: {
-        getCurrentTime(){
-            return this.player.getCurrentTime();
+        currentSong() {
+            return this.playlist[this.currentIndex];
+        }
+    },
+    methods: {
+        play() {
+            this.$refs.audio.play();
+            this.isPlaying = true;
         },
-        getDuration(){
-            return this.player.getDuration();
+        pause() {
+            this.$refs.audio.pause();
+            this.isPlaying = false;
+        },
+        next() {
+            this.currentIndex = (this.currentIndex + 1) % this.playlist.length;
+            this.play();
+        },
+        prev() {
+            this.currentIndex = (this.currentIndex - 1 + this.playlist.length) % this.playlist.length;
+            this.play();
         }
     }
-}
+};
 </script>
-
+  
