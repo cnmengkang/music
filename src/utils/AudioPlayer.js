@@ -39,6 +39,7 @@ class AudioPlayer {
         });
         this.audio.addEventListener('ended', () => {
             console.log('ended');
+            this.isPlaying = false;
             this.next();
         });
     }

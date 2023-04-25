@@ -16,7 +16,7 @@
                     <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
                         <span v-if="musicUrl" class="start font-14">{{ currentTime || "00:00"
                         }}</span>
-                        <el-slider class="w-80" v-model="sliderValue" :show-tooltip="false" />
+                        <el-slider class="w-80" :min="0" :max="player.duration" @change="seek"  v-model="slidValue" :show-tooltip="false" />
                         <span v-if="musicUrl" class="end font-14">{{ duration || "00:00" }}</span>
                     </div>
                 </div>
@@ -51,8 +51,8 @@ export default {
     data() {
         return {
             player: null,
-            sliderValue: 0,
             isBtnShow: false,
+            slidValue:0,
         }
     },
     created() {
@@ -63,6 +63,9 @@ export default {
             const id = this.$store.state.musicInfo.id;
             this.player.isPlayUrl(newSrc, id);
             this.isBtnShow = true;
+        },
+        'player.currentTime'(newTime){
+            this.slidValue = newTime;
         }
     },
     // 计算属性
@@ -93,6 +96,10 @@ export default {
         },
         prev() { },
         next() { },
+        seek(){
+            this.player.audio.currentTime = this.slidValue
+        },
+        
     }
 }
 </script>
