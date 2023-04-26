@@ -2,13 +2,11 @@
     <!-- list列表组件 -->
     <div class="song-list">
         <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true" />
-        <el-table highlight-current-row @row-dblclick="getCurrentMusicId" size="mini" :data="tableDate"
-            :current-row-key="tableDate.id" :row-class-name="tableRowClassName" stripe>
+        <el-table @row-dblclick="getCurrentMusicId" size="mini" :data="tableDate" stripe>
             <el-table-column label="序号" type="index" :index="indexMethod" />
             <el-table-column label="操作" width="70">
                 <template slot-scope="scope">
-                    <i :class="[scope.row.index == currentIndex ? 'icon-love-red' : 'iconFont icon-love']" type="selection"
-                        :index="scope.row.index" @click="getLike(scope.$index, scope.row)"></i>
+                    <i class="iconFont icon-love" type="selection" :index="scope.row.index"></i>
                     <i class="iconFont icon-down ml-10" @click="downloadMusic(scope.row)"></i>
                 </template>
             </el-table-column>
@@ -36,32 +34,38 @@
                 </template>
             </el-table-column>
         </el-table>
+        {{ player }}
     </div>
     <!-- list列表组件 -->
 </template>
 <script>
-import { songUrl, like } from '@/api/music/music'
+import { songUrl } from '@/api/music/music';
+import MusicPlayer from '@/utils/player'
 export default {
     props: {
         tableDate: {
             type: Array,
             require: true
         },
+        id: {
+            type: Number,
+            require: true
+        }
     },
     data() {
         return {
-            CurrentRow: 0,
             currentIndex: 0,
+            player:null,
         }
     },
-    computed: {
-
+    mounted() {
     },
     methods: {
         // 双击获取当前单曲id
-        getCurrentMusicId(row) {
-            console.log(row.id)
-            this.$store.dispatch('getCurrentMusicDetail', row.id)
+        getCurrentMusicId(row, column, event) {
+            const index = this.tableDate.indexOf(row)
+            this.player = new MusicPlayer({ playList: this.tableDate, index: index, id: row.id })
+            // this.$store.dispatch('getCurrentMusicDetail', row.id);
         },
         // 获取mv
         getMv(res) {
@@ -70,13 +74,6 @@ export default {
         },
         indexMethod(index = 0) {
             return index * 1 + 1;
-        },
-        // 给每一行添加index
-        tableRowClassName({ row, rowIndex }) {
-            row.index = rowIndex + 1;
-            if (this.CurrentRow == rowIndex + 1) {
-                return 'current-play'
-            }
         },
         // 下载
         downloadMusic(row) {
@@ -87,16 +84,6 @@ export default {
                 link.href = window.URL.createObjectURL(blob)
                 link.download = res.data[0].url // 设置下载文件名
                 link.click() // 触发下载操作
-            })
-
-        },
-        // 喜欢音乐
-        getLike(index, row) {
-            console.log(row.index)
-            like(row.id).then(res => {
-                if (res.code == 200) {
-                    this.currentIndex = index + 1;
-                }
             })
         }
     }

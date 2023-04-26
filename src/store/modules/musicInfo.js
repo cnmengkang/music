@@ -3,7 +3,7 @@ const musicInfo = {
     state: {
         // 单曲音乐信息
         musicUrl: '', //音乐url
-        musicLevel: '', //音乐音质
+        level: 'exhigh', //音乐音质
         musicMd5: '', //音乐加密
         musicType: '', //音乐类型
         musicTime: '',//音乐总时长
@@ -32,7 +32,6 @@ const musicInfo = {
             state.musicUrl = musicUrl.url
             state.musicType = musicUrl.encodeType
             state.musicMd5 = musicUrl.md5
-            state.musicLevel = musicUrl.level
             state.id = musicUrl.id
             state.musicTime = musicUrl.time
         },
@@ -46,21 +45,24 @@ const musicInfo = {
         }
     },
     actions: {
-        // 获取当前音乐的播放地址并存储到state里面。
-        async getCurrentMusicUrl({ commit }, id) {
-            const res = await songUrl(id);
-            commit('MUSIC_URL', res.data[0])
-        },
         // 获取当前音乐的详细信息，并存储到state里面,供底部使用数据
         async getCurrentMusicDetail({ dispatch, commit }, ids) {
             if (!ids) return;
             commit('FOOTER_SHOW', true)
             const detail = await songDetail(ids);
+            console.log(detail)
             const songs = detail.songs[0];
             const privileges = detail.privileges
-            dispatch('getCurrentMusicUrl', ids)
+            dispatch('getCurrentMusicUrl', ids)    //调用音乐url
             dispatch('getCurrentMusicLyric', ids)
             commit('SINGLE_DETAIL', songs)
+        },
+        // 获取当前音乐的播放地址并存储到state里面。
+        async getCurrentMusicUrl({ state, commit }, id) {
+            const params = { id: id, level: state.level }
+            const res = await songUrl(params);
+            console.log(res)
+            commit('MUSIC_URL', res.data[0])
         },
         // // 获取当前音乐的歌词
         getCurrentMusicLyric({ commit }, id) {

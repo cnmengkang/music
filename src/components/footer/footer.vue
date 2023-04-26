@@ -1,5 +1,5 @@
 <template>
-    <div class="footer">
+    <div class="footer" v-if="false">
         <div class="footer-singer" v-if="musicInfo.footerShow">
             <singer :singer="musicInfo"></singer>
         </div>
@@ -16,7 +16,8 @@
                     <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
                         <span v-if="musicUrl" class="start font-14">{{ currentTime || "00:00"
                         }}</span>
-                        <el-slider class="w-80" :min="0" :max="player.duration" @change="seek"  v-model="slidValue" :show-tooltip="false" />
+                        <el-slider class="w-80" :min="0" :max="player.duration" @change="seek" v-model="slidValue"
+                            :show-tooltip="false" />
                         <span v-if="musicUrl" class="end font-14">{{ duration || "00:00" }}</span>
                     </div>
                 </div>
@@ -33,8 +34,8 @@
         </div>
         <!-- 歌词 -->
         <!-- 弹出层 -->
-        <div class="prover">
-            
+        <div class="drawer" v-if="musicInfo.footerShow">
+            <drawer :musicInfo="musicInfo"></drawer>
         </div>
     </div>
 </template>
@@ -45,14 +46,15 @@ import AudioPlayer from '@/utils/AudioPlayer'
 import singer from './components/singer'
 import sound from './components/sound'
 import lyric from './components/lyric'
+import drawer from './components/drawer'
 export default {
     name: 'footers',
-    components: { singer, sound, lyric },
+    components: { singer, sound, lyric, drawer },
     data() {
         return {
             player: null,
             isBtnShow: false,
-            slidValue:0,
+            slidValue: 0,
         }
     },
     created() {
@@ -64,7 +66,7 @@ export default {
             this.player.isPlayUrl(newSrc, id);
             this.isBtnShow = true;
         },
-        'player.currentTime'(newTime){
+        'player.currentTime'(newTime) {
             this.slidValue = newTime;
         }
     },
@@ -96,16 +98,14 @@ export default {
         },
         prev() { },
         next() { },
-        seek(){
+        seek() {
             this.player.audio.currentTime = this.slidValue
         },
-        
+
     }
 }
 </script>
 <style scope lang="less">
-
-
 .footer {
     display: flex;
     flex-wrap: nowrap;
@@ -163,7 +163,7 @@ export default {
         line-height: 30px;
         right: 0px;
         top: -32px;
-        z-index: 99;
+        z-index: 10;
         border-top: 1px solid #ccc;
 
         p {

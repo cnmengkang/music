@@ -55,14 +55,14 @@ class AudioPlayer {
         this.audio.play();
     }
     // 暂停播放
-    pause() { 
+    pause() {
         this.audio.pause();
     }
     // 下一首
-    next(){
+    next() {
         console.log('下一首')
     }
-    prev(){
+    prev() {
         console.log('上一首')
     }
     // 音量

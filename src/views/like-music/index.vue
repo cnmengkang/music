@@ -1,6 +1,5 @@
 <template>
   <div class="like-music">
-    喜欢的音乐
     <song-list :tableDate="list"></song-list>
   </div>
 </template>
@@ -10,16 +9,14 @@ import { likest, songDetail, userPlayList } from '@/api/music/music';
 import songList from '@/components/body/songlist'
 export default {
   components: { songList },
-  props: {},
   data() {
     return {
-      params:{
+      params: {
         uid: 345288322,
       },
       list: []
     };
   },
-  created() { },
   mounted() {
     this.getLikeMusic();
     this.getUserPlayList()
@@ -46,7 +43,6 @@ export default {
       })
     }
   },
-  computed: {},
 };
 </script>
 <style lang="less" scoped></style>

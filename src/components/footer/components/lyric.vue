@@ -18,7 +18,7 @@ export default {
         };
     },
     watch: {
-        // 监听当前播放歌曲时间
+        // 监听当前播放歌曲时间,兵给index赋值
         currentTime(newTime) {
             const lyric = this.$refs.lyrics_p
             for (let i = 0; i < lyric.length; i++) {
@@ -40,12 +40,13 @@ export default {
     methods: {
         // 滚动到当前播放歌词
         scrollToActiveLine() {
-            const container = this.$refs.lyrics
+            const container = this.$refs.lyrics;
             const activeLine = container.querySelector('.active');
             if (activeLine) {
                 container.scrollTop = activeLine.offsetTop - container.offsetTop;
             }
         }
+        // 100   30
     },
     computed: {
         formattedLyrics() {
@@ -56,9 +57,9 @@ export default {
 </script>
 <style scoped lang="less">
 .active {
-    // color: red;
-    // font-weight: bold;
+    color: #000;
 }
+
 .lyric-scroll {
     overflow-y: scroll;
     height: 30px;
