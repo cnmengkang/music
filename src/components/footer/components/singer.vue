@@ -1,16 +1,15 @@
 <template>
     <div class="author flex flex-wrap-nowrap">
         <div class="author-avatar mr-15">
-            <el-avatar shape="square" :size="50" :src="singer.avatar" />
+            <el-avatar shape="square" :size="50" :src="avatar" />
         </div>
         <div class="author-singer ellipsis">
             <div class="ellipsis">
-                <span>{{ singer.title }}</span>
-                <span class="alia" v-if="singer.alia.length != 0">({{ singer.alia[0] }})</span>
+                <span>{{ name }}</span>
+                <span class="alia" v-if="subtitle">({{ subtitle}})</span>
             </div>
             <div class="mt-5">
-                <span class="font-12" v-for="item in singer.name" :key="item.id">{{ item.name }}<span
-                        v-if="item.length > 1">/</span></span>
+                <span class="font-12">{{ authorName }}</span>
             </div>
         </div>
     </div>
@@ -25,7 +24,22 @@ export default {
     },
     data() {
         return {
+
         };
+    },
+    computed: {
+        name() {
+            return this.singer.name;
+        },
+        avatar() {
+            return this.singer.al.picUrl
+        },
+        subtitle(){
+            return this.singer.alia[0]
+        },
+        authorName(){
+            return this.singer.ar[0].name
+        }
     }
 };
 </script>
@@ -50,4 +64,5 @@ export default {
 
 .flex-wrap-nowrap {
     flex-wrap: nowrap;
-}</style>
+}
+</style>

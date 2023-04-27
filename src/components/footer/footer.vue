@@ -1,17 +1,17 @@
 <template>
     <div class="footer">
-        <div class="footer-singer" v-if="isPlaying">
-            <singer :singer="musicInfo"></singer>
+        <div class="footer-singer" v-if="currentTime">
+            <singer :singer="singers"></singer>
         </div>
         <div class="footer-audio">
             <div class="audio">
                 <div class="audio-play flex">
                     <div class="audio-top plays mb-5">
-                        <span title="上一首" class="iconFont icon-prev" @click="prev"></span>
-                        <span title="暂停" class="play iconFont icon-play" v-if="isBtnShow"
+                        <span title="上一首" class="iconFont icon-prev cursor" @click="prev"></span>
+                        <span title="暂停" class="play iconFont icon-play cursor" v-if="isBtnShow"
                             @click="startPlayOrPause(false)"></span>
-                        <span title="播放" class="pause iconFont icon-pause" v-else @click="startPlayOrPause(true)"></span>
-                        <span title="下一首" class="iconFont icon-next" @click="next"></span>
+                        <span title="播放" class="pause iconFont icon-pause cursor" v-else @click="startPlayOrPause(true)"></span>
+                        <span title="下一首" class="iconFont icon-next cursor" @click="next"></span>
                     </div>
                     <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
                         <span v-if="player" class="start font-14">{{ currentTime || "00:00"
@@ -24,7 +24,7 @@
             </div>
         </div>
         <!-- 音量 -->
-        <div style="width:25%" v-if="isPlaying">
+        <div style="width:25%" v-if="currentTime">
             <sound :player="player"></sound>
         </div>
         <!-- 音量 -->
@@ -34,8 +34,8 @@
         </div>
         <!-- 歌词 -->
         <!-- 弹出层 -->
-        <div class="drawer" v-if="isPlaying">
-            <drawer :musicInfo="musicInfo"></drawer>
+        <div class="drawer">
+            <drawer :musicInfo="player"></drawer>
         </div>
     </div>
 </template>
@@ -60,7 +60,9 @@ export default {
             this.slidValue = newTime;
         },
         'player.isPlaying'(newTrue) {
+            console.log(newTrue)
             if (newTrue != true) return;
+            this.player.isPlaying = true;
             this.isBtnShow = true;
         }
     },
@@ -68,13 +70,15 @@ export default {
         this.$store.dispatch('getLoadPlay');
         console.log('音频实例化完成');
     },
+    mounted() {
+    },
     // 计算属性
     computed: {
         ...mapState({
-            musicUrl: state => state.musicInfo.musicUrl,
             player: state => state.musicInfo.player,
             lyrics: state => state.musicInfo.player.lyric,
-            isPlaying:state=>state.musicInfo.player.audio.isPlaying
+            isPlaying: state => state.musicInfo.player.audio.isPlaying,
+            singers: state => state.musicInfo.player.singer,
         }),
         currentTime() {
             return formatTIme(this.player.currentTime)
@@ -167,13 +171,6 @@ export default {
         top: -32px;
         z-index: 10;
         border-top: 1px solid #ccc;
-
-        p {
-            text-align: center;
-            font-size: 12px;
-            line-height: 30px;
-
-        }
     }
 }
 </style>

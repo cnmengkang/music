@@ -46,7 +46,6 @@ export default {
                 container.scrollTop = activeLine.offsetTop - container.offsetTop;
             }
         }
-        // 100   30
     },
     computed: {
         formattedLyrics() {
@@ -63,6 +62,13 @@ export default {
 .lyric-scroll {
     overflow-y: scroll;
     height: 30px;
+    p {
+        text-align: center;
+        font-size: 12px;
+        line-height: 30px;
+        height: 30px;
+
+    }
 }
 </style>
   

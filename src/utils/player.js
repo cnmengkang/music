@@ -27,7 +27,8 @@ export default class MusicPlayer {
         this.volume = 1;
         this.params = { id: 0, level: 'exhigh' }
         this.lyric = [];
-        this.singer = [];
+        this.singer = null;
+        this.name = ''
         this.audio.addEventListener("ended", () => {
             this.nextTrack();
         })
@@ -50,11 +51,10 @@ export default class MusicPlayer {
     pause() {
         this.audio.pause();
     }
-    loadTrack(options) {
-        console.log('player', options)
+    createAudio(options) {
+        this.index = options.index;
         this.playlist = options.playList;
         this.params.id = options.id;
-        this.index = options.index;
         this.getAllIsPlayInfo();
     }
     isPlay(url) {
@@ -96,7 +96,7 @@ export default class MusicPlayer {
     // 左侧歌曲信息
     getCurrentMusicDetail() {
         songDetail(this.params.id).then((res) => {
-            this.singer = res.songs;
+            this.singer = res.songs[0];
         })
     }
     getAllIsPlayInfo() {

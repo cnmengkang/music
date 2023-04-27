@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       isSound: true,
-      volume: 20,  //默认音量
+      volume: 30,  //默认音量
     }
   },
   mounted() {
