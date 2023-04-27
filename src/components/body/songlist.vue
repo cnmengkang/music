@@ -34,13 +34,11 @@
                 </template>
             </el-table-column>
         </el-table>
-        {{ player }}
     </div>
     <!-- list列表组件 -->
 </template>
 <script>
 import { songUrl } from '@/api/music/music';
-import MusicPlayer from '@/utils/player'
 export default {
     props: {
         tableDate: {
@@ -55,17 +53,13 @@ export default {
     data() {
         return {
             currentIndex: 0,
-            player:null,
         }
-    },
-    mounted() {
     },
     methods: {
         // 双击获取当前单曲id
-        getCurrentMusicId(row, column, event) {
+        getCurrentMusicId(row) {
             const index = this.tableDate.indexOf(row)
-            this.player = new MusicPlayer({ playList: this.tableDate, index: index, id: row.id })
-            // this.$store.dispatch('getCurrentMusicDetail', row.id);
+            this.$store.dispatch('getCurrentMusicIsPlay', { playList: this.tableDate, index: index, id: row.id });
         },
         // 获取mv
         getMv(res) {

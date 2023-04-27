@@ -14,9 +14,9 @@ const audioPool = {
         audio.src = ''; // 清空音频地址
         this.pool.push(audio); // 将元素对象加入对象池中
     }
-};
+}
 // 封装音频播放器类
-class AudioPlayer {
+export default class AudioPlayer {
     constructor() {
         this.audio = audioPool.get(); // 从对象池中获取音频元素对象
         this.volume = 1; // 设置默认音量max=1
@@ -71,4 +71,6 @@ class AudioPlayer {
         this.volume = volume;
     }
 }
-export default AudioPlayer
+
+// export default 导出一个默认值，一个模块只能有一个默认值  import name1 form '../../name'
+// export 导出多个变量或者函数 需使用 import {name1,name2} for './../name' 接受

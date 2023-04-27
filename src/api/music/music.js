@@ -3,11 +3,11 @@ import request from '@/utils/request';
     获取音乐url
     必选参数：id,level:level: 播放音质等级, 分为 standard => 标准,higher => 较高, exhigh=>极高, lossless=>无损, hires=>Hi-Res
 */
-export function songUrl(id) {
+export function songUrl(data) {
     return request({
-        url: '/song/url',
+        url: '/song/url/v1',
         method: "post",
-        params: { id }
+        params: data
     })
 }
 /*

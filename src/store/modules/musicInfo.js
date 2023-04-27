@@ -1,4 +1,5 @@
-import { songUrl, songDetail, lyric } from '@/api/music/music';
+import { songDetail, lyric } from '@/api/music/music';
+import MusicPlayer from '@/utils/player'
 const musicInfo = {
     state: {
         // 单曲音乐信息
@@ -15,29 +16,18 @@ const musicInfo = {
         id: '',//当前音乐id
         // 控制底部显示隐藏
         footerShow: false,
-        lyric: []
+        lyric: [],
+        player: null,
     },
     mutations: {
         // 存储当前单曲信息
         SINGLE_DETAIL(state, single) {
             console.log(single)
-            state.title = single.name
-            state.avatar = single.al.picUrl
-            state.alia = single.alia
-            state.name = single.ar
-            state.id = single.id
-        },
-        // 存储播放音乐的url信息
-        MUSIC_URL: (state, musicUrl) => {
-            state.musicUrl = musicUrl.url
-            state.musicType = musicUrl.encodeType
-            state.musicMd5 = musicUrl.md5
-            state.id = musicUrl.id
-            state.musicTime = musicUrl.time
-        },
-        // 底部显示隐藏
-        FOOTER_SHOW: (state, show) => {
-            state.footerShow = show
+            // state.title = single.name
+            // state.avatar = single.al.picUrl
+            // state.alia = single.alia
+            // state.name = single.ar
+            // state.id = single.id
         },
         // 歌词列表
         SET_LYRIC: (state, lyric) => {
@@ -45,33 +35,16 @@ const musicInfo = {
         }
     },
     actions: {
-        // 获取当前音乐的详细信息，并存储到state里面,供底部使用数据
-        async getCurrentMusicDetail({ dispatch, commit }, ids) {
-            if (!ids) return;
-            commit('FOOTER_SHOW', true)
-            const detail = await songDetail(ids);
-            console.log(detail)
-            const songs = detail.songs[0];
-            const privileges = detail.privileges
-            dispatch('getCurrentMusicUrl', ids)    //调用音乐url
-            dispatch('getCurrentMusicLyric', ids)
-            commit('SINGLE_DETAIL', songs)
+        getCurrentMusicIsPlay({ state, commit }, data) {
+            state.player.loadTrack(data);
+            console.log('点击加载的数据', state.player)
+            commit('SET_LYRIC', state.player.lyric);
+            console.log(state.player.singer)
         },
-        // 获取当前音乐的播放地址并存储到state里面。
-        async getCurrentMusicUrl({ state, commit }, id) {
-            const params = { id: id, level: state.level }
-            const res = await songUrl(params);
-            console.log(res)
-            commit('MUSIC_URL', res.data[0])
-        },
-        // // 获取当前音乐的歌词
-        getCurrentMusicLyric({ commit }, id) {
-            return new Promise((resolve, reject) => {
-                lyric(id).then(res => {
-                    commit('SET_LYRIC', res.lrc.lyric);
-                    resolve()
-                })
-            })
+
+        // 页面加载注册实例化对象;
+        getLoadPlay({ state, dispatch, commit }) {
+            state.player = new MusicPlayer();
         }
     }
 }

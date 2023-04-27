@@ -1,6 +1,6 @@
 <template>
-    <div class="footer" v-if="false">
-        <div class="footer-singer" v-if="musicInfo.footerShow">
+    <div class="footer">
+        <div class="footer-singer" v-if="isPlaying">
             <singer :singer="musicInfo"></singer>
         </div>
         <div class="footer-audio">
@@ -14,17 +14,17 @@
                         <span title="下一首" class="iconFont icon-next" @click="next"></span>
                     </div>
                     <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
-                        <span v-if="musicUrl" class="start font-14">{{ currentTime || "00:00"
+                        <span v-if="player" class="start font-14">{{ currentTime || "00:00"
                         }}</span>
                         <el-slider class="w-80" :min="0" :max="player.duration" @change="seek" v-model="slidValue"
                             :show-tooltip="false" />
-                        <span v-if="musicUrl" class="end font-14">{{ duration || "00:00" }}</span>
+                        <span v-if="player" class="end font-14">{{ duration || "00:00" }}</span>
                     </div>
                 </div>
             </div>
         </div>
         <!-- 音量 -->
-        <div style="width:25%" v-if="musicInfo.footerShow">
+        <div style="width:25%" v-if="isPlaying">
             <sound :player="player"></sound>
         </div>
         <!-- 音量 -->
@@ -34,7 +34,7 @@
         </div>
         <!-- 歌词 -->
         <!-- 弹出层 -->
-        <div class="drawer" v-if="musicInfo.footerShow">
+        <div class="drawer" v-if="isPlaying">
             <drawer :musicInfo="musicInfo"></drawer>
         </div>
     </div>
@@ -42,7 +42,6 @@
 <script>
 import { formatTIme } from '@/utils/formLyrics';
 import { mapState } from 'vuex'
-import AudioPlayer from '@/utils/AudioPlayer'
 import singer from './components/singer'
 import sound from './components/sound'
 import lyric from './components/lyric'
@@ -52,39 +51,48 @@ export default {
     components: { singer, sound, lyric, drawer },
     data() {
         return {
-            player: null,
             isBtnShow: false,
             slidValue: 0,
         }
     },
-    created() {
-        this.player = new AudioPlayer();
-    },
     watch: {
-        musicUrl(newSrc) {
-            const id = this.$store.state.musicInfo.id;
-            this.player.isPlayUrl(newSrc, id);
-            this.isBtnShow = true;
-        },
         'player.currentTime'(newTime) {
             this.slidValue = newTime;
+        },
+        'player.isPlaying'(newTrue) {
+            if (newTrue != true) return;
+            this.isBtnShow = true;
         }
+    },
+    created() {
+        this.$store.dispatch('getLoadPlay');
+        console.log('音频实例化完成');
     },
     // 计算属性
     computed: {
         ...mapState({
             musicUrl: state => state.musicInfo.musicUrl,
-            musicInfo: state => state.musicInfo,
-            lyrics: state => state.musicInfo.lyric
+            player: state => state.musicInfo.player,
+            lyrics: state => state.musicInfo.player.lyric,
+            isPlaying:state=>state.musicInfo.player.audio.isPlaying
         }),
         currentTime() {
             return formatTIme(this.player.currentTime)
         },
         duration() {
             return formatTIme(this.player.duration)
-        }
+        },
     },
     methods: {
+        prev() {
+            this.player.prevTrack();
+        },
+        next() {
+            this.player.nextTrack();
+        },
+        seek() {
+            this.player.audio.currentTime = this.slidValue;
+        },
         startPlayOrPause(val) {
             if (val) {
                 this.player.play();
@@ -96,12 +104,6 @@ export default {
                 this.player.isPlaying = false;
             }
         },
-        prev() { },
-        next() { },
-        seek() {
-            this.player.audio.currentTime = this.slidValue
-        },
-
     }
 }
 </script>

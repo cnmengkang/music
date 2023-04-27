@@ -1,4 +1,4 @@
-import { songUrl } from '@/api/music/music';
+import { songDetail, lyric, songUrl } from '@/api/music/music';
 // 音频元素对象池
 const audioPool = {
     pool: [], // 对象池
@@ -14,18 +14,35 @@ const audioPool = {
         audio.src = ''; // 清空音频地址
         this.pool.push(audio); // 将元素对象加入对象池中
     }
-};
+}
 export default class MusicPlayer {
-    constructor(options) {
-        console.log(options)
-        this.playlist = Object.assign(options.playList);
+    constructor() {
         this.audio = audioPool.get();
-        this.currentTrackIndex = options.index;
-        this.id = options.id
+        this.playlist = [];
+        this.index = 0;
+        this.currentTrackIndex = 0;
+        this.currentTime = 0;
+        this.duration = 0;
+        this.isPlaying = false;
+        this.volume = 1;
+        this.params = { id: 0, level: 'exhigh' }
+        this.lyric = [];
+        this.singer = [];
         this.audio.addEventListener("ended", () => {
             this.nextTrack();
+        })
+        this.audio.addEventListener('loadedmetadata', () => {
+            this.duration = this.audio.duration;
         });
-        this.currentForId(this.playlist, this.id)
+        this.audio.addEventListener('timeupdate', () => {
+            this.currentTime = this.audio.currentTime;
+        });
+        this.audio.addEventListener('play', () => {
+            this.isPlaying = true;
+        });
+        this.audio.addEventListener('pause', () => {
+            this.isPlaying = false;
+        });
     }
     play() {
         this.audio.play();
@@ -33,53 +50,58 @@ export default class MusicPlayer {
     pause() {
         this.audio.pause();
     }
-
-    loadTrack(url) {
+    loadTrack(options) {
+        console.log('player', options)
+        this.playlist = options.playList;
+        this.params.id = options.id;
+        this.index = options.index;
+        this.getAllIsPlayInfo();
+    }
+    isPlay(url) {
         if (!url) return;
-        this.audio.src = null;
-        this.audio.src = url
+        this.audio.src = url;
         this.audio.load();
         this.play();
     }
-
     nextTrack() {
-        this.currentTrackIndex =
-            (this.currentTrackIndex + 1) % this.options.playlist.length;
-        this.loadTrack(this.currentTrackIndex);
-        this.play();
+        this.index = this.index + 1;
+        this.params.id = this.playlist[this.index].id;
+        this.getAllIsPlayInfo();
     }
-
     prevTrack() {
-        this.currentTrackIndex =
-            (this.currentTrackIndex - 1 + this.options.playlist.length) %
-            this.options.playlist.length;
-        this.loadTrack(this.currentTrackIndex);
-        this.play();
+        this.index = this.index - 1;
+        this.params.id = this.playlist[this.index].id;
+        this.getAllIsPlayInfo();
     }
-
     setCurrentTime(seconds) {
         this.audio.currentTime = seconds;
     }
-
     setVolume(volume) {
         this.audio.volume = volume;
     }
-    getCurrentMusicUrl(id) {
-        songUrl(id).then(res => {
+    // 获取当前播放歌曲url
+    getCurrentMusicUrl() {
+        songUrl(this.params).then(res => {
             const url = res.data[0].url;
-            if (url) {
-                this.loadTrack(url)
-            }
+            console.log('url Success')
+            this.isPlay(url);
         })
     }
-    currentForId(options, id) {
-        if (options) {
-            for (let i = 0; i < options.length; i++) {
-                const forId = this.playlist[i].id;
-                if (forId == id) {
-                    this.getCurrentMusicUrl(id);
-                }
-            }
-        }
+    // 歌词
+    getCurrentMusicLyric() {
+        lyric(this.params.id).then((res) => {
+            this.lyric = res.lrc.lyric
+        })
+    }
+    // 左侧歌曲信息
+    getCurrentMusicDetail() {
+        songDetail(this.params.id).then((res) => {
+            this.singer = res.songs;
+        })
+    }
+    getAllIsPlayInfo() {
+        this.getCurrentMusicDetail();  //左侧歌曲信息
+        this.getCurrentMusicLyric();  //歌词
+        this.getCurrentMusicUrl();  //歌词
     }
 }
