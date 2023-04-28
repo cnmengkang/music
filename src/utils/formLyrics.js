@@ -1,6 +1,7 @@
 
 // 格式化歌词
-export function formatLyrics(lyrics) {
+export function formatLyrics(lyrics, space) {
+    // console.log(space)
     const lines = lyrics.split('\n');
     const regex = /\[(\d{2}):(\d{2})\.(\d{2,3})\](.*)/;
     const formattedLyrics = lines.map(line => {

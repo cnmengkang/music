@@ -1,5 +1,5 @@
 <template>
-    <div class="lyric-scroll" ref="lyrics">
+    <div class="lyric-scroll" ref="lyrics" v-if="lyric.length > 0">
         <p :class="{ active: index == activeLineIndex }" ref="lyrics_p" v-for="(item, index) in formattedLyrics"
             :key="index" :data-time="item.time">{{ item.text }}</p>
     </div>
@@ -9,13 +9,23 @@ import { formatLyrics } from '@/utils/formLyrics';
 export default {
     components: {},
     props: {
-        lyric: String,
-        currentTime: Number
+        lyric: {
+            type: String,
+            require: true
+        },
+        currentTime: {
+            type: Number,
+            require: true
+        },
+        space: {
+            type: Number,
+            require: true
+        }
     },
     data() {
         return {
             activeLineIndex: -1,
-        };
+        }
     },
     watch: {
         // 监听当前播放歌曲时间,兵给index赋值
@@ -42,14 +52,20 @@ export default {
         scrollToActiveLine() {
             const container = this.$refs.lyrics;
             const activeLine = container.querySelector('.active');
+            const half = (container.clientHeight / 2) - activeLine.clientHeight;
             if (activeLine) {
-                container.scrollTop = activeLine.offsetTop - container.offsetTop;
+                if (this.space == 1) {
+                    const sumScroll = activeLine.offsetTop - container.offsetTop;
+                    container.scrollTop =( sumScroll - half);
+                } else {
+                    container.scrollTop = activeLine.offsetTop - container.offsetTop;
+                }
             }
         }
     },
     computed: {
         formattedLyrics() {
-            return formatLyrics(this.lyric)
+            return formatLyrics(this.lyric, this.space)
         }
     }
 }
@@ -59,15 +75,49 @@ export default {
     color: #000;
 }
 
-.lyric-scroll {
-    overflow-y: scroll;
-    height: 30px;
-    p {
-        text-align: center;
-        font-size: 12px;
-        line-height: 30px;
-        height: 30px;
+@height: 32px;
 
+// 底部歌词样式
+.lyrics {
+    .lyric-scroll {
+        overflow: hidden;
+        height: @height;
+
+        p {
+            text-align: center;
+            font-size: 12px;
+            line-height: @height;
+            height: auto;
+            transition: color 0.7s linear;
+        }
+    }
+}
+
+// 弹出层歌词样式
+.right-body {
+    .lyric-scroll {
+        height: 350px;
+        overflow: auto;
+        margin: 30px 0px;
+
+        p {
+            color: #989898;
+            text-align: center;
+            font-size: 14px;
+            line-height: @height;
+            min-height: @height;
+            height: auto;
+            transition: color 0.7s linear;
+        }
+
+        .active {
+            color: #fff;
+            font-size: 16px;
+            -webkit-transition: color 0.7s linear;
+            -moz-transition: color 0.7s linear;
+            -o-transition: color 0.7s linear;
+            transition: color 0.7s linear;
+        }
     }
 }
 </style>

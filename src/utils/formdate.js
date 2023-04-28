@@ -99,6 +99,7 @@ export function numCount(count) {
     if (count > 100000000) {
         return `${Math.floor((count / 100000000) * 100) / 100}亿`; // 2.32 亿
     }
+    
     if (count > 100000) {
         return `${Math.floor((count / 10000) * 10) / 10}万`; // 232.1 万
     }

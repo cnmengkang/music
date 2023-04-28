@@ -28,7 +28,6 @@ export default class MusicPlayer {
         this.params = { id: 0, level: 'exhigh' }
         this.lyric = [];
         this.singer = null;
-        this.name = ''
         this.audio.addEventListener("ended", () => {
             this.nextTrack();
         })
@@ -79,11 +78,15 @@ export default class MusicPlayer {
     setVolume(volume) {
         this.audio.volume = volume;
     }
+    // 弹出层歌曲
+    isOpen(isOpen){
+        this.isOpen = isOpen
+    }
     // 获取当前播放歌曲url
     getCurrentMusicUrl() {
         songUrl(this.params).then(res => {
             const url = res.data[0].url;
-            console.log('url Success')
+            // console.log('url Success')
             this.isPlay(url);
         })
     }

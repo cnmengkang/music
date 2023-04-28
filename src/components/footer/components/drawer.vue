@@ -1,19 +1,21 @@
 <template>
-    <div class="drawer-index" v-if="drawer">
-        <div class="drawer-background" :style="{ backgroundImage: 'url(' + musicInfo.avatar + ')' }"></div>
-        <el-drawer :title="musicInfo.title" :withHeader="true" @open="drawerOpen" size="100%" :modal="false"
-            :visible.sync="drawer" :direction="direction">
+    <div class="drawer-index" v-if="isOpen">
+        <div class="drawer-background" :style="{ backgroundImage: 'url(' + avatar + ')' }"></div>
+        <el-drawer :title="name" :withHeader="true" @close="close" size="100%" :modal="false" :visible.sync="isOpen"
+            :direction="direction">
             <div class="footer_drawer flex">
                 <div class="left flex justify-content-center">
-                    <el-avatar shape="circle" :size="200" :src="musicInfo.avatar" />
+                    <transition name="rotate">
+                        <el-avatar shape="circle" :size="200" :src="avatar" />
+                    </transition>
                 </div>
                 <div class="right">
                     <div class="right-head">
-                        <span class="font-12" v-for="item in musicInfo.name" :key="item.id">歌手：{{ item.name }}</span>
-                        <span class="font-12">专辑：{{ musicInfo.title }}</span>
+                        <span class="font-12">歌手：{{ authorName }}</span>
+                        <span class="font-12">专辑：{{ subtitle }}</span>
                     </div>
                     <div class="right-body">
-                        歌词
+                        <lyric :lyric="lyric" :space="1" :currentTime="currentTime"></lyric>
                     </div>
                 </div>
             </div>
@@ -21,35 +23,67 @@
     </div>
 </template>
 <script>
+import lyric from './lyric'
 export default {
+    components: { lyric },
     props: {
-        musicInfo: Object,
+        singer: {
+            type: Object,
+            require: true
+        },
+        lyric: {
+            type: String,
+            require: true
+
+        },
+        currentTime: {
+            type: Number,
+            require: true
+        }
     },
     data() {
         return {
             // 弹出层数据
             direction: 'btt',
-            drawer: false
         };
     },
-    created() { },
-    mounted() { },
     methods: {
-        drawerOpen() {
-
+        close() {
+            this.$store.state.musicInfo.isOpen = false;
         }
     },
-    computed: {},
+    computed: {
+        name() {
+            return this.singer.name;
+        },
+        avatar() {
+            return this.singer.al.picUrl
+        },
+        subtitle() {
+            return this.singer.alia[0]
+        },
+        authorName() {
+            return this.singer.ar[0].name
+        },
+        isOpen: {
+            get() {
+                return this.$store.state.musicInfo.isOpen
+            },
+            set() { }
+        }
+    },
 }
 </script>
 <style lang="less" scoped>
-@height: 520px;
+@height: 521px;
 @head: 80px;
+
+
 
 .drawer-index {
     width: 100%;
-    height: 520px;
-    top: -520px;
+    height: @height;
+    top: -@height;
     left: 0px;
     position: absolute;
     right: 0px;
@@ -63,11 +97,10 @@ export default {
         z-index: -1;
         background-size: cover;
         background-position: center;
-        filter: blur(20px);
-        transform: scale(2);
+        filter: blur(30px);
+        transform: scale(2.5);
     }
 }
-
 
 .el-drawer__wrapper {
     position: absolute;
@@ -85,8 +118,7 @@ export default {
 
             .right-body {
                 width: 100%;
-                overflow-y: scroll;
-                height: @height - @head;
+                height: 350px;
 
                 ul {
 

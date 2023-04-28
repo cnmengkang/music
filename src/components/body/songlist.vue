@@ -59,8 +59,6 @@ export default {
         // 双击获取当前单曲id
         getCurrentMusicId(row) {
             const index = this.tableDate.indexOf(row);
-            console.log(index)
-            console.log(this.currentIndex)
             this.$store.dispatch('getCurrentMusicIsPlay', { playList: this.tableDate, index: index, id: row.id });
         },
         // 获取mv

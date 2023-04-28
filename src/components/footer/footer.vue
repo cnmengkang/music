@@ -10,7 +10,8 @@
                         <span title="上一首" class="iconFont icon-prev cursor" @click="prev"></span>
                         <span title="暂停" class="play iconFont icon-play cursor" v-if="isBtnShow"
                             @click="startPlayOrPause(false)"></span>
-                        <span title="播放" class="pause iconFont icon-pause cursor" v-else @click="startPlayOrPause(true)"></span>
+                        <span title="播放" class="pause iconFont icon-pause cursor" v-else
+                            @click="startPlayOrPause(true)"></span>
                         <span title="下一首" class="iconFont icon-next cursor" @click="next"></span>
                     </div>
                     <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
@@ -29,13 +30,13 @@
         </div>
         <!-- 音量 -->
         <!-- 歌词 -->
-        <div class="lyrics">
-            <lyric v-if="lyrics.length > 0" :lyric="lyrics" :currentTime="player.currentTime"></lyric>
+        <div class="lyrics" v-if="!isOpen">
+            <lyric v-if="lyrics.length > 0" :lyric="lyrics" :space="0" :currentTime="player.currentTime"></lyric>
         </div>
         <!-- 歌词 -->
         <!-- 弹出层 -->
-        <div class="drawer">
-            <drawer :musicInfo="player"></drawer>
+        <div class="drawer" v-else>
+            <drawer :singer="singers" :space="0" :lyric="lyrics" :currentTime="player.currentTime"></drawer>
         </div>
     </div>
 </template>
@@ -60,17 +61,16 @@ export default {
             this.slidValue = newTime;
         },
         'player.isPlaying'(newTrue) {
-            console.log(newTrue)
-            if (newTrue != true) return;
-            this.player.isPlaying = true;
-            this.isBtnShow = true;
+            if (newTrue == true) {
+                this.player.isPlaying = true;
+                this.isBtnShow = true;
+            } else {
+                console.log('isPlayings')
+            }
         }
     },
     created() {
         this.$store.dispatch('getLoadPlay');
-        console.log('音频实例化完成');
-    },
-    mounted() {
     },
     // 计算属性
     computed: {
@@ -79,6 +79,7 @@ export default {
             lyrics: state => state.musicInfo.player.lyric,
             isPlaying: state => state.musicInfo.player.audio.isPlaying,
             singers: state => state.musicInfo.player.singer,
+            isOpen: state => state.musicInfo.isOpen,
         }),
         currentTime() {
             return formatTIme(this.player.currentTime)
