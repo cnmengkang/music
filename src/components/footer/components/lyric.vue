@@ -1,6 +1,6 @@
 <template>
     <div class="lyric-scroll" ref="lyrics" v-if="lyric.length > 0">
-        <p :class="{ active: index == activeLineIndex }" ref="lyrics_p" v-for="(item, index) in formattedLyrics"
+        <p :class="{ lyric_active: index == activeLineIndex }" ref="lyrics_p" v-for="(item, index) in formattedLyrics"
             :key="index" :data-time="item.time">{{ item.text }}</p>
     </div>
 </template>
@@ -51,7 +51,7 @@ export default {
         // 滚动到当前播放歌词
         scrollToActiveLine() {
             const container = this.$refs.lyrics;
-            const activeLine = container.querySelector('.active');
+            const activeLine = container.querySelector('.lyric_active');
             const half = (container.clientHeight / 2) - activeLine.clientHeight;
             if (activeLine) {
                 if (this.space == 1) {
@@ -71,10 +71,6 @@ export default {
 }
 </script>
 <style scoped lang="less">
-.active {
-    color: #000;
-}
-
 @height: 32px;
 
 // 底部歌词样式
@@ -110,7 +106,7 @@ export default {
             transition: color 0.7s linear;
         }
 
-        .active {
+        .lyric_active {
             color: #fff;
             font-size: 16px;
             -webkit-transition: color 0.7s linear;

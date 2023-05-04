@@ -3,9 +3,8 @@
     <song-list :tableDate="list"></song-list>
   </div>
 </template>
-
 <script>
-import { likest, songDetail, userPlayList } from '@/api/music/music';
+import { likest, songDetail } from '@/api/music/music';
 import songList from '@/components/body/songlist'
 export default {
   components: { songList },
@@ -18,12 +17,11 @@ export default {
     };
   },
   mounted() {
-    this.getLikeMusic();
-    this.getUserPlayList()
+    this.getLikeMusicIds();
   },
   methods: {
     // 获取我喜欢的音乐ids
-    getLikeMusic() {
+    getLikeMusicIds() {
       likest(this.params).then(res => {
         const ids = res.ids
         this.getMusicSongDetail(ids.join(','))
@@ -33,13 +31,6 @@ export default {
     getMusicSongDetail(ids) {
       songDetail(ids).then(res => {
         this.list = res.songs
-        console.log(res)
-      })
-    },
-    // 登陆后获取用户信息，歌单，mv，dj，数量
-    getUserPlayList() {
-      userPlayList(this.params).then(res => {
-        console.log(res)
       })
     }
   },

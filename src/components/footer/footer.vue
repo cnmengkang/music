@@ -4,7 +4,7 @@
             <singer :singer="singers"></singer>
         </div>
         <div class="footer-audio">
-            <div class="audio">
+            <div :class="{ audio: true, pointerNone: isPlaying }">
                 <div class="audio-play flex">
                     <div class="audio-top plays mb-5">
                         <span title="上一首" class="iconFont icon-prev cursor" @click="prev"></span>
@@ -24,6 +24,7 @@
                 </div>
             </div>
         </div>
+
         <!-- 音量 -->
         <div style="width:25%" v-if="currentTime">
             <sound :player="player"></sound>
@@ -36,7 +37,8 @@
         <!-- 歌词 -->
         <!-- 弹出层 -->
         <div class="drawer" v-else>
-            <drawer :singer="singers" :space="0" :lyric="lyrics" :currentTime="player.currentTime"></drawer>
+            <drawer :singer="singers" :space="0" :lyric="lyrics" :currentTime="player.currentTime"
+                :isPlaying="player.isPlaying"></drawer>
         </div>
     </div>
 </template>
@@ -47,6 +49,8 @@ import singer from './components/singer'
 import sound from './components/sound'
 import lyric from './components/lyric'
 import drawer from './components/drawer'
+import { generateGradientFromImage } from '@/utils/bgc'
+
 export default {
     name: 'footers',
     components: { singer, sound, lyric, drawer },
@@ -72,6 +76,12 @@ export default {
     created() {
         this.$store.dispatch('getLoadPlay');
     },
+    mounted() {
+        generateGradientFromImage(this.avatar, gradient => {
+            const element = document.querySelector(".drawer-background");
+            element.style.backgroundImage = gradient;
+        });
+    },
     // 计算属性
     computed: {
         ...mapState({
@@ -80,6 +90,7 @@ export default {
             isPlaying: state => state.musicInfo.player.audio.isPlaying,
             singers: state => state.musicInfo.player.singer,
             isOpen: state => state.musicInfo.isOpen,
+            isSrc: state => state.musicInfo.player.audio.src,
         }),
         currentTime() {
             return formatTIme(this.player.currentTime)
@@ -173,5 +184,12 @@ export default {
         z-index: 10;
         border-top: 1px solid #ccc;
     }
+}
+
+// 防止点击穿透
+// pointer-events
+.pointerNone {
+    pointer-events: none;
+    opacity: .5;
 }
 </style>

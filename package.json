@@ -7,6 +7,18 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "vercel": {
+    "builds": [
+      {
+        "src": "package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "buildCommand": "npm run build",
+          "outputDirectory": "dist"
+        }
+      }
+    ]
+  },
   "dependencies": {
     "element-ui": "^2.15.12",
     "js-cookie": "^3.0.1",

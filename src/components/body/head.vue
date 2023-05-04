@@ -9,7 +9,6 @@
                 <span class="song mr-10">歌单</span>
                 <h1>{{ tableHead.name }}</h1>
             </div>
-
             <div class="right-creator font-12 flex">
                 <el-avatar v-if="tableHead.creator" :src="tableHead.creator.avatarUrl" class="mr-10" :size="30" />
                 <el-link :underline="false">
@@ -20,43 +19,31 @@
                 </div>
             </div>
             <div class="head-box">
-                <div class="flex">
-                    <el-button-group class="mr-10">
+                <div class="flex mb-5">
+                    <el-button-group>
                         <el-button round size="mini" type="danger" icon="el-icon-video-play">播放全部</el-button>
                         <el-button round size="mini" type="danger" icon="el-icon-plus"></el-button>
                     </el-button-group>
-                    <el-button round size="mini" v-if="folder" icon="el-icon-folder-add">收藏({{
-                        numCount(tableHead.subscribedCount)
-                    }})</el-button>
-                    <el-button round size="mini" v-else icon="el-icon-folder-checked">已收藏({{
-                        numCount(tableHead.subscribedCount)
-                    }})</el-button>
-                    <el-button round size="mini" icon="el-icon-share">分享({{
-                        numCount(tableHead.shareCount)
-                    }})</el-button>
-                    <el-button round size="mini" icon="el-icon-download">下载全部</el-button>
                 </div>
             </div>
-            <div class="tips flex " v-if="tableHead.tags">
+            <div class="tips flex mb-5" v-if="tableHead.tags">
                 <label v-if="tableHead.tags.length != 0">标签：</label>
-                <el-link :underline="false" class="blue mr-5" v-for="(item, index) in tableHead.tags" :key="index">{{
-                    item
-                }}</el-link>
+                <el-link :underline="false" class="blue mr-5" v-for="(item, index) in tableHead.tags" :key="index">
+                    {{ item }}</el-link>
             </div>
             <div class="font-14" style="width:100%">
                 <span class="mr-20">歌曲：{{ tableHead.trackCount }}</span>
                 <span>播放：{{ numCount(tableHead.playCount) }}</span>
-                <el-collapse accordion>
-                    <el-collapse-item title="简介">
-                        <div>{{ tableHead.description }}</div>
-                    </el-collapse-item>
-                </el-collapse>
             </div>
+            <el-collapse accordion style="width:100%;">
+                <el-collapse-item title="简介:">
+                    <div>{{ tableHead.description }}</div>
+                </el-collapse-item>
+            </el-collapse>
         </div>
     </div>
     <!-- 详情页面顶部组件 -->
 </template>
-
 <script>
 export default {
     components: {},

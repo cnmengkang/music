@@ -25,10 +25,12 @@ export default class MusicPlayer {
         this.duration = 0;
         this.isPlaying = false;
         this.volume = 1;
+        this.audio.controls = true;
         this.params = { id: 0, level: 'exhigh' }
         this.lyric = [];
         this.singer = null;
         this.audio.addEventListener("ended", () => {
+            console.log('当前播放结束')
             this.nextTrack();
         })
         this.audio.addEventListener('loadedmetadata', () => {
@@ -86,7 +88,6 @@ export default class MusicPlayer {
     getCurrentMusicUrl() {
         songUrl(this.params).then(res => {
             const url = res.data[0].url;
-            // console.log('url Success')
             this.isPlay(url);
         })
     }

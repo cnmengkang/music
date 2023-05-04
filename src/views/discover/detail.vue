@@ -72,22 +72,15 @@ export default {
     },
     mounted() {
         const id = this.$route.params;
-        this.getDetail(id)
-        this.getPlayTrack()
-        this.getComment()
-    },
-    created() {
-
-    },
-    computed: {
-
+        this.getDetail(id);
+        this.getPlayTrack();
+        this.getComment();
     },
     methods: {
         // 获取详情页顶部数据
         getDetail(id) {
             detail(id).then((res) => {
                 this.totalPage = res.playlist.trackCount;
-                // console.log('playlist', res.playlist);
                 this.playlist = res.playlist;
             })
         },
@@ -98,7 +91,6 @@ export default {
                 this.list = res.songs
             })
         },
-        // 单选
         // tab切换
         handleClick(tab) {
             if (tab.index == 1) {
@@ -110,7 +102,6 @@ export default {
         // 获取歌单评论
         getComment() {
             commentPlayList(this.params).then((res) => {
-                // console.log('reviews', res)
                 this.totalReview = res.total
                 this.comment = res.comments
             })
@@ -118,7 +109,6 @@ export default {
         // 歌单收藏者
         getSubscribers() {
             subscribers(this.params).then((res) => {
-                // console.log(res.subscribers)
                 this.subscribers = res.subscribers;
             })
         }
@@ -127,7 +117,6 @@ export default {
 </script>
 <style scoped lang="less">
 .detail {
-
     // 内容区域
     .detail-body {
         .comment {

@@ -14,7 +14,7 @@ export default {
             type: Number,
             required: true
         },
-        // 总条叔
+        // 总条数
         pageSize: {
             type: Number,
             required: true

@@ -20,8 +20,6 @@ Vue.prototype.numCount = numCount
 Vue.prototype.formatLyrics = formLyric
 // 播放总量
 Vue.prototype.formatCurrentTime = formatCurrentTime
-
-
 Vue.config.productionTip = false;
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size

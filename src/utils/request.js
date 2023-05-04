@@ -10,7 +10,7 @@ const request = axios.create({
 request.interceptors.request.use(
     (config) => {
         // 请求之前处理的逻辑
-        return config
+        return config;
     },
     (err) => {
         // 失败后处理程序

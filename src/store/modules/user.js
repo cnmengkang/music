@@ -42,7 +42,7 @@ const user = {
         LoginStatus({ commit, state }) {
             return new Promise((resolve, reject) => {
                 loginStatus().then((res) => {
-                    console.log(res)
+                    console.log('登录成功')
                     const result = res.data.data;
                     console.log('result', result)
                     commit('SETS_USER_INFO', result.profile)

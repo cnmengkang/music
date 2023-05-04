@@ -44,10 +44,6 @@ export default {
         tableDate: {
             type: Array,
             require: true
-        },
-        id: {
-            type: Number,
-            require: true
         }
     },
     data() {

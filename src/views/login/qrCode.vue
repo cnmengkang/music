@@ -16,8 +16,6 @@
 </template>
 <script>
 import { qrKey, qrCreate, qrCheckCode } from "@/api/user/login";
-import { setCookies } from '@/utils/auth'
-
 export default {
     name: "qrCode",
     data() {
@@ -53,8 +51,8 @@ export default {
                     console.log(result)
                     if (result.code == 803) {
                         clearInterval(timer)
-                        setCookies(result.cookie)
-                        this.getLogin()
+                        // setCookies(result.cookie)
+                        this.getLogin();
                         this.$router.push('/')
                     } else if (result.code == 800) {
                         // 二维码过期
@@ -68,7 +66,6 @@ export default {
         },
         getLogin() {
             this.$store.dispatch('LoginStatus');
-            console.log('调用状态成功')
         }
     },
 }

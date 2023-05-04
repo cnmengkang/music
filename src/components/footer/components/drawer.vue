@@ -1,18 +1,19 @@
 <template>
     <div class="drawer-index" v-if="isOpen">
-        <div class="drawer-background" :style="{ backgroundImage: 'url(' + avatar + ')' }"></div>
+        <div class="drawer-background" style=""></div>
         <el-drawer :title="name" :withHeader="true" @close="close" size="100%" :modal="false" :visible.sync="isOpen"
             :direction="direction">
             <div class="footer_drawer flex">
                 <div class="left flex justify-content-center">
-                    <transition name="rotate">
+                    <div :class="{ 'rotate': isPlaying }">
                         <el-avatar shape="circle" :size="200" :src="avatar" />
-                    </transition>
+                    </div>
                 </div>
                 <div class="right">
                     <div class="right-head">
-                        <span class="font-12">歌手：{{ authorName }}</span>
-                        <span class="font-12">专辑：{{ subtitle }}</span>
+                        <!-- <span class="font-14">歌名：{{ name }}</span> -->
+                        <span class="font-14 ml-15 mr-15">歌手：{{ authorName }}</span>
+                        <span class="font-14">专辑：{{ name }}</span>
                     </div>
                     <div class="right-body">
                         <lyric :lyric="lyric" :space="1" :currentTime="currentTime"></lyric>
@@ -39,35 +40,43 @@ export default {
         currentTime: {
             type: Number,
             require: true
+        },
+        isPlaying: {
+            type: Boolean,
+            require: true
         }
     },
     data() {
         return {
             // 弹出层数据
             direction: 'btt',
-        };
+        }
     },
     methods: {
         close() {
             this.$store.state.musicInfo.isOpen = false;
-        }
+        },
     },
+    mounted() {
+
+    },
+
     computed: {
         name() {
             return this.singer.name;
         },
         avatar() {
-            return this.singer.al.picUrl
+            return this.singer.al.picUrl;
         },
         subtitle() {
-            return this.singer.alia[0]
+            return this.singer.alia[0];
         },
         authorName() {
-            return this.singer.ar[0].name
+            return this.singer.ar[0].name;
         },
         isOpen: {
             get() {
-                return this.$store.state.musicInfo.isOpen
+                return this.$store.state.musicInfo.isOpen;
             },
             set() { }
         }
@@ -77,8 +86,6 @@ export default {
 <style lang="less" scoped>
 @height: 521px;
 @head: 80px;
-
-
 
 .drawer-index {
     width: 100%;
@@ -102,11 +109,32 @@ export default {
     }
 }
 
+.rotate {
+    animation: rotation 50s infinite linear;
+    transition: all 1s linear;
+    transform-origin: center center;
+}
+
+@keyframes rotation {
+    form {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .el-drawer__wrapper {
     position: absolute;
 
     .footer_drawer {
         padding: 0px 5%;
+
+        .bgc-radius {
+            border: 20px solid #ccc9;
+            border-radius: 50%;
+        }
 
         .left,
         .right {
@@ -116,12 +144,19 @@ export default {
             position: relative;
             overflow: hidden;
 
+            .right-head {
+                text-align: center;
+
+                span {
+                    color: #fff;
+                }
+            }
+
             .right-body {
                 width: 100%;
                 height: 350px;
 
                 ul {
-
                     li {
                         text-align: center;
                         color: #ccc;
