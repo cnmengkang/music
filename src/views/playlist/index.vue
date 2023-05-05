@@ -31,7 +31,7 @@ export default {
       topList: {
         cat: '',
         limit: 30,
-        offset: 1,
+        offset: 0,
       },
       totalPage: 0,
       pageSize: 30,

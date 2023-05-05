@@ -1,6 +1,5 @@
 <template>
     <div class="video-mv">
-        {{ videoMvList }}
         <video-grid :videoGroups="videoMvList"></video-grid>
     </div>
 </template>
@@ -31,8 +30,8 @@ export default {
         // 获取mv信息
         getVideoMv() {
             videoMv(this.params).then(res => {
-                console.log('mv', res)
-                this.videoMvList = res.data
+                this.videoMvList = res.data;
+                console.log(res.data)
             })
         }
     },

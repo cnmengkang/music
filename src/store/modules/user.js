@@ -1,6 +1,6 @@
 import { login } from '@/api/user/login';
 import { loginStatus } from "@/api/user/user"
-import { getToken, setToken } from '@/utils/auth'
+import { getToken, setToken, setUserInfo } from '@/utils/auth'
 
 const user = {
     state: {
@@ -16,7 +16,6 @@ const user = {
     },
     mutations: {
         SETS_USER_INFO: (state, userInfo) => {
-            console.log(userInfo)
             state.userId = userInfo.userId
             state.userName = userInfo.nickname
             state.userAvatar = userInfo.avatarUrl
@@ -42,11 +41,10 @@ const user = {
         LoginStatus({ commit, state }) {
             return new Promise((resolve, reject) => {
                 loginStatus().then((res) => {
-                    console.log('登录成功')
                     const result = res.data.data;
-                    console.log('result', result)
-                    commit('SETS_USER_INFO', result.profile)
                     if (result.code != 200) return;
+                    commit('SETS_USER_INFO', result.profile)
+                    console.log(setUserInfo('setUserInfo'))
                     console.log('Login success')
                     resolve();
                 })

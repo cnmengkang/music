@@ -1,11 +1,11 @@
 <template>
     <div class="user-info">
         <div class="user-avatar flex">
-            <el-avatar icon="el-icon-user-solid" :size="35" :src="user.avatarUrl"></el-avatar>
+            <el-avatar icon="el-icon-user-solid" :size="35" :src="userAvatar"></el-avatar>
             <el-dropdown trigger="click" class="user-down" @click.native="handleClick" placement="bottom"
                 @command="handleCommand">
                 <span class="el-dropdown-link ml-5 flex">
-                    {{ user.nickname || '未登录' }}
+                    {{ userName || '未登录' }}
                     <img v-if="user" class="vipInfo" :src="vipInfo.redVipLevelIcon" />
                     <i class="el-icon-arrow-down el-icon--right ml-5"></i>
                 </span>
@@ -31,6 +31,7 @@
 
 <script>
 import { logout, userDetail, vipInfo } from '@/api/user/user'
+import { mapState } from 'vuex'
 export default {
     components: {},
     props: {},
@@ -49,6 +50,7 @@ export default {
     },
     mounted() {
         this.getUserInfo();
+
     },
     methods: {
         // 登录状态
@@ -86,17 +88,20 @@ export default {
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-
                     this.$router.push('/qrCode')
                 })
             } else {
                 this.show = true;
                 console.log('已登录')
-
             }
         }
     },
-    computed: {},
+    computed: {
+        ...mapState({
+            userName: state => state.user.userName,
+            userAvatar: state => state.user.userAvatar
+        })
+    },
 };
 </script>
 <style lang="less" scoped>

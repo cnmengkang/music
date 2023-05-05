@@ -35,11 +35,13 @@
                 <span class="mr-20">歌曲：{{ tableHead.trackCount }}</span>
                 <span>播放：{{ numCount(tableHead.playCount) }}</span>
             </div>
-            <el-collapse accordion style="width:100%;">
-                <el-collapse-item title="简介:">
-                    <div>{{ tableHead.description }}</div>
-                </el-collapse-item>
-            </el-collapse>
+            <el-collapse-transition>
+                <div class="transition-box">
+                    <p>
+                        {{ tableHead.description }}
+                    </p>
+                </div>
+            </el-collapse-transition>
         </div>
     </div>
     <!-- 详情页面顶部组件 -->

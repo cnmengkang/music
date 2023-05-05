@@ -23,20 +23,12 @@ export default {
 
         };
     },
-    props: {
-        
-    },
-    mounted() {
-    },
     computed: mapState({
         name: state => state.videos.name,
         avatar: state => state.videos.avatar,
         url: state => state.videos.url,
         duration: state => state.videos.duration
     }),
-    methods: {
-
-    },
 };
 </script>
 <style lang="less" scoped>

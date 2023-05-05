@@ -24,8 +24,7 @@ export default {
     },
     data() {
         return {
-
-        };
+        }
     },
     computed: {
         name() {
@@ -43,7 +42,7 @@ export default {
     },
     methods: {
         drawerOpen() {
-            this.$store.commit('IS_OPEN', true);
+            this.$store.state.musicInfo.isOpen = !this.$store.state.musicInfo.isOpen;
         }
     }
 };

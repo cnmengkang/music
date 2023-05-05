@@ -1,6 +1,6 @@
 <template>
-    <div class="drawer-index" v-if="isOpen">
-        <div class="drawer-background" style=""></div>
+    <div class="drawer-index">
+        <div class="drawer-background"></div>
         <el-drawer :title="name" :withHeader="true" @close="close" size="100%" :modal="false" :visible.sync="isOpen"
             :direction="direction">
             <div class="footer_drawer flex">
@@ -57,10 +57,6 @@ export default {
             this.$store.state.musicInfo.isOpen = false;
         },
     },
-    mounted() {
-
-    },
-
     computed: {
         name() {
             return this.singer.name;
@@ -106,6 +102,7 @@ export default {
         background-position: center;
         filter: blur(30px);
         transform: scale(2.5);
+        background-color: #ccc;
     }
 }
 

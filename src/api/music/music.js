@@ -74,3 +74,11 @@ export function userPlayList(data) {
         params: data
     })
 }
+// 检测音乐是否可用
+export function checkMusic(id) {
+    return request({
+        url: '/check/music',
+        method: 'post',
+        params: { id }
+    })
+}

@@ -16,7 +16,6 @@
         </div>
     </div>
 </template>
-
 <script>
 export default {
     components: {},
@@ -30,11 +29,6 @@ export default {
 
         };
     },
-    computed: {
-
-    },
-    created() { },
-    mounted() { },
     methods: {
         // 点击视频列表跳转
         getVideoDetail(res) {
@@ -44,10 +38,9 @@ export default {
         },
         getDetailAuthor(res) {
             console.log(res.data.creator)
-        },
-    },
-    computed: {},
-};
+        }
+    }
+}
 </script>
 <style lang="less" scoped>
 .video-grid {

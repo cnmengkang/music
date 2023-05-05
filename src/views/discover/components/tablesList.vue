@@ -63,14 +63,13 @@ export default {
     methods: {
         // 获取mv详情
         getMv(res) {
-            console.log('mv', res.album.id)
             this.$store.dispatch('videos/getDetailMv', res.mvid);
             this.$router.push({ name: 'videoPlay', params: { id: res.mvid } })
         },
         // 双击获取当前单曲详细信息
-        getCurrentMusicId(res) {
-            console.log(res.id)
-            this.$store.dispatch('getCurrentMusicDetail', res.id)
+        getCurrentMusicId(row) {
+            const index = this.data.indexOf(row);
+            this.$store.dispatch('getCurrentMusicIsPlay', { playList: this.data, index: index, id: row.id });
         },
     }
 

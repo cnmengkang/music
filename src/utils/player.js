@@ -1,4 +1,4 @@
-import { songDetail, lyric, songUrl } from '@/api/music/music';
+import { songDetail, lyric, songUrl, checkMusic } from '@/api/music/music';
 // 音频元素对象池
 const audioPool = {
     pool: [], // 对象池
@@ -24,17 +24,17 @@ export default class MusicPlayer {
         this.currentTime = 0;
         this.duration = 0;
         this.isPlaying = false;
-        this.volume = 1;
-        this.audio.controls = true;
         this.params = { id: 0, level: 'exhigh' }
         this.lyric = [];
         this.singer = null;
+        this.isFooterShow = false;
         this.audio.addEventListener("ended", () => {
             console.log('当前播放结束')
             this.nextTrack();
         })
         this.audio.addEventListener('loadedmetadata', () => {
             this.duration = this.audio.duration;
+            this.isFooterShow = true;
         });
         this.audio.addEventListener('timeupdate', () => {
             this.currentTime = this.audio.currentTime;
@@ -52,43 +52,64 @@ export default class MusicPlayer {
     pause() {
         this.audio.pause();
     }
+    // 创建音频
     createAudio(options) {
         this.index = options.index;
         this.playlist = options.playList;
         this.params.id = options.id;
-        this.getAllIsPlayInfo();
+        this.getCheckMusic();
     }
+    // 播放
     isPlay(url) {
         if (!url) return;
         this.audio.src = url;
         this.audio.load();
         this.play();
     }
+    loop() {
+        console.log(this.audio.loop)
+    }
+    // 下一首
     nextTrack() {
         this.index = this.index + 1;
-        this.params.id = this.playlist[this.index].id;
-        this.getAllIsPlayInfo();
+        console.log(this.index)
+        if (this.index == this.playlist.length) {
+            this.index = 0;
+            this.params.id = this.playlist[this.index].id;
+        } else {
+            this.params.id = this.playlist[this.index].id;
+            this.getAllIsPlayInfo();
+        }
+
     }
+    // 上一首
     prevTrack() {
         this.index = this.index - 1;
-        this.params.id = this.playlist[this.index].id;
-        this.getAllIsPlayInfo();
+        if (this.index == -1) {
+            this.index = 0;
+            this.params.id = this.playlist[this.index].id
+        } else {
+            this.params.id = this.playlist[this.index].id;
+            this.getAllIsPlayInfo();
+        }
     }
+    // 设置当前播放时间
     setCurrentTime(seconds) {
         this.audio.currentTime = seconds;
     }
+    // 设置音量
     setVolume(volume) {
         this.audio.volume = volume;
     }
     // 弹出层歌曲
-    isOpen(isOpen){
+    isOpen(isOpen) {
         this.isOpen = isOpen
     }
     // 获取当前播放歌曲url
     getCurrentMusicUrl() {
         songUrl(this.params).then(res => {
             const url = res.data[0].url;
-            this.isPlay(url);
+            this.isPlay(url)
         })
     }
     // 歌词
@@ -103,9 +124,22 @@ export default class MusicPlayer {
             this.singer = res.songs[0];
         })
     }
+    // 获取当前所有音乐播放信息
     getAllIsPlayInfo() {
         this.getCurrentMusicDetail();  //左侧歌曲信息
         this.getCurrentMusicLyric();  //歌词
         this.getCurrentMusicUrl();  //歌词
+    }
+    // 检测歌曲是否可播放
+    // 检查音乐是否可用
+    getCheckMusic() {
+        checkMusic(this.params.id).then(res => {
+            console.log(res.data.success)
+            if (res.data.success) {
+                this.getAllIsPlayInfo();
+            } else {
+                alert('无版权！')
+            }
+        })
     }
 }

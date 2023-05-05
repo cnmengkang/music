@@ -32,11 +32,11 @@ export function videoCategory() {
     })
 }
 // 获取视频标签/分类下的视频
-export function videoGroup(id) {
+export function videoGroup(data) {
     return request({
         url: '/video/group',
         method: 'post',
-        params: { id }
+        params: data
     })
 }
 // 获取视频播放url

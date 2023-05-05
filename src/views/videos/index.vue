@@ -15,7 +15,7 @@
             </div>
             <!-- 标签列表 -->
             <div class="card_body">
-              <el-tag round v-for="item in videoListBtn"   @click="isActive(item)" :key="item.id"
+              <el-tag round v-for="item in videoListBtn" @click="isActive(item)" :key="item.id"
                 :class="activeClass == item.id ? 'active' : ''">
                 <a>{{ item.name }}</a>
               </el-tag>
@@ -50,16 +50,17 @@ export default {
       activeName: 'video',
       tabList: [],
       videoGroups: [],
-      offset: 0
+      params: {
+        id: 0,
+        offset: 0
+
+      }
     };
   },
-  created() {
-
-  },
   mounted() {
-    this.getVideoList()
-    this.getVideoCategory()
-    this.getVideoAll()
+    this.getVideoList();
+    this.getVideoCategory();
+    this.getVideoAll();
   },
   methods: {
     // 点击顶部视频MV调用接口
@@ -69,7 +70,7 @@ export default {
     // 获取全部分类按钮
     getVideoList() {
       videoList().then((res) => {
-        this.videoListBtn = res.data
+        this.videoListBtn = res.data;
       })
     },
     // 获取右侧分类tabs菜单
@@ -81,34 +82,36 @@ export default {
     // 点击获取分类id，并隐藏弹框
     isActive(res) {
       console.log(res.id)
-      this.name = res.name
+      this.name = res.name;
       this.activeClass = res.id;
-      this.isShow = false
-      this.getVideoGroup(res.id)
+      this.isShow = false;
+      this.params.id = res.id
+      this.getVideoGroup();
     },
     // 点击显示弹框
     show() {
-      this.isShow = true
+      this.isShow = true;
     },
-    // 获取视频详情
-    getVideoGroup(id) {
-      videoGroup(id).then(res => {
-        this.videoGroups = res.datas
+    // 获取点击标签下的视频展示
+    getVideoGroup() {
+      videoGroup(this.params).then(res => {
+        this.videoGroups = res.datas;
       })
     },
     // 点击右侧分类
     handClickTabs(val) {
-      this.name = val.label
+      this.name = val.label;
       const id = val.$attrs.value;
-      this.getVideoGroup(id)
-      this.isShow = false
+      this.params.id = id;
+      this.getVideoGroup();
+      this.isShow = false;
     },
     // 默认获取全部视频
     getVideoAll() {
       videoAll().then(res => {
-        console.log('allvideo',res)
-        this.videoGroups = res.datas
-        this.isShow = false
+        console.log('allvideo', res)
+        this.videoGroups = res.datas;
+        this.isShow = false;
       })
     },
   }

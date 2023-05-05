@@ -8,7 +8,7 @@
                 </div>
                 <div id="socialLogin">
                     <el-button icon="el-icon-edit"><router-link to="/login">手机号</router-link></el-button>
-                    <el-button icon="el-icon-edit" @click="getLogin">11</el-button>
+                    <!-- <el-button icon="el-icon-edit" @click="getLogin">11</el-button> -->
                 </div>
             </div>
         </el-card>
@@ -16,6 +16,7 @@
 </template>
 <script>
 import { qrKey, qrCreate, qrCheckCode } from "@/api/user/login";
+import { getToken, setToken } from '@/utils/auth'
 export default {
     name: "qrCode",
     data() {
@@ -51,11 +52,10 @@ export default {
                     console.log(result)
                     if (result.code == 803) {
                         clearInterval(timer)
-                        // setCookies(result.cookie)
-                        this.getLogin();
+                        this.$store.dispatch('LoginStatus');
+                        setToken(result.cookie)
                         this.$router.push('/')
                     } else if (result.code == 800) {
-                        // 二维码过期
                         this.title = result.message
                         clearInterval(timer)
                     } else if (result.code = 801) {
@@ -63,11 +63,8 @@ export default {
                     }
                 })
             }, 3000)
-        },
-        getLogin() {
-            this.$store.dispatch('LoginStatus');
         }
-    },
+    }
 }
 </script>
 <style scope lang="less">
