@@ -1,14 +1,4 @@
-/**
- * Created by PanJiaChen on 16/11/18.
- */
 
-/**
- * Parse the time to string
- * @param {(Object|string|number)} time
- * @param {string} cFormat
- * @returns {string | null}
- */
-// 年月日
 export function parseTime(time, cFormat) {
     if (arguments.length === 0 || !time) {
         return null
@@ -25,7 +15,6 @@ export function parseTime(time, cFormat) {
                 time = time.replace(new RegExp(/-/gm), '/')
             }
         }
-
         if ((typeof time === 'number') && (time.toString().length === 10)) {
             time = time * 1000
         }
@@ -47,13 +36,6 @@ export function parseTime(time, cFormat) {
     })
     return time_str
 }
-
-// 分钟
-/**
- * @param {number} time
- * @param {string} option
- * @returns {string}
- */
 export function formatTime(time, option) {
     if (('' + time).length === 10) {
         time = parseInt(time) * 1000
@@ -91,15 +73,12 @@ export function formatTime(time, option) {
         )
     }
 }
-
-
-// 播放数量转换
 export function numCount(count) {
     if (!count) return '';
     if (count > 100000000) {
         return `${Math.floor((count / 100000000) * 100) / 100}亿`; // 2.32 亿
     }
-    
+
     if (count > 100000) {
         return `${Math.floor((count / 10000) * 10) / 10}万`; // 232.1 万
     }
@@ -121,5 +100,3 @@ export function formatCurrentTime(currentTime) {
     const result = `${minute}:${second}`
     return result
 }
-
-// ===================================================

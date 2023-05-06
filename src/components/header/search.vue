@@ -1,105 +1,93 @@
 <template>
     <div class="search">
-        <el-autocomplete class="autoWidth" placement="bottom" @focus="focus(state)" popper-class="my-autocomplete"
-            v-model.trim="state" :fetch-suggestions="querySearch" size="small" :placeholder="searchDefault"
-            @select="handleSelect" @keyup.enter.native="handleIconClick(state)">
+        <el-autocomplete class="auto_Width" placement="bottom" popper-class="my-autocomplete" v-model="value"
+            :placeholder="placeholder" size="small" :fetch-suggestions="getSuggestions" @select="handleSelect"
+            @input="input(value)">
             <template slot-scope="{ item }">
                 <div class="item-content">
-                    <p class="name">{{ item.searchWord }}</p>
-                    <span class="addr">{{ item.content }}</span>
+                    <div class="left">1</div>
+                    <div class="right">
+                        <p class="name">{{ item.searchWord }}</p>
+                        <span class="addr">{{ item.content }}</span>
+                    </div>
                 </div>
             </template>
-            <i slot="suffix" class="el-icon-search el-input__icon" @click="handleIconClick(state)"></i>
+            <i slot="suffix" class="el-icon-search el-input__icon" @click="getBtnSearchIcon(placeholder)"></i>
         </el-autocomplete>
     </div>
 </template>
 <script>
-import { searchDefault, searchHot, searchSuggest } from '@/api/search/search';
+import { search_default, search_hot_detail, search_suggest, } from '@/api/search/search'
 export default {
     components: {},
     props: {},
     data() {
         return {
-            searchDefault: '',
-            state: '',
-            searchHot: [],
-            result: false,
+            placeholder: '',
+            value: '',
+            hotSearch: [],
             params: {
-                limit: 50,
+                limit: 30,
                 keywords: ''
             }
-        };
+
+        }
     },
-    created() { },
-    mounted() {
+    created() {
         this.getSearchDefault();
-        this.getSearchHot();
     },
-    computed: {
-        // 序号
-        indexMethods(index = 0) {
-            return index * 1
-        },
+    mounted() {
+        this.getSearchHotDetail();
     },
     methods: {
-        // 默认搜索内容
-        getSearchDefault() {
-            searchDefault().then(res => {
-                // console.log(res.data)
-                this.searchDefault = res.data.showKeyword
-            })
+        // 默认搜索关键词placeholder
+        async getSearchDefault() {
+            const { data } = await search_default();
+            this.placeholder = data.showKeyword
         },
-        // 获取搜索列表详情
-        getSearchHot() {
-            searchHot().then(res => {
-                this.searchHot = res.data
-            })
+        // 点击搜索按钮
+        getBtnSearchIcon(value) {
+            console.log(value)
         },
-        // 
-        querySearch(queryString, cb) {
-            cb(this.searchHot)
+        // 聚焦显示热搜版
+        getSuggestions(value, cb) {
+            const restaurants = this.hotSearch;
+            const result = value ? restaurants.filter(this.createFilter(value)) : restaurants;
+            cb(result)
+        },
+        // 过滤数据
+        createFilter(queryString) {
+            return (restaurant) => {
+                return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+            };
+        },
+        // 获取热搜数据
+        getSearchHotDetail() {
+            search_hot_detail().then(res => {
+                this.hotSearch = res.data
+            });
+        },
 
-        },
-        // 点击下拉框内容触发函数
+        // 获取下拉选中的数据
         handleSelect(item) {
-            this.state = item.searchWord
-            this.params.keywords = item.searchWord
-            this.getSearch()
+            if (item == '') return;
+            this.value = item.searchWord;
+            this.params.keywords = item.searchWord;
+            this.getCloudResult();
+            this.$router.push('search');
         },
-        // 点击搜索图标响应逻辑
-        handleIconClick(icon) {
-            let search = icon == '' ? this.searchDefault : icon;
-            this.state = search
-            this.params.keywords = search;
-            this.getSearch()
+        getCloudResult() {
+            this.$store.dispatch('search/getCloudSearch', this.params);
         },
-        // 搜索建议
-        getSearchSuggest(keywords) {
-            searchSuggest(keywords).then(res => {
-                // console.log('建议', res)
-            })
-        },
-        // 搜索结果
-        getSearch() {
-            if (this.params == '') return;
-            this.$store.dispatch('search/getResult', this.params);
-            this.$router.push('/search')
-        },
-        // 聚焦
-        focus(event) {
-            let search = event == '' ? this.searchDefault : event;
-            // console.log('focus', search)
-        },
-        // // input值改变时触发
-        // SetInput(event) {
-        //     this.getSearchSuggest(event)
-        //     console.log(event)
-        // }
+        // input值改变时触发
+        input(value) {
+            this.params.keywords = value;
+        }
     }
 };
 </script>
 <style lang="less" scoped>
-.autoWidth {
+.auto_Width {
     width: 250px;
 }
 
@@ -117,6 +105,16 @@ export default {
 
         .highlighted .addr {
             color: #ddd;
+        }
+    }
+
+    .item-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .left {
+            padding: 0px 10px;
         }
     }
 

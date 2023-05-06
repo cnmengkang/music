@@ -1,5 +1,4 @@
 import MusicPlayer from '@/utils/player';
-import { checkMusic } from '@/api/music/music'
 const musicInfo = {
     state: {
         lyric: [],

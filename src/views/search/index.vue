@@ -1,57 +1,37 @@
 <template>
-    <div class="result mt-30" v-if="result.length != 0">
-        <div class="result-title">
-            <h2 class="h2">搜索 "{{ title}}"</h2>
-        </div>
-        <div class="result-tabs">
-            tabs{{ total }}
-        </div>
-        <div class="result-list">
-            <!-- list列表组件 -->
-            <song-list :tableDate="result"></song-list>
-            <!-- list列表组件 -->
-        </div>
+  <div class="index-search mt-15">
+    <div class="search_head">
+      <h1 class="mb-20">搜索：{{ title }}</h1>
+      <p>total：{{ songCount }}</p>
     </div>
+    <div class="search_body">
+      <song-list :tableDate="searchList" />
+    </div>
+  </div>
 </template>
-
 <script>
-import { mapState } from 'vuex';
 import songList from '@/components/body/songlist'
+import { mapState } from 'vuex';
 export default {
-    components: { songList },
-    props: {
+  components: { songList },
+  props: {},
+  data() {
+    return {
+    };
+  },
+  created() { },
+  mounted() { },
+  methods: {
 
-    },
-    data() {
-        return {
-           
-        };
-    },
-    created() {
-    },
-    mounted() { 
-        this.getRouter()
-    },
-    computed: {
-        ...mapState({
-            result: state => state.search.SearchResult,
-            total: state => state.search.total,
-            title: state => state.search.title,
-        })
+  },
+  computed: {
+    ...mapState({
+      searchList: state => state.search.searchList,
+      songCount: state => state.search.songCount,
+      title: state => state.search.title,
 
-    },
-    methods: {
-        // 搜索数据丢失返回上一页
-        getRouter() {
-            const title = this.title;
-        },
-        //选中页码触发
-        CurrentChange(current){
-            console.log(current)
-        }
-    },
+    })
+  },
 };
 </script>
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

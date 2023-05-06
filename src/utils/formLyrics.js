@@ -32,4 +32,3 @@ export function formatTIme(currentTime) {
     const result = `${minute}:${second}`
     return result
 }
-

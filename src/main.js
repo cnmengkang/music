@@ -9,15 +9,13 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '@/static/styles/style.css'
 import '@/static/styles/reset.css'
 // 全局css样式表
-import { parseTime, formatTime, numCount, formatCurrentTime, formLyric } from '@/utils/formdate'
+import { parseTime, formatTime, numCount, formatCurrentTime } from '@/utils/formdate'
 // 中间件
-Vue.prototype.$bus = new Vue();
 // 全局方法挂载
 // 时间日期格式化
 Vue.prototype.parseTime = parseTime
 Vue.prototype.formatTime = formatTime
 Vue.prototype.numCount = numCount
-Vue.prototype.formatLyrics = formLyric
 // 播放总量
 Vue.prototype.formatCurrentTime = formatCurrentTime
 Vue.config.productionTip = false;

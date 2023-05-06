@@ -72,10 +72,11 @@ export default class MusicPlayer {
     // 下一首
     nextTrack() {
         this.index = this.index + 1;
-        console.log(this.index)
         if (this.index == this.playlist.length) {
+            console.log('=====')
             this.index = 0;
             this.params.id = this.playlist[this.index].id;
+            this.getAllIsPlayInfo();
         } else {
             this.params.id = this.playlist[this.index].id;
             this.getAllIsPlayInfo();
@@ -87,7 +88,7 @@ export default class MusicPlayer {
         this.index = this.index - 1;
         if (this.index == -1) {
             this.index = 0;
-            this.params.id = this.playlist[this.index].id
+            this.params.id = this.playlist[this.index].id;
         } else {
             this.params.id = this.playlist[this.index].id;
             this.getAllIsPlayInfo();

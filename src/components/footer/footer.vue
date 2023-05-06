@@ -42,9 +42,7 @@
                 </div>
             </div>
         </transition>
-
         <!-- 底部歌词 -->
-
         <!-- 弹出层包含歌词作者信息 -->
         <div class="drawer" v-if="isFooterShow">
             <drawer v-if="isOpen" :singer="singers" :space="0" :lyric="lyrics" :currentTime="player.currentTime"

@@ -1,37 +1,29 @@
-
-import { searchList } from '@/api/search/search'
-// api
+import { cloudsearch } from '@/api/search/search';
 const state = () => ({
-    SearchResult: '',
-    total: '',
-    title: ''
+    searchList: [],
+    songCount: 0,
+    title: '',
 })
 
-// getters 可以理解是store的计算属性
 const getters = {
 }
-// mutations 
 const mutations = {
-    SEARCH_RESULT: (state, result) => {
-        console.log(result)
-        state.total = result.songCount
-        state.SearchResult = result.songs
+    SEARCH_LIST: (state, data) => {
+        state.searchList = data;
     },
-    SEARCH_TITLE: (state, result) => {
-        state.title = result.keywords
+    SONG_COUNT: (state, count) => {
+        state.songCount = count;
+    },
+    SEARCH_TITLE: (state, title) => {
+        state.title = title
     }
 }
-// actions 可以处理异步函数
 const actions = {
-    // 获取搜索结果
-    getResult({ commit }, result) {
-        commit('SEARCH_TITLE',result)
-        return new Promise((resolve, reject) => {
-            searchList(result).then(res => {
-                if (res.code != 200) return;
-                commit('SEARCH_RESULT', res.result)
-            })
-        })
+    async getCloudSearch({ commit }, data) {
+        commit('SEARCH_TITLE', data.keywords)
+        const { result } = await cloudsearch(data);
+        commit('SONG_COUNT', result.songCount);
+        commit('SEARCH_LIST', result.songs);
     }
 }
 export default {

@@ -1,15 +1,18 @@
 <template>
     <div>
         <el-skeleton :rows="10" animated :loading="data.length != 0 ? false : true" />
-
         <el-table v-if="data.length.length != 0" @row-dblclick="getCurrentMusicId" :data="data" style="width: 100%"
             :show-header="false" stripe>
             <el-table-column type="index" width="50" label="序号">
             </el-table-column>
-            <el-table-column label="头像" width="66">
+            <el-table-column label="头像" width="76">
                 <template slot-scope="scope">
-                    <el-avatar shape="square" :size="size" :src="scope.row.album.blurPicUrl"></el-avatar>
-                    <span class="iconFont icon-play-red align-item-center red   border-r-20"
+                    <el-image fit="cover" :width="size" :src="scope.row.album.blurPicUrl" lazy>
+                        <div slot="placeholder" class="image-slot">
+                            <i class="el-icon-loading"></i>
+                        </div>
+                    </el-image>
+                    <span class="iconFont icon-play-red align-item-center red border-r-20"
                         @click="getCurrentMusicId(scope.row)"></span>
                 </template>
             </el-table-column>
@@ -40,7 +43,6 @@
         </el-table>
     </div>
 </template>
-
 <script>
 export default {
     components: {},
@@ -52,13 +54,10 @@ export default {
     },
     data() {
         return {
-            size: 56,
+            size: 60,
             loading: true,
 
         };
-    },
-    computed: {
-
     },
     methods: {
         // 获取mv详情
@@ -76,15 +75,21 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.el-table .warning-row {
-    background: oldlace;
+.el-table {
+    .warning-row {
+        background: oldlace;
+    }
+
+    .el-image {
+        border-radius: 4px;
+    }
 }
 
 .align-item-center {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-35%, -60%);
+    transform: translate(-50%, -50%);
     background: #fff;
     padding: 2px 6px;
     font-size: 14px;
