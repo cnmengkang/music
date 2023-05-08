@@ -2,7 +2,7 @@
     <div class="search">
         <el-autocomplete class="auto_Width" placement="bottom" popper-class="my-autocomplete" v-model="value"
             :placeholder="placeholder" size="small" :fetch-suggestions="getSuggestions" @select="handleSelect"
-            @input="input(value)">
+            :trigger-on-focus="true">
             <template slot-scope="{ item }">
                 <div class="item-content">
                     <div class="left">1</div>
@@ -17,7 +17,7 @@
     </div>
 </template>
 <script>
-import { search_default, search_hot_detail, search_suggest, } from '@/api/search/search'
+import { search_default, search_hot_detail, search_suggest } from '@/api/search/search'
 export default {
     components: {},
     props: {},
@@ -25,35 +25,26 @@ export default {
         return {
             placeholder: '',
             value: '',
-            hotSearch: [],
             params: {
                 limit: 30,
                 keywords: ''
-            }
-
+            },
+            restaurants: [],
         }
     },
-    created() {
-        this.getSearchDefault();
-    },
     mounted() {
+        this.getSearchDefault();
         this.getSearchHotDetail();
     },
     methods: {
-        // 默认搜索关键词placeholder
-        async getSearchDefault() {
-            const { data } = await search_default();
-            this.placeholder = data.showKeyword
-        },
-        // 点击搜索按钮
-        getBtnSearchIcon(value) {
-            console.log(value)
-        },
         // 聚焦显示热搜版
-        getSuggestions(value, cb) {
-            const restaurants = this.hotSearch;
-            const result = value ? restaurants.filter(this.createFilter(value)) : restaurants;
-            cb(result)
+        async getSuggestions(value, cb) {
+            if (value) {
+                const {result} = await search_suggest(value);
+                console.log(result.songs)
+            }
+            const results = value ? this.restaurants.filter(this.createFilter(value)) : this.restaurants;
+            cb(results);
         },
         // 过滤数据
         createFilter(queryString) {
@@ -61,27 +52,33 @@ export default {
                 return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
             };
         },
-        // 获取热搜数据
+        // 获取搜索框默认热搜内容placeholder
+        async getSearchDefault() {
+            const { data } = await search_default();
+            this.placeholder = data.showKeyword;
+        },
+        // 获取热搜数据排行榜
         getSearchHotDetail() {
             search_hot_detail().then(res => {
-                this.hotSearch = res.data
+                this.restaurants = res.data;
             });
         },
-
+        // 点击搜索按钮
+        getBtnSearchIcon(value) {
+            const result = this.value == '' ? value : this.value;
+            this.getInputCheck(result);
+        },
         // 获取下拉选中的数据
-        handleSelect(item) {
-            if (item == '') return;
-            this.value = item.searchWord;
-            this.params.keywords = item.searchWord;
-            this.getCloudResult();
-            this.$router.push('search');
+        handleSelect({ searchWord }) {
+            this.getInputCheck(searchWord)
         },
-        getCloudResult() {
+        // 检测输入框数据 发送axios请求
+        getInputCheck(keywords) {
+            if (!keywords) return;
+            this.params.keywords = keywords;
+            this.value = keywords;
             this.$store.dispatch('search/getCloudSearch', this.params);
-        },
-        // input值改变时触发
-        input(value) {
-            this.params.keywords = value;
+            this.$router.push('/search')
         }
     }
 };
@@ -121,6 +118,5 @@ export default {
     i {
         cursor: pointer;
     }
-
 }
 </style>

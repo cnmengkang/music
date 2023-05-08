@@ -30,7 +30,7 @@
         <div class="flex" style="width:25%" v-if="isFooterShow">
             <sound :player="player" />
             <div class="btn_lyrics">
-                <span class="font-16 ml-10" @click="show = !show">词</span>
+                <span class="font-16 ml-10 cursor" @click="show = !show">词</span>
             </div>
         </div>
         <!-- 音量 -->
@@ -49,7 +49,6 @@
                 :isPlaying="isPlaying" />
         </div>
         <!-- 弹出层包含歌词作者信息 -->
-
     </div>
 </template>
 <script>
@@ -77,11 +76,12 @@ export default {
         'player.currentTime'(newTime) {
             this.slidValue = newTime;
         },
-        'player.isPlaying'(newTrue) {
-            if (newTrue != true) return;
+        'player.isPlaying'(isPlaying) {
+            if (!isPlaying) return;
+            console.log(this.isPlaying)
             this.player.isPlaying = true;
             this.isBtnShow = true;
-        }
+        },
     },
     created() {
         this.$store.dispatch('getLoadPlay');
@@ -112,10 +112,6 @@ export default {
         },
         seek() {
             this.player.setCurrentTime(this.slidValue);
-        },
-        // loop 0：单曲循环 1:随机播放 默认列表循环播放
-        loop(val) {
-            console.log(val)
         },
         startPlayOrPause(val) {
             if (val) {
@@ -204,5 +200,4 @@ export default {
 .pointerNone {
     pointer-events: none;
     opacity: .5;
-}
-</style>
+}</style>

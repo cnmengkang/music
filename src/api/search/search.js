@@ -1,5 +1,4 @@
 import request from '@/utils/request';
-
 // 说明 : 调用此接口 , 可获取默认搜索关键词
 export function search_default() {
     return request({

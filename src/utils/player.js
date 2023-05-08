@@ -6,10 +6,12 @@ const audioPool = {
         if (this.pool.length > 0) { // 如果对象池中有元素，则返回第一个元素
             return this.pool.shift();
         } else { // 如果对象池中没有元素，则创建新元素
+            console.log('new Audio success')
             return new Audio();
         }
     },
     release(audio) { // 释放音频元素对象
+        console.log('audio',audio)
         audio.pause(); // 暂停音频播放
         audio.src = ''; // 清空音频地址
         this.pool.push(audio); // 将元素对象加入对象池中
@@ -29,7 +31,7 @@ export default class MusicPlayer {
         this.singer = null;
         this.isFooterShow = false;
         this.audio.addEventListener("ended", () => {
-            console.log('当前播放结束')
+            console.log('当前播放结束');
             this.nextTrack();
         })
         this.audio.addEventListener('loadedmetadata', () => {
@@ -66,9 +68,6 @@ export default class MusicPlayer {
         this.audio.load();
         this.play();
     }
-    loop() {
-        console.log(this.audio.loop)
-    }
     // 下一首
     nextTrack() {
         this.index = this.index + 1;
@@ -81,7 +80,6 @@ export default class MusicPlayer {
             this.params.id = this.playlist[this.index].id;
             this.getAllIsPlayInfo();
         }
-
     }
     // 上一首
     prevTrack() {
@@ -116,6 +114,7 @@ export default class MusicPlayer {
     // 歌词
     getCurrentMusicLyric() {
         lyric(this.params.id).then((res) => {
+            // console.log(res)
             this.lyric = res.lrc.lyric
         })
     }
@@ -135,8 +134,8 @@ export default class MusicPlayer {
     // 检查音乐是否可用
     getCheckMusic() {
         checkMusic(this.params.id).then(res => {
-            console.log(res.data.success)
             if (res.data.success) {
+                console.log('音乐可用')
                 this.getAllIsPlayInfo();
             } else {
                 alert('无版权！')

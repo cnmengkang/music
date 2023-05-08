@@ -212,7 +212,7 @@
 .text-center {
   text-align: center;
 }
-.el-table .current-play {
+.el-table .isPlay {
   color: red;
   font-weight: bold;
 }

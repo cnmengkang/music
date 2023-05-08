@@ -1,7 +1,6 @@
 
 // 格式化歌词
 export function formatLyrics(lyrics, space) {
-    // console.log(space)
     const lines = lyrics.split('\n');
     const regex = /\[(\d{2}):(\d{2})\.(\d{2,3})\](.*)/;
     const formattedLyrics = lines.map(line => {
@@ -17,7 +16,7 @@ export function formatLyrics(lyrics, space) {
             return "";
         }
     });
-    return formattedLyrics
+    return formattedLyrics;
 }
 // 返回00:00时间格式 传入一个带有小数点的number
 export function formatTIme(currentTime) {
@@ -30,5 +29,5 @@ export function formatTIme(currentTime) {
     const minute = preToFixed(Math.floor(length / 60))
     const second = preToFixed(length - minute * 60)
     const result = `${minute}:${second}`
-    return result
+    return result;
 }

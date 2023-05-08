@@ -12,19 +12,18 @@ export default {
     props: {
         total: {
             type: Number,
-            required: true
+            required: 0
         },
         // 总条数
         pageSize: {
             type: Number,
-            required: true
+            required: 0
         },
         // 每页的数据
         currentPage: {
             type: Number,
-            required: true
+            required: 0
         }
-        // 当前页码
     },
     methods: {
         handleCurrentChange(currentPage) {

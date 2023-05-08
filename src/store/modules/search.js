@@ -4,7 +4,6 @@ const state = () => ({
     songCount: 0,
     title: '',
 })
-
 const getters = {
 }
 const mutations = {

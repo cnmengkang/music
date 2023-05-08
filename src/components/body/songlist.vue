@@ -2,7 +2,8 @@
     <!-- list列表组件 -->
     <div class="song-list">
         <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true" />
-        <el-table @row-dblclick="getCurrentMusicId" size="mini" :data="tableDate" stripe>
+        <el-table @row-dblclick="getCurrentMusicId" size="mini" :data="tableDate" :row-class-name="rowClassName" 
+         >
             <el-table-column label="序号" type="index" :index="indexMethod" />
             <el-table-column label="操作" width="70">
                 <template slot-scope="scope">
@@ -39,17 +40,34 @@
 </template>
 <script>
 import { songUrl } from '@/api/music/music';
+import { mapState } from 'vuex'
 export default {
+    components: {},
     props: {
         tableDate: {
             type: Array,
             require: true
-        }
+        },
+        total: {
+            type: Number,
+            require: 0,
+        },
     },
+
     data() {
         return {
-            currentIndex: 0,
+            rowId: 0,
         }
+    },
+    watch: {
+        'player.params.id'(isPlayId) {
+            localStorage.setItem('isPlay', isPlayId);
+            this.rowId = localStorage.getItem('isPlay');
+        }
+    },
+    mounted(){
+        if(localStorage.getItem('isPlay')) return;
+        this.rowId = localStorage.getItem('isPlay');
     },
     methods: {
         // 双击获取当前单曲id
@@ -75,7 +93,15 @@ export default {
                 link.download = res.data[0].url // 设置下载文件名
                 link.click() // 触发下载操作
             })
+        },
+        rowClassName({ row }) {
+            return this.rowId == row.id ? "isPlay" : ''
         }
+    },
+    computed: {
+        ...mapState({
+            player: state => state.musicInfo.player,
+        }),
     }
 }
 </script>
@@ -99,3 +125,7 @@ export default {
     }
 }
 </style>
+
+
+
+
