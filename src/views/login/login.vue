@@ -150,12 +150,9 @@ export default {
 </script>
 <style scope lang="less">
 #login {
-  width: 100%;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ccc;
 
   .app-login {
     .el-form-item {

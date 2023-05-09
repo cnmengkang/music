@@ -12,7 +12,6 @@
         </el-container>
     </div>
 </template>
-
 <script>
 import headers from "@/components/header";
 export default {

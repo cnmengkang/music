@@ -234,3 +234,6 @@ body {
 .el-drawer__header {
   color: #fff;
 }
+.el-autocomplete-suggestion {
+  width: 350px !important;
+}

@@ -1,4 +1,3 @@
-import MusicPlayer from '@/utils/player';
 const musicInfo = {
     state: {
         lyric: [],
@@ -18,19 +17,12 @@ const musicInfo = {
         SET_LYRIC: (state, lyric) => {
             state.lyric = lyric
         },
-        CHECK_MUSIC_TRUE: (state, isTrue) => {
-            state.check = isTrue
-        }
     },
     actions: {
-        getCurrentMusicIsPlay({ state,dispatch }, data) {
+        getCurrentMusicIsPlay({ state, dispatch }, data) {
             state.player.createAudio(data);
             console.log('点击加载的数据', state.player)
         },
-        // 页面加载注册实例化对象;
-        getLoadPlay({ state }) {
-            state.player = new MusicPlayer();
-        },
     }
 }
-export default musicInfo
+export default musicInfo;

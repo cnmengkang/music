@@ -3,12 +3,15 @@
         <el-autocomplete class="auto_Width" placement="bottom" popper-class="my-autocomplete" v-model="value"
             :placeholder="placeholder" size="small" :fetch-suggestions="getSuggestions" @select="handleSelect"
             :trigger-on-focus="true">
-            <template slot-scope="{ item }">
+            <template slot-scope="{item}">
                 <div class="item-content">
-                    <div class="left">1</div>
-                    <div class="right">
-                        <p class="name">{{ item.searchWord }}</p>
-                        <span class="addr">{{ item.content }}</span>
+                    <div class="left" :class="item.index <= 3 ? 'red' : ''">{{ item.index || "" }}</div>
+                    <div class="right ml-10">
+                        <div class="right-name">
+                            <span class="name">{{ item.searchWord || item.name }}</span>
+                            <span class="score font-12 ml-10">{{ item.score || "" }}</span>
+                            <p class="addr">{{ item.content || "" }}</p>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -40,11 +43,16 @@ export default {
         // 聚焦显示热搜版
         async getSuggestions(value, cb) {
             if (value) {
-                const {result} = await search_suggest(value);
-                console.log(result.songs)
+                const { result } = await search_suggest(value);
+                this.restaurants = result.songs;
+                const results = value ? this.restaurants : this.restaurants.filter(this.createFilter(value));
+                cb(results);
+            } else {
+                this.getSearchHotDetail();
+                this.indexMethod(this.restaurants);
+                const results = value ? this.restaurants.filter(this.createFilter(value)) : this.restaurants;
+                cb(results);
             }
-            const results = value ? this.restaurants.filter(this.createFilter(value)) : this.restaurants;
-            cb(results);
         },
         // 过滤数据
         createFilter(queryString) {
@@ -69,19 +77,28 @@ export default {
             this.getInputCheck(result);
         },
         // 获取下拉选中的数据
-        handleSelect({ searchWord }) {
-            this.getInputCheck(searchWord)
+        handleSelect(value) {
+            const result = value.searchWord ? value.searchWord : value.name
+            this.getInputCheck(result);
         },
-        // 检测输入框数据 发送axios请求
+        // 检测输入框数据
         getInputCheck(keywords) {
             if (!keywords) return;
             this.params.keywords = keywords;
             this.value = keywords;
             this.$store.dispatch('search/getCloudSearch', this.params);
-            this.$router.push('/search')
+            this.$router.push('/search');
+        },
+        indexMethod(data) {
+            this.restaurants = data.map((item, index) => {
+                return {
+                    ...item,
+                    index: index + 1
+                }
+            })
         }
-    }
-};
+    },
+}
 </script>
 <style lang="less" scoped>
 .auto_Width {
@@ -90,6 +107,8 @@ export default {
 
 .my-autocomplete {
     li {
+        margin-bottom: 10px;
+
         .name {
             text-overflow: ellipsis;
             overflow: hidden;
@@ -108,11 +127,15 @@ export default {
     .item-content {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 10px 10px;
+        line-height: 20px;
+        height: 35px;
+        margin: 10px 0px;
 
-        .left {
-            padding: 0px 10px;
+        .score {
+            color: #ccc;
         }
+
     }
 
     i {

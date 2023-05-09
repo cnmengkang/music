@@ -12,7 +12,7 @@
     </div>
     <div class="playlist-list mt-20">
       <play-grid :playlist="playlist"></play-grid>
-      <pagination :total="totalPage" :page-size="pageSize" :current-page.sync="currentPage"></pagination>
+      <pagination :total="totalPage" :page-size="pageSize" :current-page.sync="currentPage"/>
     </div>
   </div>
 </template>
@@ -28,33 +28,29 @@ export default {
     return {
       url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
       playlist: [],
-      topList: {
+      params: {
         cat: '',
         limit: 30,
         offset: 0,
       },
       totalPage: 0,
       pageSize: 30,
-      currentPage: 1
+      currentPage: 0
     };
-  },
-  created() {
   },
   mounted() {
     this.getTopPlaylist()
   },
   watch: {
     currentPage(val) {
-      console.log(val)
-      this.topList.offset = val * this.topList.limit;
-      console.log(this.topList.offset)
+      if (val == 1) this.params.offset = 0;
+      this.params.offset = (val * this.pageSize) - this.pageSize;
       this.getTopPlaylist();
     }
   },
   methods: {
     getTopPlaylist() {
-      topPlaylist(this.topList).then(res => {
-        console.log('topList', res)
+      topPlaylist(this.params).then(res => {
         this.totalPage = res.total;
         this.playlist = res.playlists;
       })

@@ -2,7 +2,7 @@
   <div id="register">
     <el-card>
       <div class="app-register">
-        <router-link class="back" to="/login">&#x3c;&nbsp;返回登录</router-link>
+        <!-- <router-link class="back" to="/login">&#x3c;&nbsp;返回登录</router-link> -->
         <div class="register">
           <!-- <h4>注册网易云音乐账号</h4> -->
           <el-form :model="registerForm" status-icon v-loading="loading" ref="ruleForm" :rules="registerRules"
@@ -151,13 +151,9 @@ export default {
 </script>
 <style scope lang="less">
 #register {
-  width: 100%;
-  height: 100vh;
-  /* background: url(../../static/images/wallhaven-lol.png) no-repeat 100%; */
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ccc;
 
   .app-register {
     h2 {
@@ -193,7 +189,6 @@ export default {
         padding: 15px 0px;
       }
     }
-
     .register-phone {
       .el-button {
         margin-top: 15px;
@@ -209,11 +204,9 @@ export default {
         width: 100%;
       }
     }
-
     .login-oth {
       margin-bottom: 15px;
     }
-
     .login-oth,
     #socialLogin {
       display: flex;
@@ -221,14 +214,12 @@ export default {
       align-items: center;
       justify-content: center;
     }
-
     .login-oth p {
       text-align: center;
       font-size: 12px;
       margin: 0px 15px;
       width: 100%;
     }
-
     .login-oth::after,
     .login-oth::before {
       content: " ";
@@ -237,7 +228,6 @@ export default {
       display: inline-block;
       background: #ebebeb;
     }
-
     .sw {
       font-size: 12px;
       cursor: pointer;

@@ -1,16 +1,19 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import user from './modules/user';
+import MusicPlayer from '@/utils/player'
 import musicInfo from './modules/musicInfo';
 import videos from './modules/video';
 import search from './modules/search';
 Vue.use(Vuex);
-const store = new Vuex.Store({
+const options = {
   modules: {
-    user,
+    namespaced: true,
     musicInfo,
     videos,
     search
   }
-})
-export default store
+}
+let store = new Vuex.Store(options);
+let player = new MusicPlayer();
+store.state.musicInfo.player = player;
+export default store;

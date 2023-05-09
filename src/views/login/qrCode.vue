@@ -8,7 +8,6 @@
                 </div>
                 <div id="socialLogin">
                     <el-button icon="el-icon-edit"><router-link to="/login">手机号</router-link></el-button>
-                    <!-- <el-button icon="el-icon-edit" @click="getLogin">11</el-button> -->
                 </div>
             </div>
         </el-card>
@@ -16,7 +15,6 @@
 </template>
 <script>
 import { qrKey, qrCreate, qrCheckCode } from "@/api/user/login";
-import { getToken, setToken } from '@/utils/auth'
 export default {
     name: "qrCode",
     data() {
@@ -69,12 +67,9 @@ export default {
 </script>
 <style scope lang="less">
 #qr {
-    width: 100%;
-    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #ccc;
 
     .app-qr {
         .login-oth {

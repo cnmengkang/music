@@ -1,5 +1,5 @@
 <template>
-    <div class="user-info">
+    <div class="user-info" v-if="false">
         <div class="user-avatar flex">
             <el-avatar icon="el-icon-user-solid" :size="35" :src="userAvatar"></el-avatar>
             <el-dropdown trigger="click" class="user-down" @click.native="handleClick" placement="bottom"
@@ -24,16 +24,17 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
-        <div>
+        <div class="login" v-if="false">
+            <qr-code></qr-code>
         </div>
     </div>
 </template>
 
 <script>
-import { logout, userDetail, vipInfo } from '@/api/user/user'
-import { mapState } from 'vuex'
+import { logout, userDetail, vipInfo } from '@/api/user/user';
+import qrCode from '@/views/login/qrCode'
 export default {
-    components: {},
+    components: { qrCode },
     props: {},
     data() {
         return {
@@ -43,14 +44,8 @@ export default {
             vipInfo: ''
         };
     },
-    computed: {
-        user() {
-            return this.user.length != 0;
-        }
-    },
     mounted() {
         this.getUserInfo();
-
     },
     methods: {
         // 登录状态
@@ -96,12 +91,6 @@ export default {
             }
         }
     },
-    computed: {
-        ...mapState({
-            userName: state => state.user.userName,
-            userAvatar: state => state.user.userAvatar
-        })
-    },
 };
 </script>
 <style lang="less" scoped>
@@ -116,6 +105,15 @@ export default {
 .vipInfo {
     width: 35px;
     margin-left: 5px;
+}
+
+.login {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    background-color: #f2f2f2;
+    z-index: 9999;
 }
 
 .down-grid {

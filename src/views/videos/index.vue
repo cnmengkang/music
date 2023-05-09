@@ -36,7 +36,6 @@
 import { videoList, videoCategory, videoGroup, videoAll } from '@/api/video/video';
 import tabs from '@/components/body/tabs'
 import videoGrid from '@/components/body/videogrid'
-import headTitle from '@/components/header/title'
 import videoMv from './mv.vue'
 export default {
   components: { tabs, videoGrid, headTitle, videoMv },

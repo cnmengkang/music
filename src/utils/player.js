@@ -11,7 +11,7 @@ const audioPool = {
         }
     },
     release(audio) { // 释放音频元素对象
-        console.log('audio',audio)
+        console.log('audio', audio)
         audio.pause(); // 暂停音频播放
         audio.src = ''; // 清空音频地址
         this.pool.push(audio); // 将元素对象加入对象池中
@@ -22,7 +22,6 @@ export default class MusicPlayer {
         this.audio = audioPool.get();
         this.playlist = [];
         this.index = 0;
-        this.currentTrackIndex = 0;
         this.currentTime = 0;
         this.duration = 0;
         this.isPlaying = false;
@@ -68,29 +67,11 @@ export default class MusicPlayer {
         this.audio.load();
         this.play();
     }
-    // 下一首
-    nextTrack() {
-        this.index = this.index + 1;
-        if (this.index == this.playlist.length) {
-            console.log('=====')
-            this.index = 0;
-            this.params.id = this.playlist[this.index].id;
-            this.getAllIsPlayInfo();
-        } else {
-            this.params.id = this.playlist[this.index].id;
-            this.getAllIsPlayInfo();
-        }
-    }
-    // 上一首
-    prevTrack() {
-        this.index = this.index - 1;
-        if (this.index == -1) {
-            this.index = 0;
-            this.params.id = this.playlist[this.index].id;
-        } else {
-            this.params.id = this.playlist[this.index].id;
-            this.getAllIsPlayInfo();
-        }
+    getPrevNext(player) {
+        player == 'prev' ? this.index-- : this.index++;
+        if (this.index == -1 || this.index == this.playlist.length) this.index = 0;
+        this.params.id = this.playlist[this.index].id;
+        this.getAllIsPlayInfo();
     }
     // 设置当前播放时间
     setCurrentTime(seconds) {
@@ -114,7 +95,6 @@ export default class MusicPlayer {
     // 歌词
     getCurrentMusicLyric() {
         lyric(this.params.id).then((res) => {
-            // console.log(res)
             this.lyric = res.lrc.lyric
         })
     }
@@ -134,8 +114,8 @@ export default class MusicPlayer {
     // 检查音乐是否可用
     getCheckMusic() {
         checkMusic(this.params.id).then(res => {
+            console.log(res.data.success)
             if (res.data.success) {
-                console.log('音乐可用')
                 this.getAllIsPlayInfo();
             } else {
                 alert('无版权！')

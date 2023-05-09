@@ -24,10 +24,11 @@ export default {
             type: Number,
             required: 0
         }
+        // 当前项
     },
     methods: {
         handleCurrentChange(currentPage) {
-            console.log('currentPage', currentPage)
+            // console.log('currentPage', currentPage)
             this.$emit('update:currentPage', currentPage)
         }
     },

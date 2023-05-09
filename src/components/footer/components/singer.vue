@@ -4,7 +4,7 @@
             <el-avatar shape="square" :size="50" :src="avatar" />
         </div>
         <div class="author-singer ellipsis">
-            <div class="ellipsis">
+            <div class="ellipsis font-14">
                 <span>{{ name }}</span>
                 <span class="alia" v-if="subtitle">({{ subtitle }})</span>
             </div>
@@ -51,21 +51,17 @@ export default {
 .alia {
     color: #ccc;
 }
-
 .author {
     width: 100%;
-
     .author-avatar:hover {
         cursor: pointer;
         transition: all .2s linear;
-
         .el-avatar {
             opacity: 0.5;
         }
     }
 
 }
-
 .flex-wrap-nowrap {
     flex-wrap: nowrap;
 }

@@ -104,6 +104,18 @@ const routes = [
         name: 'search',
         // 
       },
+      // {
+      //   path: '/login',
+      //   component: () => import('@/views/login/login')
+      // },
+      {
+        path: '/register',
+        component: () => import('@/views/login/register')
+      },
+      {
+        path: '/qrCode',
+        component: () => import('@/views/login/qrCode')
+      },
     ]
   },
   {
@@ -123,19 +135,6 @@ const routes = [
       },
     ]
   },
-  {
-    path: '/login',
-    component: () => import('@/views/login/login')
-  },
-  {
-    path: '/register',
-    component: () => import('@/views/login/register')
-  },
-  {
-    path: '/qrCode',
-    component: () => import('@/views/login/qrCode')
-  },
-
 ];
 
 const router = new VueRouter({
@@ -143,26 +142,13 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-// router.beforeEach((to, from, next) => {
-//   if (to.path === '/login') {
-//     next();
-//   } else {
-//     let token = localStorage.getItem('token');
-//     console.log(token)
-//     if (token === 'null' || token === '') {
-//       next('/login')
-//     } else {
-//       next();
-//     }
-//   }
-// })
 const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push (location) {
+VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
- 
+
 const originalReplace = VueRouter.prototype.replace
-VueRouter.prototype.replace = function replace (location) {
+VueRouter.prototype.replace = function replace(location) {
   return originalReplace.call(this, location).catch(err => err)
 }
 export default router;

@@ -10,10 +10,10 @@
             <div :class="{ audio: true, pointerNone: !isFooterShow }">
                 <div class="audio-play flex">
                     <div class="audio-top plays mb-5">
-                        <span title="上一首" class="icon-prev" @click="prev"></span>
+                        <span title="上一首" class="icon-prev" @click="getPrevNext('prev')"></span>
                         <span title="暂停" class="play icon-play" v-if="isBtnShow" @click="startPlayOrPause(false)"></span>
                         <span title="播放" class="pause icon-pause" v-else @click="startPlayOrPause(true)"></span>
-                        <span title="下一首" class="icon-next" @click="next"></span>
+                        <span title="下一首" class="icon-next" @click="getPrevNext('next')"></span>
                     </div>
                     <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
                         <span v-if="isFooterShow" class="start font-14">{{ currentTime || "00:00"
@@ -83,9 +83,6 @@ export default {
             this.isBtnShow = true;
         },
     },
-    created() {
-        this.$store.dispatch('getLoadPlay');
-    },
     // 计算属性
     computed: {
         ...mapState({
@@ -104,11 +101,8 @@ export default {
         },
     },
     methods: {
-        prev() {
-            this.player.prevTrack();
-        },
-        next() {
-            this.player.nextTrack();
+        getPrevNext(player) {
+            this.player.getPrevNext(player)
         },
         seek() {
             this.player.setCurrentTime(this.slidValue);
@@ -200,4 +194,5 @@ export default {
 .pointerNone {
     pointer-events: none;
     opacity: .5;
-}</style>
+}
+</style>

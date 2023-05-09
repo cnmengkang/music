@@ -13,7 +13,6 @@
     <!-- 账户信息 -->
   </div>
 </template>
-
 <script>
 import search from './search.vue'
 import back from './back.vue'
@@ -25,7 +24,6 @@ export default {
 <style lang="less" scoped>
 .header {
   height: 60px;
-
   .header-logo {
     width: 180px;
     height: 60px;
