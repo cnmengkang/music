@@ -82,3 +82,18 @@ export function checkMusic(id) {
         params: { id }
     })
 }
+// 说明 : 调用此接口,可获取歌单分类,包含 category 信息
+export function playlistHot() {
+    return request({
+        url: '/playlist/hot',
+        method: 'post',
+    })
+}
+// 说明 : 调用此接口 , 可获取精品歌单
+export function topPlaylistHighQuality(data) {
+    return request({
+        url: '/top/playlist/highquality',
+        method: 'post',
+        params:data
+    })
+}

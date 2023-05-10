@@ -127,11 +127,14 @@
 // width
 // color
 @red: #e60026;
+@white:#ffffff;
 
 .red {
     color: @red;
 }
-
+.white{
+    color:@white;
+}
 @font-20: 20px;
 
 .font-20 {
@@ -293,6 +296,7 @@
 .el-table .isPlay {
     color: red;
     font-weight: bold;
+    transition: all .5s linear;
 }
 
 .el-tabs__header {
@@ -325,3 +329,13 @@ body {
     width: 350px !important;
 
 }
+.playlist-list{
+    .el-tabs__nav{
+        float: right;
+        .el-tabs__item{
+            font-size: 12px;
+            padding: 0px 10px;
+          }
+    }
+}
+

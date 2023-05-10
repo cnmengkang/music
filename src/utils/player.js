@@ -27,11 +27,16 @@ export default class MusicPlayer {
         this.isPlaying = false;
         this.params = { id: 0, level: 'exhigh' }
         this.lyric = [];
-        this.singer = null;
+        this.singer = {
+            authorName: '',
+            authorAvatar: '',
+            songName: '',
+            authorAli: ''
+        };
         this.isFooterShow = false;
         this.audio.addEventListener("ended", () => {
-            console.log('当前播放结束');
-            this.nextTrack();
+            console.log('当前播放结束，自动播放下一首');
+            this.getPrevNext('next');
         })
         this.audio.addEventListener('loadedmetadata', () => {
             this.duration = this.audio.duration;
@@ -55,9 +60,10 @@ export default class MusicPlayer {
     }
     // 创建音频
     createAudio(options) {
+        console.log(options)
         this.index = options.index;
-        this.playlist = options.playList;
-        this.params.id = options.id;
+        this.playlist = options.data
+        this.params.id = this.playlist[this.index].id;
         this.getCheckMusic();
     }
     // 播放
@@ -86,40 +92,34 @@ export default class MusicPlayer {
         this.isOpen = isOpen
     }
     // 获取当前播放歌曲url
-    getCurrentMusicUrl() {
-        songUrl(this.params).then(res => {
-            const url = res.data[0].url;
-            this.isPlay(url)
-        })
+    async getCurrentMusicUrl() {
+        const { data } = await songUrl(this.params);
+        this.isPlay(data[0].url)
     }
     // 歌词
-    getCurrentMusicLyric() {
-        lyric(this.params.id).then((res) => {
-            this.lyric = res.lrc.lyric
-        })
+    async getCurrentMusicLyric() {
+        const { lrc } = await lyric(this.params.id);
+        this.lyric = lrc.lyric
     }
     // 左侧歌曲信息
-    getCurrentMusicDetail() {
-        songDetail(this.params.id).then((res) => {
-            this.singer = res.songs[0];
-        })
+    async getCurrentMusicDetail() {
+        const { songs } = await songDetail(this.params.id);
+        this.singer.songName = songs[0].name;
+        this.singer.authorAvatar = songs[0].al.picUrl;
+        this.singer.authorName = songs[0].ar;
+        this.singer.authorAli = songs[0].alia[0];
     }
     // 获取当前所有音乐播放信息
     getAllIsPlayInfo() {
         this.getCurrentMusicDetail();  //左侧歌曲信息
         this.getCurrentMusicLyric();  //歌词
-        this.getCurrentMusicUrl();  //歌词
+        this.getCurrentMusicUrl();  //url
     }
     // 检测歌曲是否可播放
     // 检查音乐是否可用
-    getCheckMusic() {
-        checkMusic(this.params.id).then(res => {
-            console.log(res.data.success)
-            if (res.data.success) {
-                this.getAllIsPlayInfo();
-            } else {
-                alert('无版权！')
-            }
-        })
+    async getCheckMusic() {
+        const { data } = await checkMusic(this.params.id);
+        if (!data.success) console.log('无版权!');
+        this.getAllIsPlayInfo();
     }
 }

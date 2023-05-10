@@ -1,19 +1,27 @@
 <template>
-    <el-tabs v-model="activeTab" @tab-click="handleTabClick">
+    <el-tabs v-model="activeTab" @tab-click="handleTabClick" :tab-position="position">
         <slot></slot>
     </el-tabs>
 </template>
 <script>
 export default {
     name: 'Tabs',
-    props: {},
+    props: {
+        position: {
+            type: String,
+            require: 'top'
+        },
+
+    },
     data() {
         return {
-            activeTab: ''
+            activeTab: '',
+
         };
     },
     created() { },
-    mounted() { },
+    mounted() {
+    },
     methods: {
         handleTabClick(tab) {
             this.$emit('tab-click', tab);

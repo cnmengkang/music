@@ -1,33 +1,28 @@
 import { cloudsearch } from '@/api/search/search';
-const state = () => ({
-    searchList: [],
-    songCount: 0,
-    title: '',
-})
-const getters = {
-}
-const mutations = {
-    SEARCH_LIST: (state, data) => {
-        state.searchList = data;
+const search = {
+    state: {
+        searchList: [],
+        songCount: 0,
+        title: '',
     },
-    SONG_COUNT: (state, count) => {
-        state.songCount = count;
+    mutations: {
+        SEARCH_LIST: (state, data) => {
+            state.searchList = data;
+        },
+        SONG_COUNT: (state, count) => {
+            state.songCount = count;
+        },
+        SEARCH_TITLE: (state, title) => {
+            state.title = title
+        }
     },
-    SEARCH_TITLE: (state, title) => {
-        state.title = title
+    actions: {
+        async getCloudSearch({ commit }, data) {
+            commit('SEARCH_TITLE', data.keywords)
+            const { result } = await cloudsearch(data);
+            commit('SONG_COUNT', result.songCount);
+            commit('SEARCH_LIST', result.songs);
+        }
     }
 }
-const actions = {
-    async getCloudSearch({ commit }, data) {
-        commit('SEARCH_TITLE', data.keywords)
-        const { result } = await cloudsearch(data);
-        commit('SONG_COUNT', result.songCount);
-        commit('SEARCH_LIST', result.songs);
-    }
-}
-export default {
-    state,
-    getters,
-    actions,
-    mutations
-}
+export default search;

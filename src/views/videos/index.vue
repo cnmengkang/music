@@ -38,7 +38,7 @@ import tabs from '@/components/body/tabs'
 import videoGrid from '@/components/body/videogrid'
 import videoMv from './mv.vue'
 export default {
-  components: { tabs, videoGrid, headTitle, videoMv },
+  components: { tabs, videoGrid, videoMv },
   name: "videos",
   data() {
     return {

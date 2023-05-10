@@ -5,7 +5,7 @@ export function detail(id) {
     return request({
         url: '/playlist/detail',
         method: 'post',
-        params: id
+        params:  id 
     })
 }
 // 获取歌单所有歌曲

@@ -87,6 +87,9 @@
 .red {
   color: #e60026;
 }
+.white {
+  color: #ffffff;
+}
 .font-20 {
   font-size: 20px;
 }
@@ -215,6 +218,7 @@
 .el-table .isPlay {
   color: red;
   font-weight: bold;
+  transition: all 0.5s linear;
 }
 .el-tabs__header .el-tabs__nav-wrap::after {
   background-color: #fff;
@@ -236,4 +240,11 @@ body {
 }
 .el-autocomplete-suggestion {
   width: 350px !important;
+}
+.playlist-list .el-tabs__nav {
+  float: right;
+}
+.playlist-list .el-tabs__nav .el-tabs__item {
+  font-size: 12px;
+  padding: 0px 10px;
 }

@@ -68,7 +68,11 @@ export default {
         // 双击获取当前单曲详细信息
         getCurrentMusicId(row) {
             const index = this.data.indexOf(row);
-            this.$store.dispatch('getCurrentMusicIsPlay', { playList: this.data, index: index, id: row.id });
+            const playlist = {
+                data: this.data,
+                index: index
+            }
+            this.$store.dispatch('getCurrentMusicIsPlay', playlist);
         },
     }
 

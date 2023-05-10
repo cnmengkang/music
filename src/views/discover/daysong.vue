@@ -28,17 +28,17 @@ export default {
     return {
       src: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
       list: [],
+      songId: 0,
     }
   },
   mounted() {
     this.getDaySong()
   },
   methods: {
-    getDaySong() {
-      daySongs(this.params).then(res => {
-        console.log('day', res)
-        this.list = res.data.dailySongs
-      })
+    async getDaySong() {
+      const { data } = await daySongs();
+      this.list = data.dailySongs;
+      this.songId = data.recommendReasons[0].songId
     }
   },
 };

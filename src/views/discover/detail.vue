@@ -64,14 +64,13 @@ export default {
         // 获取详情页顶部数据
         getDetail(id) {
             detail(id).then((res) => {
-                // console.log('res', res)
+                console.log(res)
                 this.playlist = res.playlist;
             })
         },
         // // 获取歌单所有歌曲
         getPlayTrack() {
             playTrack(this.params).then((res) => {
-                // console.log('songsList', res)
                 this.list = res.songs
             })
         },
@@ -115,7 +114,7 @@ export default {
                     padding: 8px 10px;
                     border-radius: 5px;
                     margin: 5px 0px;
-                    line-height:20px;
+                    line-height: 20px;
                 }
 
                 .vip {

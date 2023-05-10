@@ -1,15 +1,15 @@
 <template>
     <div class="tops-song">
         <div class="tops-nav">
-            <Tabs>
-                <Tabs @tab-click="handleTabClickType">
+            <tabs>
+                <tabs @tab-click="handleTabClickType">
                     <el-tab-pane v-for="(item, index) in tops" :value="item.type" :label="item.name" :key="index" />
-                </Tabs>
+                </tabs>
                 <el-tab-pane label="新歌速递">
                     <table-list :data="topSongList"></table-list>
                 </el-tab-pane>
                 <el-tab-pane label="新蝶上架">Tab 2 Content</el-tab-pane>
-            </Tabs>
+            </tabs>
         </div>
     </div>
 </template>

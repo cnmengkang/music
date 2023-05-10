@@ -1,38 +1,39 @@
 <template>
   <div class="like-music">
+    <table-head :tableHead="creator"></table-head>
     <song-list :tableDate="list"></song-list>
   </div>
 </template>
 <script>
-import { likest, songDetail } from '@/api/music/music';
+import { detail } from '@/api/discover/detail';
+import tableHead from '@/components/body/head.vue'
 import songList from '@/components/body/songlist'
 export default {
-  components: { songList },
+  components: { songList, tableHead },
   data() {
     return {
       params: {
         uid: 345288322,
+
       },
-      list: []
+      list: [],
+      id: 484077048,
+      creator:{}
     };
   },
   mounted() {
-    this.getLikeMusicIds();
+    const id = this.id
+    this.getLikeMusicIds(id);
   },
   methods: {
     // 获取我喜欢的音乐ids
-    getLikeMusicIds() {
-      likest(this.params).then(res => {
-        const ids = res.ids
-        this.getMusicSongDetail(ids.join(','))
-      })
+    async getLikeMusicIds(id) {
+      const { playlist } = await detail({ id });
+      console.log(playlist)
+      this.creator = playlist
+      this.list = playlist.tracks
     },
-    // 根据ids获取喜欢音乐详细信息
-    getMusicSongDetail(ids) {
-      songDetail(ids).then(res => {
-        this.list = res.songs
-      })
-    }
+
   },
 };
 </script>

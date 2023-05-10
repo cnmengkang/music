@@ -5,8 +5,8 @@
         </div>
         <div class="author-singer ellipsis">
             <div class="ellipsis font-14">
-                <span>{{ name }}</span>
-                <span class="alia" v-if="subtitle">({{ subtitle }})</span>
+                <span>{{ songName }}</span>
+                <span class="alia" v-if="subName">({{ subName }})</span>
             </div>
             <div class="mt-5">
                 <span class="font-12">{{ authorName }}</span>
@@ -27,17 +27,17 @@ export default {
         }
     },
     computed: {
-        name() {
-            return this.singer.name;
+        songName() {
+            return this.singer.songName;
         },
         avatar() {
-            return this.singer.al.picUrl
+            return this.singer.authorAvatar
         },
-        subtitle() {
-            return this.singer.alia[0]
+        subName() {
+            return this.singer.authorAli
         },
         authorName() {
-            return this.singer.ar[0].name
+            return [...this.singer.authorName.map(obj => obj.name)].join(' / ');
         }
     },
     methods: {
@@ -51,18 +51,21 @@ export default {
 .alia {
     color: #ccc;
 }
+
 .author {
     width: 100%;
+
     .author-avatar:hover {
         cursor: pointer;
         transition: all .2s linear;
+
         .el-avatar {
             opacity: 0.5;
         }
     }
 
 }
+
 .flex-wrap-nowrap {
     flex-wrap: nowrap;
-}
-</style>
+}</style>

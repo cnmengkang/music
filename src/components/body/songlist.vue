@@ -2,9 +2,8 @@
     <!-- list列表组件 -->
     <div class="song-list">
         <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true" />
-        <el-table @row-dblclick="getCurrentMusicId" size="mini" :data="tableDate" :row-class-name="rowClassName" 
-         >
-            <el-table-column label="序号" type="index" :index="indexMethod" />
+        <el-table @row-dblclick="getCurrentMusicId" size="mini" :data="tableDate" :row-class-name="rowClassName">
+            <el-table-column label="序号" type="index" :index="indexMethod" align="center" />
             <el-table-column label="操作" width="70">
                 <template slot-scope="scope">
                     <i class="iconFont icon-love" type="selection" :index="scope.row.index"></i>
@@ -65,19 +64,22 @@ export default {
             this.rowId = localStorage.getItem('isPlay');
         }
     },
-    mounted(){
-        if(localStorage.getItem('isPlay')) return;
+    mounted() {
         this.rowId = localStorage.getItem('isPlay');
     },
     methods: {
         // 双击获取当前单曲id
         getCurrentMusicId(row) {
             const index = this.tableDate.indexOf(row);
-            this.$store.dispatch('getCurrentMusicIsPlay', { playList: this.tableDate, index: index, id: row.id });
+            const playlist = {
+                data: this.tableDate,
+                index: index
+            }
+            this.$store.dispatch('getCurrentMusicIsPlay', playlist);
         },
         // 获取mv
         getMv(res) {
-            this.$store.dispatch('videos/getDetailMv', res.mv);
+            this.$store.dispatch('getDetailMv', res.mv);
             this.$router.push({ name: 'videoPlay', params: { id: res.mv } })
         },
         indexMethod(index = 0) {

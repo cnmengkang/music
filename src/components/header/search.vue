@@ -5,8 +5,8 @@
             :trigger-on-focus="true">
             <template slot-scope="{item}">
                 <div class="item-content">
-                    <div class="left" :class="item.index <= 3 ? 'red' : ''">{{ item.index || "" }}</div>
-                    <div class="right ml-10">
+                    <div class="left" :class="item.index <= 3 ? 'red' : ''">{{ item.index}}</div>
+                    <div class="right">
                         <div class="right-name">
                             <span class="name">{{ item.searchWord || item.name }}</span>
                             <span class="score font-12 ml-10">{{ item.score || "" }}</span>
@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </template>
-            <i slot="suffix" class="el-icon-search el-input__icon" @click="getBtnSearchIcon(placeholder)"></i>
+            <i slot="suffix" class="el-icon-search el-input__icon" @click.enter="getBtnSearchIcon(placeholder)"></i>
         </el-autocomplete>
     </div>
 </template>
@@ -43,11 +43,13 @@ export default {
         // 聚焦显示热搜版
         async getSuggestions(value, cb) {
             if (value) {
+                console.log('value',value)
                 const { result } = await search_suggest(value);
                 this.restaurants = result.songs;
                 const results = value ? this.restaurants : this.restaurants.filter(this.createFilter(value));
                 cb(results);
             } else {
+                console.log('falseValue',value)
                 this.getSearchHotDetail();
                 this.indexMethod(this.restaurants);
                 const results = value ? this.restaurants.filter(this.createFilter(value)) : this.restaurants;
@@ -86,7 +88,7 @@ export default {
             if (!keywords) return;
             this.params.keywords = keywords;
             this.value = keywords;
-            this.$store.dispatch('search/getCloudSearch', this.params);
+            this.$store.dispatch('getCloudSearch', this.params);
             this.$router.push('/search');
         },
         indexMethod(data) {
@@ -107,8 +109,6 @@ export default {
 
 .my-autocomplete {
     li {
-        margin-bottom: 10px;
-
         .name {
             text-overflow: ellipsis;
             overflow: hidden;

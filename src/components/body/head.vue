@@ -1,41 +1,39 @@
 <template>
     <!-- 详情页面顶部组件 -->
-    <div class="head">
+    <div class="head" v-if="tableHead">
         <div class="detail-left">
-            <el-avatar :size="180" shape="square" icon="el-icon-user-solid" :src="tableHead.coverImgUrl"></el-avatar>
+            <el-avatar :size="180" shape="square" icon="el-icon-user-solid" :src="coverImgUrl"></el-avatar>
         </div>
         <div class="detail-right">
             <div class="right-title  flex">
                 <span class="song mr-10">歌单</span>
-                <h1>{{ tableHead.name }}</h1>
+                <h1>{{ name }}</h1>
             </div>
-            <div class="right-creator font-12 flex">
-                <el-avatar v-if="tableHead.creator" :src="tableHead.creator.avatarUrl" class="mr-10" :size="30" />
+            <div class="right-creator font-12 flex" v-if="tableHead.creator">
+                <el-avatar :src="avatarUrl" class="mr-10" :size="30" />
                 <el-link :underline="false">
-                    <span class="mr-10 blue" v-if="tableHead.creator">{{ tableHead.creator.nickname }}</span>
+                    <span class="mr-10 blue">{{ nickname }}</span>
                 </el-link>
                 <div class="createTime">
                     {{ parseTime(tableHead.createTime, "{y}-{m}-{d}") }}创建
                 </div>
             </div>
-            <div class="head-box">
-                <div class="flex mb-5">
-                    <el-button-group>
-                        <el-button round size="mini" type="danger" icon="el-icon-video-play">播放全部</el-button>
-                        <el-button round size="mini" type="danger" icon="el-icon-plus"></el-button>
-                    </el-button-group>
-                </div>
+            <div class="flex mb-5">
+                <el-button-group>
+                    <el-button round size="mini" type="danger" icon="el-icon-video-play">播放全部</el-button>
+                    <el-button round size="mini" type="danger" icon="el-icon-plus"></el-button>
+                </el-button-group>
             </div>
-            <div class="tips flex mb-5" v-if="tableHead.tags">
-                <label v-if="tableHead.tags.length != 0">标签：</label>
+            <!-- <div class="tips flex mb-5" v-if="tableHead.tags.length > 1">
+                <label>标签：</label>
                 <el-link :underline="false" class="blue mr-5" v-for="(item, index) in tableHead.tags" :key="index">
                     {{ item }}</el-link>
-            </div>
+            </div> -->
             <div class="font-14" style="width:100%">
                 <span class="mr-20">歌曲：{{ tableHead.trackCount }}</span>
                 <span>播放：{{ numCount(tableHead.playCount) }}</span>
             </div>
-            <el-collapse-transition>
+            <el-collapse-transition v-if="tableHead.description">
                 <div class="transition-box">
                     <p>
                         {{ tableHead.description }}
@@ -55,19 +53,21 @@ export default {
             require: true
         },
     },
-    data() {
-        return {
-            folder: true
+    computed: {
+        name() {
+            return this.tableHead.name;
+        },
+        // 封面图
+        coverImgUrl() {
+            return this.tableHead.coverImgUrl;
+        },
+        avatarUrl() {
+            return this.tableHead.creator.avatarUrl;
+        },
+        nickname() {
+            return this.tableHead.creator.nickname;
         }
     },
-    computed: {
-
-    },
-    mounted() {
-    },
-    methods: {
-
-    }
 };
 </script>
 <style lang="less" scoped>
@@ -84,7 +84,6 @@ export default {
         width: 75%;
         display: flex;
         flex-wrap: wrap;
-        align-items: center;
         gap: 5px 10px;
 
         .song {
