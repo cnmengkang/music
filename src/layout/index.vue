@@ -25,7 +25,7 @@
 <script>
 import headers from "@/components/header";
 import asideNav from "@/components/aside";
-import footers from "@/components/footer/footer";
+import footers from "@/views/footer/footer";
 
 export default {
   name: "index",

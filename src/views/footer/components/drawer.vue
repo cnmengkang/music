@@ -24,7 +24,7 @@
     </div>
 </template>
 <script>
-import lyric from './lyric'
+import lyric from '@/components/lyric'
 export default {
     components: { lyric },
     props: {
@@ -59,16 +59,16 @@ export default {
     },
     computed: {
         name() {
-            return this.singer.name;
+            return this.singer.songName;
         },
         avatar() {
-            return this.singer.al.picUrl;
+            return this.singer.authorAvatar;
         },
         subtitle() {
             return this.singer.alia[0];
         },
         authorName() {
-            return this.singer.ar[0].name;
+            return [...this.singer.authorName.map(obj => obj.name)].join(' / ');
         },
         isOpen: {
             get() {

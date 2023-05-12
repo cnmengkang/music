@@ -11,22 +11,29 @@
       </div>
     </div>
     <div class="playlist-list mt-20">
-      <tabs @tab-click="handleTabClickType">
-        <el-tab-pane v-for="(item, index) in tags" :value="item.type" :label="item.name" :key="index" />
-      </tabs>
-      <play-grid :playlist="playlist"></play-grid>
-      <pagination :total="totalPage" :page-size="pageSize" :current-page.sync="currentPage" />
+      <div class="playlist-tabs flex" style="justify-content: space-between;">
+        <category-button :tabsName="tabsName" :all="all" :categories="categories" :sub="sub"
+          @myEvent="handleTabClickType"></category-button>
+        <tabs :tabsName="tabsName" @tab-click="handleTabClickType">
+          <el-tab-pane v-for="(item, index) in tags" :name="item.name" :label="item.name" :key="index" />
+        </tabs>
+      </div>
+      <div class="playlist-body mt-5">
+        <play-grid :playlist="playlist"></play-grid>
+        <pagination :total="totalPage" :page-size="pageSize" :current-page.sync="currentPage" />
+      </div>
     </div>
   </div>
 </template>
 <script>
 import { topPlaylist } from '@/api/discover/discover';
-import { playlistHot, topPlaylistHighQuality } from '@/api/music/music';
+import { playlistHot, topPlaylistHighQuality, playlistCatList } from '@/api/music/music';
 import Tabs from '@/components/Tabs';
 import playGrid from '@/components/body/playgrid';
 import pagination from '@/components/pagination';
+import categoryButton from '@/components/category';
 export default {
-  components: { playGrid, pagination, Tabs },
+  components: { playGrid, pagination, Tabs, categoryButton },
   props: {},
   data() {
     return {
@@ -45,10 +52,15 @@ export default {
       pageSize: 30,
       currentPage: 0,
       quality: [],
-      tags: []
+      tags: [],
+      all: '',
+      categories: {},
+      sub: [],
+      tabsName: '',
     };
   },
   mounted() {
+    this.getPlaylistCatList();
     this.getTopPlaylist();
     this.getPlaylistHot();
     this.getTopPlaylistHighQuality();
@@ -70,13 +82,13 @@ export default {
     // 获取热搜歌单
     async getPlaylistHot() {
       const { tags } = await playlistHot();
-      // console.log(tags)
       this.tags = tags;
     },
+    // 点击tabs切换歌单
     handleTabClickType(tab) {
-      if (this.params.cat == tab.label) return;
-      this.params.cat = tab.label;
-      this.HighQuality.cat = tab.label;
+      this.tabsName = tab.name;
+      this.params.cat = tab.name;
+      this.HighQuality.cat = tab.name;
       this.getTopPlaylistHighQuality();
       this.getTopPlaylist();
     },
@@ -84,9 +96,15 @@ export default {
     async getTopPlaylistHighQuality() {
       const { playlists } = await topPlaylistHighQuality(this.HighQuality);
       this.quality = playlists[0];
+    },
+    async getPlaylistCatList() {
+      const result = await playlistCatList();
+      this.all = result.all.name;
+      this.categories = result.categories;
+      this.sub = result.sub;
     }
-  },
-};
+  }
+}
 </script>
 <style lang="less" scoped>
 @height: 152px;
@@ -127,5 +145,8 @@ export default {
     position: absolute;
     z-index: 2;
   }
-}
-</style>
+
+  .playlist-tabs {
+    position: relative;
+  }
+}</style>

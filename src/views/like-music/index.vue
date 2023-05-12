@@ -1,15 +1,11 @@
 <template>
   <div class="like-music">
-    <table-head :tableHead="creator"></table-head>
-    <song-list :tableDate="list"></song-list>
+    FM
   </div>
 </template>
 <script>
 import { detail } from '@/api/discover/detail';
-import tableHead from '@/components/body/head.vue'
-import songList from '@/components/body/songlist'
 export default {
-  components: { songList, tableHead },
   data() {
     return {
       params: {
@@ -18,22 +14,24 @@ export default {
       },
       list: [],
       id: 484077048,
-      creator:{}
+      creator: {}
     };
   },
   mounted() {
-    const id = this.id
+    const id = this.id;
     this.getLikeMusicIds(id);
+    this.getDetail(id);
   },
   methods: {
+    getDetail(id) {
+      this.$router.push({ name: 'detail', params: { id: id } })
+    },
     // 获取我喜欢的音乐ids
     async getLikeMusicIds(id) {
       const { playlist } = await detail({ id });
-      console.log(playlist)
-      this.creator = playlist
-      this.list = playlist.tracks
+      this.creator = playlist;
+      this.list = playlist.tracks;
     },
-
   },
 };
 </script>

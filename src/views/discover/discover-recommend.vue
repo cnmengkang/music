@@ -10,7 +10,7 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-    <h2 class="res-grid-title">
+    <h2 class="res-grid-title mb-15">
       <router-link to="/discover/playlist">
         推荐歌单<i class="el-icon-arrow-right"></i>
       </router-link>

@@ -59,7 +59,6 @@ export default {
         },
         // 点击跳转到详情页面
         getDetail(id) {
-            console.log('detail', id)
             this.$router.push({ name: 'detail', params: { id: id } })
         },
         // 获取每日推荐

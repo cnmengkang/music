@@ -1,7 +1,7 @@
 <template>
     <div class="tops-song">
         <div class="tops-nav">
-            <tabs>
+            <tabs class="tops_center">
                 <tabs @tab-click="handleTabClickType">
                     <el-tab-pane v-for="(item, index) in tops" :value="item.type" :label="item.name" :key="index" />
                 </tabs>
@@ -49,7 +49,7 @@ export default {
         },
         // tabs1 点击事件
         handleTabClickType(tab) {
-            console.log('Tab Clicked:', tab.$attrs.value);
+            console.log('Tab Clicked:',tab);
             this.topSongList = [];
             this.params.type = tab.$attrs.value
             this.getTopSong(this.params)
@@ -62,4 +62,5 @@ export default {
     width: 50%;
     margin: 0 auto;
 }
+
 </style>

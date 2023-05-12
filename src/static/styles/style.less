@@ -127,20 +127,37 @@
 // width
 // color
 @red: #e60026;
-@white:#ffffff;
+@white: #ffffff;
 
 .red {
     color: @red;
 }
-.white{
-    color:@white;
+
+.white {
+    color: @white;
 }
+
 @font-20: 20px;
 
 .font-20 {
     font-size: @font-20;
 }
-
+// padding
+.pd-5{
+    padding: 5px;
+}
+.pd-10{
+    padding: 10px;
+}
+.pd-15{
+    padding: 15px;
+}
+.pl-10{
+    padding-left: 10px;
+}
+.pr-10{
+    padding-right: 10px;
+}
 // color
 /* 全局 */
 .flex {
@@ -262,8 +279,8 @@
 }
 
 .ellipsis {
-    text-overflow: ellipsis;
     overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
 }
 
@@ -329,13 +346,15 @@ body {
     width: 350px !important;
 
 }
-.playlist-list{
-    .el-tabs__nav{
-        float: right;
-        .el-tabs__item{
+
+.playlist-list {
+    .el-tabs__nav {
+        .el-tabs__item {
             font-size: 12px;
             padding: 0px 10px;
-          }
+        }
     }
 }
-
+.tops_center .el-el-tabs__nav{
+    text-align: center;
+}

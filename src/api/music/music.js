@@ -94,6 +94,21 @@ export function topPlaylistHighQuality(data) {
     return request({
         url: '/top/playlist/highquality',
         method: 'post',
-        params:data
+        params: data
+    })
+}
+// 说明 : 私人 FM( 需要登录 )
+export function personalFm() {
+    return request({
+        url: '/personal_fm',
+        method: 'post',
+    })
+}
+// 说明 : 调用此接口,可获取歌单分类,包含 category 信息
+export function playlistCatList(data) {
+    return request({
+        url: '/playlist/catlist',
+        method: 'post',
+        data
     })
 }

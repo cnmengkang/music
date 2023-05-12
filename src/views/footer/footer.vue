@@ -56,7 +56,7 @@ import { formatTIme } from '@/utils/formLyrics';
 import { mapState } from 'vuex'
 import singer from './components/singer'
 import sound from './components/sound'
-import lyric from './components/lyric'
+import lyric from '@/components/lyric'
 import drawer from './components/drawer'
 export default {
     name: 'footers',

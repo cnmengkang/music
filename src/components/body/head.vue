@@ -7,37 +7,32 @@
         <div class="detail-right">
             <div class="right-title  flex">
                 <span class="song mr-10">歌单</span>
-                <h1>{{ name }}</h1>
+                <h2>{{ name }}</h2>
             </div>
             <div class="right-creator font-12 flex" v-if="tableHead.creator">
-                <el-avatar :src="avatarUrl" class="mr-10" :size="30" />
+                <el-avatar :src="avatarUrl" class="mr-5" :size="30" />
                 <el-link :underline="false">
-                    <span class="mr-10 blue">{{ nickname }}</span>
+                    <span class="mr-5 blue">{{ nickname }}</span>
                 </el-link>
                 <div class="createTime">
                     {{ parseTime(tableHead.createTime, "{y}-{m}-{d}") }}创建
                 </div>
             </div>
-            <div class="flex mb-5">
+            <div class="flex">
                 <el-button-group>
                     <el-button round size="mini" type="danger" icon="el-icon-video-play">播放全部</el-button>
-                    <el-button round size="mini" type="danger" icon="el-icon-plus"></el-button>
                 </el-button-group>
             </div>
-            <!-- <div class="tips flex mb-5" v-if="tableHead.tags.length > 1">
-                <label>标签：</label>
-                <el-link :underline="false" class="blue mr-5" v-for="(item, index) in tableHead.tags" :key="index">
-                    {{ item }}</el-link>
-            </div> -->
+
             <div class="font-14" style="width:100%">
                 <span class="mr-20">歌曲：{{ tableHead.trackCount }}</span>
                 <span>播放：{{ numCount(tableHead.playCount) }}</span>
             </div>
-            <el-collapse-transition v-if="tableHead.description">
-                <div class="transition-box">
-                    <p>
-                        {{ tableHead.description }}
-                    </p>
+            <el-collapse-transition>
+                <div @click="toggle" style="overflow:hidden">
+                    <div class="transition-box cursor">
+                        <p :class="{'ellipsis':isActive}">简介：{{ tableHead.description }}</p>
+                    </div>
                 </div>
             </el-collapse-transition>
         </div>
@@ -52,6 +47,11 @@ export default {
             type: Object,
             require: true
         },
+    },
+    data() {
+        return {
+            isActive: true,
+        }
     },
     computed: {
         name() {
@@ -68,6 +68,11 @@ export default {
             return this.tableHead.creator.nickname;
         }
     },
+    methods: {
+        toggle() {
+            this.isActive = !this.isActive
+        }
+    }
 };
 </script>
 <style lang="less" scoped>
@@ -85,6 +90,7 @@ export default {
         display: flex;
         flex-wrap: wrap;
         gap: 5px 10px;
+        align-content: space-between;
 
         .song {
             color: #f00;

@@ -1,5 +1,5 @@
 <template>
-    <el-tabs v-model="activeTab" @tab-click="handleTabClick" :tab-position="position">
+    <el-tabs :value="tabsName" @tab-click="handleTabClick" :tab-position="position">
         <slot></slot>
     </el-tabs>
 </template>
@@ -11,22 +11,15 @@ export default {
             type: String,
             require: 'top'
         },
-
-    },
-    data() {
-        return {
-            activeTab: '',
-
-        };
-    },
-    created() { },
-    mounted() {
+        tabsName: {
+            type: String,
+            require: true
+        }
     },
     methods: {
         handleTabClick(tab) {
             this.$emit('tab-click', tab);
         },
-    },
-};
+    }
+}
 </script>
-<style lang="less" scoped></style>

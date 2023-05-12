@@ -5,7 +5,6 @@
         </el-pagination>
     </div>
 </template>
-
 <script>
 export default {
     name: 'pagination',
@@ -24,15 +23,11 @@ export default {
             type: Number,
             required: 0
         }
-        // 当前项
     },
     methods: {
         handleCurrentChange(currentPage) {
-            // console.log('currentPage', currentPage)
             this.$emit('update:currentPage', currentPage)
         }
-    },
-    computed: {},
-};
+    }
+}
 </script>
-<style lang="less" scoped></style>

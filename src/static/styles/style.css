@@ -93,6 +93,21 @@
 .font-20 {
   font-size: 20px;
 }
+.pd-5 {
+  padding: 5px;
+}
+.pd-10 {
+  padding: 10px;
+}
+.pd-15 {
+  padding: 15px;
+}
+.pl-10 {
+  padding-left: 10px;
+}
+.pr-10 {
+  padding-right: 10px;
+}
 /* 全局 */
 .flex {
   display: flex;
@@ -192,8 +207,8 @@
   background-color: red;
 }
 .ellipsis {
-  text-overflow: ellipsis;
   overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 .el-slider__runway {
@@ -241,10 +256,10 @@ body {
 .el-autocomplete-suggestion {
   width: 350px !important;
 }
-.playlist-list .el-tabs__nav {
-  float: right;
-}
 .playlist-list .el-tabs__nav .el-tabs__item {
   font-size: 12px;
   padding: 0px 10px;
+}
+.tops_center .el-el-tabs__nav {
+  text-align: center;
 }
