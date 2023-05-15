@@ -1,11 +1,13 @@
 <template>
     <div>
-        fm
+        <user></user>
     </div>
 </template>
   
 <script>
+import user from '@/views/user/user'
 export default {
+    components: { user },
     data() {
         return {
 
@@ -14,11 +16,11 @@ export default {
     created() {
 
     },
-    mounted(){
-        
+    mounted() {
+
     },
     methods: {
-        
+
     },
 }
 </script>

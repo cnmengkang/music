@@ -32,6 +32,7 @@ request.interceptors.response.use(
         }
     },
     (err) => {
+        console.log(err)
         const error = err.response.data;
         console.log('响应拦截器错误err', error)
         // 响应错误处理逻辑

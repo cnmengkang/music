@@ -112,9 +112,13 @@ const routes = [
         path: '/register',
         component: () => import('@/views/login/register')
       },
+      // {
+      //   path: '/qrCode',
+      //   component: () => import('@/views/login/qrCode')
+      // },
       {
-        path: '/qrCode',
-        component: () => import('@/views/login/qrCode')
+        path: '/edit',
+        component: () => import('@/views/user/edit')
       },
     ]
   },
