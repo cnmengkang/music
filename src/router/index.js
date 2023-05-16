@@ -120,6 +120,12 @@ const routes = [
         path: '/edit',
         component: () => import('@/views/user/edit')
       },
+      {
+        path: '/user/:uid',
+        name: 'user',
+        component: () => import("@/views/user/user")
+        // 个性推荐详情页
+      },
     ]
   },
   {

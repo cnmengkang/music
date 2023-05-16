@@ -2,17 +2,17 @@
     <div class="user mt-30">
         <div class="user-head flex">
             <div class="user-avatar mr-20">
-                <el-avatar :size="200"></el-avatar>
+                <el-avatar :size="200" :src="avatarUrl"></el-avatar>
             </div>
             <div class="user-userInfo">
                 <div class="user-name mb-10">
-                    <h3>menciuskang</h3>
+                    <h3>{{ nickName }}</h3>
                 </div>
                 <div class="user-vip-sex flex space-between">
                     <div class="user_sex">
                         <span class="mr-10">Vip</span>
-                        <span class="mr-10">lv9</span>
-                        <span class="mr-10">男</span>
+                        <span class="mr-10">{{ Level }}</span>
+                        <span class="mr-10">{{ gender }}</span>
                     </div>
                     <div>
                         <el-button @click="edit">编辑个人信息</el-button>
@@ -20,16 +20,16 @@
                 </div>
                 <el-divider></el-divider>
                 <div class="user-info mb-10">
-                    <span>动态(1234)</span>
+                    <span>动态({{ eventCount }})</span>
                     <el-divider direction="vertical"></el-divider>
-                    <span>关注(234)</span>
+                    <span>关注({{ follows }})</span>
                     <el-divider direction="vertical"></el-divider>
-                    <span>粉丝(99)</span>
+                    <span>粉丝({{ followeds }})</span>
                 </div>
                 <div class="user-city mb-10">
-                    <p class="mb-5">所在地区:合肥</p>
+                    <p class="mb-5">所在地区:{{ city }}</p>
                     <p class="mb-5">社交网络:3123123124124</p>
-                    <p class="mb-5">个人介绍:1232444</p>
+                    <p class="mb-5">个人介绍:{{ signature }}</p>
                 </div>
             </div>
         </div>
@@ -45,36 +45,63 @@
 </template>
 <script>
 import Tabs from '@/components/Tabs';
-import { userPlaylist, loginStatus, userDetail } from '@/api/user/user';
+import { userDetail } from '@/api/user/user';
 export default {
     components: { Tabs },
     props: {},
     data() {
         return {
+            user: '',
+            profile: ''
         };
     },
     created() { },
     mounted() {
-        this.getStatus();
+        const id = this.$route.params
+        this.getUserDetail(id);
     },
     methods: {
         edit() {
             this.$router.push('/edit')
         },
-        async getUserPlaylist(uid) {
-            const result = await userPlaylist({ uid });
-            console.log('userPlaylist',result)
-        },
-        async getUserDetail(uid) {
-            const result = await userDetail({ uid });
-            console.log('userDetail',result)
-        },
-        async getStatus() {
-            const { data } = await loginStatus();
-            this.getUserPlaylist(data.data.account.id);
-            this.getUserDetail(data.data.account.id);
+        async getUserDetail(id) {
+            const result = await userDetail(id);
+            this.user = result;
+            this.profile = result.profile;
+
+            console.log(result);
         }
     },
+    computed: {
+        nickName() {
+            return this.profile.nickname
+        },
+        signature() {
+            return this.profile.signature
+        },
+        Level() {
+            return this.user.level
+        },
+        city() {
+            return this.profile.city
+        },
+        avatarUrl() {
+            return this.profile.avatarUrl
+        },
+        eventCount() {
+            return this.profile.eventCount
+        },
+        follows() {
+            return this.profile.follows
+        },
+        followeds() {
+            return this.profile.followeds
+        },
+        gender() {
+            return this.profile.gender
+        },
+
+    }
 }
 </script>
 <style lang="less" scoped>

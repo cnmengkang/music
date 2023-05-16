@@ -1,15 +1,15 @@
 <template>
   <div id="discover-music">
-    <nav-tabs />
+    <nav-bar />
     <!-- 菜单tabs -->
     <router-view />
   </div>
 </template>
 <script>
-import navTabs from './components/navTabs'
+import navBar from './components/navBar'
 export default {
   name: "index",
-  components: { navTabs },
+  components: { navBar },
   
 };
 </script>

@@ -26,7 +26,6 @@
         </div>
     </div>
 </template>
-
 <script>
 import { logout, userDetail, } from '@/api/user/user';
 import qrCode from '@/views/login/qrCode'
@@ -40,7 +39,7 @@ export default {
             dropdown: true,
             vipInfo: '',
             hide: false,
-            uid: 345288322
+            id: { uid: 345288322 }
         }
     },
     mounted() {
@@ -49,20 +48,19 @@ export default {
     methods: {
         // 登录状态
         async getUserInfo() {
-            console.log('dddd');
-            const { profile } = await userDetail(this.uid);
-            this.user = profile
+            const { profile } = await userDetail(this.id);
+            this.user = profile;
         },
         // 点击用户下来item数据事件
         handleCommand(index) {
             if (index == 1) {
                 console.log('1');
+                this.$router.push('/edit');
             } else if (index == 2) {
                 console.log('2');
             } else {
                 this.user = '';
             }
-
         },
         handleClick() {
             if (this.user) return;
@@ -132,5 +130,4 @@ export default {
 .el-dropdown-menu__item:hover {
     background: #f2f2f2 !important;
     color: #000 !important;
-}
-</style>
+}</style>

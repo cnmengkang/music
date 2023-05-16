@@ -24,9 +24,9 @@
     </div>
 </template>
 <script>
-import lyric from '@/components/lyric'
+import Lyric from '@/components/Lyric'
 export default {
-    components: { lyric },
+    components: { Lyric },
     props: {
         singer: {
             type: Object,

@@ -16,15 +16,9 @@
 import headers from "@/components/header";
 export default {
     components: { headers },
-    props: {},
     data() {
         return {
         };
-    },
-    created() { },
-    mounted() { },
-    methods: {},
-    computed: {},
+    }
 }
 </script>
-<style lang="less" scoped></style>

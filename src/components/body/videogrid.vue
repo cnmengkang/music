@@ -9,7 +9,7 @@
                     }}</span>
                     <span class="playTime">{{ parseTime(item.data.durationms, "{i}:{s}") }}</span>
                     <p class="creator-title ellipsis">{{ item.data.title }}</p>
-                    <p class="creator-nickname" v-if="item.data.creator" @click.stop="getDetailAuthor(item)">by {{
+                    <p class="creator-nickname" v-if="item.data.creator" @click="getDetailAuthor(item)">by {{
                         item.data.creator.nickname }}</p>
                 </template>
             </div>
@@ -32,13 +32,15 @@ export default {
     methods: {
         // 点击视频列表跳转
         getVideoDetail(res) {
-            console.log('detail', res.data)
-            this.$store.dispatch('videos/getVideoPlay', res.data)
+            this.$store.dispatch('getVideoPlay', res.data);
             this.$router.push({ name: 'videoPlay', params: { id: res.data.vid } })
         },
         getDetailAuthor(res) {
             console.log(res.data.creator)
         }
+    },
+    computed:{
+
     }
 }
 </script>

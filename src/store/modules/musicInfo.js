@@ -11,11 +11,11 @@ const musicInfo = {
         },
         // 存储当前单曲信息
         SINGLE_DETAIL(state, name) {
-            state.title = name
+            state.title = name;
         },
         // 歌词列表
         SET_LYRIC: (state, lyric) => {
-            state.lyric = lyric
+            state.lyric = lyric;
         },
     },
     actions: {

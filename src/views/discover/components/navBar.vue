@@ -1,10 +1,10 @@
 <template>
-  <div id="navTabs-index">
+  <div id="navbar-index">
     <el-menu class="el-menu-demo" mode="horizontal" router :default-active="$route.path" @select="handleSelect">
       <el-menu-item index="/discover">个性推荐</el-menu-item>
       <el-menu-item index="/discover/custom-made">专属定制</el-menu-item>
       <el-menu-item index="/discover/playlist">歌单</el-menu-item>
-      <!-- <el-menu-item index="/discover/toplist">排行榜</el-menu-item> -->
+      <el-menu-item index="/discover/toplist">排行榜</el-menu-item>
       <el-menu-item index="/discover/topsong">最新音乐</el-menu-item>
     </el-menu>
   </div>
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "navTabs",
+  name: "navBar",
   data() {
     return {
     };
@@ -26,7 +26,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-#navTabs-index {
+#navbar-index {
   position: sticky;
   top: 0px;
   z-index: 10;
@@ -54,4 +54,5 @@ export default {
     border-bottom: 2px solid red;
     border-radius: 2px;
   }
-}</style>
+}
+</style>

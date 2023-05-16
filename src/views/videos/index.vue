@@ -5,9 +5,9 @@
         <div class="videos">
           <div class="video-tabs">
             <el-button @click="show">{{ name ? name : '全部视频' }}</el-button>
-            <el-tabs @tab-click="handClickTabs">
+            <tabs @tab-click="handClickTabs">
               <el-tab-pane v-for="item in tabList" :key="item.id" :label="item.name" :value="item.id"></el-tab-pane>
-            </el-tabs>
+            </tabs>
           </div>
           <el-card class="box-card" v-if="isShow">
             <div slot="header" class="clearfix">
@@ -32,13 +32,12 @@
   </div>
 </template>
 <script>
-
 import { videoList, videoCategory, videoGroup, videoAll } from '@/api/video/video';
-import tabs from '@/components/body/tabs'
+import Tabs from '@/components/Tabs'
 import videoGrid from '@/components/body/videogrid'
 import videoMv from './mv.vue'
 export default {
-  components: { tabs, videoGrid, videoMv },
+  components: { Tabs, videoGrid, videoMv },
   name: "videos",
   data() {
     return {
@@ -98,9 +97,9 @@ export default {
       })
     },
     // 点击右侧分类
-    handClickTabs(val) {
-      this.name = val.label;
-      const id = val.$attrs.value;
+    handClickTabs(tab) {
+      const id = tab.$attrs.value;
+      this.name = tab.label;
       this.params.id = id;
       this.getVideoGroup();
       this.isShow = false;

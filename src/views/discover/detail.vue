@@ -12,17 +12,17 @@
                 <el-tab-pane name="reviews">
                     <span slot="label">评论 <small style="font-size:12px;">({{ totalReview }})</small> </span>
                     <div class="comment" v-for="(item, index) in comment" :key="index">
-                        <div class="user-avatarUrl">
+                        <div class="user-avatarUrl cursor" @click="getUserInfo(item.user)">
                             <el-avatar :size="40" :src="item.user.avatarUrl"></el-avatar>
                         </div>
                         <div class="user-info">
-                            <span class="blue mb-5 inline-b">{{ item.user.nickname }}<span class="vip ml-5"
-                                    v-if="item.user.vipType != 0">VIP{{
-                                        item.user.vipRights.redVipLevel
-                                    }}</span>：</span>
+                            <span class="blue mb-5 inline-b cursor" @click="getUserInfo(item.user)">{{ item.user.nickname
+                            }}<span class="vip ml-5" v-if="item.user.vipType != 0">VIP{{
+    item.user.vipRights.redVipLevel
+}}</span>：</span>
                             <span>{{ item.content }}</span>
                             <div class="reviews-2" v-for="(items, index) in item.beReplied" :key="index">
-                                <a class="blue font-12">@{{ items.user.nickname }}:</a>
+                                <a class="blue font-12" @click="getUserInfo(item.user)">@{{ items.user.nickname }}:</a>
                                 <span class="ml-5">{{ items.content }}</span>
                             </div>
                             <div class="font-12 mt-5">{{ item.timeStr }}</div>
@@ -35,10 +35,10 @@
 </template>
 <script>
 import { detail, playTrack, commentPlayList } from '@/api/discover/detail';
-import songHead from '@/components/body/head'
-import songList from '@/components/body/songlist'
+import SongHead from '@/components/SongHead';
+import SongList from '@/components/SongList';
 export default {
-    components: { songHead, songList },
+    components: { SongHead, SongList },
     name: 'detail',
     data() {
         return {
@@ -64,51 +64,50 @@ export default {
         // 获取详情页顶部数据
         getDetail(id) {
             detail(id).then((res) => {
-                console.log(res)
+                console.log(res);
                 this.playlist = res.playlist;
             })
         },
         // // 获取歌单所有歌曲
         getPlayTrack() {
             playTrack(this.params).then((res) => {
-                this.list = res.songs
+                this.list = res.songs;
             })
         },
         // tab切换
         handleClick(tab) {
-            if (tab.index == 1) {
-                this.getComment()
-            }
+            console.log(tab);
         },
         // 获取歌单评论
         getComment() {
             commentPlayList(this.params).then((res) => {
-                this.totalReview = res.total
-                this.comment = res.comments
+                console.log('resReviews', res);
+                this.totalReview = res.total;
+                this.comment = res.comments;
             })
+        },
+        getUserInfo(item) {
+            console.log(item.userId);
+            this.$router.push({ name: 'user', params: { uid: item.userId } })
         }
     }
 }
 </script>
 <style scoped lang="less">
 .detail {
-
     // 内容区域
     .detail-body {
         .comment {
             display: flex;
             border-bottom: 1px solid #eee;
             padding: 15px 0px;
-
             .user-info {
                 text-align: left;
                 margin-left: 10px;
                 width: calc(100% - 40px);
-
                 span {
                     font-size: 12px;
                 }
-
                 .reviews-2 {
                     background: #f2f2f2;
                     padding: 8px 10px;
@@ -116,12 +115,10 @@ export default {
                     margin: 5px 0px;
                     line-height: 20px;
                 }
-
                 .vip {
                     color: red;
                 }
             }
-
             .user-avatarUrl {
                 width: 40px;
                 height: 40px;

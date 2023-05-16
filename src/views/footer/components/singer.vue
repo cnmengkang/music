@@ -1,12 +1,17 @@
 <template>
     <div class="author flex flex-wrap-nowrap">
-        <div class="author-avatar mr-15" @click="drawerOpen">
+        <div class="author-avatar mr-10" @click="drawerOpen">
             <el-avatar shape="square" :size="50" :src="avatar" />
         </div>
-        <div class="author-singer ellipsis">
-            <div class="ellipsis font-14">
-                <span>{{ songName }}</span>
-                <span class="alia" v-if="subName">({{ subName }})</span>
+        <div class="author-singer">
+            <div class="font-14 author-flex">
+                <div class="ellipsis">
+                    <span>{{ songName }}</span>
+                    <span class="alia" v-if="subName">({{ subName }})</span>
+                </div>
+                <div class="like ml-10 mr-10">
+                    <span>❤</span>
+                </div>
             </div>
             <div class="mt-5">
                 <span class="font-12">{{ authorName }}</span>
@@ -55,12 +60,20 @@ export default {
 .author {
     width: 100%;
 
-    .author-avatar:hover {
-        cursor: pointer;
-        transition: all .2s linear;
+    .author-flex {
+        display: flex;
+    }
 
-        .el-avatar {
-            opacity: 0.5;
+    .author-singer {
+        width: 80%;
+    }
+
+    .author-avatar {
+        width: 20%;
+        &:hover {
+            cursor: pointer;
+            transition: all .2s linear;
+            opacity: .5;
         }
     }
 

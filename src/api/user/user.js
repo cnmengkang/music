@@ -5,7 +5,7 @@ export function userDetail(uid) {
     return request({
         url: '/user/detail',
         method: 'post',
-        params: {uid}
+        params: uid
     })
 }
 // 获取用户信息，歌单，收藏，mv,dj数量

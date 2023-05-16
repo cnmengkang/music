@@ -12,8 +12,8 @@
     </div>
     <div class="playlist-list mt-20">
       <div class="playlist-tabs flex" style="justify-content: space-between;">
-        <category-button :tabsName="tabsName" :all="all" :categories="categories" :sub="sub"
-          @myEvent="handleTabClickType"></category-button>
+        <category :tabsName="tabsName" :all="all" :categories="categories" :sub="sub"
+          @myEvent="handleTabClickType"></category>
         <tabs :tabsName="tabsName" @tab-click="handleTabClickType">
           <el-tab-pane v-for="(item, index) in tags" :name="item.name" :label="item.name" :key="index" />
         </tabs>
@@ -30,10 +30,10 @@ import { topPlaylist } from '@/api/discover/discover';
 import { playlistHot, topPlaylistHighQuality, playlistCatList } from '@/api/music/music';
 import Tabs from '@/components/Tabs';
 import playGrid from '@/components/body/playgrid';
-import pagination from '@/components/pagination';
-import categoryButton from '@/components/category';
+import Pagination from '@/components/Pagination';
+import Category from '@/components/Category';
 export default {
-  components: { playGrid, pagination, Tabs, categoryButton },
+  components: { playGrid, Pagination, Tabs, Category },
   props: {},
   data() {
     return {

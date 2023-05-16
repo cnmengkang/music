@@ -9,11 +9,11 @@
                 <span class="song mr-10">歌单</span>
                 <h2>{{ name }}</h2>
             </div>
-            <div class="right-creator font-12 flex" v-if="tableHead.creator">
-                <el-avatar :src="avatarUrl" class="mr-5" :size="30" />
-                <el-link :underline="false">
+            <div class="right-creator" v-if="tableHead.creator">
+                <a class="userInfo font-12" @click="getUserInfo(tableHead)">
+                    <el-avatar :src="avatarUrl" class="mr-5" :size="30"></el-avatar>
                     <span class="mr-5 blue">{{ nickname }}</span>
-                </el-link>
+                </a>
                 <div class="createTime">
                     {{ parseTime(tableHead.createTime, "{y}-{m}-{d}") }}创建
                 </div>
@@ -29,9 +29,9 @@
                 <span>播放：{{ numCount(tableHead.playCount) }}</span>
             </div>
             <el-collapse-transition>
-                <div @click="toggle" style="overflow:hidden">
+                <div @click="toggle" style="overflow:hidden" v-if="tableHead.description">
                     <div class="transition-box cursor">
-                        <p :class="{'ellipsis':isActive}">简介：{{ tableHead.description }}</p>
+                        <p :class="{ 'ellipsis': isActive }">简介：{{ tableHead.description }}</p>
                     </div>
                 </div>
             </el-collapse-transition>
@@ -71,6 +71,10 @@ export default {
     methods: {
         toggle() {
             this.isActive = !this.isActive
+        },
+        getUserInfo(item) {
+            console.log(item.userId);
+            this.$router.push({ name: 'user', params: { uid: item.userId } })
         }
     }
 };
@@ -91,7 +95,10 @@ export default {
         flex-wrap: wrap;
         gap: 5px 10px;
         align-content: space-between;
-
+        .right-creator,.userInfo{
+            display: flex;
+            align-items: center;
+        }
         .song {
             color: #f00;
             border: 1px solid #f00;

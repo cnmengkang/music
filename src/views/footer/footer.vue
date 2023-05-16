@@ -18,7 +18,7 @@
                     <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
                         <span v-if="isFooterShow" class="start font-14">{{ currentTime || "00:00"
                         }}</span>
-                        <el-slider class="w-80" :min="0" :max="player.duration" @change="seek" v-model="slidValue"
+                        <el-slider class="w-70" :min="0" :max="player.duration" @change="seek" v-model="slidValue"
                             :show-tooltip="false" />
                         <span v-if="isFooterShow" class="end font-14">{{ duration || "00:00" }}</span>
                     </div>
@@ -56,11 +56,11 @@ import { formatTIme } from '@/utils/formLyrics';
 import { mapState } from 'vuex'
 import singer from './components/singer'
 import sound from './components/sound'
-import lyric from '@/components/lyric'
+import Lyric from '@/components/Lyric'
 import drawer from './components/drawer'
 export default {
     name: 'footers',
-    components: { singer, sound, lyric, drawer },
+    components: { singer, sound, Lyric, drawer },
     data() {
         return {
             isBtnShow: false,
@@ -77,8 +77,7 @@ export default {
             this.slidValue = newTime;
         },
         'player.isPlaying'(isPlaying) {
-            if (!isPlaying) return;
-            console.log(this.isPlaying)
+            if(!isPlaying) return;
             this.player.isPlaying = true;
             this.isBtnShow = true;
         },

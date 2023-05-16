@@ -1,6 +1,6 @@
 <template>
   <div class="like-music">
-    FM
+    Fm
   </div>
 </template>
 <script>

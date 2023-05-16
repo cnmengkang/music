@@ -14,7 +14,6 @@
     </div>
 </template>
 <script>
-import { qrKey, qrCreate, qrCheckCode } from "@/api/user/login";
 export default {
     name: "qrCode",
     data() {
@@ -36,10 +35,10 @@ export default {
         // 二维码登陆
         async getQrKey() {
             var res = await qrKey();
-            this.qr.key = res.data.unikey
+            this.qr.key = res.data.unikey;
             const res2 = await qrCreate(this.qr);
-            this.qrCodeImg = res2.data.qrimg
-            this.getCheckCode()
+            this.qrCodeImg = res2.data.qrimg;
+            this.getCheckCode();
         },
         // 检测二维码状态
         getCheckCode() {
@@ -50,8 +49,6 @@ export default {
                     console.log(result)
                     if (result.code == 803) {
                         clearInterval(timer)
-                        this.$store.dispatch('LoginStatus');
-                        setToken(result.cookie)
                         this.$router.push('/')
                     } else if (result.code == 800) {
                         this.title = result.message
@@ -70,12 +67,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-
     .app-qr {
         .login-oth {
             margin-bottom: 15px;
         }
-
         .login-oth,
         #socialLogin {
             display: flex;
@@ -83,18 +78,15 @@ export default {
             align-items: center;
             justify-content: center;
         }
-
         #socialLogin a {
             text-decoration: none;
         }
-
         .login-oth p {
             text-align: center;
             font-size: 12px;
             margin: 0px 15px;
             width: 100%;
         }
-
         .login-oth::after,
         .login-oth::before {
             content: " ";

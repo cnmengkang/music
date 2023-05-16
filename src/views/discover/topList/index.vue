@@ -13,7 +13,7 @@
                             <div>{{ items.first }}</div>
                             <div class="second">{{ items.second }}</div>
                         </li>
-                        <span class="topListAll" @click="btnDetail(item.id)">查看全部&nbsp;<i
+                        <span class="topListAll cursor" @click="btnDetail(item.id)">查看全部&nbsp;<i
                                 class="el-icon-arrow-right"></i>
                         </span>
                     </ul>
@@ -34,25 +34,23 @@ export default {
         };
     },
     created() {
-        this.getTopList()
-        this.getTopListDetail()
+        this.getTopList();
+        this.getTopListDetail();
     },
     mounted() { },
     methods: {
         // 所有榜单
         getTopList() {
             topList().then(res => {
-                console.log('res',res)
                 this.topList = res.list
             })
         },
         getTopListDetail() {
             topListDetail().then(res => {
-                console.log('topListDetail', res)
-                this.topListDetail = res.list
+                console.log(res)
+                this.topListDetail = res.list;
             })
         },
-        // detail id
         btnDetail(id) {
             this.$router.push({ name: 'detail', params: { id: id } })
         }
@@ -68,9 +66,11 @@ export default {
             flex-wrap: wrap;
             margin-bottom: 40px;
         }
+
         .left {
             width: 20%;
             border-radius: 10px;
+
             img {
                 border-radius: 10px;
             }

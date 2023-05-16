@@ -10,10 +10,10 @@
   </div>
 </template>
 <script>
-import songList from '@/components/body/songlist'
+import SongList from '@/components/SongList'
 import { mapState } from 'vuex';
 export default {
-  components: { songList },
+  components: { SongList },
   props: {},
   data() {
     return {

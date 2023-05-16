@@ -35,7 +35,6 @@
         </div>
     </div>
 </template>
-
 <script>
 export default {
     components: {},
@@ -50,18 +49,15 @@ export default {
                 delivery: false,
                 type: [],
                 resource: '',
-                desc: ''
+                desc: '',
             }
-        };
+        }
     },
-    created() { },
-    mounted() { },
     methods: {
         onSubmit() {
             console.log('submit!');
         }
-    },
-    computed: {}
+    }
 }
 </script>
 <style lang="less" scoped>

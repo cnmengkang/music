@@ -8,13 +8,12 @@
             <div class="video-author flex mt-20">
                 <el-avatar :size="50" :src="avatar"></el-avatar>
                 <p class="ml-10">{{ name }}</p>
-                <p class="time">{{ parseTime(duration,"{i}:{s}") }}</p>
+                <p class="time">{{ parseTime(duration, "{i}:{s}") }}</p>
             </div>
         </div>
         <el-empty v-else :image-size="200"></el-empty>
     </div>
 </template>
-
 <script>
 import { mapState } from 'vuex';
 export default {
@@ -29,12 +28,11 @@ export default {
         url: state => state.videos.url,
         duration: state => state.videos.duration
     }),
-};
+}
 </script>
 <style lang="less" scoped>
 .video {
     width: 500px;
-
     video {
         width: 100%;
     }
