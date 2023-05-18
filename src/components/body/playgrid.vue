@@ -3,7 +3,7 @@
     <div class="play-grid">
         <ul class="grid">
             <li class="w-20 mb-20" v-if="playlist.length == 9">
-                <div class="play-img" @click="getDaySong">
+                <div class="play-img"  @click="getDaySong">
                     <el-image src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"></el-image>
                     <el-button @click.stop="getPlayAllList('2034838310')" circle class="iconFont icon-play-red"></el-button>
                 </div>

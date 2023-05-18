@@ -64,7 +64,7 @@ export default {
         // 获取详情页顶部数据
         getDetail(id) {
             detail(id).then((res) => {
-                console.log(res);
+                // console.log(res);
                 this.playlist = res.playlist;
             })
         },
@@ -81,13 +81,11 @@ export default {
         // 获取歌单评论
         getComment() {
             commentPlayList(this.params).then((res) => {
-                console.log('resReviews', res);
                 this.totalReview = res.total;
                 this.comment = res.comments;
             })
         },
         getUserInfo(item) {
-            console.log(item.userId);
             this.$router.push({ name: 'user', params: { uid: item.userId } })
         }
     }

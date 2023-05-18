@@ -55,21 +55,18 @@ export default {
             profile: ''
         };
     },
-    created() { },
     mounted() {
-        const id = this.$route.params
+        const id = this.$route.params;
         this.getUserDetail(id);
     },
     methods: {
         edit() {
-            this.$router.push('/edit')
+            this.$router.push({ path: '/edit', query: { params: this.profile } })
         },
         async getUserDetail(id) {
             const result = await userDetail(id);
             this.user = result;
             this.profile = result.profile;
-
-            console.log(result);
         }
     },
     computed: {
