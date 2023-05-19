@@ -60,7 +60,6 @@ export default class MusicPlayer {
     }
     // 创建音频
     createAudio(options) {
-        console.log(options)
         this.index = options.index;
         this.playlist = options.data
         this.params.id = this.playlist[this.index].id;
@@ -89,17 +88,17 @@ export default class MusicPlayer {
     }
     // 弹出层歌曲
     isOpen(isOpen) {
-        this.isOpen = isOpen
+        this.isOpen = isOpen;
     }
     // 获取当前播放歌曲url
     async getCurrentMusicUrl() {
         const { data } = await songUrl(this.params);
-        this.isPlay(data[0].url)
+        this.isPlay(data[0].url);
     }
     // 歌词
     async getCurrentMusicLyric() {
         const { lrc } = await lyric(this.params.id);
-        this.lyric = lrc.lyric
+        this.lyric = lrc.lyric;
     }
     // 左侧歌曲信息
     async getCurrentMusicDetail() {
