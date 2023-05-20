@@ -1,17 +1,16 @@
 <template>
     <div class="drawer-index">
         <div class="drawer-background"></div>
-        <el-drawer :title="name" :withHeader="true" @close="close" size="100%" :modal="false" :visible.sync="isOpen"
-            :direction="direction">
+        <el-drawer :title="name" :withHeader="true" @click="drawerOpen" :show-close="false" :modal="false" size="100%"
+            :visible.sync="drawerOpen" :direction="direction">
             <div class="footer_drawer flex">
                 <div class="left flex justify-content-center">
-                    <div :class="{ 'rotate': isPlaying }">
+                    <div class="router">
                         <el-avatar shape="circle" :size="200" :src="avatar" />
                     </div>
                 </div>
                 <div class="right">
                     <div class="right-head">
-                        <!-- <span class="font-14">歌名：{{ name }}</span> -->
                         <span class="font-14 ml-15 mr-15">歌手：{{ authorName }}</span>
                         <span class="font-14">专辑：{{ name }}</span>
                     </div>
@@ -24,6 +23,7 @@
     </div>
 </template>
 <script>
+import { mapActions, } from 'vuex';
 import Lyric from '@/components/Lyric'
 export default {
     components: { Lyric },
@@ -41,21 +41,12 @@ export default {
             type: Number,
             require: true
         },
-        isPlaying: {
-            type: Boolean,
-            require: true
-        }
     },
     data() {
         return {
             // 弹出层数据
             direction: 'btt',
         }
-    },
-    methods: {
-        close() {
-            this.$store.state.musicInfo.isOpen = false;
-        },
     },
     computed: {
         name() {
@@ -70,13 +61,10 @@ export default {
         authorName() {
             return [...this.singer.authorName.map(obj => obj.name)].join(' / ');
         },
-        isOpen: {
-            get() {
-                return this.$store.state.musicInfo.isOpen;
-            },
-            set() { }
-        }
     },
+    methods: {
+        ...mapActions(['drawerOpen'])
+    }
 }
 </script>
 <style lang="less" scoped>

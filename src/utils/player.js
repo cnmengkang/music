@@ -25,6 +25,7 @@ export default class MusicPlayer {
         this.currentTime = 0;
         this.duration = 0;
         this.isPlaying = false;
+        this.drawer = false;
         this.params = { id: 0, level: 'exhigh' }
         this.lyric = [];
         this.singer = {

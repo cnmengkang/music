@@ -21,9 +21,9 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
-        <div class="login" v-if="hide">
+        <!-- <div class="login">
             <qr-code></qr-code>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
@@ -60,11 +60,12 @@ export default {
                 console.log('2');
             } else {
                 this.user = '';
+                this.getLogout();
             }
         },
         handleClick() {
-            if (this.user) return;
             this.dropdown = false;
+            this.hide = true;
         },
         async getLogout() {
             const res = await logout();

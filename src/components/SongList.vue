@@ -39,9 +39,8 @@
 </template>
 <script>
 import { songUrl } from '@/api/music/music';
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
-    components: {},
     props: {
         tableDate: {
             type: Array,
@@ -68,6 +67,7 @@ export default {
         this.rowId = localStorage.getItem('isPlay');
     },
     methods: {
+        ...mapActions(['getCurrentMusicIsPlay'], ['getDetailMv']),
         // 双击获取当前单曲id
         getCurrentMusicId(row) {
             const index = this.tableDate.indexOf(row);
@@ -75,7 +75,7 @@ export default {
                 data: this.tableDate,
                 index: index
             }
-            this.$store.dispatch('getCurrentMusicIsPlay', playlist);
+            this.getCurrentMusicIsPlay(playlist);
         },
         // 获取mv
         getMv(res) {
@@ -102,7 +102,7 @@ export default {
     },
     computed: {
         ...mapState({
-            player: state => state.musicInfo.player,
+            player: state => state.player,
         }),
     }
 }

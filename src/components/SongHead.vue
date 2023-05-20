@@ -73,7 +73,6 @@ export default {
             this.isActive = !this.isActive
         },
         getUserInfo(item) {
-            console.log(item.userId);
             this.$router.push({ name: 'user', params: { uid: item.userId } })
         }
     }

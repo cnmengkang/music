@@ -44,20 +44,19 @@
         </transition>
         <!-- 底部歌词 -->
         <!-- 弹出层包含歌词作者信息 -->
-        <div class="drawer" v-if="isFooterShow">
-            <drawer v-if="isOpen" :singer="singers" :space="0" :lyric="lyrics" :currentTime="player.currentTime"
-                :isPlaying="isPlaying" />
+        <div class="drawer" v-if="player.drawer">
+            <drawer :singer="singers" :space="0" :lyric="lyrics" :currentTime="player.currentTime" />
         </div>
         <!-- 弹出层包含歌词作者信息 -->
     </div>
 </template>
 <script>
 import { formatTIme } from '@/utils/formLyrics';
-import { mapState } from 'vuex'
-import singer from './components/singer'
-import sound from './components/sound'
-import Lyric from '@/components/Lyric'
-import drawer from './components/drawer'
+import { mapState } from 'vuex';
+import singer from './components/singer';
+import sound from './components/sound';
+import Lyric from '@/components/Lyric';
+import drawer from './components/drawer';
 export default {
     name: 'footers',
     components: { singer, sound, Lyric, drawer },
@@ -77,7 +76,7 @@ export default {
             this.slidValue = newTime;
         },
         'player.isPlaying'(isPlaying) {
-            if(!isPlaying) return;
+            if (!isPlaying) return;
             this.player.isPlaying = true;
             this.isBtnShow = true;
         },
@@ -85,12 +84,12 @@ export default {
     // 计算属性
     computed: {
         ...mapState({
-            player: state => state.musicInfo.player,
-            lyrics: state => state.musicInfo.player.lyric,
-            isPlaying: state => state.musicInfo.player.isPlaying,
-            isFooterShow: state => state.musicInfo.player.isFooterShow,
-            singers: state => state.musicInfo.player.singer,
-            isOpen: state => state.musicInfo.isOpen,
+            player: state => state.player,
+            lyrics: state => state.player.lyric,
+            isPlaying: state => state.player.isPlaying,
+            isFooterShow: state => state.player.isFooterShow,
+            singers: state => state.player.singer,
+            isOpen: state => state.isOpen,
         }),
         currentTime() {
             return formatTIme(this.player.currentTime)

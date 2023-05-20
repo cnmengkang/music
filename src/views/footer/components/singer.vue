@@ -20,6 +20,7 @@
     </div>
 </template>
 <script>
+import { mapActions, } from 'vuex';
 export default {
     props: {
         singer: {
@@ -45,10 +46,8 @@ export default {
             return [...this.singer.authorName.map(obj => obj.name)].join(' / ');
         }
     },
-    methods: {
-        drawerOpen() {
-            this.$store.state.musicInfo.isOpen = !this.$store.state.musicInfo.isOpen;
-        }
+    methods:{
+        ...mapActions(['drawerOpen'])
     }
 };
 </script>
