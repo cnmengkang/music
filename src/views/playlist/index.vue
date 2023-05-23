@@ -125,7 +125,7 @@ export default {
     top: 0px;
     z-index: 1;
     filter: blur(50px);
-    box-shadow: 0px 20px 20px 20px;
+    box-shadow: 20px 0px 20px 20px;
     transform: scale(1.5);
     z-index: 1;
   }

@@ -38,7 +38,7 @@
         <transition name="el-zoom-in-bottom">
             <div class="lyrics" v-show="show">
                 <div v-if="isFooterShow">
-                    <lyric v-if="!isOpen" :lyric="lyrics" :space="0" :currentTime="player.currentTime" />
+                    <lyric :lyric="lyrics" :space="0" :currentTime="player.currentTime" />
                 </div>
             </div>
         </transition>

@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { doLogout } from '@/api/user/login'
 
 const TokenKey = 'cookie';
 // 获取token
@@ -12,10 +13,15 @@ export function setCookie(string) {
     Cookies.set(TokenKey, token)
 }
 // 删除token
-export function removeCookie() {
-    return Cookies.remove()
+export function removeCookie(key) {
+    Cookies.remove(key);
 }
 // 判断是否登录
 export function isLogin() {
     return getCookie(TokenKey);
+}
+export function TdoLogout() {
+    doLogout().then(res => {
+        console.log(res)
+    })
 }

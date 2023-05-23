@@ -13,7 +13,7 @@ export function mvUrl(id) {
     return request({
         url: '/mv/url',
         method: 'post',
-        params: { id }
+        params: id
     })
 }
 
@@ -44,7 +44,7 @@ export function videoUrl(id) {
     return request({
         url: '/video/url',
         method: 'post',
-        params: { id }
+        params: id
     })
 }
 // 获取全部视频列表
@@ -55,4 +55,13 @@ export function videoAll(offset) {
         params: { offset }
     })
 }
+// 说明 : 调用此接口 , 可获取视频详情
+export function videoDetail(id) {
+    return request({
+        url: "/video/detail",
+        method: 'post',
+        params: id
+    })
+}
+
 

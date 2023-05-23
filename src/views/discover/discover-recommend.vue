@@ -1,10 +1,10 @@
 <template>
   <div id="discover-recommend">
     <div class="recommend-banner">
-      <el-carousel :interval="4000" type="card" indicator-position="none" height="200px">
+      <el-carousel :interval="4000" type="card" indicator-position="none" height="210px">
         <el-carousel-item v-for="item in banners" :key="item.imageUrl">
-          <a :href="item.url == '' ? '#' : item.url" target="_blank">
-            <el-image fit="fill" :src="item.imageUrl" :preview-src-list="[item.imageUrl]" />
+          <a :href="item.url || ''" target="_blank">
+            <el-image fit="fill" :src="item.imageUrl" />
             <span :class="item.titleColor">{{ item.typeTitle }}</span>
           </a>
         </el-carousel-item>
@@ -34,9 +34,6 @@ export default {
         limit: 9
       }
     };
-  },
-  // 
-  computed: {
   },
   mounted() {
     this.getBanner()
@@ -82,6 +79,7 @@ export default {
 
         .red {
           background: red;
+          overflow: hidden;
         }
 
         .blue {

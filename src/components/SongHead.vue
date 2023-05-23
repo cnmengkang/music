@@ -26,7 +26,7 @@
 
             <div class="font-14" style="width:100%">
                 <span class="mr-20">歌曲：{{ tableHead.trackCount }}</span>
-                <span>播放：{{ numCount(tableHead.playCount) }}</span>
+                <span>播放：{{ $playTime(tableHead.playCount) }}</span>
             </div>
             <el-collapse-transition>
                 <div @click="toggle" style="overflow:hidden" v-if="tableHead.description">

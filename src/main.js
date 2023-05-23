@@ -15,7 +15,7 @@ import { parseTime, formatTime, numCount, formatCurrentTime } from '@/utils/form
 // 时间日期格式化
 Vue.prototype.parseTime = parseTime
 Vue.prototype.formatTime = formatTime
-Vue.prototype.numCount = numCount
+Vue.prototype.$playTime = numCount
 // 播放总量
 Vue.prototype.formatCurrentTime = formatCurrentTime
 Vue.config.productionTip = false;

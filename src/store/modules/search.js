@@ -1,10 +1,6 @@
 import { cloudsearch } from '@/api/search/search';
 const search = {
-    state: {
-        searchList: [],
-        songCount: 0,
-        title: '',
-    },
+
     mutations: {
         SEARCH_LIST: (state, data) => {
             state.searchList = data;

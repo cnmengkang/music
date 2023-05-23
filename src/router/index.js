@@ -20,14 +20,12 @@ const routes = [
             path: "/discover",
             name: 'recommend',
             component: () => import('@/views/discover/discover-recommend'),
-            meta: { keepAlive: true }
             // 个性推荐首页
           },
           {
             path: "/discover/custom-made",
             name: 'custom-made',
             component: () => import('@/views/discover/custom-made'),
-            meta: { keepAlive: true }
             // 专属定制
           },
           {
@@ -136,9 +134,9 @@ const routes = [
         name: 'Dashboard'
       },
       {
-        path: 'videoPlay/:id',
-        component: () => import('@/views/videos/video-play'),
-        name: 'videoPlay'
+        path: 'videoDetail/:id',
+        component: () => import('@/views/videos/videoDetail'),
+        name: 'videoDetail'
       },
     ]
   },

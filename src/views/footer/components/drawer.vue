@@ -1,8 +1,8 @@
 <template>
     <div class="drawer-index">
         <div class="drawer-background"></div>
-        <el-drawer :title="name" :withHeader="true" @click="drawerOpen" :show-close="false" :modal="false" size="100%"
-            :visible.sync="drawerOpen" :direction="direction">
+        <el-drawer :title="name" :withHeader="true" :show-close="false" :modal="false" size="100%" :direction="direction"
+            :visible.sync="drawer">
             <div class="footer_drawer flex">
                 <div class="left flex justify-content-center">
                     <div class="router">
@@ -23,7 +23,6 @@
     </div>
 </template>
 <script>
-import { mapActions, } from 'vuex';
 import Lyric from '@/components/Lyric'
 export default {
     components: { Lyric },
@@ -46,6 +45,7 @@ export default {
         return {
             // 弹出层数据
             direction: 'btt',
+            drawer: true
         }
     },
     computed: {
@@ -62,9 +62,6 @@ export default {
             return [...this.singer.authorName.map(obj => obj.name)].join(' / ');
         },
     },
-    methods: {
-        ...mapActions(['drawerOpen'])
-    }
 }
 </script>
 <style lang="less" scoped>

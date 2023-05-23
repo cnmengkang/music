@@ -5,7 +5,7 @@
                 <template v-if="item.data">
                     <el-image class="border-r-5 wh" :src="item.data.coverUrl" lazy />
                     <span class="playCount"><i class="iconFont icon-play-count font-12 mr-5"></i>{{
-                        numCount(item.data.playTime)
+                        $playTime(item.data.playTime)
                     }}</span>
                     <span class="playTime">{{ parseTime(item.data.durationms, "{i}:{s}") }}</span>
                     <p class="creator-title ellipsis">{{ item.data.title }}</p>
@@ -32,8 +32,7 @@ export default {
     methods: {
         // 点击视频列表跳转
         getVideoDetail(res) {
-            this.$store.dispatch('getVideoPlay', res.data);
-            this.$router.push({ name: 'videoPlay', params: { id: res.data.vid } })
+            this.$router.push({ name: 'videoDetail', params: { id: res.data.vid } })
         },
         getDetailAuthor(res) {
             console.log(res.data.creator)

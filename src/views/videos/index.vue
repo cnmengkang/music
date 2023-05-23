@@ -1,12 +1,13 @@
 <template>
   <div id="videos-index">
-    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <tabs @tab-click="handleClick" :tabsName="activeName">
       <el-tab-pane label="视频" name="video">
         <div class="videos">
           <div class="video-tabs">
-            <el-button @click="show">{{ name ? name : '全部视频' }}</el-button>
-            <tabs @tab-click="handClickTabs">
-              <el-tab-pane v-for="item in tabList" :key="item.id" :label="item.name" :value="item.id"></el-tab-pane>
+            <el-button @click="show">{{ tabsName || '全部视频' }}</el-button>
+            <tabs :tabsName="tabsName" @tab-click="handClickTabs">
+              <el-tab-pane v-for="item in tabList" :key="item.id" :name="item.name" :label="item.name"
+                :value="item.id"></el-tab-pane>
             </tabs>
           </div>
           <el-card class="box-card" v-if="isShow">
@@ -22,13 +23,12 @@
             </div>
           </el-card>
         </div>
-        <!-- badyGrid -->
         <video-grid :videoGroups="videoGroups"></video-grid>
       </el-tab-pane>
-      <el-tab-pane label="MV" name="MV">
+      <el-tab-pane label="MV" name="mv">
         <video-mv></video-mv>
       </el-tab-pane>
-    </el-tabs>
+    </tabs>
   </div>
 </template>
 <script>
@@ -46,6 +46,7 @@ export default {
       isShow: false,
       name: '',
       activeName: 'video',
+      tabsName: '',
       tabList: [],
       videoGroups: [],
       params: {
@@ -61,11 +62,6 @@ export default {
     this.getVideoAll();
   },
   methods: {
-    // 点击顶部视频MV调用接口
-    handleClick(tab) {
-      console.log('tab', tab);
-    },
-    // 获取全部分类按钮
     getVideoList() {
       videoList().then((res) => {
         this.videoListBtn = res.data;
@@ -79,11 +75,10 @@ export default {
     },
     // 点击获取分类id，并隐藏弹框
     isActive(res) {
-      console.log(res.id)
-      this.name = res.name;
-      this.activeClass = res.id;
       this.isShow = false;
-      this.params.id = res.id
+      this.tabsName = res.name;
+      this.activeClass = res.id;
+      this.params.id = res.id;
       this.getVideoGroup();
     },
     // 点击显示弹框
@@ -98,20 +93,23 @@ export default {
     },
     // 点击右侧分类
     handClickTabs(tab) {
-      const id = tab.$attrs.value;
-      this.name = tab.label;
-      this.params.id = id;
+      console.log(tab)
+      this.tabsName = tab.label;
+      this.params.id = tab.$attrs.value;
       this.getVideoGroup();
       this.isShow = false;
     },
     // 默认获取全部视频
     getVideoAll() {
       videoAll().then(res => {
-        console.log('allvideo', res)
         this.videoGroups = res.datas;
         this.isShow = false;
       })
     },
+    handleClick(tab) {
+      console.log(tab)
+      this.activeName = tab.name;
+    }
   }
 };
 </script>

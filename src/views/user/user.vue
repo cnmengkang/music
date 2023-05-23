@@ -52,11 +52,13 @@ export default {
     data() {
         return {
             user: '',
-            profile: ''
+            profile: '',
+            id:0,
         };
     },
     mounted() {
         const id = this.$route.params;
+        this.id = id;
         this.getUserDetail(id);
     },
     methods: {

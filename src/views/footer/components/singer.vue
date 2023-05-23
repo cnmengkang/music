@@ -46,10 +46,10 @@ export default {
             return [...this.singer.authorName.map(obj => obj.name)].join(' / ');
         }
     },
-    methods:{
+    methods: {
         ...mapActions(['drawerOpen'])
     }
-};
+}
 </script>
 <style lang="less" scoped>
 .alia {
@@ -69,6 +69,7 @@ export default {
 
     .author-avatar {
         width: 20%;
+
         &:hover {
             cursor: pointer;
             transition: all .2s linear;
@@ -80,4 +81,5 @@ export default {
 
 .flex-wrap-nowrap {
     flex-wrap: nowrap;
-}</style>
+}
+</style>

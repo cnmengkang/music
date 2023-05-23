@@ -11,7 +11,9 @@
       <!-- 左侧菜单 -->
       <el-container>
         <el-main>
-          <router-view />
+          <transition name="slide-left">
+            <router-view />
+          </transition>
         </el-main>
       </el-container>
       <!-- 容器 -->

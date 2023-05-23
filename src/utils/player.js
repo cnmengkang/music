@@ -3,18 +3,18 @@ import { songDetail, lyric, songUrl, checkMusic } from '@/api/music/music';
 const audioPool = {
     pool: [], // 对象池
     get() { // 获取音频元素对象
-        if (this.pool.length > 0) { // 如果对象池中有元素，则返回第一个元素
+        if (this.pool.length > 0) {
             return this.pool.shift();
-        } else { // 如果对象池中没有元素，则创建新元素
+        } else {
             console.log('new Audio success')
             return new Audio();
         }
     },
     release(audio) { // 释放音频元素对象
         console.log('audio', audio)
-        audio.pause(); // 暂停音频播放
-        audio.src = ''; // 清空音频地址
-        this.pool.push(audio); // 将元素对象加入对象池中
+        audio.pause();
+        audio.src = '';
+        this.pool.push(audio);
     }
 }
 export default class MusicPlayer {

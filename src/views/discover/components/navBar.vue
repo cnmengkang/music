@@ -1,36 +1,43 @@
 <template>
-  <div id="navbar-index">
-    <el-menu class="el-menu-demo" mode="horizontal" router :default-active="$route.path" @select="handleSelect">
-      <el-menu-item index="/discover">个性推荐</el-menu-item>
-      <el-menu-item index="/discover/custom-made">专属定制</el-menu-item>
-      <el-menu-item index="/discover/playlist">歌单</el-menu-item>
-      <el-menu-item index="/discover/toplist">排行榜</el-menu-item>
-      <el-menu-item index="/discover/topsong">最新音乐</el-menu-item>
-    </el-menu>
+  <div class="navbar-index">
+    <tabs :tabsName="tabsName" @tab-click="handleTabClick">
+      <el-tab-pane v-for="item in data" :key="item.id" :name="item.name" :label="item.name"
+        :path="item.path"></el-tab-pane>
+    </tabs>
   </div>
 </template>
 
 <script>
+import Tabs from '@/components/Tabs';
 export default {
   name: "navBar",
+  components: { Tabs },
   data() {
     return {
+      tabsName: '个性推荐',
+      data: [
+        { path: '/discover', name: '个性推荐', id: 0 },
+        { path: '/discover/custom-made', name: '专属定制', id: 1 },
+        { path: '/discover/playlist', name: '歌单', id: 2 },
+        { path: '/discover/toplist', name: '排行榜', id: 3 },
+        { path: '/discover/topsong', name: '最新音乐', id: 4 },
+      ]
     };
   },
-  computed: {},
   methods: {
-    handleSelect(tab, event) {
-      // console.log(tab, event);
-    },
+    handleTabClick(tab) {
+      this.tabsName = tab.name;
+      this.$router.push(tab.$attrs.path);
+    }
   }
 }
 </script>
 <style lang="less" scoped>
-#navbar-index {
+.navbar-index {
   position: sticky;
   top: 0px;
   z-index: 10;
-  padding: 15px 0px;
+  padding: 15px 0px 0px;
   background: #fff;
 
   .el-menu {

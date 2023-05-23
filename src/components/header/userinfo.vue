@@ -27,8 +27,9 @@
     </div>
 </template>
 <script>
-import { logout, userDetail, } from '@/api/user/user';
-import qrCode from '@/views/login/qrCode'
+import { loginStatus } from '@/api/user/user';
+import qrCode from '@/views/login/qrCode';
+import { TdoLogout } from '@/utils/auth'
 export default {
     components: { qrCode },
     props: {},
@@ -38,21 +39,24 @@ export default {
             level: '',
             dropdown: true,
             vipInfo: '',
-            hide: false,
-            id: { uid: 345288322 }
+            id: 0,
         }
     },
     mounted() {
-        this.getUserInfo();
+        this.getStatus();
     },
     methods: {
         // 登录状态
-        async getUserInfo() {
-            const { profile } = await userDetail(this.id);
-            this.user = profile;
+        async getStatus() {
+            const { data } = await loginStatus();
+            if (data.data.code != 200) return;
+            console.log(data.data)
+            this.id = data.data.account.id;
+            this.user = data.data.profile;
         },
         // 点击用户下来item数据事件
         handleCommand(index) {
+            console.log(index)
             if (index == 1) {
                 console.log('1');
                 this.$router.push('/edit');
@@ -60,16 +64,13 @@ export default {
                 console.log('2');
             } else {
                 this.user = '';
-                this.getLogout();
+                this.id = '';
+                TdoLogout();
             }
         },
         handleClick() {
-            this.dropdown = false;
-            this.hide = true;
-        },
-        async getLogout() {
-            const res = await logout();
-            console.log(res)
+            if (!this.user) return;
+            this.dropdown = true;
         }
     }
 }
@@ -131,4 +132,5 @@ export default {
 .el-dropdown-menu__item:hover {
     background: #f2f2f2 !important;
     color: #000 !important;
-}</style>
+}
+</style>

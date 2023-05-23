@@ -15,8 +15,6 @@
                                 <p>{{ item.name }}<sup v-if="item.hot" class="red font-12"><i>hot</i></sup></p>
                             </el-link>
                         </div>
-
-                        
                     </div>
                 </div>
             </div>

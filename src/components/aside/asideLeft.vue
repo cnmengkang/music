@@ -7,15 +7,15 @@
           <el-menu-item index="/discover">
             <span slot="title">发现音乐</span>
           </el-menu-item>
-          <!-- <el-menu-item index="/blog">
+          <el-menu-item index="/blog">
             <span slot="title">博客</span>
-          </el-menu-item> -->
+          </el-menu-item>
           <el-menu-item index="/video">
             <span slot="title">视频</span>
           </el-menu-item>
-          <!-- <el-menu-item index="/friend">
+          <el-menu-item index="/friend">
             <span slot="title">关注</span>
-          </el-menu-item> -->
+          </el-menu-item>
 
           <el-menu-item index="/private">
             <span slot="title">私人FM</span>

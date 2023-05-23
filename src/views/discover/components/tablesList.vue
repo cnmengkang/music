@@ -62,7 +62,7 @@ export default {
     methods: {
         // 获取mv详情
         getMv(res) {
-            this.$store.dispatch('videos/getDetailMv', res.mvid);
+            this.$store.dispatch('getDetailMv', res.mvid);
             this.$router.push({ name: 'videoPlay', params: { id: res.mvid } })
         },
         // 双击获取当前单曲详细信息
@@ -76,7 +76,7 @@ export default {
         },
     }
 
-};
+}
 </script>
 <style lang="less" scoped>
 .el-table {

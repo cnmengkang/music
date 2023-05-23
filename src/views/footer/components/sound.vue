@@ -58,7 +58,7 @@ export default {
         this.volume = val;
         this.isSound = true;
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>

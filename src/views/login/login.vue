@@ -7,8 +7,8 @@
           <el-form :model="loginForm" status-icon v-loading="loading" ref="ruleForm" :rules="loginRules"
             class="demo-ruleForm">
             <el-form-item label="手机号" prop="phone">
-              <el-input type="phone" v-model.trim="loginForm.phone" prefix-icon="el-icon-mobile-phone"
-                autocomplete="off" placeholder="请输入手机号" maxlength="11" clearable></el-input>
+              <el-input type="phone" v-model.trim="loginForm.phone" prefix-icon="el-icon-mobile-phone" autocomplete="off"
+                placeholder="请输入手机号" maxlength="11" clearable></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
               <el-input type="password" show-password v-model="loginForm.password" autocomplete="off"
@@ -117,7 +117,7 @@ export default {
         if (!valid) return;
         this.$store.dispatch("Login", this.loginForm).then((res) => {
           console.log(res)
-          // this.$router.push('/')
+          this.$router.push('/');
         });
       });
     },
@@ -153,30 +153,24 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-
   .app-login {
     .el-form-item {
       margin-bottom: 10px;
     }
-
     h2 {
       text-align: center;
     }
-
     .login {
       h4 {
         text-align: center;
       }
-
       .el-button {
         width: 100%;
       }
     }
-
     .login-oth {
       margin-bottom: 15px;
     }
-
     .login-oth,
     #socialLogin {
       display: flex;
@@ -184,14 +178,12 @@ export default {
       align-items: center;
       justify-content: center;
     }
-
     .login-oth p {
       text-align: center;
       font-size: 12px;
       margin: 0px 15px;
       width: 100%;
     }
-
     .login-oth::after,
     .login-oth::before {
       content: " ";
@@ -200,17 +192,14 @@ export default {
       display: inline-block;
       background: #ebebeb;
     }
-
     .sw {
       font-size: 12px;
       cursor: pointer;
       display: inline-block;
       padding: 10px 0px;
     }
-
     .register {
       margin-left: 0px;
-
       span a {
         color: #000 !important;
         border-bottom: 2px solid #000;
