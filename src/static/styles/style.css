@@ -269,3 +269,8 @@ body {
 .tops_center .el-el-tabs__nav {
   text-align: center;
 }
+.by {
+  font-size: 12px;
+  color: #000;
+  font-weight: bold;
+}

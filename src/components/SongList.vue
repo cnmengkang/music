@@ -33,6 +33,7 @@
                     <span>{{ parseTime(scope.row.dt, "{i}:{s}") }}</span>
                 </template>
             </el-table-column>
+
         </el-table>
     </div>
     <!-- list列表组件 -->
@@ -75,11 +76,6 @@ export default {
                 index: index
             }
             this.$store.dispatch('getCurrentMusicIsPlay', playlist);
-        },
-        // 获取mv
-        getMv(res) {
-            this.$store.dispatch('getDetailMv', res.mv);
-            this.$router.push({ name: 'videoPlay', params: { id: res.mv } })
         },
         indexMethod(index = 0) {
             return index * 1 + 1;

@@ -22,7 +22,7 @@
 </template>
 <script>
 import { banner, personalized } from "@/api/discover/discover";
-import playGrid from '@/components/body/playgrid'
+import playGrid from '@/components/PlayGrid'
 export default {
   name: "recommend",
   components: { playGrid },

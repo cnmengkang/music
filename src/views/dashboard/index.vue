@@ -16,9 +16,5 @@
 import headers from "@/components/header";
 export default {
     components: { headers },
-    data() {
-        return {
-        };
-    }
 }
 </script>

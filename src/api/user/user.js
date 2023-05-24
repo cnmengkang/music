@@ -44,3 +44,11 @@ export function userPlaylist(uid) {
         params: uid
     })
 }
+// 最近播放
+export function RecordRecentSong(data) {
+    return request({
+        url: '/record/recent/song',
+        method: 'post',
+        params: data
+    })
+}

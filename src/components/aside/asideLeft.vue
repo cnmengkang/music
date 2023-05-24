@@ -1,37 +1,29 @@
 <template>
-  <div id="aside-left">
-    <el-row class="tac">
+  <div class="aside-left">
+    <el-row class="tac mt-15">
       <el-col :span="24">
         <el-menu class="el-menu-vertical-demo" active-text-color="#000" text-color="#303133" router @select="getPath"
           :default-active="$route.path">
           <el-menu-item index="/discover">
             <span slot="title">发现音乐</span>
           </el-menu-item>
-          <el-menu-item index="/blog">
+          <el-menu-item index="/podcast">
             <span slot="title">博客</span>
           </el-menu-item>
-          <el-menu-item index="/video">
+          <el-menu-item index="/video/全部视频">
             <span slot="title">视频</span>
           </el-menu-item>
-          <el-menu-item index="/friend">
-            <span slot="title">关注</span>
-          </el-menu-item>
-
           <el-menu-item index="/private">
-            <span slot="title">私人FM</span>
+            <span slot="title">私人漫游</span>
           </el-menu-item>
           <el-menu-item index="/like-music">
             <i class="icon iconFont icon-xihuan"></i>
             <span slot="title">我喜欢的音乐</span>
           </el-menu-item>
-          <!-- <el-menu-item index="9">
-            <i class="icon iconFont icon-down"></i>
-            <span slot="title">本地与下载</span>
-          </el-menu-item> -->
-          <!-- <el-menu-item index="10">
+          <el-menu-item index="/recently">
             <i class="el-icon-time"></i>
             <span slot="title">最近播放</span>
-          </el-menu-item> -->
+          </el-menu-item>
         </el-menu>
       </el-col>
     </el-row>
@@ -54,9 +46,8 @@ export default {
 };
 </script>
 <style scoped lang="less">
-#aside-left {
+.aside-left {
   .tac {
-    margin-top: 15px;
 
     .el-menu {
       border-right: none;

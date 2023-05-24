@@ -1,5 +1,5 @@
 <template>
-    <div class="user-info">
+    <div class="user-info" v-if="false">
         <div class="user-avatar flex">
             <el-avatar icon="el-icon-user-solid" :size="35" :src="user.avatarUrl"></el-avatar>
             <el-dropdown trigger="click" class="user-down" @click.native="handleClick" placement="bottom"

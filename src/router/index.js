@@ -66,28 +66,10 @@ const routes = [
         component: () => import('@/views/podcast'),
         name: 'podcast'
       },
-      {
-        path: 'video',
-        component: () => import('@/views/videos'),
-        name: 'video'
-      },
-      // 视频
-      {
-        path: 'friend',
-        component: () => import('@/views/friend'),
-        name: 'friend'
-      },
-
-      // 关注
-      {
-        path: 'live-streaming',
-        component: () => import('@/views/live-streaming'),
-        name: 'live-streaming'
-      },
-      // 直播
+      // 博客
       {
         path: 'private',
-        component: () => import('@/views/private-fm'),
+        component: () => import('@/views/private'),
         name: 'private'
       },
       // 私人fm
@@ -95,6 +77,11 @@ const routes = [
         path: 'like-music',
         component: () => import('@/views/like-music'),
         name: 'like-music'
+      },
+      {
+        path: '/recently',
+        component: () => import('@/views/recently'),
+        name: 'recently'
       },
       {
         path: 'search',
@@ -110,7 +97,6 @@ const routes = [
         path: '/register',
         component: () => import('@/views/login/register')
       },
-
       {
         path: '/edit',
         component: () => import('@/views/user/edit')
@@ -121,8 +107,14 @@ const routes = [
         component: () => import("@/views/user/user")
         // 个性推荐详情页
       },
+      {
+        path: '/video/:name',
+        component: () => import('@/views/videos'),
+        name: 'video',
+      },
     ]
   },
+  // 视频
   {
     path: '/video',
     component: dashboard,
@@ -131,12 +123,12 @@ const routes = [
       {
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard'
+        name: 'Dashboard',
       },
       {
         path: 'videoDetail/:id',
         component: () => import('@/views/videos/videoDetail'),
-        name: 'videoDetail'
+        name: 'videoDetail',
       },
     ]
   },

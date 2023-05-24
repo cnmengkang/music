@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import videos from './modules/video';
 import search from './modules/search';
 
 import MusicPlayer from '@/utils/player';
@@ -13,8 +12,6 @@ const options = {
   actions,
   mutations,
   modules: {
-    namespaced: true,
-    videos,
     search,
   }
 }

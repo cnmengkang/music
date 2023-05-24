@@ -29,7 +29,7 @@
 import { topPlaylist } from '@/api/discover/discover';
 import { playlistHot, topPlaylistHighQuality, playlistCatList } from '@/api/music/music';
 import Tabs from '@/components/Tabs';
-import playGrid from '@/components/body/playgrid';
+import playGrid from '@/components/PlayGrid';
 import Pagination from '@/components/Pagination';
 import Category from '@/components/Category';
 export default {

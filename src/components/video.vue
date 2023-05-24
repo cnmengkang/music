@@ -18,7 +18,8 @@ export default {
 .video {
     width: 620px;
     height: 350px;
-    video{
+
+    video {
         width: 100%;
     }
 }

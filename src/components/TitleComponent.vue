@@ -1,5 +1,5 @@
 <template>
-    <div class="title-component">
+    <div class="title-component mb-15" @click="Back">
         <i :class="iconClass"></i>
         <h2>{{ title }}</h2>
     </div>
@@ -24,9 +24,9 @@ export default {
         }
     },
     methods: {
-        // Back() {
-        //     console.log('返回上一页')
-        // }
+        Back() {
+            history.back()
+        }
     }
 };
 </script>
@@ -36,7 +36,6 @@ export default {
     display: flex;
     align-items: center;
     gap: 5px;
-    margin: 15px 0px;
     cursor: pointer;
 }
 
