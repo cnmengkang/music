@@ -31,7 +31,7 @@ export default {
         },
         categories: {
             type: Object,
-            require: 0,
+            require: true,
         },
         sub: {
             type: Array,
