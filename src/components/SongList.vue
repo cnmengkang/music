@@ -33,13 +33,11 @@
                     <span>{{ parseTime(scope.row.dt, "{i}:{s}") }}</span>
                 </template>
             </el-table-column>
-
         </el-table>
     </div>
     <!-- list列表组件 -->
 </template>
 <script>
-import { songUrl } from '@/api/music/music';
 import { mapState } from 'vuex'
 export default {
     props: {
@@ -51,11 +49,19 @@ export default {
             type: Number,
             require: 0,
         },
+        id:{
+            type:Number,
+            require:true
+        }
     },
 
     data() {
         return {
             rowId: 0,
+            params: {
+                ids: 0,
+                index: 0
+            }
         }
     },
     watch: {
@@ -70,26 +76,22 @@ export default {
     methods: {
         // 双击获取当前单曲id
         getCurrentMusicId(row) {
-            const index = this.tableDate.indexOf(row);
-            const playlist = {
-                data: this.tableDate,
-                index: index
-            }
-            this.$store.dispatch('getCurrentMusicIsPlay', playlist);
+            this.params.index = this.tableDate.indexOf(row);
+            this.params.ids = this.$route.params.id;
+            this.$store.dispatch('getCurrentMusicIsPlay', this.params);
         },
         indexMethod(index = 0) {
             return index * 1 + 1;
         },
         // 下载
         downloadMusic(row) {
-            console.log('download', row)
-            songUrl(row.id).then(res => {
-                const blob = new Blob([res.data])
-                const link = document.createElement('a')
-                link.href = window.URL.createObjectURL(blob)
-                link.download = res.data[0].url // 设置下载文件名
-                link.click() // 触发下载操作
-            })
+            // songUrl(row.id).then(res => {
+            //     const blob = new Blob([res.data])
+            //     const link = document.createElement('a')
+            //     link.href = window.URL.createObjectURL(blob)
+            //     link.download = res.data[0].url // 设置下载文件名
+            //     link.click() // 触发下载操作
+            // })
         },
         rowClassName({ row }) {
             return this.rowId == row.id ? "isPlay" : ''

@@ -34,7 +34,8 @@
     </div>
 </template>
 <script>
-import { detail, playTrack, commentPlayList } from '@/api/discover/detail';
+import { playlistDetail, commentPlayList } from '@/api/discover/detail';
+import { playTrackAll } from '@/api/music/music';
 import SongHead from '@/components/SongHead';
 import SongList from '@/components/SongList';
 export default {
@@ -55,22 +56,16 @@ export default {
         }
     },
     mounted() {
-        const id = this.$route.params;
-        this.getDetail(id);
         this.getPlayTrack();
         this.getComment();
     },
     methods: {
-        // 获取详情页顶部数据
-        getDetail(id) {
-            detail(id).then((res) => {
-                // console.log(res);
-                this.playlist = res.playlist;
-            })
-        },
         // // 获取歌单所有歌曲
         getPlayTrack() {
-            playTrack(this.params).then((res) => {
+            playlistDetail(this.params).then((res) => {
+                this.playlist = res.playlist;
+            })
+            playTrackAll(this.params).then((res) => {
                 this.list = res.songs;
             })
         },
@@ -86,26 +81,30 @@ export default {
             })
         },
         getUserInfo(item) {
-            this.$router.push({ name: 'user', params: { uid: item.userId } })
+            this.$router.push({ name: 'user', params: item.userId })
         }
     }
 }
 </script>
 <style scoped lang="less">
 .detail {
+
     // 内容区域
     .detail-body {
         .comment {
             display: flex;
             border-bottom: 1px solid #eee;
             padding: 15px 0px;
+
             .user-info {
                 text-align: left;
                 margin-left: 10px;
                 width: calc(100% - 40px);
+
                 span {
                     font-size: 12px;
                 }
+
                 .reviews-2 {
                     background: #f2f2f2;
                     padding: 8px 10px;
@@ -113,10 +112,12 @@ export default {
                     margin: 5px 0px;
                     line-height: 20px;
                 }
+
                 .vip {
                     color: red;
                 }
             }
+
             .user-avatarUrl {
                 width: 40px;
                 height: 40px;

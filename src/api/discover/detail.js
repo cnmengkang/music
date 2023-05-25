@@ -1,17 +1,9 @@
 import request from '@/utils/request'
 
 // 获取所有歌单
-export function detail(id) {
+export function playlistDetail(id) {
     return request({
         url: '/playlist/detail',
-        method: 'post',
-        params:  id 
-    })
-}
-// 获取歌单所有歌曲
-export function playTrack(id) {
-    return request({
-        url: '/playlist/track/all',
         method: 'post',
         params: id
     })

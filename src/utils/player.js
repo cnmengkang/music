@@ -1,4 +1,5 @@
-import { songDetail, lyric, songUrl, checkMusic } from '@/api/music/music';
+import { songDetail, lyric, songUrlV1, checkMusic, playTrackAll } from '@/api/music/music';
+import { options } from 'less';
 // 音频元素对象池
 const audioPool = {
     pool: [], // 对象池
@@ -26,6 +27,7 @@ export default class MusicPlayer {
         this.duration = 0;
         this.isPlaying = false;
         this.drawer = false;
+        this.tracksId = 0;
         this.params = { id: 0, level: 'exhigh' }
         this.lyric = [];
         this.singer = {
@@ -62,11 +64,13 @@ export default class MusicPlayer {
     // 创建音频
     createAudio(options) {
         this.index = options.index;
-        this.playlist = options.data
-        this.params.id = this.playlist[this.index].id;
-        this.getCheckMusic();
+        this.params.id = options.ids;
+        if (this.tracksId == 0 || this.tracksId != options.ids) {
+            this.getPlayTrackAll();
+        } else {
+            this.getCheckMusic();
+        }
     }
-    // 播放
     isPlay(url) {
         if (!url) return;
         this.audio.src = url;
@@ -77,7 +81,7 @@ export default class MusicPlayer {
         player == 'prev' ? this.index-- : this.index++;
         if (this.index == -1 || this.index == this.playlist.length) this.index = 0;
         this.params.id = this.playlist[this.index].id;
-        this.getAllIsPlayInfo();
+        this.getCheckMusic();
     }
     // 设置当前播放时间
     setCurrentTime(seconds) {
@@ -91,35 +95,37 @@ export default class MusicPlayer {
     isOpen(isOpen) {
         this.isOpen = isOpen;
     }
-    // 获取当前播放歌曲url
-    async getCurrentMusicUrl() {
-        const { data } = await songUrl(this.params);
-        this.isPlay(data[0].url);
+    getCurrentMusicPlayDetail() {
+        songDetail(this.params.id).then(res => {
+            const songs = res.songs;
+            this.singer.songName = songs[0].name;
+            this.singer.authorAvatar = songs[0].al.picUrl;
+            this.singer.authorName = songs[0].ar;
+            this.singer.authorAli = songs[0].alia[0];
+        })
+        // 左侧歌曲信息
+        songUrlV1(this.params).then(res => {
+            this.isPlay(res.data[0].url)
+        })
+        // 获取当前播放歌曲url
+        lyric(this.params.id).then(res => {
+            this.lyric = res.lrc.lyric
+        })
+        // 歌词
     }
-    // 歌词
-    async getCurrentMusicLyric() {
-        const { lrc } = await lyric(this.params.id);
-        this.lyric = lrc.lyric;
-    }
-    // 左侧歌曲信息
-    async getCurrentMusicDetail() {
-        const { songs } = await songDetail(this.params.id);
-        this.singer.songName = songs[0].name;
-        this.singer.authorAvatar = songs[0].al.picUrl;
-        this.singer.authorName = songs[0].ar;
-        this.singer.authorAli = songs[0].alia[0];
-    }
-    // 获取当前所有音乐播放信息
-    getAllIsPlayInfo() {
-        this.getCurrentMusicDetail();  //左侧歌曲信息
-        this.getCurrentMusicLyric();  //歌词
-        this.getCurrentMusicUrl();  //url
-    }
-    // 检测歌曲是否可播放
     // 检查音乐是否可用
     async getCheckMusic() {
         const { data } = await checkMusic(this.params.id);
         if (!data.success) console.log('无版权!');
-        this.getAllIsPlayInfo();
+        this.params.id = this.playlist[this.index].id;
+        this.getCurrentMusicPlayDetail();
+    }
+    // 获取当前播放歌曲id
+    async getPlayTrackAll() {
+        const { songs } = await playTrackAll(this.params);
+        this.playlist = songs;
+        this.tracksId = this.params.id;
+        this.getCheckMusic();
+        console.log('获取所有歌曲',)
     }
 }

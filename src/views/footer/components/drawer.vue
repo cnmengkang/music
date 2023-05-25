@@ -1,25 +1,27 @@
 <template>
     <div class="drawer-index">
-        <div class="drawer-background"></div>
-        <el-drawer :title="name" :withHeader="true" :show-close="false" :modal="false" size="100%" :direction="direction"
-            :visible.sync="drawer">
-            <div class="footer_drawer flex">
-                <div class="left flex justify-content-center">
-                    <div class="router">
-                        <el-avatar shape="circle" :size="200" :src="avatar" />
+        <div>
+            <div class="drawer-background" :style="'background-image:url(' + avatar + ')'"></div>
+            <el-drawer :title="name" :withHeader="true" :show-close="false" :modal="false" size="100%"
+                :direction="direction" :visible.sync="drawer">
+                <div class="footer_drawer flex">
+                    <div class="left flex justify-content-center">
+                        <div class="router">
+                            <el-avatar shape="circle" :size="200" :src="avatar" />
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="right-head">
+                            <span class="font-14 ml-15 mr-15">歌手：{{ authorName }}</span>
+                            <span class="font-14">专辑：{{ name }}</span>
+                        </div>
+                        <div class="right-body">
+                            <lyric :lyric="lyric" :space="1" :currentTime="currentTime"></lyric>
+                        </div>
                     </div>
                 </div>
-                <div class="right">
-                    <div class="right-head">
-                        <span class="font-14 ml-15 mr-15">歌手：{{ authorName }}</span>
-                        <span class="font-14">专辑：{{ name }}</span>
-                    </div>
-                    <div class="right-body">
-                        <lyric :lyric="lyric" :space="1" :currentTime="currentTime"></lyric>
-                    </div>
-                </div>
-            </div>
-        </el-drawer>
+            </el-drawer>
+        </div>
     </div>
 </template>
 <script>
@@ -43,7 +45,6 @@ export default {
     },
     data() {
         return {
-            // 弹出层数据
             direction: 'btt',
             drawer: true
         }
@@ -83,8 +84,8 @@ export default {
         position: absolute;
         height: @height;
         z-index: -1;
-        background-size: cover;
-        background-position: center;
+        background-size: 6000px;
+        background-position: center center;
         filter: blur(30px);
         transform: scale(2.5);
         background-color: #ccc;
@@ -141,7 +142,7 @@ export default {
                 ul {
                     li {
                         text-align: center;
-                        color: #ccc;
+                        color: #fff;
                         font-size: 14px;
                         height: auto;
                         line-height: 32px;

@@ -17,7 +17,7 @@ export default {
       tabsName: '个性推荐',
       data: [
         { path: '/discover', name: '个性推荐', id: 0 },
-        { path: '/discover/custom-made', name: '专属定制', id: 1 },
+        { path: '/discover/customization', name: '专属定制', id: 1 },
         { path: '/discover/playlist', name: '歌单', id: 2 },
         { path: '/discover/toplist', name: '排行榜', id: 3 },
         { path: '/discover/topsong', name: '最新音乐', id: 4 },

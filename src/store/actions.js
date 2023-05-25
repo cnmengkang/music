@@ -1,9 +1,8 @@
 import { cloudsearch } from '@/api/search/search';
-
 export default {
     getCurrentMusicIsPlay({ state }, data) {
         state.player.createAudio(data);
-        console.log('点击加载的数据', state.player)
+        console.log('new Audio success',state.player)
     },
     drawerOpen({ state }) {
         return state.player.drawer = !state.player.drawer;
@@ -23,7 +22,6 @@ export default {
             commit('setUrl', res.data.url)
         })
     },
-
     // 获取视频url
     getVideoPlay({ commit }, urls) {
         commit('setSignerVideo', urls)
@@ -31,5 +29,5 @@ export default {
             console.log('videoUrl', res)
             commit('setUrl', res.urls[0].url)
         })
-    }
+    },
 }

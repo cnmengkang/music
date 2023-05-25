@@ -19,13 +19,13 @@ const routes = [
           {
             path: "/discover",
             name: 'recommend',
-            component: () => import('@/views/discover/discover-recommend'),
+            component: () => import('@/views/discover/recommend'),
             // 个性推荐首页
           },
           {
-            path: "/discover/custom-made",
-            name: 'custom-made',
-            component: () => import('@/views/discover/custom-made'),
+            path: "/discover/customization",
+            name: 'customization',
+            component: () => import('@/views/discover/customization'),
             // 专属定制
           },
           {
@@ -74,9 +74,9 @@ const routes = [
       },
       // 私人fm
       {
-        path: 'like-music',
-        component: () => import('@/views/like-music'),
-        name: 'like-music'
+        path: 'my',
+        component: () => import('@/views/my'),
+        name: 'my'
       },
       {
         path: '/recently',

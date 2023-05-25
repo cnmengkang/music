@@ -14,7 +14,7 @@
                         <span class="mr-10">{{ Level }}</span>
                         <span class="mr-10">{{ gender }}</span>
                     </div>
-                    <div>
+                    <div v-if="id == 345288322">
                         <el-button @click="edit">编辑个人信息</el-button>
                     </div>
                 </div>
@@ -53,20 +53,18 @@ export default {
         return {
             user: '',
             profile: '',
-            id:0,
+            id: this.$route.params,
         };
     },
     mounted() {
-        const id = this.$route.params;
-        this.id = id;
-        this.getUserDetail(id);
+        this.getUserDetail();
     },
     methods: {
         edit() {
             this.$router.push({ path: '/edit', query: { params: this.profile } })
         },
-        async getUserDetail(id) {
-            const result = await userDetail(id);
+        async getUserDetail() {
+            const result = await userDetail(this.id);
             this.user = result;
             this.profile = result.profile;
         }

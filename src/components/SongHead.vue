@@ -20,10 +20,13 @@
             </div>
             <div class="flex">
                 <el-button-group>
-                    <el-button round size="mini" type="danger" icon="el-icon-video-play">播放全部</el-button>
+                    <el-button round size="mini" type="danger" icon="el-icon-video-play"
+                        @click="playTrack(tableHead)">播放全部</el-button>
                 </el-button-group>
             </div>
-
+            <div class="algTags font-14" v-if="algTags">
+                标签：<a class="mr-10" v-for="(item, index) in algTags" :key="index">{{ item }}</a>
+            </div>
             <div class="font-14" style="width:100%">
                 <span class="mr-20">歌曲：{{ tableHead.trackCount }}</span>
                 <span>播放：{{ $playTime(tableHead.playCount) }}</span>
@@ -51,6 +54,10 @@ export default {
     data() {
         return {
             isActive: true,
+            params: {
+                ids: 0,
+                index: 0,
+            }
         }
     },
     computed: {
@@ -66,6 +73,9 @@ export default {
         },
         nickname() {
             return this.tableHead.creator.nickname;
+        },
+        algTags() {
+            return this.tableHead.algTags
         }
     },
     methods: {
@@ -74,9 +84,13 @@ export default {
         },
         getUserInfo(item) {
             this.$router.push({ name: 'user', params: { uid: item.userId } })
+        },
+        playTrack(track) {
+            this.params.ids = track.id;
+            this.$store.dispatch('getCurrentMusicIsPlay', this.params);
         }
     }
-};
+}
 </script>
 <style lang="less" scoped>
 .head {
@@ -92,12 +106,15 @@ export default {
         width: 75%;
         display: flex;
         flex-wrap: wrap;
-        gap: 5px 10px;
-        align-content: space-between;
-        .right-creator,.userInfo{
+        gap: 10px 10px;
+        align-content: flex-start;
+
+        .right-creator,
+        .userInfo {
             display: flex;
             align-items: center;
         }
+
         .song {
             color: #f00;
             border: 1px solid #f00;

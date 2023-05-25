@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { playTrack } from '@/api/discover/detail';
+import { playTrackAll } from '@/api/music/music';
 export default {
     components: {},
     props: {
@@ -50,7 +50,7 @@ export default {
             this.getPlayTrack();
         },
         async getPlayTrack() {
-            const { songs } = await playTrack(this.params);
+            const { songs } = await playTrackAll(this.params);
             const playlist = {
                 data: songs,
                 index: 0,

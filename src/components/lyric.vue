@@ -56,7 +56,7 @@ export default {
             if (activeLine) {
                 if (this.space == 1) {
                     const sumScroll = activeLine.offsetTop - container.offsetTop;
-                    container.scrollTop =( sumScroll - half);
+                    container.scrollTop = (sumScroll - half);
                 } else {
                     container.scrollTop = activeLine.offsetTop - container.offsetTop;
                 }
@@ -84,6 +84,9 @@ export default {
             font-size: 12px;
             line-height: @height;
             height: auto;
+            -webkit-transition: color 0.7s linear;
+            -moz-transition: color 0.7s linear;
+            -o-transition: color 0.7s linear;
             transition: color 0.7s linear;
         }
     }
@@ -92,17 +95,26 @@ export default {
 // 弹出层歌词样式
 .right-body {
     .lyric-scroll {
-        height: 350px;
-        overflow: auto;
-        margin: 30px 0px;
+        position: absolute;
+        right: 40px;
+        top: 0px;
+        z-index: 4;
+        margin: 30px 0 20px 0;
+        height: 400px;
+        width: 354px;
+        overflow: hidden;
 
         p {
             color: #989898;
+            word-wrap: break-word;
             text-align: center;
-            font-size: 14px;
             line-height: @height;
+            height: auto !important;
+            height: @height;
             min-height: @height;
-            height: auto;
+            -webkit-transition: color 0.7s linear;
+            -moz-transition: color 0.7s linear;
+            -o-transition: color 0.7s linear;
             transition: color 0.7s linear;
         }
 

@@ -37,9 +37,6 @@ export default {
         getDetailAuthor(res) {
             console.log(res.data.creator)
         }
-    },
-    computed:{
-
     }
 }
 </script>

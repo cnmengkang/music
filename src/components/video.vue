@@ -3,7 +3,6 @@
         <video :src="url" autoplay controls></video>
     </div>
 </template>
-
 <script>
 export default {
     props: {
@@ -11,7 +10,7 @@ export default {
             type: String,
             require: true,
         }
-    },
+    }
 }
 </script>
 <style lang="less" scoped>

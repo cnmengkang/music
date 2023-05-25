@@ -16,7 +16,7 @@
           <el-menu-item index="/private">
             <span slot="title">私人漫游</span>
           </el-menu-item>
-          <el-menu-item index="/like-music">
+          <el-menu-item index="/my">
             <i class="icon iconFont icon-xihuan"></i>
             <span slot="title">我喜欢的音乐</span>
           </el-menu-item>
