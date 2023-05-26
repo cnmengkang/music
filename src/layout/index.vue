@@ -19,33 +19,34 @@
       <!-- 容器 -->
     </el-container>
     <!-- 底部 -->
-    <el-footer class="flex" height="70px">
-      <footers />
-    </el-footer>
+    <transition name="el-zoom-in-bottom">
+      <el-footer class="flex" height="70px" v-if="isFooterShow">
+        <footers />
+      </el-footer>
+    </transition>
   </div>
 </template>
 <script>
 import headers from "@/components/header";
 import asideNav from "@/components/aside";
 import footers from "@/views/footer/footer";
-
+import { mapState } from 'vuex';
 export default {
   name: "index",
   components: { headers, asideNav, footers },
-  data() {
-    return {
-      
-    }
-  },
+  computed: {
+    ...mapState({
+      isFooterShow: state => state.player.isFooterShow,
+    }),
+  }
 };
 </script>
 <style lang="less">
-@border: 1px solid #ccc;
+@border: 1px solid #d78383;
 @backColor: #fff;
+@width:1280px;
 
 #app_index {
-  width: 1100px;
-  margin: 50px auto;
   position: relative;
   background: @backColor;
   border-right: @border;
@@ -53,14 +54,21 @@ export default {
   overflow: hidden;
 
   .el-header {
+    width: 100%;
+    margin: 0px auto;
     background-color: #ccc;
     color: #333;
     border-bottom: @border;
   }
 
+  .el-container {
+    max-width: @width;
+    margin: 0 auto;
+  }
+
   .el-main {
-    height: 520px;
-    overflow-y: overlay;
+    height: 90vh;
+    min-height: 520px;
     padding: 0px 30px 30px;
   }
 
@@ -71,8 +79,10 @@ export default {
 
   .el-footer {
     background-color: @backColor;
-    position: relative;
+    position: fixed;
+    bottom: 0px;
     border-top: @border;
+    z-index: 10;
   }
 }
 </style>

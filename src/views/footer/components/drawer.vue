@@ -1,48 +1,32 @@
 <template>
     <div class="drawer-index">
-        <div>
-            <div class="drawer-background" :style="'background-image:url(' + avatar + ')'"></div>
-            <el-drawer :title="name" :withHeader="true" :show-close="false" :modal="false" size="100%"
-                :direction="direction" :visible.sync="drawer">
-                <div class="footer_drawer flex">
-                    <div class="left flex justify-content-center">
-                        <div class="router">
-                            <el-avatar shape="circle" :size="200" :src="avatar" />
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div class="right-head">
-                            <span class="font-14 ml-15 mr-15">歌手：{{ authorName }}</span>
-                            <span class="font-14">专辑：{{ name }}</span>
-                        </div>
-                        <div class="right-body">
-                            <lyric :lyric="lyric" :space="1" :currentTime="currentTime"></lyric>
-                        </div>
+        <div class="drawer-background" :style="'background-image:url(' + authorAvatar + ')'"></div>
+        <el-drawer :title="songName" :withHeader="true" :show-close="false" :modal="false" size="100%"
+            :direction="direction" :visible.sync="drawer">
+            <div class="footer_drawer flex">
+                <div class="left flex justify-content-center">
+                    <div class="router">
+                        <el-avatar shape="circle" :size="200" :src="authorAvatar" />
                     </div>
                 </div>
-            </el-drawer>
-        </div>
+                <div class="right">
+                    <div class="right-head">
+                        <span class="font-14 ml-15 mr-15">歌手：{{ authorName }}</span>
+                        <!-- <span class="font-14">专辑：{{ subName }}</span> -->
+                    </div>
+                    <div class="right-body">
+                        <lyric></lyric>
+                    </div>
+                </div>
+            </div>
+        </el-drawer>
     </div>
 </template>
 <script>
-import Lyric from '@/components/Lyric'
+import Lyric from '@/components/Lyric';
+import { mapState } from 'vuex';
 export default {
     components: { Lyric },
-    props: {
-        singer: {
-            type: Object,
-            require: true
-        },
-        lyric: {
-            type: String,
-            require: true
-
-        },
-        currentTime: {
-            type: Number,
-            require: true
-        },
-    },
     data() {
         return {
             direction: 'btt',
@@ -50,45 +34,41 @@ export default {
         }
     },
     computed: {
-        name() {
-            return this.singer.songName;
-        },
-        avatar() {
-            return this.singer.authorAvatar;
-        },
-        subtitle() {
-            return this.singer.alia[0];
-        },
+        ...mapState({
+            player: state => state.player,
+            songName: state => state.player.singer.songName,
+            authorAvatar: state => state.player.singer.authorAvatar,
+            subName: state => state.player.singer.subName,
+            author: state => state.player.singer.authorName
+        }),
         authorName() {
-            return [...this.singer.authorName.map(obj => obj.name)].join(' / ');
-        },
+            return [...this.author.map(obj => obj.name)].join(' / ');
+        }
     },
 }
 </script>
 <style lang="less" scoped>
-@height: 521px;
+@height: 600px;
 @head: 80px;
 
 .drawer-index {
-    width: 100%;
-    height: @height;
-    top: -@height;
+    top: 60px;
     left: 0px;
-    position: absolute;
+    bottom: 70px;
+    position: fixed;
     right: 0px;
-    z-index: 20;
+    z-index: 10;
     overflow: hidden;
 
     .drawer-background {
         width: 100%;
+        height: 100%;
         position: absolute;
-        height: @height;
-        z-index: -1;
-        background-size: 6000px;
+        z-index: 15;
+        background-size: 5000px;
         background-position: center center;
         filter: blur(30px);
         transform: scale(2.5);
-        background-color: #ccc;
     }
 }
 
@@ -122,7 +102,7 @@ export default {
         .left,
         .right {
             width: 50%;
-            height: @height - @head;
+            height: 100%;
             box-sizing: border-box;
             position: relative;
             overflow: hidden;
@@ -137,7 +117,8 @@ export default {
 
             .right-body {
                 width: 100%;
-                height: 350px;
+                height: 450px;
+                overflow: hidden;
 
                 ul {
                     li {
@@ -151,5 +132,4 @@ export default {
             }
         }
     }
-}
-</style>
+}</style>

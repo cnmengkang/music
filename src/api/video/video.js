@@ -28,6 +28,7 @@ export function videoGroupList() {
 export function videoCategoryList() {
     return request({
         url: '/video/category/list',
+        method: 'get'
     })
 }
 // 获取视频标签/分类下的视频
@@ -43,7 +44,7 @@ export function videoUrl(id) {
     return request({
         url: '/video/url',
         method: 'post',
-        params: {id}
+        params: { id }
     })
 }
 // 获取全部视频列表
@@ -59,7 +60,7 @@ export function videoDetail(id) {
     return request({
         url: "/video/detail",
         method: 'post',
-        params: {id}
+        params: { id }
     })
 }
 // 说明 : 调用此接口 , 可获取相关视频
@@ -67,7 +68,7 @@ export function relatedAllVideo(id) {
     return request({
         url: "/related/allvideo",
         method: 'post',
-        params: {id}
+        params: { id }
     })
 }
 

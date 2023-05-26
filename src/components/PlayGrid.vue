@@ -15,7 +15,7 @@
                         :alt="item.alg"></el-image>
                     <span class="playCount font-12">
                         <i class="el-icon-caret-right"></i>{{ $playTime(item.playCount) }}</span>
-                    <el-button @click.stop="getPlayAllList(item.id)" size="small" circle
+                    <el-button @click.stop="getPlayAllList(item)" size="small" circle
                         class="iconFont icon-play-red"></el-button>
                 </div>
                 <p class="name">{{ item.name }}</p>
@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import { playTrackAll } from '@/api/music/music';
 export default {
     components: {},
     props: {
@@ -36,30 +35,19 @@ export default {
     data() {
         return {
             params: {
-                id: 0,
-                limit: '',
-                offset: 0
+                ids: 0,
+                index: 0,
             },
         }
     },
     methods: {
-        // 点击播放全部音乐按钮获取当前歌单id
-        getPlayAllList(playlistId) {
-            if (!playlistId) return;
-            this.params.id = playlistId;
-            this.getPlayTrack();
-        },
-        async getPlayTrack() {
-            const { songs } = await playTrackAll(this.params);
-            const playlist = {
-                data: songs,
-                index: 0,
-            }
-            this.$store.dispatch('getCurrentMusicIsPlay', playlist);
-        },
         // 点击跳转到详情页面
-        getDetail(id) {
-            this.$router.push({ name: 'detail', params: { id: id } })
+        getDetail(ids) {
+            this.$router.push({ name: 'detail', params: { id: ids } })
+        },
+        getPlayAllList(item) {
+            this.params.ids = item.id;
+            this.$store.dispatch('getCurrentMusicIsPlay', this.params);
         },
         // 获取每日推荐
         getDaySong() {
@@ -73,8 +61,10 @@ export default {
     .w-20 {
         width: 19%;
     }
+
     .grid {
         gap: 1%;
+
         li {
             .play-img {
                 position: relative;

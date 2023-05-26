@@ -9,21 +9,21 @@
     <!-- 返回按钮 -->
     <search />
     <!-- 搜索 -->
-    <user-info></user-info>
-    <!-- 账户信息 -->
   </div>
 </template>
 <script>
 import search from './search.vue'
 import back from './back.vue'
-import userInfo from './userinfo.vue'
 export default {
-  components: { search, back, userInfo },
+  components: { search, back },
 }
 </script>
 <style lang="less" scoped>
 .header {
   height: 60px;
+  max-width: 1280px;
+  margin: 0 auto;
+
   .header-logo {
     width: 180px;
     height: 60px;

@@ -11,13 +11,8 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex';
 export default {
-  props: {
-    player: {
-      type: Object,
-      require: true,
-    }
-  },
   data() {
     return {
       isSound: true,
@@ -59,6 +54,11 @@ export default {
         this.isSound = true;
       }
     }
+  },
+  computed: {
+    ...mapState({
+      player: state => state.player,
+    }),
   }
 }
 </script>

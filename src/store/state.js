@@ -6,10 +6,4 @@ export default {
         songCount: 0,
         title: ''
     },
-    // video: {
-    //     name: '',
-    //     avatar: '',
-    //     url: '',
-    //     duration: ''
-    // }
 }

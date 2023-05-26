@@ -1,5 +1,6 @@
 import { cloudsearch } from '@/api/search/search';
 export default {
+    // 获取当前播放的音乐
     getCurrentMusicIsPlay({ state }, data) {
         state.player.createAudio(data);
         console.log('new Audio success',state.player)
@@ -12,22 +13,5 @@ export default {
         const { result } = await cloudsearch(data);
         commit('SONG_COUNT', result.songCount);
         commit('SEARCH_LIST', result.songs);
-    },
-    // 根据id获取mv信息
-    getDetailMv({ commit }, mvInfo) {
-        mvDetail(mvInfo).then(res => {
-            commit('setSignerMv', res.data)
-        })
-        mvUrl(mvInfo).then(res => {
-            commit('setUrl', res.data.url)
-        })
-    },
-    // 获取视频url
-    getVideoPlay({ commit }, urls) {
-        commit('setSignerVideo', urls)
-        videoUrl(urls.vid).then(res => {
-            console.log('videoUrl', res)
-            commit('setUrl', res.urls[0].url)
-        })
     },
 }

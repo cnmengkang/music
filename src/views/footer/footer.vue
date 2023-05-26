@@ -1,34 +1,34 @@
 <template>
     <div class="footer">
         <!-- 左侧歌曲信息展示 -->
-        <div class="footer-singer" v-if="isFooterShow">
-            <singer :singer="singers" />
+        <div class="footer-singer">
+            <singer></singer>
         </div>
         <!-- 左侧歌曲信息展示 -->
         <!-- 中间控制器 -->
         <div class="footer-audio">
-            <div :class="{ audio: true, pointerNone: !isFooterShow }">
+            <div class="audio">
                 <div class="audio-play flex">
                     <div class="audio-top plays mb-5">
                         <span title="上一首" class="icon-prev" @click="getPrevNext('prev')"></span>
-                        <span title="暂停" class="play icon-play" v-if="isBtnShow" @click="startPlayOrPause(false)"></span>
-                        <span title="播放" class="pause icon-pause" v-else @click="startPlayOrPause(true)"></span>
+                        <span :title="isPlaying ? '暂停' : '播放'" :class="isPlaying ? 'icon-play' : 'icon-pause'"
+                            @click="getIsPlaying"></span>
                         <span title="下一首" class="icon-next" @click="getPrevNext('next')"></span>
                     </div>
                     <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
-                        <span v-if="isFooterShow" class="start font-14">{{ currentTime || "00:00"
+                        <span class="start font-14">{{ currentTime || "00:00"
                         }}</span>
                         <el-slider class="w-70" :min="0" :max="player.duration" @change="seek" v-model="slidValue"
                             :show-tooltip="false" />
-                        <span v-if="isFooterShow" class="end font-14">{{ duration || "00:00" }}</span>
+                        <span class="end font-14">{{ duration || "00:00" }}</span>
                     </div>
                 </div>
             </div>
         </div>
         <!-- 中间控制器 -->
         <!-- 音量 -->
-        <div class="flex" style="width:25%" v-if="isFooterShow">
-            <sound :player="player" />
+        <div class="flex" style="width:25%">
+            <sound></sound>
             <div class="btn_lyrics">
                 <span class="font-16 ml-10 cursor" @click="show = !show">词</span>
             </div>
@@ -37,15 +37,13 @@
         <!-- 底部歌词 -->
         <transition name="el-zoom-in-bottom">
             <div class="lyrics" v-show="show">
-                <div v-if="isFooterShow">
-                    <lyric :lyric="lyrics" :space="0" :currentTime="player.currentTime" />
-                </div>
+                <lyric></lyric>
             </div>
         </transition>
         <!-- 底部歌词 -->
         <!-- 弹出层包含歌词作者信息 -->
         <div class="drawer" v-if="player.drawer">
-            <drawer :singer="singers" :space="0" :lyric="lyrics" :currentTime="player.currentTime" />
+            <drawer></drawer>
         </div>
         <!-- 弹出层包含歌词作者信息 -->
     </div>
@@ -62,7 +60,6 @@ export default {
     components: { singer, sound, Lyric, drawer },
     data() {
         return {
-            isBtnShow: false,
             slidValue: 0,
             show: true,
             loops: [
@@ -72,24 +69,18 @@ export default {
         }
     },
     watch: {
-        'player.currentTime'(newTime) {
-            this.slidValue = newTime;
-        },
-        'player.isPlaying'(isPlaying) {
-            if (!isPlaying) return;
-            this.player.isPlaying = true;
-            this.isBtnShow = true;
+        'player.currentTime'(time) {
+            this.slidValue = time;
         },
     },
     // 计算属性
     computed: {
         ...mapState({
             player: state => state.player,
-            lyrics: state => state.player.lyric,
-            isPlaying: state => state.player.isPlaying,
             isFooterShow: state => state.player.isFooterShow,
             singers: state => state.player.singer,
-            isOpen: state => state.isOpen,
+            isPlaying: state => state.player.isPlaying,
+
         }),
         currentTime() {
             return formatTIme(this.player.currentTime)
@@ -105,17 +96,13 @@ export default {
         seek() {
             this.player.setCurrentTime(this.slidValue);
         },
-        startPlayOrPause(val) {
-            if (val) {
+        getIsPlaying() {
+            if (!this.player.isPlaying) {
                 this.player.play();
-                this.isBtnShow = true;
-                this.player.isPlaying = true;
             } else {
                 this.player.pause();
-                this.isBtnShow = false;
-                this.player.isPlaying = false;
             }
-        },
+        }
     }
 }
 </script>
@@ -132,7 +119,7 @@ export default {
     }
 
     .footer-audio {
-        width: 50%;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -163,6 +150,7 @@ export default {
             .end {
                 width: 10%;
                 text-align: center;
+                margin: 0px 10px;
             }
 
             .plays {
@@ -175,22 +163,16 @@ export default {
     }
 
     .lyrics {
-        width: calc(100% - 200px);
+        width: 100%;
         background: #ffffffad;
         position: absolute;
-        height: 30px;
-        line-height: 30px;
+        height: 35px;
+        line-height: 35px;
         right: 0px;
-        top: -32px;
+        left: 0px;
+        top: -35px;
         z-index: 10;
         border-top: 1px solid #ccc;
     }
-}
-
-// 防止点击穿透
-// pointer-events
-.pointerNone {
-    pointer-events: none;
-    opacity: .5;
 }
 </style>

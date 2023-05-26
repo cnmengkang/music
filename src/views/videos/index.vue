@@ -15,12 +15,12 @@
               <p class="text-left" @click="getVideoAll"><a>全部视频</a></p>
             </div>
             <!-- 标签列表 -->
-            <div class="card_body">
-              <el-tag type="plain" v-for="item in videoCategoryList" @click="getTabsList(item)" :key="item.id"
+            <!-- <div class="card_body">
+              <el-tag type="plain" v-for="item in CategoryList" @click="getTabsList(item)" :key="item.id"
                 :class="activeClass == item.id ? 'active' : ''">
                 <a>{{ item.name }}</a>
               </el-tag>
-            </div>
+            </div> -->
           </el-card>
         </div>
         <video-grid :videoGroups="allVideo"></video-grid>
@@ -47,7 +47,7 @@ export default {
         offset: 0,
       },
       tabsList: '',
-      videoCategoryList: '',
+      CategoryList: '',
       activeClass: -1,
       isShow: false,
       activeName: 'video',
@@ -55,10 +55,10 @@ export default {
     }
   },
   mounted() {
-    this.getIdShowName(this.$route.params);
+    // this.getIdShowName(this.$route.params);
     this.getVideoAll();
-    this.getVideoGroupList();
-    this.getVideoCategoryList();
+    // this.getVideoGroupList();
+    // this.getVideoCategoryList();
   },
   methods: {
     // 点击获取分类id，并隐藏弹框
@@ -83,11 +83,14 @@ export default {
     // 获取所有视频分类列表
     async getVideoGroupList() {
       const { data } = await videoGroupList();
+      console.log(data)
       this.videoCategoryList = data;
     },
-    async getVideoCategoryList() {
-      const { data } = await videoCategoryList();
-      this.tabsList = data;
+    getVideoCategoryList() {
+      videoCategoryList().then(res => {
+        console.log(res)
+        // this.tabsList = data;
+      })
     },
     // 根据id获取视频分类
     async getVideoGroup() {
@@ -97,6 +100,7 @@ export default {
     async getVideoAll() {
       this.isShow = false;
       const { datas } = await videoAll();
+      console.log(datas)
       this.allVideo = datas;
     }
   }

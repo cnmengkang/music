@@ -1,27 +1,13 @@
 <template>
-    <div class="lyric-scroll" ref="lyrics" v-if="lyric.length > 0">
+    <div class="lyric-scroll" ref="lyrics">
         <p :class="{ lyric_active: index == activeLineIndex }" ref="lyrics_p" v-for="(item, index) in formattedLyrics"
             :key="index" :data-time="item.time">{{ item.text }}</p>
     </div>
 </template>
 <script>
 import { formatLyrics } from '@/utils/formLyrics';
+import { mapState } from 'vuex';
 export default {
-    components: {},
-    props: {
-        lyric: {
-            type: String,
-            require: true
-        },
-        currentTime: {
-            type: Number,
-            require: true
-        },
-        space: {
-            type: Number,
-            require: true
-        }
-    },
     data() {
         return {
             activeLineIndex: -1,
@@ -52,38 +38,37 @@ export default {
         scrollToActiveLine() {
             const container = this.$refs.lyrics;
             const activeLine = container.querySelector('.lyric_active');
-            const half = (container.clientHeight / 2) - activeLine.clientHeight;
             if (activeLine) {
-                if (this.space == 1) {
-                    const sumScroll = activeLine.offsetTop - container.offsetTop;
-                    container.scrollTop = (sumScroll - half);
-                } else {
-                    container.scrollTop = activeLine.offsetTop - container.offsetTop;
-                }
+                container.scrollTop = activeLine.offsetTop - container.offsetTop;
             }
         }
     },
     computed: {
+        ...mapState({
+            player: state => state.player,
+            lyrics: state => state.player.lyric,
+            currentTime: state => state.player.currentTime
+        }),
         formattedLyrics() {
-            return formatLyrics(this.lyric, this.space)
+            return formatLyrics(this.lyrics, this.space)
         }
     }
 }
 </script>
 <style scoped lang="less">
-@height: 32px;
+@height: 35px;
 
 // 底部歌词样式
 .lyrics {
     .lyric-scroll {
         overflow: hidden;
         height: @height;
-
         p {
             text-align: center;
             font-size: 12px;
             line-height: @height;
             height: auto;
+            letter-spacing: 2px;
             -webkit-transition: color 0.7s linear;
             -moz-transition: color 0.7s linear;
             -o-transition: color 0.7s linear;
@@ -95,15 +80,10 @@ export default {
 // 弹出层歌词样式
 .right-body {
     .lyric-scroll {
-        position: absolute;
-        right: 40px;
-        top: 0px;
-        z-index: 4;
-        margin: 30px 0 20px 0;
-        height: 400px;
-        width: 354px;
-        overflow: hidden;
-
+        margin: 30px auto;
+        height: 100%;
+        width: 100%;
+        overflow: auto;
         p {
             color: #989898;
             word-wrap: break-word;

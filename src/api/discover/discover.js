@@ -7,7 +7,7 @@ export function banner() {
     })
 }
 // 获取每日推荐歌单(需要登陆用)
-export function recommend() {
+export function recommendResource() {
     return request({
         url: '/recommend/resource',
         method: 'get'

@@ -2,7 +2,7 @@
     <!-- 详情页面顶部组件 -->
     <div class="head" v-if="tableHead">
         <div class="detail-left">
-            <el-avatar :size="180" shape="square" icon="el-icon-user-solid" :src="coverImgUrl"></el-avatar>
+            <el-avatar :size="size" shape="square" icon="el-icon-user-solid" :src="coverImgUrl"></el-avatar>
         </div>
         <div class="detail-right">
             <div class="right-title  flex">
@@ -57,7 +57,8 @@ export default {
             params: {
                 ids: 0,
                 index: 0,
-            }
+            },
+            size: 180,
         }
     },
     computed: {
@@ -96,12 +97,8 @@ export default {
 .head {
     display: flex;
     text-align: left;
-
-    .detail-left {
-        width: 25%;
-        border-radius: 10px;
-    }
-
+    justify-content: flex-start;
+    gap: 20px;
     .detail-right {
         width: 75%;
         display: flex;

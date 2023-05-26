@@ -21,7 +21,6 @@ export default {
             total: 0,
         };
     },
-    created() { },
     mounted() {
         this.GetRecordRecentSong()
     },
@@ -30,7 +29,6 @@ export default {
             const { data } = await RecordRecentSong(this.params);
             this.recently = data.list;
             this.total = data.total;
-            console.log(data)
         }
     },
     computed: {

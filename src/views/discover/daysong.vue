@@ -32,7 +32,7 @@ export default {
     }
   },
   mounted() {
-    this.getDaySong()
+    this.getDaySong();
   },
   methods: {
     async getDaySong() {

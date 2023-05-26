@@ -1,7 +1,7 @@
 <template>
     <div class="author flex flex-wrap-nowrap">
         <div class="author-avatar mr-10" @click="drawerOpen">
-            <el-avatar shape="square" :size="50" :src="avatar" />
+            <el-avatar shape="square" :size="50" :src="authorAvatar" />
         </div>
         <div class="author-singer">
             <div class="font-14 author-flex">
@@ -20,30 +20,23 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex';
 import { mapActions, } from 'vuex';
 export default {
-    props: {
-        singer: {
-            type: Object,
-            require: true
-        }
-    },
     data() {
         return {
         }
     },
     computed: {
-        songName() {
-            return this.singer.songName;
-        },
-        avatar() {
-            return this.singer.authorAvatar
-        },
-        subName() {
-            return this.singer.authorAli
-        },
+        ...mapState({
+            player: state => state.player,
+            songName: state => state.player.singer.songName,
+            authorAvatar: state => state.player.singer.authorAvatar,
+            subName: state => state.player.singer.subName,
+            author: state => state.player.singer.authorName
+        }),
         authorName() {
-            return [...this.singer.authorName.map(obj => obj.name)].join(' / ');
+            return [...this.author.map(obj => obj.name)].join(' / ');
         }
     },
     methods: {
@@ -68,8 +61,6 @@ export default {
     }
 
     .author-avatar {
-        width: 20%;
-
         &:hover {
             cursor: pointer;
             transition: all .2s linear;
@@ -78,7 +69,6 @@ export default {
     }
 
 }
-
 .flex-wrap-nowrap {
     flex-wrap: nowrap;
 }

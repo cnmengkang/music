@@ -43,6 +43,7 @@ export default class MusicPlayer {
         })
         this.audio.addEventListener('loadedmetadata', () => {
             this.duration = this.audio.duration;
+            this.isPlaying = true;
             this.isFooterShow = true;
         });
         this.audio.addEventListener('timeupdate', () => {
@@ -53,6 +54,7 @@ export default class MusicPlayer {
         });
         this.audio.addEventListener('pause', () => {
             this.isPlaying = false;
+
         });
     }
     play() {
@@ -65,10 +67,13 @@ export default class MusicPlayer {
     createAudio(options) {
         this.index = options.index;
         this.params.id = options.ids;
+        // true  true
+        // false false
         if (this.tracksId == 0 || this.tracksId != options.ids) {
             this.getPlayTrackAll();
         } else {
             this.getCheckMusic();
+            console.log('单曲播放')
         }
     }
     isPlay(url) {
@@ -115,9 +120,9 @@ export default class MusicPlayer {
     }
     // 检查音乐是否可用
     async getCheckMusic() {
-        const { data } = await checkMusic(this.params.id);
-        if (!data.success) console.log('无版权!');
         this.params.id = this.playlist[this.index].id;
+        const res = await checkMusic(this.params.id);
+        if (!res.success) console.log('无版权!');
         this.getCurrentMusicPlayDetail();
     }
     // 获取当前播放歌曲id

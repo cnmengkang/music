@@ -6,7 +6,7 @@
                     <el-tab-pane v-for="(item, index) in tops" :value="item.type" :label="item.name" :key="index" />
                 </tabs>
                 <el-tab-pane label="新歌速递">
-                    <table-list :data="topSongList"></table-list>
+                    <table-list :data="topSongList" :ids="params"></table-list>
                 </el-tab-pane>
                 <el-tab-pane label="新蝶上架">Tab 2 Content</el-tab-pane>
             </tabs>
@@ -35,23 +35,20 @@ export default {
             ]
         }
     },
-    created() { },
     mounted() {
-        this.getTopSong()
+        this.getTopSong();
     },
     methods: {
         // 新歌速递
         getTopSong() {
             topSong(this.params).then(res => {
-                console.log(res)
                 this.topSongList = res.data;
             })
         },
         // tabs1 点击事件
         handleTabClickType(tab) {
-            console.log('Tab Clicked:',tab);
             this.topSongList = [];
-            this.params.type = tab.$attrs.value
+            this.params.type = tab.$attrs.value;
             this.getTopSong(this.params)
         },
     },
