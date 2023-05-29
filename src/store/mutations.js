@@ -1,3 +1,4 @@
+import { setUsername, setUserAvatar, setUserId } from '@/utils/auth';
 export default {
     SEARCH_LIST: (state, data) => {
         state.searchList = data;
@@ -15,11 +16,20 @@ export default {
         state.duration = userinfo.duration
     },
     setSignerVideo(state, video) {
-        state.name = video.creator.nickname
-        state.avatar = video.creator.avatarUrl
-        state.duration = video.durationms
+        state.name = video.creator.nickname;
+        state.avatar = video.creator.avatarUrl;
+        state.duration = video.durationms;
     },
     setUrl(state, url) {
-        state.url = url
+        state.url = url;
+    },
+    USER_NAME(state, name) {
+        state.nickname = setUsername(name);
+    },
+    USER_AVATAR(state, avatar) {
+        state.avatar = setUserAvatar(avatar);
+    },
+    USER_UID(state, uid) {
+        state.uid = setUserId(uid);
     },
 }

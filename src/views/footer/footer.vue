@@ -164,7 +164,7 @@ export default {
 
     .lyrics {
         width: 100%;
-        background: #ffffffad;
+        background: #fff3;
         position: absolute;
         height: 35px;
         line-height: 35px;

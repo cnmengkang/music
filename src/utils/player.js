@@ -27,7 +27,7 @@ export default class MusicPlayer {
         this.duration = 0;
         this.isPlaying = false;
         this.drawer = false;
-        this.tracksId = 0;
+        this.playSong = '';
         this.params = { id: 0, level: 'exhigh' }
         this.lyric = [];
         this.singer = {
@@ -67,15 +67,16 @@ export default class MusicPlayer {
     createAudio(options) {
         this.index = options.index;
         this.params.id = options.ids;
-        // true  true
-        // false false
-        if (this.tracksId == 0 || this.tracksId != options.ids) {
+        this.playSong = options.play
+        if (this.playSong == 'all') {
             this.getPlayTrackAll();
+            console.log('获取全部');
         } else {
             this.getCheckMusic();
-            console.log('单曲播放')
+            console.log('单曲播放');
         }
     }
+    // vue 同一个事件，传入一个参数直接调用播放功能，超过一个，先获取id在调用播放接口，如果是多个id直接切换播放，不用在调用了
     isPlay(url) {
         if (!url) return;
         this.audio.src = url;
@@ -120,7 +121,6 @@ export default class MusicPlayer {
     }
     // 检查音乐是否可用
     async getCheckMusic() {
-        this.params.id = this.playlist[this.index].id;
         const res = await checkMusic(this.params.id);
         if (!res.success) console.log('无版权!');
         this.getCurrentMusicPlayDetail();
@@ -129,7 +129,7 @@ export default class MusicPlayer {
     async getPlayTrackAll() {
         const { songs } = await playTrackAll(this.params);
         this.playlist = songs;
-        this.tracksId = this.params.id;
+        this.params.id = this.playlist[this.index].id;
         this.getCheckMusic();
         console.log('获取所有歌曲',)
     }

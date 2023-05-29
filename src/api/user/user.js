@@ -22,13 +22,6 @@ export function loginStatus() {
         method: 'post',
     })
 }
-// 退出登录
-export function logout() {
-    return request({
-        url: "/logout",
-        method: 'post'
-    })
-}
 // vip信息
 export function vipInfo() {
     return request({

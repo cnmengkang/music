@@ -1,9 +1,9 @@
+import { getToken, getUsername, getUserAvatar, getUserId } from '@/utils/auth'
 export default {
+    token: getToken(),
     player: null,
     isLogin: false,
-    Keyword: {
-        searchList: [],
-        songCount: 0,
-        title: ''
-    },
+    nickName: getUsername(),
+    avatar: getUserAvatar(),
+    uid: getUserId(),
 }

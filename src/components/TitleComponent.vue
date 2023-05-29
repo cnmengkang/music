@@ -1,26 +1,15 @@
 <template>
-    <div class="title-component mb-15" @click="Back">
-        <i :class="iconClass"></i>
-        <h2>{{ title }}</h2>
-    </div>
+    <el-page-header @back="Back" :content="title">
+    </el-page-header>
 </template>
   
 <script>
 export default {
     name: 'TitleComponent',
     props: {
-        icon: {
-            type: String,
-            default: ''
-        },
         title: {
             type: String,
             required: true
-        }
-    },
-    computed: {
-        iconClass() {
-            return `iconFont ${this.icon}`; // 假设你的图标使用了类似 "icon-xxx" 的命名约定
         }
     },
     methods: {

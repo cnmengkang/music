@@ -16,7 +16,7 @@
 </template>
 <script>
 import { qrKey, qrCreate, qrCheckCode } from '@/api/user/login';
-import { setCookie } from '@/utils/auth'
+import { setToken } from '@/utils/auth'
 export default {
     name: "qrCode",
     data() {
@@ -48,16 +48,18 @@ export default {
         getCheckCode() {
             const timer = setInterval(() => {
                 this.qr.timerStamp = new Date().getTime();
-                qrCheckCode(this.qr).then((res) => {
-                    const result = res.data;
+                qrCheckCode(this.qr).then(result => {
                     if (result.code == 800) {
                         this.title = result.message
                     } else if (result.code == 801) {
                         this.title = result.message
                     } else if (result.code = 803) {
                         this.title = result.message;
-                        setCookie(result.cookie);
-                        clearInterval(timer)
+                        console.log(result)
+                        setToken(result.cookie);
+                        this.$store.dispatch('getLoginStatus');
+                        clearInterval(timer);
+                        location.reload();
                     }
                 })
             }, 3000)

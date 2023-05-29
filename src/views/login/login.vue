@@ -146,7 +146,7 @@ export default {
       this.$router.push({ path: '/qrCode' })
     }
   }
-};
+}
 </script>
 <style scope lang="less">
 #login {

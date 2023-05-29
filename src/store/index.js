@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import search from './modules/search';
 
 import MusicPlayer from '@/utils/player';
 import state from './state';
@@ -11,9 +10,6 @@ const options = {
   state,
   actions,
   mutations,
-  modules: {
-    search,
-  }
 }
 
 

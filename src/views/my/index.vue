@@ -4,19 +4,35 @@
   </div>
 </template>
 <script>
+import { userPlaylist } from '@/api/user/user'
 export default {
   data() {
     return {
       list: [],
       id: 0,
-      creator: {}
+      creator: {},
+      params: {
+        uid: 345288322
+      }
     };
   },
+  mounted() {
+    this.getUserPlaylist();
+  },
   methods: {
+    getUserPlaylist() {
+      userPlaylist(this.params).then(res => {
+        console.log(res)
+      })
+    },
     getDetail(id) {
       this.$router.push({ name: 'detail', params: { id: id } })
     },
   },
-};
+}
+/*登录逻辑 
+  1.用户扫码登录，true = 存储用户信息保存token userId
+  2.根据userId 生成左侧菜单数据。
+*/ 
 </script>
 <style lang="less" scoped></style>
