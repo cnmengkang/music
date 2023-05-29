@@ -57,6 +57,7 @@ export default {
             params: {
                 ids: 0,
                 index: 0,
+                play:'all'
             },
             size: 180,
         }

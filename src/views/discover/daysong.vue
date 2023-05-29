@@ -41,7 +41,7 @@ export default {
       this.songId = data.recommendReasons[0].songId
     }
   },
-};
+}
 </script>
 <style lang="less" scoped>
 .day-song {

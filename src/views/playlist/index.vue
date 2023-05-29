@@ -1,8 +1,8 @@
 <template>
   <div class="playlist">
     <div class="playlist-head border-r-5 flex" v-if="quality">
-      <div class="bgc" :style="{ background: 'url(' + quality.coverImgUrl + ') 100%' }"></div>
-      <div class="left mr-20">
+      <div class="bgc" :style="{ backgroundImage: 'url(' + quality.coverImgUrl + '?imageView&blur=40x20)' }"></div>
+      <div class="left mr-20 ml-20">
         <el-avatar shape="square" :size="150" fit="cover" :src="quality.coverImgUrl"></el-avatar>
       </div>
       <div class="right">
@@ -12,8 +12,8 @@
     </div>
     <div class="playlist-list mt-20">
       <div class="playlist-tabs flex" style="justify-content: space-between;">
-        <category :tabsName="tabsName" :all="all" :categories="categories" :sub="sub"
-          @myEvent="handleTabClickType"></category>
+        <category :tabsName="tabsName" :all="all" :categories="categories" :sub="sub" @myEvent="handleTabClickType">
+        </category>
         <tabs :tabsName="tabsName" @tab-click="handleTabClickType">
           <el-tab-pane v-for="(item, index) in tags" :name="item.name" :label="item.name" :key="index" />
         </tabs>
@@ -34,7 +34,6 @@ import Pagination from '@/components/Pagination';
 import Category from '@/components/Category';
 export default {
   components: { playGrid, Pagination, Tabs, Category },
-  props: {},
   data() {
     return {
       playlist: [],
@@ -103,7 +102,7 @@ export default {
       this.categories = result.categories;
       this.sub = result.sub;
     }
-  }
+  },
 }
 </script>
 <style lang="less" scoped>
@@ -111,7 +110,7 @@ export default {
 @width: 30px;
 
 .playlist-head {
-  padding: 15px;
+  padding: 15px 0px;
   height: @height;
   overflow: hidden;
   width: calc(100% - @width);
@@ -120,13 +119,10 @@ export default {
 
   .bgc {
     width: 100%;
-    height: @height;
+    height: 100%;
+    background-size: 6000px;
     position: absolute;
     top: 0px;
-    z-index: 1;
-    filter: blur(50px);
-    box-shadow: 20px 0px 20px 20px;
-    transform: scale(1.5);
     z-index: 1;
   }
 
@@ -149,4 +145,5 @@ export default {
   .playlist-tabs {
     position: relative;
   }
-}</style>
+}
+</style>

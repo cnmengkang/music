@@ -51,9 +51,9 @@ export default {
       personalized(this.person).then((res) => {
         this.personalized = res.result
       });
-    },
-  },
-};
+    }
+  }
+}
 </script>
 <style scoped lang="less">
 #discover-music {

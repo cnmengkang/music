@@ -1,27 +1,49 @@
-import Cookies from "js-cookie";
-import { doLogout } from '@/api/user/login'
+// cookie.js
+import { logout } from '@/api/user/user'
+import Cookies from 'js-cookie';
 
-const TokenKey = 'cookie';
-// 获取token
-export function getCookie() {
-    return Cookies.get(TokenKey);
-}
-// 设置token
-export function setCookie(string) {
+const TOKEN_KEY = 'token';
+const USERNAME_KEY = 'username';
+const USER_AVATAR_KEY = 'useravatar';
+const USER_ID_KEY = 'userId';
+
+export function setToken(string) {
     const regex = /MUSIC_U=(\w+)/;
     const token = string.match(regex)[0].split('=')[1];
-    Cookies.set(TokenKey, token)
+    Cookies.set(TOKEN_KEY, token);
 }
-// 删除token
-export function removeCookie(key) {
-    Cookies.remove(key);
+
+export function getToken() {
+    return Cookies.get(TOKEN_KEY);
 }
-// 判断是否登录
-export function isLogin() {
-    return getCookie(TokenKey);
+
+export function setUsername(username) {
+    Cookies.set(USERNAME_KEY, username);
 }
-export function TdoLogout() {
-    doLogout().then(res => {
-        console.log(res)
-    })
+
+export function getUsername() {
+    return Cookies.get(USERNAME_KEY);
+}
+
+export function setUserAvatar(avatar) {
+    Cookies.set(USER_AVATAR_KEY, avatar);
+}
+
+export function getUserAvatar() {
+    return Cookies.get(USER_AVATAR_KEY);
+}
+
+export function setUserId(userId) {
+    Cookies.set(USER_ID_KEY, userId);
+}
+
+export function getUserId() {
+    return Cookies.get(USER_ID_KEY);
+}
+export function removeToken() {
+    const cookies = Object.keys(Cookies.get());
+    console.log(cookies)
+    cookies.forEach(cookieName => {
+        Cookies.remove(cookieName);
+    });
 }

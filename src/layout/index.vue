@@ -4,7 +4,7 @@
       <headers />
     </el-header>
     <!-- 顶部 -->
-    <el-container>
+    <el-container class="mt-30">
       <el-aside width="200px">
         <asideNav />
       </el-aside>
@@ -43,14 +43,12 @@ export default {
 </script>
 <style lang="less">
 @border: 1px solid #d78383;
-@backColor: #fff;
-@width:1280px;
+@backColor: #ffffffe0;
+@width: 1280px;
 
 #app_index {
   position: relative;
   background: @backColor;
-  border-right: @border;
-  border-left: @border;
   overflow: hidden;
 
   .el-header {
@@ -58,7 +56,6 @@ export default {
     margin: 0px auto;
     background-color: #ccc;
     color: #333;
-    border-bottom: @border;
   }
 
   .el-container {
@@ -73,7 +70,6 @@ export default {
   }
 
   .el-aside {
-    border-right: @border;
     overflow: hidden;
   }
 
@@ -83,6 +79,7 @@ export default {
     bottom: 0px;
     border-top: @border;
     z-index: 10;
+    backdrop-filter: blur(10px);
   }
 }
 </style>

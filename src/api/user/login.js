@@ -58,7 +58,7 @@ export function qrCheckCode(key) {
     })
 }
 // 退出登录
-export function doLogout() {
+export function logout() {
     return request({
         url: "/logout",
     })

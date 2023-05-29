@@ -2,7 +2,7 @@
     <!-- list列表组件 -->
     <div class="song-list">
         <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true" />
-        <el-table @row-dblclick="getCurrentMusicId" size="mini" :data="tableDate" :row-class-name="rowClassName">
+        <el-table @row-dblclick="getCurrentMusicId" size="small" :data="tableDate" :row-class-name="rowClassName">
             <el-table-column label="序号" type="index" :index="indexMethod" align="center" />
             <el-table-column label="操作" width="70">
                 <template slot-scope="scope">
@@ -60,7 +60,8 @@ export default {
             rowId: 0,
             params: {
                 ids: 0,
-                index: 0
+                index: 0,
+                play:'single'
             }
         }
     },
@@ -77,7 +78,7 @@ export default {
         // 双击获取当前单曲id
         getCurrentMusicId(row) {
             this.params.index = this.tableDate.indexOf(row);
-            this.params.ids = this.$route.params.id;
+            this.params.ids = row.id;
             this.$store.dispatch('getCurrentMusicIsPlay', this.params);
         },
         indexMethod(index = 0) {

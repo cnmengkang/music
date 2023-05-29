@@ -1,21 +1,27 @@
 <template>
-  <div class="header flex">
-    <div class="header-logo">
-      <h1>
-        <a href="#"></a>
-      </h1>
+  <div class="header">
+    <div class="left flex">
+      <div class="header-logo">
+        <h1>
+          <a href="#"></a>
+        </h1>
+      </div>
+      <back />
+      <!-- 返回按钮 -->
+      <search />
     </div>
-    <back />
-    <!-- 返回按钮 -->
-    <search />
     <!-- 搜索 -->
+    <div class="right flex">
+      <user-info></user-info>
+    </div>
   </div>
 </template>
 <script>
-import search from './search.vue'
-import back from './back.vue'
+import search from './search.vue';
+import back from './back.vue';
+import UserInfo from './UserInfo.vue';
 export default {
-  components: { search, back },
+  components: { search, back, UserInfo },
 }
 </script>
 <style lang="less" scoped>
@@ -23,6 +29,11 @@ export default {
   height: 60px;
   max-width: 1280px;
   margin: 0 auto;
+  display: flex;
+
+  .right {
+    justify-content: flex-end;
+  }
 
   .header-logo {
     width: 180px;
