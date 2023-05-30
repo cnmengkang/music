@@ -59,7 +59,6 @@ export default {
                         setToken(result.cookie);
                         this.$store.dispatch('getLoginStatus');
                         clearInterval(timer);
-                        location.reload();
                     }
                 })
             }, 3000)

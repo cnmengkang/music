@@ -4,7 +4,7 @@
             :placeholder="placeholder" size="small" :fetch-suggestions="getSuggestions" @select="handleSelect"
             :trigger-on-focus="true">
             <template slot-scope="{item}">
-                <div class="item-content">
+                <div class="item-content" width="200px">
                     <div class="left" :class="item.index <= 3 ? 'red' : ''">{{ item.index}}</div>
                     <div class="right">
                         <div class="right-name">

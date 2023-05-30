@@ -1,5 +1,6 @@
 import { cloudsearch } from '@/api/search/search';
-import { loginStatus } from '@/api/user/user'
+import { loginStatus } from '@/api/user/user';
+import { setUsername, setUserAvatar, setUserId } from '@/utils/auth';
 export default {
     // 获取当前播放的音乐
     getCurrentMusicIsPlay({ state }, data) {
@@ -7,7 +8,8 @@ export default {
         console.log('new Audio success', state.player)
     },
     drawerOpen({ state }) {
-        return state.player.drawer = !state.player.drawer;
+        console.log(state.player.drawer)
+        state.player.drawer = !state.player.drawer;
     },
     async getCloudSearch({ commit }, data) {
         commit('SEARCH_TITLE', data.keywords)
@@ -21,6 +23,10 @@ export default {
             loginStatus().then(res => {
                 const result = res.data;
                 if (result.account.status != 0) return;
+                console.log(result)
+                setUsername(result.profile.nickname)
+                setUserAvatar(result.profile.avatarUrl)
+                setUserId(result.profile.userId)
                 commit('USER_NAME', result.profile.nickname)
                 commit('USER_AVATAR', result.profile.avatarUrl)
                 commit('USER_UID', result.profile.userId)

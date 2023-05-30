@@ -21,6 +21,9 @@ request.interceptors.response.use(
     (response) => {
         // 成功之后执行的操作
         // console.log('config', response);
+        if (response.data.code == 302) {
+            console.log('未登录')
+        }
         return response.data;
     },
     (error) => {

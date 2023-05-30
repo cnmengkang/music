@@ -30,7 +30,6 @@ export default {
     data() {
         return {
             direction: 'btt',
-            drawer: true
         }
     },
     computed: {
@@ -39,7 +38,8 @@ export default {
             songName: state => state.player.singer.songName,
             authorAvatar: state => state.player.singer.authorAvatar,
             subName: state => state.player.singer.subName,
-            author: state => state.player.singer.authorName
+            author: state => state.player.singer.authorName,
+            drawer: state => state.player.drawer
         }),
         authorName() {
             return [...this.author.map(obj => obj.name)].join(' / ');
@@ -132,4 +132,5 @@ export default {
             }
         }
     }
-}</style>
+}
+</style>

@@ -17,13 +17,16 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { removeToken } from '@/utils/auth'
+import { removeToken } from '@/utils/auth';
 export default {
     data() {
         return {
             size: 35,
             dropdown: false,
         }
+    },
+    mounted() {
+        this.$store.dispatch('getLoginStatus');
     },
     methods: {
         handleCommand(command) {
@@ -41,6 +44,7 @@ export default {
             console.log('ddddd')
         }
     },
+
     computed: {
         ...mapState({
             nickName: state => state.nickName,

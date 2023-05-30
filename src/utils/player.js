@@ -1,5 +1,4 @@
 import { songDetail, lyric, songUrlV1, checkMusic, playTrackAll } from '@/api/music/music';
-import { options } from 'less';
 // 音频元素对象池
 const audioPool = {
     pool: [], // 对象池
@@ -12,7 +11,6 @@ const audioPool = {
         }
     },
     release(audio) { // 释放音频元素对象
-        console.log('audio', audio)
         audio.pause();
         audio.src = '';
         this.pool.push(audio);
@@ -65,18 +63,17 @@ export default class MusicPlayer {
     }
     // 创建音频
     createAudio(options) {
+        console.log(options)
         this.index = options.index;
         this.params.id = options.ids;
-        this.playSong = options.play
-        if (this.playSong == 'all') {
-            this.getPlayTrackAll();
-            console.log('获取全部');
+        if (options.play) {
+            this.getPlayTrackAll()
         } else {
+            this.playlist = options.playlist
+            this.params.id = this.playlist[this.index].id;
             this.getCheckMusic();
-            console.log('单曲播放');
         }
     }
-    // vue 同一个事件，传入一个参数直接调用播放功能，超过一个，先获取id在调用播放接口，如果是多个id直接切换播放，不用在调用了
     isPlay(url) {
         if (!url) return;
         this.audio.src = url;
@@ -115,22 +112,28 @@ export default class MusicPlayer {
         })
         // 获取当前播放歌曲url
         lyric(this.params.id).then(res => {
-            this.lyric = res.lrc.lyric
+            this.lyric = res.lrc.lyric;
         })
         // 歌词
     }
     // 检查音乐是否可用
     async getCheckMusic() {
         const res = await checkMusic(this.params.id);
-        if (!res.success) console.log('无版权!');
-        this.getCurrentMusicPlayDetail();
+        if (!res.success) {
+            console.log('无版权!自动跳到下一首')
+            this.getPrevNext('next');
+        } else {
+            this.getCurrentMusicPlayDetail();
+        }
     }
     // 获取当前播放歌曲id
-    async getPlayTrackAll() {
-        const { songs } = await playTrackAll(this.params);
-        this.playlist = songs;
-        this.params.id = this.playlist[this.index].id;
-        this.getCheckMusic();
-        console.log('获取所有歌曲',)
+    getPlayTrackAll() {
+        playTrackAll(this.params).then(res => {
+            this.playlist = res.songs
+            this.params.id = this.playlist[this.index].id;
+            console.log(res)
+            this.getCheckMusic();
+        })
+
     }
 }

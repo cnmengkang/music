@@ -1,4 +1,3 @@
-import { setUsername, setUserAvatar, setUserId } from '@/utils/auth';
 export default {
     SEARCH_LIST: (state, data) => {
         state.searchList = data;
@@ -7,29 +6,15 @@ export default {
         state.songCount = count;
     },
     SEARCH_TITLE: (state, title) => {
-        state.title = title
-    },
-    // video
-    setSignerMv(state, userinfo) {
-        state.name = userinfo.artists[0].name
-        state.avatar = userinfo.artists[0].img1v1Url
-        state.duration = userinfo.duration
-    },
-    setSignerVideo(state, video) {
-        state.name = video.creator.nickname;
-        state.avatar = video.creator.avatarUrl;
-        state.duration = video.durationms;
-    },
-    setUrl(state, url) {
-        state.url = url;
+        state.title = title;
     },
     USER_NAME(state, name) {
-        state.nickname = setUsername(name);
+        state.nickName = name;
     },
     USER_AVATAR(state, avatar) {
-        state.avatar = setUserAvatar(avatar);
+        state.avatar = avatar;
     },
-    USER_UID(state, uid) {
-        state.uid = setUserId(uid);
+    USER_UID(state, userId) {
+        state.uid = userId;
     },
 }

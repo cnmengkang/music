@@ -1,6 +1,11 @@
 <template>
   <div class="my">
     Fm
+    <ul>
+      <li v-for="item in playlist" :key="item.id">
+        {{ item.name }}
+      </li>
+    </ul>
   </div>
 </template>
 <script>
@@ -11,8 +16,9 @@ export default {
       list: [],
       id: 0,
       creator: {},
+      playlist:'',
       params: {
-        uid: 345288322
+        uid: this.$store.state.uid
       }
     };
   },
@@ -22,7 +28,8 @@ export default {
   methods: {
     getUserPlaylist() {
       userPlaylist(this.params).then(res => {
-        console.log(res)
+        console.log(res.playlist)
+        this.playlist = res.playlist
       })
     },
     getDetail(id) {

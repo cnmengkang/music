@@ -11,9 +11,6 @@ const options = {
   actions,
   mutations,
 }
-
-
-
 let store = new Vuex.Store(options);
 let player = new MusicPlayer();
 store.state.player = player;

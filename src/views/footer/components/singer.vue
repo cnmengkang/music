@@ -69,6 +69,7 @@ export default {
     }
 
 }
+
 .flex-wrap-nowrap {
     flex-wrap: nowrap;
 }

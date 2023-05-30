@@ -57,7 +57,7 @@ export default {
             params: {
                 ids: 0,
                 index: 0,
-                play:'all'
+                play: 'all'
             },
             size: 180,
         }
@@ -100,6 +100,7 @@ export default {
     text-align: left;
     justify-content: flex-start;
     gap: 20px;
+
     .detail-right {
         width: 75%;
         display: flex;

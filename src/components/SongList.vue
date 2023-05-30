@@ -38,7 +38,7 @@
     <!-- list列表组件 -->
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 export default {
     props: {
         tableDate: {
@@ -49,19 +49,15 @@ export default {
             type: Number,
             require: 0,
         },
-        id:{
-            type:Number,
-            require:true
-        }
     },
 
     data() {
         return {
             rowId: 0,
             params: {
-                ids: 0,
                 index: 0,
-                play:'single'
+                ids: 0,
+                playlist:''
             }
         }
     },
@@ -78,7 +74,7 @@ export default {
         // 双击获取当前单曲id
         getCurrentMusicId(row) {
             this.params.index = this.tableDate.indexOf(row);
-            this.params.ids = row.id;
+            this.params.playlist = this.tableDate;
             this.$store.dispatch('getCurrentMusicIsPlay', this.params);
         },
         indexMethod(index = 0) {
