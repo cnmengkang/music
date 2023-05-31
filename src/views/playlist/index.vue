@@ -1,5 +1,5 @@
 <template>
-  <div class="playlist">
+  <el-card class="playlist">
     <div class="playlist-head border-r-5 flex" v-if="quality">
       <div class="bgc" :style="{ backgroundImage: 'url(' + quality.coverImgUrl + '?imageView&blur=40x20)' }"></div>
       <div class="left mr-20 ml-20">
@@ -23,7 +23,7 @@
         <pagination :total="totalPage" :page-size="pageSize" :current-page.sync="currentPage" />
       </div>
     </div>
-  </div>
+  </el-card>
 </template>
 <script>
 import { topPlaylist } from '@/api/discover/discover';

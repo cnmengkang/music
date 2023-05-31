@@ -1,23 +1,25 @@
 <template>
-  <div id="discover-recommend">
-    <div class="recommend-banner">
-      <el-carousel :interval="4000" type="card" indicator-position="none" height="210px">
-        <el-carousel-item v-for="item in banners" :key="item.imageUrl">
-          <a :href="item.url || ''" target="_blank">
-            <el-image fit="fill" :src="item.imageUrl" />
+  <div id="discover-recommend mb-30">
+    <el-card class="mb-15">
+      <div class="recommend-banner" style="border-radius:100%;">
+        <el-carousel :interval="4000" indicator-position="none">
+          <el-carousel-item v-for="item in banners" :key="item.imageUrl">
+            <img :src="item.imageUrl" />
             <span :class="item.titleColor">{{ item.typeTitle }}</span>
-          </a>
-        </el-carousel-item>
-      </el-carousel>
-    </div>
-    <h2 class="res-grid-title mb-15">
-      <router-link to="/discover/playlist">
-        推荐歌单<i class="el-icon-arrow-right"></i>
-      </router-link>
-    </h2>
-    <!-- 每日推荐歌单 -->
-    <play-grid :playlist="personalized" />
-    <!-- 每日推荐歌单 -->
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+    </el-card>
+    <el-card>
+      <h2 class="res-grid-title mb-15">
+        <router-link to="/discover/playlist">
+          推荐歌单<i class="el-icon-arrow-right"></i>
+        </router-link>
+      </h2>
+      <!-- 每日推荐歌单 -->
+      <play-grid :playlist="personalized" />
+      <!-- 每日推荐歌单 -->
+    </el-card>
   </div>
 </template>
 <script>
@@ -62,10 +64,6 @@ export default {
       border-radius: 10px;
 
       a {
-        width: 100%;
-        height: 100%;
-        display: inline-block;
-
         span {
           position: absolute;
           bottom: 44px;
@@ -112,15 +110,12 @@ export default {
           position: relative;
           cursor: pointer;
 
-
-
           .title {
             font-size: 14px;
             white-space: normal;
             display: inline-block;
             margin: 5px 0px;
             text-align: left;
-            width: 150px;
           }
 
           .playCount {

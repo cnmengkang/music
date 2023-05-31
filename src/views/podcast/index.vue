@@ -1,7 +1,7 @@
 <template>
-  <div id="blog-index">
+  <el-card class="blog-index">
     <qr-code></qr-code>
-  </div>
+  </el-card>
 </template>
 <script>
 import qrCode from '@/views/login/qrCode';

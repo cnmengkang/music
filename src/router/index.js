@@ -49,7 +49,7 @@ const routes = [
         ]
       },
       {
-        path: '/recommend/detail/:id',
+        path: '/detail/:id',
         name: 'detail',
         component: () => import("@/views/discover/detail")
         // 个性推荐详情页

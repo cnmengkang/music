@@ -1,5 +1,5 @@
 <template>
-  <div class="videos-index">
+  <el-card class="videos-index">
     <tabs @tab-click="handleClick" :tabsName="activeName">
       <el-tab-pane label="视频" name="video">
         <div class="videos">
@@ -15,12 +15,12 @@
               <p class="text-left" @click="getVideoAll"><a>全部视频</a></p>
             </div>
             <!-- 标签列表 -->
-            <!-- <div class="card_body">
-              <el-tag type="plain" v-for="item in CategoryList" @click="getTabsList(item)" :key="item.id"
+            <div class="card_body">
+              <el-tag type="plain" v-for="item in videoCategoryList" @click="getTabsList(item)" :key="item.id"
                 :class="activeClass == item.id ? 'active' : ''">
                 <a>{{ item.name }}</a>
               </el-tag>
-            </div> -->
+            </div>
           </el-card>
         </div>
         <video-grid :videoGroups="allVideo"></video-grid>
@@ -29,7 +29,7 @@
         <video-mv></video-mv>
       </el-tab-pane>
     </tabs>
-  </div>
+  </el-card>
 </template>
 <script>
 import { videoCategoryList, videoGroup, videoAll, videoGroupList } from '@/api/video/video';
@@ -52,13 +52,14 @@ export default {
       isShow: false,
       activeName: 'video',
       tabsName: '',
+      videoCategoryList: ''
     }
   },
   mounted() {
-    // this.getIdShowName(this.$route.params);
+    this.getIdShowName(this.$route.params);
     this.getVideoAll();
-    // this.getVideoGroupList();
-    // this.getVideoCategoryList();
+    this.getVideoGroupList();
+    this.getVideoCategoryList();
   },
   methods: {
     // 点击获取分类id，并隐藏弹框
@@ -81,27 +82,30 @@ export default {
       this.getVideoGroup();
     },
     // 获取所有视频分类列表
-    async getVideoGroupList() {
-      const { data } = await videoGroupList();
-      console.log(data)
-      this.videoCategoryList = data;
+    getVideoGroupList() {
+      videoGroupList().then(res => {
+        this.videoCategoryList = res.data;
+      })
+
     },
     getVideoCategoryList() {
       videoCategoryList().then(res => {
-        console.log(res)
-        // this.tabsList = data;
+        this.tabsList = res.data;
       })
     },
     // 根据id获取视频分类
-    async getVideoGroup() {
-      const { datas } = await videoGroup(this.params);
-      this.allVideo = datas;
+    getVideoGroup() {
+      videoGroup(this.params).then(res => {
+        this.allVideo = res.datas;
+      })
+
     },
-    async getVideoAll() {
+    getVideoAll() {
       this.isShow = false;
-      const { datas } = await videoAll();
-      console.log(datas)
-      this.allVideo = datas;
+      videoAll().then(res => {
+        this.allVideo = res.datas;
+
+      })
     }
   }
 }
@@ -124,9 +128,7 @@ export default {
       .card_body {
         display: flex;
         flex-wrap: wrap;
-        align-items: center;
         justify-content: space-between;
-        gap: 10px 5px;
 
         .active {
           background: #ffc0cb;

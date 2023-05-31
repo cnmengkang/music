@@ -1,45 +1,47 @@
 <template>
     <!-- 详情页面顶部组件 -->
-    <div class="head" v-if="tableHead">
-        <div class="detail-left">
-            <el-avatar :size="size" shape="square" icon="el-icon-user-solid" :src="coverImgUrl"></el-avatar>
-        </div>
-        <div class="detail-right">
-            <div class="right-title  flex">
-                <span class="song mr-10">歌单</span>
-                <h2>{{ name }}</h2>
+    <el-card class="mb-15">
+        <div class="head" v-if="tableHead">
+            <div class="detail-left">
+                <el-avatar :size="size" shape="square" icon="el-icon-user-solid" :src="coverImgUrl"></el-avatar>
             </div>
-            <div class="right-creator" v-if="tableHead.creator">
-                <a class="userInfo font-12" @click="getUserInfo(tableHead)">
-                    <el-avatar :src="avatarUrl" class="mr-5" :size="30"></el-avatar>
-                    <span class="mr-5 blue">{{ nickname }}</span>
-                </a>
-                <div class="createTime">
-                    {{ parseTime(tableHead.createTime, "{y}-{m}-{d}") }}创建
+            <div class="detail-right">
+                <div class="right-title  flex">
+                    <span class="song mr-10">歌单</span>
+                    <h2>{{ name }}</h2>
                 </div>
-            </div>
-            <div class="flex">
-                <el-button-group>
-                    <el-button round size="mini" type="danger" icon="el-icon-video-play"
-                        @click="playTrack(tableHead)">播放全部</el-button>
-                </el-button-group>
-            </div>
-            <div class="algTags font-14" v-if="algTags">
-                标签：<a class="mr-10" v-for="(item, index) in algTags" :key="index">{{ item }}</a>
-            </div>
-            <div class="font-14" style="width:100%">
-                <span class="mr-20">歌曲：{{ tableHead.trackCount }}</span>
-                <span>播放：{{ $playTime(tableHead.playCount) }}</span>
-            </div>
-            <el-collapse-transition>
-                <div @click="toggle" style="overflow:hidden" v-if="tableHead.description">
-                    <div class="transition-box cursor">
-                        <p :class="{ 'ellipsis': isActive }">简介：{{ tableHead.description }}</p>
+                <div class="right-creator" v-if="tableHead.creator">
+                    <a class="userInfo font-12" @click="getUserInfo(tableHead)">
+                        <el-avatar :src="avatarUrl" class="mr-5" :size="30"></el-avatar>
+                        <span class="mr-5 blue">{{ nickname }}</span>
+                    </a>
+                    <div class="createTime">
+                        {{ parseTime(tableHead.createTime, "{y}-{m}-{d}") }}创建
                     </div>
                 </div>
-            </el-collapse-transition>
+                <div class="flex">
+                    <el-button-group>
+                        <el-button round size="mini" type="danger" icon="el-icon-video-play"
+                            @click="playTrack(tableHead)">播放全部</el-button>
+                    </el-button-group>
+                </div>
+                <div class="algTags font-14" v-if="algTags">
+                    标签：<a class="mr-10" v-for="(item, index) in algTags" :key="index">{{ item }}</a>
+                </div>
+                <div class="font-14" style="width:100%">
+                    <span class="mr-20">歌曲：{{ tableHead.trackCount }}</span>
+                    <span>播放：{{ $playTime(tableHead.playCount) }}</span>
+                </div>
+                <el-collapse-transition>
+                    <div @click="toggle" style="overflow:hidden" v-if="tableHead.description">
+                        <div class="transition-box cursor">
+                            <p :class="{ 'ellipsis': isActive }">简介：{{ tableHead.description }}</p>
+                        </div>
+                    </div>
+                </el-collapse-transition>
+            </div>
         </div>
-    </div>
+    </el-card>
     <!-- 详情页面顶部组件 -->
 </template>
 <script>

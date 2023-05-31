@@ -1,10 +1,10 @@
 <template>
-    <div class="detail mt-20">
+    <div class="detail">
         <div class="detail-header">
             <song-head :tableHead="playlist"></song-head>
             <!-- 详情页顶部 -->
         </div>
-        <div class="detail-body">
+        <el-card class="detail-body">
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="歌曲列表" name="song">
                     <song-list :tableDate="list" />
@@ -30,7 +30,7 @@
                     </div>
                 </el-tab-pane>
             </el-tabs>
-        </div>
+        </el-card>
     </div>
 </template>
 <script>
@@ -55,9 +55,16 @@ export default {
             totalReview: '',  //总评论数
         }
     },
-    mounted() {
-        this.getPlayTrack();
-        this.getComment();
+    watch: {
+        '$route.params.id': {
+            immediate: true,
+            handler(newId, oldId) {
+                this.params.id = newId;
+                this.getPlayTrack();
+                this.getComment();
+
+            }
+        }
     },
     methods: {
         // // 获取歌单所有歌曲

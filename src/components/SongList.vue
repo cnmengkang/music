@@ -57,7 +57,7 @@ export default {
             params: {
                 index: 0,
                 ids: 0,
-                playlist:''
+                playlist: ''
             }
         }
     },
@@ -82,13 +82,13 @@ export default {
         },
         // 下载
         downloadMusic(row) {
-            // songUrl(row.id).then(res => {
-            //     const blob = new Blob([res.data])
-            //     const link = document.createElement('a')
-            //     link.href = window.URL.createObjectURL(blob)
-            //     link.download = res.data[0].url // 设置下载文件名
-            //     link.click() // 触发下载操作
-            // })
+            songUrl(row.id).then(res => {
+                const blob = new Blob([res.data])
+                const link = document.createElement('a')
+                link.href = window.URL.createObjectURL(blob)
+                link.download = res.data[0].url // 设置下载文件名
+                link.click() // 触发下载操作
+            })
         },
         rowClassName({ row }) {
             return this.rowId == row.id ? "isPlay" : ''
@@ -121,7 +121,6 @@ export default {
     }
 }
 </style>
-
 
 
 

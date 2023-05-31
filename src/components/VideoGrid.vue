@@ -45,8 +45,8 @@ export default {
     .wrapper {
         display: flex;
         flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 15px;
+        justify-content: space-between;
+        gap: 1%;
 
         .creator-nickname {
             font-size: 12px;
@@ -57,11 +57,7 @@ export default {
 
     .cover {
         position: relative;
-
-        .wh {
-            width: 270px;
-            height: 150px;
-        }
+        width: 32%;
 
         .playCount,
         .playTime {

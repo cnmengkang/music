@@ -1,6 +1,6 @@
 <template>
     <div class="lyric-scroll" ref="lyrics">
-        <p :class="{ lyric_active: index == activeLineIndex }" ref="lyrics_p" v-for="(item, index) in formattedLyrics"
+        <p :class="{ lyric_active: index == activeLine }" ref="lyrics_p" v-for="(item, index) in formattedLyrics"
             :key="index" :data-time="item.time">{{ item.text }}</p>
     </div>
 </template>
@@ -10,7 +10,7 @@ import { mapState } from 'vuex';
 export default {
     data() {
         return {
-            activeLineIndex: -1,
+            activeLine: -1,
         }
     },
     watch: {
@@ -20,12 +20,12 @@ export default {
             for (let i = 0; i < lyric.length; i++) {
                 const line = lyric[i];
                 if (line.dataset.time > newTime) {
-                    this.activeLineIndex = i > 0 ? i - 1 : 0;
+                    this.activeLine = i > 0 ? i - 1 : 0;
                     break;
                 }
             }
         },
-        activeLineIndex(newIndex, oldIndex) {
+        activeLine(newIndex, oldIndex) {
             if (newIndex != oldIndex) {
                 this.$nextTick(() => {
                     this.scrollToActiveLine();
@@ -63,6 +63,7 @@ export default {
     .lyric-scroll {
         overflow: hidden;
         height: @height;
+
         p {
             text-align: center;
             font-size: 12px;
@@ -84,6 +85,7 @@ export default {
         height: 100%;
         width: 100%;
         overflow: auto;
+
         p {
             color: #989898;
             word-wrap: break-word;

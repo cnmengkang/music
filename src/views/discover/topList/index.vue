@@ -1,5 +1,5 @@
 <template>
-    <div class="topList">
+    <el-card class="topList">
         <h2>官方榜</h2>
         <div class="top-grid">
             <div class="grid" v-for="item in topListDetail" :key="item.id">
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </el-card>
 </template>
 
 <script>

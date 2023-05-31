@@ -5,15 +5,14 @@
     </el-header>
     <!-- 顶部 -->
     <el-container class="mt-30">
-      <el-aside width="200px">
+      <el-aside width="280px" class="mr-15">
         <asideNav />
       </el-aside>
       <!-- 左侧菜单 -->
       <el-container>
-        <el-main>
-          <transition name="slide-left">
-            <router-view />
-          </transition>
+        <el-main class="backTop">
+          <router-view />
+          <el-backtop target=".backTop" :bottom="120"></el-backtop>
         </el-main>
       </el-container>
       <!-- 容器 -->
@@ -53,9 +52,13 @@ export default {
 
   .el-header {
     width: 100%;
+    min-width: 960px;
     margin: 0px auto;
-    background-color: #ccc;
+    background-color: pink;
     color: #333;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+    position: sticky;
+    top: 0px;
   }
 
   .el-container {
@@ -66,7 +69,7 @@ export default {
   .el-main {
     height: 90vh;
     min-height: 520px;
-    padding: 0px 30px 30px;
+    padding: 0px;
   }
 
   .el-aside {

@@ -1,7 +1,7 @@
 <template>
-<div id="custom-made">
+  <el-card id="custom-made">
     专属定制
-</div>
+  </el-card>
 </template>
 
 <script>
@@ -11,8 +11,7 @@ export default {
   data() {
     return {
     };
-  },
-};
+  }
+}
 </script>
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

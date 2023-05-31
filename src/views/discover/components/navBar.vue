@@ -37,7 +37,7 @@ export default {
   position: sticky;
   top: 0px;
   z-index: 10;
-  padding: 15px 0px 0px;
+  padding: 0px;
   background: #fff;
 
   .el-menu {

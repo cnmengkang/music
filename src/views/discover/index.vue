@@ -1,6 +1,8 @@
 <template>
   <div id="discover-music">
-    <nav-bar />
+    <el-card class="mb-15">
+      <nav-bar />
+    </el-card>
     <!-- 菜单tabs -->
     <router-view />
   </div>
@@ -10,6 +12,6 @@ import navBar from './components/navBar'
 export default {
   name: "index",
   components: { navBar },
-  
+
 };
 </script>

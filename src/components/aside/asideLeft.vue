@@ -1,18 +1,27 @@
 <template>
-  <div class="aside-left">
-    <el-row class="tac mt-15">
-      <el-col :span="24">
-        <el-menu class="el-menu-vertical-demo" active-text-color="#000" text-color="#303133" router @select="getPath"
-          :default-active="$route.path">
-          <el-menu-item :index="item.index" v-for="item in data" :key="item.index">
-            <span slot="title">{{ item.name }}</span>
-          </el-menu-item>
-        </el-menu>
-      </el-col>
-    </el-row>
-  </div>
+  <el-card class="aside-left">
+    <ul class="menu_list cursor">
+      <li class="mb-5" v-for="item in data" @click="handActivePath(item.index)" :key="item.id"> <a>{{ item.name }}</a>
+      </li>
+      <template v-if="isLogin">
+        <span class="font-12 my">创建歌单</span>
+        <template v-for="item in playlist">
+          <li class="font-12 mb-5" v-if="!item.subscribed" @click="handSelectIndex(item.id)" :key="item.id"><a>{{
+            item.name }}</a></li>
+        </template>
+      </template>
+      <template v-if="isLogin">
+        <span class="font-12 my">收藏歌单</span>
+        <template v-for="item in playlist">
+          <li class="font-12 mb-5" @click="handSelectIndex(item.id)" v-if="item.subscribed" :key="item.id"><a>{{ item.name
+          }}</a></li>
+        </template>
+      </template>
+    </ul>
+  </el-card>
 </template>
 <script>
+import { userPlaylist } from '@/api/user/user';
 export default {
   name: "asideLeft",
   data() {
@@ -20,44 +29,68 @@ export default {
       data: [
         { name: '发现音乐', index: '/discover' },
         { name: '博客', index: '/podcast' },
-        { name: '视频', index: '//video/全部视频' },
+        { name: '视频', index: '/video/全部视频' },
         { name: '私人漫游', index: '/private' },
-        { name: '我喜欢的音乐', index: '/my' },
-        { name: '最近播放', index: '/recently' },
-      ]
+      ],
+      playlist: '',
+      params: {
+        uid: this.$store.state.uid,
+      },
+      isLogin: true
     };
   },
   created() {
+    this.getUserPlaylist();
   },
   methods: {
-    getPath(index, path) {
-      console.log(index)
+    handSelectIndex(res) {
+      this.$router.push({ name: 'detail', params: { id: res } })
+    },
+    handActivePath(path) {
+      this.$router.push(path)
+    },
+    getUserPlaylist() {
+      userPlaylist(this.params).then(res => {
+        if (res.code != 200) return;
+        console.log(res)
+        this.playlist = res.playlist;
+      })
     },
   },
+
 };
 </script>
 <style scoped lang="less">
 .aside-left {
-  .tac {
+  width: 100%;
 
-    .el-menu {
-      border-right: none;
+  .menu_list {
+    span {
+      padding: 10px;
+      display: block;
+      color: #ccc;
+    }
 
-      .el-menu-item {
-        height: 40px;
-        line-height: 40px;
-        margin-bottom: 5px;
+    li {
+      height: 35px;
+      line-height: 35px;
+      transition: all 0.3s linear;
+      border-radius: 4px;
+      font-size: 16px;
 
-        span {
-          color: #000;
-        }
+      a {
+        padding-left: 15px;
       }
 
-      .is-active {
-        font-weight: bold;
-        font-size: 16px;
+      &:hover {
+        background: rgb(236, 94, 118);
+      }
+
+      &:active {
+        background: red;
       }
     }
+
   }
 }
 </style>

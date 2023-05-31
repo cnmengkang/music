@@ -9,6 +9,7 @@ const request = axios.create({
 request.interceptors.request.use(
     (config) => {
         // 请求之前处理的逻辑
+        // console.log(config)
         return config;
     },
     (error) => {
