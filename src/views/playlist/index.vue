@@ -1,8 +1,8 @@
 <template>
-  <el-card class="playlist">
-    <div class="playlist-head border-r-5 flex" v-if="quality">
-      <div class="bgc" :style="{ backgroundImage: 'url(' + quality.coverImgUrl + '?imageView&blur=40x20)' }"></div>
-      <div class="left mr-20 ml-20">
+  <div class="playlist">
+    <div class="playlist-head border-r-5 flex mb-15" v-if="quality">
+      <div class="bgc" :style="{ backgroundImage: 'url(' + quality.coverImgUrl + ')' }"></div>
+      <div class="left ml-15">
         <el-avatar shape="square" :size="150" fit="cover" :src="quality.coverImgUrl"></el-avatar>
       </div>
       <div class="right">
@@ -10,7 +10,7 @@
         <p class="white font-16">{{ quality.name }}</p>
       </div>
     </div>
-    <div class="playlist-list mt-20">
+    <el-card class="playlist-list">
       <div class="playlist-tabs flex" style="justify-content: space-between;">
         <category :tabsName="tabsName" :all="all" :categories="categories" :sub="sub" @myEvent="handleTabClickType">
         </category>
@@ -22,8 +22,8 @@
         <play-grid :playlist="playlist"></play-grid>
         <pagination :total="totalPage" :page-size="pageSize" :current-page.sync="currentPage" />
       </div>
-    </div>
-  </el-card>
+    </el-card>
+  </div>
 </template>
 <script>
 import { topPlaylist } from '@/api/discover/discover';
@@ -113,17 +113,23 @@ export default {
   padding: 15px 0px;
   height: @height;
   overflow: hidden;
-  width: calc(100% - @width);
+  width: 100%;
   background-size: 100%;
   position: relative;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
 
   .bgc {
     width: 100%;
     height: 100%;
-    background-size: 6000px;
     position: absolute;
-    top: 0px;
     z-index: 1;
+    top: 0px;
+    background-size: 100%;
+    background-position: center center;
+    transform: scale(1.22);
+    filter: brightness(0.7) blur(40px);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(30px);
   }
 
   .left {

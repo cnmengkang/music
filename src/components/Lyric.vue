@@ -87,7 +87,7 @@ export default {
         overflow: auto;
 
         p {
-            color: #989898;
+            color: #000;
             word-wrap: break-word;
             text-align: center;
             line-height: @height;

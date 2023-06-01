@@ -1,48 +1,51 @@
 <template>
-    <div class="footer">
-        <!-- 左侧歌曲信息展示 -->
-        <div class="footer-singer">
-            <singer></singer>
-        </div>
-        <!-- 左侧歌曲信息展示 -->
-        <!-- 中间控制器 -->
-        <div class="footer-audio">
-            <div class="audio">
-                <div class="audio-play flex">
-                    <div class="audio-top plays mb-5">
-                        <span title="上一首" class="icon-prev" @click="getPrevNext('prev')"></span>
-                        <span :title="isPlaying ? '暂停' : '播放'" :class="isPlaying ? 'icon-play' : 'icon-pause'"
-                            @click="getIsPlaying"></span>
-                        <span title="下一首" class="icon-next" @click="getPrevNext('next')"></span>
-                    </div>
-                    <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
-                        <span class="start font-14">{{ currentTime || "00:00"
-                        }}</span>
-                        <el-slider class="w-70" :min="0" :max="player.duration" @change="seek" v-model="slidValue"
-                            :show-tooltip="false" />
-                        <span class="end font-14">{{ duration || "00:00" }}</span>
+    <div class="footer_info">
+        <div class="footer">
+            <!-- 左侧歌曲信息展示 -->
+            <div class="footer-singer">
+                <singer></singer>
+            </div>
+            <!-- 左侧歌曲信息展示 -->
+            <!-- 中间控制器 -->
+            <div class="footer-audio">
+                <div class="audio">
+                    <div class="audio-play flex">
+                        <div class="audio-top plays mb-5">
+                            <span title="上一首" class="icon-prev" @click="getPrevNext('prev')"></span>
+                            <span :title="isPlaying ? '暂停' : '播放'" :class="isPlaying ? 'icon-play' : 'icon-pause'"
+                                @click="getIsPlaying"></span>
+                            <span title="下一首" class="icon-next" @click="getPrevNext('next')"></span>
+                        </div>
+                        <div class="audio-slider flex justify-content-center flex-wrap-nowrap">
+                            <span class="start font-14">{{ currentTime || "00:00"
+                            }}</span>
+                            <el-slider style="width:100%;" :min="0" :max="player.duration" @change="seek" v-model="slidValue"
+                                :show-tooltip="false" />
+                            <span class="end font-14">{{ duration || "00:00" }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- 中间控制器 -->
-        <!-- 音量 -->
-        <div class="flex" style="width:25%">
-            <sound></sound>
-            <div class="btn_lyrics">
-                <span class="font-16 ml-10 cursor" @click="show = !show">词</span>
+            <!-- 中间控制器 -->
+            <!-- 音量 -->
+            <div class="flex" style="width:25%">
+                <sound></sound>
+                <div class="btn_lyrics">
+                    <span class="font-16 ml-10 cursor" @click="show = !show">词</span>
+                </div>
             </div>
+            <!-- 音量 -->
+            <!-- 底部歌词 -->
+            <transition name="el-zoom-in-bottom">
+                <div class="lyrics" v-show="show">
+                    <lyric></lyric>
+                </div>
+            </transition>
+            <!-- 底部歌词 -->
+
         </div>
-        <!-- 音量 -->
-        <!-- 底部歌词 -->
-        <transition name="el-zoom-in-bottom">
-            <div class="lyrics" v-show="show">
-                <lyric></lyric>
-            </div>
-        </transition>
-        <!-- 底部歌词 -->
         <!-- 弹出层包含歌词作者信息 -->
-        <div class="drawer" v-if="player.drawer">
+        <div class="drawer" v-if="drawer">
             <drawer></drawer>
         </div>
         <!-- 弹出层包含歌词作者信息 -->
@@ -80,6 +83,7 @@ export default {
             isFooterShow: state => state.player.isFooterShow,
             singers: state => state.player.singer,
             isPlaying: state => state.player.isPlaying,
+            drawer: state => state.drawer,
 
         }),
         currentTime() {
@@ -113,6 +117,12 @@ export default {
     align-items: center;
     justify-content: center;
     width: 100%;
+    position: fixed;
+    bottom: 0px;
+    z-index: 98;
+    background: #fff;
+    padding: 10px 20px;
+    border-top: 1px solid #ccc;
 
     .footer-singer {
         width: 25%
@@ -164,15 +174,16 @@ export default {
 
     .lyrics {
         width: 100%;
-        background: #fff3;
+        background: #fff;
         position: absolute;
         height: 35px;
         line-height: 35px;
         right: 0px;
         left: 0px;
-        top: -35px;
+        top: -37px;
         z-index: 10;
         border-top: 1px solid #ccc;
+
     }
 }
 </style>

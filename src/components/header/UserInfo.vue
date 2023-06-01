@@ -1,7 +1,7 @@
 <template>
     <div class="user_info cursor">
         <el-dropdown placement="bottom" trigger="click" @command="handleCommand">
-            <div class="el-dropdown-avatar flex" @click="getDropdown">
+            <div class="el-dropdown-avatar flex">
                 <el-avatar icon="el-icon-user-solid" :size="size" :src="avatar"></el-avatar>
                 <div class="el-dropdown-link ml-10">
                     {{ nickName || "未登录" }}<i class="el-icon-arrow-down el-icon--right"></i>
@@ -16,41 +16,34 @@
     </div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import { removeToken } from '@/utils/auth';
 export default {
     data() {
         return {
             size: 35,
-            dropdown: false,
         }
-    },
-    mounted() {
-        this.$store.dispatch('getLoginStatus');
     },
     methods: {
+        ...mapMutations(['CLEAR_USER_INFO']),
         handleCommand(command) {
-            console.log(command)
             if (command == 'account') {
-                console.log('account')
+                this.$router.push({ name: 'user', params: { uid: this.uid } })
             } else if (command == 'revise') {
-                console.log('revise')
-            } else {
-                removeToken()
+                this.$router.push({ name: 'edit', params: { uid: this.uid } })
 
+            } else {
+                removeToken();
+                this.CLEAR_USER_INFO();
             }
         },
-        getDropdown() {
-            console.log('ddddd')
-        }
     },
-
     computed: {
         ...mapState({
             nickName: state => state.nickName,
             avatar: state => state.avatar,
+            uid: state => state.uid,
         })
-    },
+    }
 }
 </script>
-<style lang="less" scoped></style>

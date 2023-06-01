@@ -1,5 +1,5 @@
 <template>
-    <div class="video">
+    <div class="video mb-15">
         <video :src="url" autoplay controls></video>
     </div>
 </template>
@@ -15,9 +15,6 @@ export default {
 </script>
 <style lang="less" scoped>
 .video {
-    width: 620px;
-    height: 350px;
-
     video {
         width: 100%;
     }

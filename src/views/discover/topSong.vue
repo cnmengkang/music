@@ -1,15 +1,12 @@
 <template>
     <div class="tops-song">
         <div class="tops-nav">
-            <tabs class="tops_center">
+            <el-card>
                 <tabs @tab-click="handleTabClickType">
                     <el-tab-pane v-for="(item, index) in tops" :value="item.type" :label="item.name" :key="index" />
                 </tabs>
-                <el-tab-pane label="新歌速递">
-                    <table-list :data="topSongList" :ids="params"></table-list>
-                </el-tab-pane>
-                <el-tab-pane label="新蝶上架">Tab 2 Content</el-tab-pane>
-            </tabs>
+                <table-list :data="topSongList" :ids="params"></table-list>
+            </el-card>
         </div>
     </div>
 </template>
@@ -59,5 +56,4 @@ export default {
     width: 50%;
     margin: 0 auto;
 }
-
 </style>

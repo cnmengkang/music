@@ -1,27 +1,30 @@
 <template>
-  <el-card class="aside-left">
+  <div class="aside-left">
     <ul class="menu_list cursor">
       <li class="mb-5" v-for="item in data" @click="handActivePath(item.index)" :key="item.id"> <a>{{ item.name }}</a>
       </li>
       <template v-if="isLogin">
         <span class="font-12 my">创建歌单</span>
         <template v-for="item in playlist">
-          <li class="font-12 mb-5" v-if="!item.subscribed" @click="handSelectIndex(item.id)" :key="item.id"><a>{{
-            item.name }}</a></li>
+          <li class="font-12 mb-5 ellipsis" :title="item.name" v-if="!item.subscribed" @click="handSelectIndex(item.id)"
+            :key="item.id"><a>{{
+              item.name }}</a></li>
         </template>
       </template>
       <template v-if="isLogin">
         <span class="font-12 my">收藏歌单</span>
         <template v-for="item in playlist">
-          <li class="font-12 mb-5" @click="handSelectIndex(item.id)" v-if="item.subscribed" :key="item.id"><a>{{ item.name
-          }}</a></li>
+          <li class="font-12 mb-5 ellipsis" :title="item.name" @click="handSelectIndex(item.id)" v-if="item.subscribed"
+            :key="item.id"><a>{{ item.name
+            }}</a></li>
         </template>
       </template>
     </ul>
-  </el-card>
+  </div>
 </template>
 <script>
 import { userPlaylist } from '@/api/user/user';
+import { mapState } from 'vuex';
 export default {
   name: "asideLeft",
   data() {
@@ -36,10 +39,9 @@ export default {
       params: {
         uid: this.$store.state.uid,
       },
-      isLogin: true
     };
   },
-  created() {
+  mounted() {
     this.getUserPlaylist();
   },
   methods: {
@@ -52,18 +54,20 @@ export default {
     getUserPlaylist() {
       userPlaylist(this.params).then(res => {
         if (res.code != 200) return;
-        console.log(res)
         this.playlist = res.playlist;
       })
     },
   },
-
-};
+  computed: {
+    ...mapState({
+      isLogin: state => state.isLogin
+    })
+  }
+}
 </script>
 <style scoped lang="less">
 .aside-left {
   width: 100%;
-
   .menu_list {
     span {
       padding: 10px;

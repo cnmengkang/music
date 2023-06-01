@@ -1,16 +1,17 @@
 <template>
   <div id="app_index">
-    <el-header height="60px">
+    <el-header>
       <headers />
     </el-header>
     <!-- 顶部 -->
     <el-container class="mt-30">
-      <el-aside width="280px" class="mr-15">
+      <el-aside width="270px">
         <asideNav />
       </el-aside>
+
       <!-- 左侧菜单 -->
       <el-container>
-        <el-main class="backTop">
+        <el-main class="backTop ml-15">
           <router-view />
           <el-backtop target=".backTop" :bottom="120"></el-backtop>
         </el-main>
@@ -19,7 +20,7 @@
     </el-container>
     <!-- 底部 -->
     <transition name="el-zoom-in-bottom">
-      <el-footer class="flex" height="70px" v-if="isFooterShow">
+      <el-footer class="flex" v-if="isFooterShow">
         <footers />
       </el-footer>
     </transition>
@@ -43,7 +44,7 @@ export default {
 <style lang="less">
 @border: 1px solid #d78383;
 @backColor: #ffffffe0;
-@width: 1280px;
+@width: 1140px;
 
 #app_index {
   position: relative;
@@ -63,26 +64,17 @@ export default {
 
   .el-container {
     max-width: @width;
-    margin: 0 auto;
+    margin: 0px auto 25px;
+    overflow: auto;
+    height: 100vh;
   }
 
   .el-main {
-    height: 90vh;
-    min-height: 520px;
     padding: 0px;
   }
 
-  .el-aside {
-    overflow: hidden;
-  }
-
   .el-footer {
-    background-color: @backColor;
-    position: fixed;
-    bottom: 0px;
-    border-top: @border;
-    z-index: 10;
-    backdrop-filter: blur(10px);
+    padding: 0px;
   }
 }
 </style>

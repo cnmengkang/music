@@ -1,13 +1,12 @@
 <template>
-    <div>
-        <user></user>
-    </div>
+    <el-card>
+        漫游
+    </el-card>
 </template>
   
 <script>
-import user from '@/views/user/user'
 export default {
-    components: { user },
+    components: {},
     data() {
         return {
 

@@ -1,8 +1,9 @@
-import { getToken, getUsername, getUserAvatar, getUserId } from '@/utils/auth'
+import { getToken, getUsername, getUserAvatar, getUserId,isLogin } from '@/utils/auth'
 export default {
     token: getToken(),
     player: null,
-    isLogin: false,
+    isLogin: isLogin(),
+    drawer:false,
     nickName: getUsername(),
     avatar: getUserAvatar(),
     uid: getUserId(),

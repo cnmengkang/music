@@ -2,21 +2,13 @@
 import { logout } from '@/api/user/login';
 import Cookies from 'js-cookie';
 
-const TOKEN_KEY = 'token';
+const TOKEN_KEY = 'MUSIC_U';
 const USERNAME_KEY = 'nickName';
 const USER_AVATAR_KEY = 'userAvatar';
 const USER_ID_KEY = 'uid';
-
-export function setToken(string) {
-    const regex = /MUSIC_U=(\w+)/;
-    const token = string.match(regex)[0].split('=')[1];
-    Cookies.set(TOKEN_KEY, token);
-}
-
 export function getToken() {
     return Cookies.get(TOKEN_KEY);
 }
-
 export function setUsername(username) {
     Cookies.set(USERNAME_KEY, username);
 }
@@ -40,7 +32,9 @@ export function setUserId(userId) {
 export function getUserId() {
     return Cookies.get(USER_ID_KEY);
 }
-
+export function isLogin() {
+    return Cookies.get(USER_ID_KEY) ? true : false;
+}
 export function removeToken() {
     const cookies = Object.keys(Cookies.get());
     cookies.forEach(cookieName => {

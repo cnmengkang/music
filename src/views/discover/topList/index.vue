@@ -1,8 +1,8 @@
 <template>
     <el-card class="topList">
-        <h2>官方榜</h2>
+        <TitleComponent title="相关推荐"></TitleComponent>
         <div class="top-grid">
-            <div class="grid" v-for="item in topListDetail" :key="item.id">
+            <div class="grid mb-15" v-for="item in topListDetail" :key="item.id">
                 <div class="left list" @click="btnDetail(item.id)">
                     <img :src="item.coverImgUrl" />
                 </div>
@@ -25,7 +25,9 @@
 
 <script>
 import { topList, topListDetail } from '@/api/discover/topList';
+import TitleComponent from '@/components/TitleComponent'
 export default {
+    components: { TitleComponent },
     name: 'topList',
     data() {
         return {
@@ -37,9 +39,7 @@ export default {
         this.getTopList();
         this.getTopListDetail();
     },
-    mounted() { },
     methods: {
-        // 所有榜单
         getTopList() {
             topList().then(res => {
                 this.topList = res.list
@@ -64,22 +64,18 @@ export default {
         .grid {
             display: flex;
             flex-wrap: wrap;
-            margin-bottom: 40px;
         }
 
         .left {
             width: 20%;
             border-radius: 10px;
-
             img {
                 border-radius: 10px;
             }
         }
 
         .right {
-            width: 75%;
-            padding-left: 5%;
-
+            width: 78%;
             ul {
                 .topListAll {
                     font-size: 12px;

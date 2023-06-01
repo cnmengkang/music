@@ -24,17 +24,16 @@ export default class MusicPlayer {
         this.currentTime = 0;
         this.duration = 0;
         this.isPlaying = false;
-        this.drawer = false;
         this.playSong = '';
         this.params = { id: 0, level: 'exhigh' }
         this.lyric = [];
+        this.isFooterShow = false;
         this.singer = {
             authorName: '',
             authorAvatar: '',
             songName: '',
             authorAli: ''
         };
-        this.isFooterShow = false;
         this.audio.addEventListener("ended", () => {
             console.log('当前播放结束，自动播放下一首');
             this.getPrevNext('next');

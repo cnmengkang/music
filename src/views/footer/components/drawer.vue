@@ -1,8 +1,8 @@
 <template>
     <div class="drawer-index">
-        <div class="drawer-background" :style="'background-image:url(' + authorAvatar + ')'"></div>
-        <el-drawer :title="songName" :withHeader="true" :show-close="false" :modal="false" size="100%"
-            :direction="direction" :visible.sync="drawer">
+        <div class="drawer-background" append-to-body="true" :style="{ backgroundImage: 'url(' + authorAvatar + ')' }"></div>
+        <el-drawer :title="songName" :modal="false" size="100%" :direction="direction" :before-close="drawerOpen"
+            :visible.sync="drawer">
             <div class="footer_drawer flex">
                 <div class="left flex justify-content-center">
                     <div class="router">
@@ -24,7 +24,7 @@
 </template>
 <script>
 import Lyric from '@/components/Lyric';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
     components: { Lyric },
     data() {
@@ -39,12 +39,15 @@ export default {
             authorAvatar: state => state.player.singer.authorAvatar,
             subName: state => state.player.singer.subName,
             author: state => state.player.singer.authorName,
-            drawer: state => state.player.drawer
+            drawer: state => state.drawer,
         }),
         authorName() {
             return [...this.author.map(obj => obj.name)].join(' / ');
         }
     },
+    methods: {
+        ...mapActions(['drawerOpen']),
+    }
 }
 </script>
 <style lang="less" scoped>
@@ -52,25 +55,33 @@ export default {
 @head: 80px;
 
 .drawer-index {
-    top: 60px;
-    left: 0px;
-    bottom: 70px;
     position: fixed;
+    top: 0px;
+    left: 0px;
     right: 0px;
-    z-index: 10;
+    bottom: 73px;
+    z-index: 999;
     overflow: hidden;
 
     .drawer-background {
         width: 100%;
         height: 100%;
         position: absolute;
+        top: 0px;
         z-index: 15;
-        background-size: 5000px;
+        right: 0px;
+        left: 0px;
+        bottom: 0px;
+        background-size: 100%;
         background-position: center center;
-        filter: blur(30px);
-        transform: scale(2.5);
+        transform: scale(1.22);
+        filter: brightness(0.7) blur(40px);
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(30px);
     }
 }
+
+
 
 .rotate {
     animation: rotation 50s infinite linear;
@@ -93,6 +104,13 @@ export default {
 
     .footer_drawer {
         padding: 0px 5%;
+        position: absolute;
+        top: 60px;
+        right: 0px;
+        bottom: 30px;
+        left: 0px;
+        width: 100%;
+        height: auto;
 
         .bgc-radius {
             border: 20px solid #ccc9;
@@ -104,7 +122,6 @@ export default {
             width: 50%;
             height: 100%;
             box-sizing: border-box;
-            position: relative;
             overflow: hidden;
 
             .right-head {
@@ -117,16 +134,14 @@ export default {
 
             .right-body {
                 width: 100%;
-                height: 450px;
-                overflow: hidden;
+                height: 100%;
 
                 ul {
                     li {
                         text-align: center;
                         color: #fff;
                         font-size: 14px;
-                        height: auto;
-                        line-height: 32px;
+                        line-height: 35px;
                     }
                 }
             }

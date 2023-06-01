@@ -17,4 +17,11 @@ export default {
     USER_UID(state, userId) {
         state.uid = userId;
     },
+    CLEAR_USER_INFO(state) {
+        state.nickName = null
+        state.avatar = null
+        state.uid = null
+        state.token = null
+        state.isLogin = false;
+    }
 }

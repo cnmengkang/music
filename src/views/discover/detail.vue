@@ -88,7 +88,8 @@ export default {
             })
         },
         getUserInfo(item) {
-            this.$router.push({ name: 'user', params: item.userId })
+            console.log(item)
+            this.$router.push({ name: 'user', params: { uid: item.userId } })
         }
     }
 }

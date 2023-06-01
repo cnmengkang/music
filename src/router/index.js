@@ -99,6 +99,7 @@ const routes = [
       },
       {
         path: '/edit',
+        name:'edit',
         component: () => import('@/views/user/edit')
       },
       {

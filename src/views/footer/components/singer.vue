@@ -23,10 +23,6 @@
 import { mapState } from 'vuex';
 import { mapActions, } from 'vuex';
 export default {
-    data() {
-        return {
-        }
-    },
     computed: {
         ...mapState({
             player: state => state.player,

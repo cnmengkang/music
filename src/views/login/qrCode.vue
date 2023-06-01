@@ -7,8 +7,7 @@
                     <img :src="qrCodeImg" />
                 </div>
                 <div id="socialLogin">
-                    <!-- <el-button @click="SetToken">SetCookie</el-button>
-                    <el-button @click="GetToken">GetCookie</el-button> -->
+                    <!-- <el-button @click="getStatus">SetCookie</el-button> -->
                 </div>
             </div>
         </el-card>
@@ -16,7 +15,6 @@
 </template>
 <script>
 import { qrKey, qrCreate, qrCheckCode } from '@/api/user/login';
-import { setToken } from '@/utils/auth'
 export default {
     name: "qrCode",
     data() {
@@ -25,7 +23,7 @@ export default {
             qr: {
                 key: '',
                 qrimg: true,
-                timerStamp: null,
+                timerStamp: new Date().getTime(),
             },
             timer: 10,
             title: '',
@@ -47,7 +45,6 @@ export default {
         // 检测二维码状态
         getCheckCode() {
             const timer = setInterval(() => {
-                this.qr.timerStamp = new Date().getTime();
                 qrCheckCode(this.qr).then(result => {
                     if (result.code == 800) {
                         this.title = result.message
@@ -55,14 +52,12 @@ export default {
                         this.title = result.message
                     } else if (result.code = 803) {
                         this.title = result.message;
-                        console.log(result)
-                        setToken(result.cookie);
                         this.$store.dispatch('getLoginStatus');
                         clearInterval(timer);
                     }
                 })
             }, 3000)
-        }
+        },
     }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="user mt-30">
+    <el-card class="user">
         <div class="user-head flex">
             <div class="user-avatar mr-20">
                 <el-avatar :size="200" :src="avatarUrl"></el-avatar>
@@ -14,7 +14,7 @@
                         <span class="mr-10">{{ Level }}</span>
                         <span class="mr-10">{{ gender }}</span>
                     </div>
-                    <div v-if="id == 345288322">
+                    <div>
                         <el-button @click="edit">编辑个人信息</el-button>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                 <el-tab-pane label="创建的音乐专栏">4</el-tab-pane>
             </tabs>
         </div>
-    </div>
+    </el-card>
 </template>
 <script>
 import Tabs from '@/components/Tabs';
@@ -53,7 +53,9 @@ export default {
         return {
             user: '',
             profile: '',
-            id: this.$route.params,
+            params: {
+                uid: this.$route.params.uid,
+            }
         };
     },
     mounted() {
@@ -64,7 +66,7 @@ export default {
             this.$router.push({ path: '/edit', query: { params: this.profile } })
         },
         async getUserDetail() {
-            const result = await userDetail(this.id);
+            const result = await userDetail(this.params);
             this.user = result;
             this.profile = result.profile;
         }
@@ -97,6 +99,7 @@ export default {
         gender() {
             return this.profile.gender
         },
+
 
     }
 }

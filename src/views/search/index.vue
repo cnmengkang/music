@@ -25,12 +25,7 @@ export default {
 
   },
   computed: {
-    ...mapState({
-      searchList: state => state.search.searchList,
-      songCount: state => state.search.songCount,
-      title: state => state.search.title,
-
-    })
+    
   },
 };
 </script>
