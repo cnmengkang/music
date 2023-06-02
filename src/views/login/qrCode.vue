@@ -1,16 +1,14 @@
 <template>
-    <div id="qr">
-        <el-card>
-            <div class="app-qr">
-                <h3 style="text-align:center">{{ title || '打开网易云音乐App扫码登录！' }}</h3>
-                <div class="logo">
-                    <img :src="qrCodeImg" />
-                </div>
-                <div id="socialLogin">
-                    <!-- <el-button @click="getStatus">SetCookie</el-button> -->
-                </div>
+    <div class="qr-code">
+        <div class="app-qr">
+            <h3 class="pb-15" style="text-align:center">{{ title || '打开网易云音乐App扫码登录！' }}</h3>
+            <div class="logo">
+                <img :src="qrCodeImg" />
             </div>
-        </el-card>
+            <div id="socialLogin">
+                <el-button @click="getLogin">点击获取二维码</el-button>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -20,54 +18,58 @@ export default {
     data() {
         return {
             qrCodeImg: '',
-            qr: {
-                key: '',
-                qrimg: true,
-                timerStamp: new Date().getTime(),
-            },
-            timer: 10,
             title: '',
+            timer: 10,
         };
     },
-
-    mounted() {
-        this.getQrKey();
-    },
     methods: {
-        // 二维码登陆
-        async getQrKey() {
-            var res = await qrKey();
-            this.qr.key = res.data.unikey;
-            const res2 = await qrCreate(this.qr);
-            this.qrCodeImg = res2.data.qrimg;
-            this.getCheckCode();
-        },
         // 检测二维码状态
-        getCheckCode() {
-            const timer = setInterval(() => {
-                qrCheckCode(this.qr).then(result => {
-                    if (result.code == 800) {
-                        this.title = result.message
-                    } else if (result.code == 801) {
-                        this.title = result.message
-                    } else if (result.code = 803) {
-                        this.title = result.message;
-                        this.$store.dispatch('getLoginStatus');
-                        clearInterval(timer);
-                    }
-                })
-            }, 3000)
+        async getQrCheckCodeStatus(key) {
+            const timestamp = new Date().getTime();
+            const res = await qrCheckCode({ key, timestamp });
+            return res;
         },
+        // login
+        async getLogin() {
+            const timestamp = new Date().getTime();
+            const res = await qrKey(timestamp);
+            const key = res.data.unikey;
+            const create = await qrCreate({ key, timestamp, qrimg: true });
+            this.qrCodeImg = create.data.qrimg
+            this.timer = setInterval(async () => {
+                const statusRes = await this.getQrCheckCodeStatus(key);
+                console.log(statusRes)
+                if (statusRes.code == 801) {
+                    this.title = statusRes.message;
+                }
+                if (statusRes.code == 800) {
+                    this.title = statusRes.message;
+                    clearInterval(this.timer)
+                }
+                if (statusRes.code == 803) {
+                    this.title = statusRes.message;
+                    clearInterval(this.timer)
+                    this.$store.dispatch('getLoginStatus');
+                }
+            }, 1000)
+        }
     }
 }
 </script>
 <style scope lang="less">
-#qr {
+.qr-code {
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #fff;
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
 
     .app-qr {
+        width: 250px;
+        height: 300px;
+
         .login-oth {
             margin-bottom: 15px;
         }

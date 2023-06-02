@@ -6,7 +6,7 @@
       <template v-if="isLogin">
         <span class="font-12 my">创建歌单</span>
         <template v-for="item in playlist">
-          <li class="font-12 mb-5 ellipsis" :title="item.name" v-if="!item.subscribed" @click="handSelectIndex(item.id)"
+          <li class="font-14 mb-5 ellipsis" :title="item.name" v-if="!item.subscribed" @click="handSelectIndex(item.id)"
             :key="item.id"><a>{{
               item.name }}</a></li>
         </template>
@@ -14,7 +14,7 @@
       <template v-if="isLogin">
         <span class="font-12 my">收藏歌单</span>
         <template v-for="item in playlist">
-          <li class="font-12 mb-5 ellipsis" :title="item.name" @click="handSelectIndex(item.id)" v-if="item.subscribed"
+          <li class="font-14 mb-5 ellipsis" :title="item.name" @click="handSelectIndex(item.id)" v-if="item.subscribed"
             :key="item.id"><a>{{ item.name
             }}</a></li>
         </template>
@@ -68,6 +68,7 @@ export default {
 <style scoped lang="less">
 .aside-left {
   width: 100%;
+
   .menu_list {
     span {
       padding: 10px;
@@ -80,7 +81,6 @@ export default {
       line-height: 35px;
       transition: all 0.3s linear;
       border-radius: 4px;
-      font-size: 16px;
 
       a {
         padding-left: 15px;

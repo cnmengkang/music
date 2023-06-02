@@ -84,10 +84,9 @@ const routes = [
         name: 'recently'
       },
       {
-        path: 'search',
-        component: () => import("@/views/search"),
+        path: '/search',
         name: 'search',
-        // 
+        component: () => import("@/views/search"),
       },
       // {
       //   path: '/login',
@@ -99,7 +98,7 @@ const routes = [
       },
       {
         path: '/edit',
-        name:'edit',
+        name: 'edit',
         component: () => import('@/views/user/edit')
       },
       {

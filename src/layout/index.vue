@@ -42,7 +42,7 @@ export default {
 };
 </script>
 <style lang="less">
-@border: 1px solid #d78383;
+@border: 1px solid #ccc;
 @backColor: #ffffffe0;
 @width: 1140px;
 
@@ -55,11 +55,12 @@ export default {
     width: 100%;
     min-width: 960px;
     margin: 0px auto;
-    background-color: pink;
+    background-color: #fff;
     color: #333;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
     position: sticky;
     top: 0px;
+    z-index: 99;
   }
 
   .el-container {

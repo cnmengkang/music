@@ -1,11 +1,11 @@
 <template>
     <div class="search">
         <el-autocomplete class="auto_Width" placement="bottom" popper-class="my-autocomplete" v-model="value"
-            :placeholder="placeholder" size="small" :fetch-suggestions="getSuggestions" @select="handleSelect"
-            :trigger-on-focus="true">
+            :placeholder="placeholder" size="medium" @input="handlerInput" :fetch-suggestions="getSuggestions"
+            @select="handleSelect" @keyup.enter.native="getBtnSearchIcon(placeholder)" :trigger-on-focus="true">
             <template slot-scope="{item}">
                 <div class="item-content" width="200px">
-                    <div class="left" :class="item.index <= 3 ? 'red' : ''">{{ item.index}}</div>
+                    <div class="left" :class="item.index <= 3 ? 'red' : ''">{{ item.index }}</div>
                     <div class="right">
                         <div class="right-name">
                             <span class="name">{{ item.searchWord || item.name }}</span>
@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </template>
-            <i slot="suffix" class="el-icon-search el-input__icon" @click.enter="getBtnSearchIcon(placeholder)"></i>
+            <i slot="suffix" class="el-icon-search el-input__icon cursor" @click.enter="getBtnSearchIcon(placeholder)"></i>
         </el-autocomplete>
     </div>
 </template>
@@ -30,7 +30,8 @@ export default {
             value: '',
             params: {
                 limit: 30,
-                keywords: ''
+                keywords: '',
+                type: 1,
             },
             restaurants: [],
         }
@@ -43,13 +44,11 @@ export default {
         // 聚焦显示热搜版
         async getSuggestions(value, cb) {
             if (value) {
-                console.log('value',value)
                 const { result } = await search_suggest(value);
                 this.restaurants = result.songs;
                 const results = value ? this.restaurants : this.restaurants.filter(this.createFilter(value));
                 cb(results);
             } else {
-                console.log('falseValue',value)
                 this.getSearchHotDetail();
                 this.indexMethod(this.restaurants);
                 const results = value ? this.restaurants.filter(this.createFilter(value)) : this.restaurants;
@@ -88,8 +87,8 @@ export default {
             if (!keywords) return;
             this.params.keywords = keywords;
             this.value = keywords;
-            this.$store.dispatch('getCloudSearch', this.params);
             this.$router.push('/search');
+            this.$store.dispatch('getCloudSearch', this.params)
         },
         indexMethod(data) {
             this.restaurants = data.map((item, index) => {
@@ -98,13 +97,17 @@ export default {
                     index: index + 1
                 }
             })
+        },
+        handlerInput(val) {
+            if (!val == '') return;
+            this.getSearchHotDetail();
         }
     },
 }
 </script>
 <style lang="less" scoped>
 .auto_Width {
-    width: 250px;
+    width: 350px;
 }
 
 .my-autocomplete {

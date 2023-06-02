@@ -26,6 +26,7 @@
         <video-grid :videoGroups="allVideo"></video-grid>
       </el-tab-pane>
       <el-tab-pane label="MV" name="mv">
+        <div class="videos_scroll" v-infinite-scroll="load"></div>
         <video-mv></video-mv>
       </el-tab-pane>
     </tabs>
@@ -44,7 +45,7 @@ export default {
       allVideo: [],
       params: {
         id: 0,
-        offset: 0,
+        offset: 1,
       },
       tabsList: '',
       CategoryList: '',
@@ -104,7 +105,6 @@ export default {
       this.isShow = false;
       videoAll().then(res => {
         this.allVideo = res.datas;
-
       })
     }
   }

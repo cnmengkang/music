@@ -29,6 +29,7 @@ export default {
                 commit('USER_NAME', result.profile.nickname)
                 commit('USER_AVATAR', result.profile.avatarUrl)
                 commit('USER_UID', result.profile.userId)
+                commit('setIsLogin', true)
             })
         })
     }

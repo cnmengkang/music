@@ -51,9 +51,9 @@ export default {
             type: Array,
             require: true
         },
-        ids:{
-            type:Object,
-            default:0
+        ids: {
+            type: Object,
+            default: 0
         }
     },
     data() {
@@ -61,8 +61,9 @@ export default {
             size: 60,
             loading: true,
             params: {
-                ids: 0,
                 index: 0,
+                ids: 0,
+                playlist: ''
             }
         };
     },
@@ -75,7 +76,7 @@ export default {
         // 双击获取当前单曲详细信息
         getCurrentMusicId(row) {
             this.params.index = this.data.indexOf(row);
-            console.log(this.ids)
+            this.params.playlist = this.data;
             this.$store.dispatch('getCurrentMusicIsPlay', this.params);
         },
     }

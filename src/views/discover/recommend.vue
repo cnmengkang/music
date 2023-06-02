@@ -2,7 +2,7 @@
   <div id="discover-recommend mb-30">
     <el-card class="mb-15">
       <div class="recommend-banner" style="border-radius:100%;">
-        <el-carousel :interval="4000" indicator-position="none">
+        <el-carousel indicator-position="none" height="200px">
           <el-carousel-item v-for="item in banners" :key="item.imageUrl">
             <img :src="item.imageUrl" />
             <span :class="item.titleColor">{{ item.typeTitle }}</span>
@@ -52,7 +52,7 @@ export default {
     getPersonalized() {
       personalized(this.person).then((res) => {
         this.personalized = res.result
-      });
+      })
     }
   }
 }
@@ -63,26 +63,23 @@ export default {
     .el-carousel__item {
       border-radius: 10px;
 
-      a {
-        span {
-          position: absolute;
-          bottom: 44px;
-          z-index: 2;
-          right: 0px;
-          color: #fff;
-          font-size: 14px;
-          padding: 2px 10px;
-          border-radius: 10px 0px;
-        }
+      span {
+        position: absolute;
+        bottom: 0px;
+        z-index: 2;
+        right: 0px;
+        color: #fff;
+        font-size: 14px;
+        padding: 6px 10px;
+        border-radius: 10px 0px;
+      }
 
-        .red {
-          background: red;
-          overflow: hidden;
-        }
+      .red {
+        background: red;
+      }
 
-        .blue {
-          background: blue;
-        }
+      .blue {
+        background: blue;
       }
 
     }

@@ -1,13 +1,12 @@
 <template>
-  <div class="index-search mt-15">
+  <el-card class="index-search">
     <div class="search_head">
-      <h1 class="mb-20">搜索：{{ title }}</h1>
-      <p>total：{{ songCount }}</p>
+      <h1 class="mb-20">搜索：{{ title }}--Total:{{ songCount }}</h1>
     </div>
     <div class="search_body">
       <song-list :tableDate="searchList" />
     </div>
-  </div>
+  </el-card>
 </template>
 <script>
 import SongList from '@/components/SongList'
@@ -17,16 +16,15 @@ export default {
   props: {},
   data() {
     return {
+
     };
   },
-  created() { },
-  mounted() { },
-  methods: {
-
-  },
   computed: {
-    
-  },
-};
+    ...mapState({
+      title: state => state.cloudsearch.title,
+      songCount: state => state.cloudsearch.songCount,
+      searchList: state => state.cloudsearch.searchList
+    })
+  }
+}
 </script>
-<style lang="less" scoped></style>

@@ -1,12 +1,12 @@
 export default {
     SEARCH_LIST: (state, data) => {
-        state.searchList = data;
+        state.cloudsearch.searchList = data;
     },
     SONG_COUNT: (state, count) => {
-        state.songCount = count;
+        state.cloudsearch.songCount = count;
     },
     SEARCH_TITLE: (state, title) => {
-        state.title = title;
+        state.cloudsearch.title = title;
     },
     USER_NAME(state, name) {
         state.nickName = name;
@@ -16,6 +16,9 @@ export default {
     },
     USER_UID(state, userId) {
         state.uid = userId;
+    },
+    setIsLogin(state, data) {
+        state.isLogin = data;
     },
     CLEAR_USER_INFO(state) {
         state.nickName = null

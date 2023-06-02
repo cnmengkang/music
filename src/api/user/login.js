@@ -35,25 +35,26 @@ export function CheckPhone(data) {
     })
 }
 // 扫码登陆(获取key)
-export function qrKey() {
+export function qrKey(timestamp) {
     return request({
         url: '/login/qr/key',
+        params: { timestamp }
     })
 }
 // 创建二维码
-export function qrCreate(key) {
+export function qrCreate(data) {
     return request({
         url: '/login/qr/create',
         method: 'post',
-        params: key
+        params: data
     })
 }
 // 检测是否扫码成功
-export function qrCheckCode(key) {
+export function qrCheckCode(data) {
     return request({
         url: "/login/qr/check",
         method: 'post',
-        params: key
+        params: data
 
     })
 }
