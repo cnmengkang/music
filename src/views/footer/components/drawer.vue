@@ -23,8 +23,8 @@
     </div>
 </template>
 <script>
-import Lyric from '@/components/Lyric';
 import { mapState, mapActions } from 'vuex';
+import Lyric from '@/components/Lyric';
 export default {
     components: { Lyric },
     data() {
@@ -42,7 +42,7 @@ export default {
             drawer: state => state.drawer,
         }),
         authorName() {
-            return [...this.author.map(obj => obj.name)].join(' / ');
+            return [...this.author.map(obj => obj.name)].join(' / ')
         }
     },
     methods: {

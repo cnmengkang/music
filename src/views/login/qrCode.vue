@@ -12,6 +12,7 @@
     </div>
 </template>
 <script>
+import { setToken } from '@/utils/auth';
 import { qrKey, qrCreate, qrCheckCode } from '@/api/user/login';
 export default {
     name: "qrCode",
@@ -26,8 +27,8 @@ export default {
         // 检测二维码状态
         async getQrCheckCodeStatus(key) {
             const timestamp = new Date().getTime();
-            const res = await qrCheckCode({ key, timestamp });
-            return res;
+            const result = await qrCheckCode({ key, timestamp });
+            return result;
         },
         // login
         async getLogin() {
@@ -48,6 +49,7 @@ export default {
                 }
                 if (statusRes.code == 803) {
                     this.title = statusRes.message;
+                    setToken(statusRes.cookie)
                     clearInterval(this.timer)
                     this.$store.dispatch('getLoginStatus');
                 }

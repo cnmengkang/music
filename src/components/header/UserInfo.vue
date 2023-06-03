@@ -30,13 +30,18 @@
 <script>
 import qrCode from '@/views/login/qrCode';
 import { mapState, mapMutations } from 'vuex';
-import { removeToken } from '@/utils/auth';
+import { removeToken, getToken } from '@/utils/auth';
 export default {
     components: { qrCode },
     data() {
         return {
             size: 35,
             login: false
+        }
+    },
+    mounted() {
+        if (getToken()) {
+            this.$store.dispatch('getLoginStatus')
         }
     },
     methods: {
@@ -46,14 +51,13 @@ export default {
                 this.$router.push({ name: 'user', params: { uid: this.uid } })
             } else if (command == 'revise') {
                 this.$router.push({ name: 'edit', params: { uid: this.uid } })
-
             } else {
                 removeToken();
                 this.CLEAR_USER_INFO();
             }
         },
         getLogin() {
-            if(this.isLogin) return;
+            if (this.isLogin) return;
             this.login = true;
         },
         close() {

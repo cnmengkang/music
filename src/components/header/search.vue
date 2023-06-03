@@ -102,7 +102,7 @@ export default {
             if (!val == '') return;
             this.getSearchHotDetail();
         }
-    },
+    }
 }
 </script>
 <style lang="less" scoped>

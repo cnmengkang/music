@@ -58,7 +58,7 @@ export default {
   computed: {
     ...mapState({
       player: state => state.player,
-    }),
+    })
   }
 }
 </script>

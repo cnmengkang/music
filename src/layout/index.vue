@@ -8,7 +8,6 @@
       <el-aside width="270px">
         <asideNav />
       </el-aside>
-
       <!-- 左侧菜单 -->
       <el-container>
         <el-main class="backTop ml-15">
@@ -30,15 +29,15 @@
 import headers from "@/components/header";
 import asideNav from "@/components/aside";
 import footers from "@/views/footer/footer";
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
   name: "index",
   components: { headers, asideNav, footers },
   computed: {
     ...mapState({
-      isFooterShow: state => state.player.isFooterShow,
+      isFooterShow: (state) => state.player.isFooterShow,
     }),
-  }
+  },
 };
 </script>
 <style lang="less">
@@ -57,7 +56,7 @@ export default {
     margin: 0px auto;
     background-color: #fff;
     color: #333;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0px;
     z-index: 99;

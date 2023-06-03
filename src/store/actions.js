@@ -8,7 +8,6 @@ export default {
         console.log('new Audio success', state.player)
     },
     drawerOpen({ state }) {
-        console.log(state.drawer)
         state.drawer = !state.drawer;
     },
     async getCloudSearch({ commit }, data) {
@@ -23,13 +22,13 @@ export default {
             loginStatus().then(res => {
                 const result = res.data;
                 if (result.account.status != 0) return;
-                setUsername(result.profile.nickname)
-                setUserAvatar(result.profile.avatarUrl)
-                setUserId(result.profile.userId)
-                commit('USER_NAME', result.profile.nickname)
-                commit('USER_AVATAR', result.profile.avatarUrl)
-                commit('USER_UID', result.profile.userId)
-                commit('setIsLogin', true)
+                setUsername(result.profile.nickname);
+                setUserAvatar(result.profile.avatarUrl);
+                setUserId(result.profile.userId);
+                commit('USER_NAME', result.profile.nickname);
+                commit('USER_AVATAR', result.profile.avatarUrl);
+                commit('USER_UID', result.profile.userId);
+                commit('setIsLogin', true);
             })
         })
     }

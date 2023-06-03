@@ -26,7 +26,6 @@
         <video-grid :videoGroups="allVideo"></video-grid>
       </el-tab-pane>
       <el-tab-pane label="MV" name="mv">
-        <div class="videos_scroll" v-infinite-scroll="load"></div>
         <video-mv></video-mv>
       </el-tab-pane>
     </tabs>
