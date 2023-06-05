@@ -1,36 +1,41 @@
 <template>
   <div class="navbar-index">
     <tabs :tabsName="tabsName" @tab-click="handleTabClick">
-      <el-tab-pane v-for="item in data" :key="item.id" :name="item.name" :label="item.name"
-        :path="item.path"></el-tab-pane>
+      <el-tab-pane
+        v-for="item in data"
+        :key="item.id"
+        :name="item.name"
+        :label="item.name"
+        :path="item.path"
+      ></el-tab-pane>
     </tabs>
   </div>
 </template>
 
 <script>
-import Tabs from '@/components/Tabs';
+import Tabs from "@/components/Tabs";
 export default {
   name: "navBar",
   components: { Tabs },
   data() {
     return {
-      tabsName: '个性推荐',
+      tabsName: "个性推荐",
       data: [
-        { path: '/discover', name: '个性推荐', id: 0 },
-        { path: '/discover/customization', name: '专属定制', id: 1 },
-        { path: '/discover/playlist', name: '歌单', id: 2 },
-        { path: '/discover/toplist', name: '排行榜', id: 3 },
-        { path: '/discover/topsong', name: '最新音乐', id: 4 },
-      ]
+        { path: "/discover", name: "个性推荐", id: 0 },
+        { path: "/discover/customization", name: "专属定制", id: 1 },
+        { path: "/discover/playlist", name: "歌单", id: 2 },
+        { path: "/discover/toplist", name: "排行榜", id: 3 },
+        { path: "/discover/topsong", name: "最新音乐", id: 4 },
+      ],
     };
   },
   methods: {
     handleTabClick(tab) {
       this.tabsName = tab.name;
       this.$router.push(tab.$attrs.path);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="less" scoped>
 .navbar-index {

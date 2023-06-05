@@ -141,13 +141,6 @@
   height: 200px;
   margin: 0 auto;
 }
-.flex {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-}
 .justify-content-flex {
   justify-content: flex-start;
 }
@@ -157,7 +150,8 @@
 .grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 1.22%;
 }
 .text-left {
   text-align: left;
@@ -276,4 +270,181 @@ body {
   font-size: 12px;
   color: #000;
   font-weight: bold;
+}
+#discover-music .grid .item {
+  width: 19%;
+}
+#discover-music .grid .item .play-img {
+  position: relative;
+}
+#discover-music .grid .item .play-img .el-image {
+  border-radius: 4px;
+}
+#discover-music .grid .item .play-img .playCount {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #fff;
+}
+#discover-music .grid .item .play-img .el-button {
+  position: absolute;
+  background: #fff;
+  color: red;
+  right: 5px;
+  bottom: 10px;
+  transform: scale(0);
+  transition: all 0.3s linear;
+}
+#discover-music .grid .item .play-img:hover .el-button {
+  transform: scale(0.8);
+}
+#discover-music .el-carousel .el-carousel__item {
+  border-radius: 10px;
+}
+#discover-music .el-carousel .el-carousel__item span {
+  position: absolute;
+  bottom: 0px;
+  z-index: 2;
+  right: 0px;
+  color: #fff;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 10px 0px;
+}
+#discover-music .el-carousel .el-carousel__item .red {
+  background: red;
+}
+#discover-music .el-carousel .el-carousel__item .blue {
+  background: blue;
+}
+#discover-music .el-carousel .el-carousel__indicators .button {
+  border-radius: 100%;
+}
+#discover-music .recommend-resource .resource-grid h4 {
+  text-align: left;
+}
+#discover-music .recommend-resource .resource-grid ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+#discover-music .recommend-resource .resource-grid ul li {
+  position: relative;
+  cursor: pointer;
+}
+#discover-music .recommend-resource .resource-grid ul li .title {
+  font-size: 14px;
+  white-space: normal;
+  display: inline-block;
+  margin: 5px 0px;
+  text-align: left;
+}
+#discover-music .recommend-resource .resource-grid ul li .playCount {
+  display: block;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #fff;
+}
+.footer {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  z-index: 98;
+  background: #fff;
+  padding: 10px 20px;
+  border-top: 1px solid #ccc;
+}
+.footer .footer-singer {
+  width: 25%;
+}
+.footer .footer-audio {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.footer .footer-audio .audio {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer .footer-audio .audio .audio-play {
+  justify-content: center !important;
+}
+.footer .footer-audio .audio .audio-play .audio-top span {
+  cursor: pointer;
+  font-family: "iconFont" !important;
+  font-size: 22px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.footer .footer-audio .audio .start,
+.footer .footer-audio .audio .end {
+  width: 10%;
+  text-align: center;
+  margin: 0px 10px;
+}
+.footer .footer-audio .audio .plays {
+  display: flex;
+  justify-content: center;
+  gap: 0px 30px;
+  align-items: center;
+}
+.footer .lyrics {
+  width: 100%;
+  background: #fff;
+  position: absolute;
+  height: 35px;
+  line-height: 35px;
+  right: 0px;
+  left: 0px;
+  top: -37px;
+  z-index: 10;
+  border-top: 1px solid #ccc;
+}
+.playlist-head {
+  padding: 15px 0px;
+  height: 152px;
+  overflow: hidden;
+  width: 100%;
+  background-size: 100%;
+  position: relative;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+.playlist-head .bgc {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  top: 0px;
+  background-size: 100%;
+  background-position: center center;
+  transform: scale(1.22);
+  filter: brightness(0.7) blur(40px);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(30px);
+}
+.playlist-head .left {
+  top: 15px;
+}
+.playlist-head .right {
+  top: 50%;
+  left: 182px;
+  transform: translateY(-50%);
+}
+.playlist-head .left,
+.playlist-head .right {
+  position: absolute;
+  z-index: 2;
+}
+.playlist-head .playlist-tabs {
+  position: relative;
 }

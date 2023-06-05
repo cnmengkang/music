@@ -61,12 +61,13 @@ export default {
         limit: "",
         offset: 0,
       },
-      activeName: "song",
+      activeName: "song", //默认选中
       list: [],
       comment: "",
       totalReview: "", //总评论数
     };
   },
+  // 监听id变化更改list & head 数据
   watch: {
     "$route.params.id": {
       immediate: true,
@@ -80,9 +81,11 @@ export default {
   methods: {
     // // 获取歌单所有歌曲
     getPlayTrack() {
+      // 歌单顶部数据
       playlistDetail(this.params).then((res) => {
         this.playlist = res.playlist;
       });
+      // 歌单list数据
       playTrackAll(this.params).then((res) => {
         this.list = res.songs;
       });
@@ -98,8 +101,8 @@ export default {
         this.comment = res.comments;
       });
     },
+    // 获取用户详情
     getUserInfo(item) {
-      console.log(item);
       this.$router.push({ name: "user", params: { uid: item.userId } });
     },
   },

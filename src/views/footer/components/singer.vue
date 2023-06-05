@@ -13,7 +13,7 @@
                     <span>❤</span>
                 </div>
             </div>
-            <div class="mt-5">
+            <div class="mt-5 ellipsis" :title="authorName">
                 <span class="font-12">{{ authorName }}</span>
             </div>
         </div>
@@ -32,7 +32,7 @@ export default {
             author: state => state.player.singer.authorName
         }),
         authorName() {
-            return [...this.author.map(obj => obj.name)].join(' / ');
+            return [...this.author.map(obj => obj.name)].join('/');
         }
     },
     methods: {
