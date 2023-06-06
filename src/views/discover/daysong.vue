@@ -1,5 +1,5 @@
 <template>
-  <div class="day-song mt-20">
+  <el-card class="day-song">
     <div class="day-song-head">
       <div class="calendar flex">
         <div class="left mr-20">
@@ -17,7 +17,7 @@
       <song-list :tableDate="list"></song-list>
     </div>
     <!-- 内容区域 -->
-  </div>
+  </el-card>
 </template>
 
 <script>

@@ -19,7 +19,7 @@
       <div class="grid">
         <div class="w-20 mb-15 item">
           <div class="play-img" @click="getDaySong">
-            <el-image :src="images" />
+            <el-image fit="cover" :src="images" />
             <el-button
               @click.stop="getPlayAllList()"
               circle
@@ -88,21 +88,19 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="less" scoped>
 .today {
   font-size: 5rem;
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0px;
+  font-family: fangsong;
   display: flex;
   text-align: center;
   font-weight: bold;
-  left: 0px;
   color: #fff;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
 }
 </style>

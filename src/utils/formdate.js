@@ -74,7 +74,7 @@ export function formatTime(time, option) {
     );
   }
 }
-// 
+//
 export function numCount(count) {
   if (!count) return "";
   if (count > 100000000) {

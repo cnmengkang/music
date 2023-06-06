@@ -59,7 +59,7 @@ export default {
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0px;
-    z-index: 99;
+    z-index: 97;
   }
 
   .el-container {
@@ -75,6 +75,12 @@ export default {
 
   .el-footer {
     padding: 0px;
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    z-index: 98;
   }
 }
 </style>

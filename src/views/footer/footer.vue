@@ -45,7 +45,7 @@
 
         </div>
         <!-- 弹出层包含歌词作者信息 -->
-        <div class="drawer" v-if="drawer">
+        <div class="drawer" v-show="drawer">
             <drawer></drawer>
         </div>
         <!-- 弹出层包含歌词作者信息 -->

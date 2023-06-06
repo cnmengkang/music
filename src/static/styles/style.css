@@ -346,39 +346,37 @@ body {
   right: 5px;
   color: #fff;
 }
-.footer {
+.footer_info {
+  width: 100%;
+  padding: 5px 15px;
+}
+.footer_info .footer {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
   width: 100%;
-  position: fixed;
-  bottom: 0px;
-  z-index: 98;
-  background: #fff;
-  padding: 10px 20px;
-  border-top: 1px solid #ccc;
 }
-.footer .footer-singer {
+.footer_info .footer .footer-singer {
   width: 25%;
 }
-.footer .footer-audio {
+.footer_info .footer .footer-audio {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
 }
-.footer .footer-audio .audio {
+.footer_info .footer .footer-audio .audio {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.footer .footer-audio .audio .audio-play {
+.footer_info .footer .footer-audio .audio .audio-play {
   justify-content: center !important;
 }
-.footer .footer-audio .audio .audio-play .audio-top span {
+.footer_info .footer .footer-audio .audio .audio-play .audio-top span {
   cursor: pointer;
   font-family: "iconFont" !important;
   font-size: 22px;
@@ -386,19 +384,19 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.footer .footer-audio .audio .start,
-.footer .footer-audio .audio .end {
+.footer_info .footer .footer-audio .audio .start,
+.footer_info .footer .footer-audio .audio .end {
   width: 10%;
   text-align: center;
   margin: 0px 10px;
 }
-.footer .footer-audio .audio .plays {
+.footer_info .footer .footer-audio .audio .plays {
   display: flex;
   justify-content: center;
   gap: 0px 30px;
   align-items: center;
 }
-.footer .lyrics {
+.footer_info .footer .lyrics {
   width: 100%;
   background: #fff;
   position: absolute;
