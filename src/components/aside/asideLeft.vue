@@ -57,7 +57,6 @@ export default {
     };
   },
   mounted() {
-    console.log('左侧导航获取成功')
     this.getUserPlaylist();
   },
   methods: {

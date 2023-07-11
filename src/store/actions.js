@@ -25,7 +25,6 @@ export default {
         const result = res.data;
         console.log(result);
         if (result.account.status != 0) return;
-        console.log("登录成功");
         setUsername(result.profile.nickname);
         setUserAvatar(result.profile.avatarUrl);
         setUserId(result.profile.userId);
