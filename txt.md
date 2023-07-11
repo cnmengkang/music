@@ -39,8 +39,4 @@ git add . 添加工作区所有文件
 git reset head  撤销所有暂存区文件
 git reset head name(文件名)   撤销指定文件名
 git status 查看当前暂存区文件
-ftp://cutepeeps.com:HqkT412331132fe3192sq201plw8K@34.228.113.129
 
-<!-- 第一次吃登录之后，获取用户数据 -->
-<!-- 音乐列表    1.双击->播放当前双击的音乐（传入id根据id获取歌曲url） 获取当前所有音乐列表（id）--> 
-<!-- 下一首：点击下一首 判断当前音乐id的index，根据当前id的index获取当前-->
