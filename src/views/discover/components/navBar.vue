@@ -31,6 +31,7 @@ export default {
   },
   methods: {
     handleTabClick(tab) {
+      console.log(tab.name)
       this.tabsName = tab.name;
       this.$router.push(tab.$attrs.path);
     },

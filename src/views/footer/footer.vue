@@ -42,7 +42,6 @@
                 </div>
             </transition>
             <!-- 底部歌词 -->
-
         </div>
         <!-- 弹出层包含歌词作者信息 -->
         <div class="drawer" v-show="drawer">

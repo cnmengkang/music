@@ -1,126 +1,165 @@
 <template>
-    <!-- list列表组件 -->
-    <div class="song-list">
-        <el-skeleton :rows="6" animated :loading="tableDate.length != 0 ? false : true" />
-        <el-table @row-dblclick="getCurrentMusicId" size="small" :data="tableDate" :row-class-name="rowClassName">
-            <el-table-column label="序号" type="index" :index="indexMethod" align="center" />
-            <el-table-column label="操作" width="70">
-                <template slot-scope="scope">
-                    <i class="iconFont icon-love" type="selection" :index="scope.row.index"></i>
-                    <i class="iconFont icon-down ml-10" @click="downloadMusic(scope.row)"></i>
-                </template>
-            </el-table-column>
-            <el-table-column show-overflow-tooltip label="标题" width="350" class-name="title">
-                <template slot-scope="scope">
-                    <div class="ellipsis">
-                        <span class="name" :title="scope.row.name">{{ scope.row.name }}</span>
-                        <span class="name-tips" v-if="scope.row.alia.length != 0">({{ scope.row.alia[0] }})</span>
-                    </div>
-                    <div class="right">
-                        <span class="vip ml-10" v-if="scope.row.fee == 1">VIP</span>
-                        <span v-if="scope.row.mv != 0" @click="getMv(scope.row)" class="mv ml-5">MV<i
-                                class="el-icon-caret-right"></i></span>
-                        <span class="originType ml-5" v-if="scope.row.originCoverType != 0">{{
-                            scope.row.originCoverType == 1 ? '原唱' : '翻唱'
-                        }}</span>
-                    </div>
-                </template>
-            </el-table-column>
-            <el-table-column show-overflow-tooltip prop="ar[0].name" label="歌手" />
-            <el-table-column show-overflow-tooltip prop="al.name" label="专辑" />
-            <el-table-column label="时间" width="65">
-                <template slot-scope="scope">
-                    <span>{{ parseTime(scope.row.dt, "{i}:{s}") }}</span>
-                </template>
-            </el-table-column>
-        </el-table>
-    </div>
-    <!-- list列表组件 -->
+  <!-- list列表组件 -->
+  <div class="song-list">
+    <el-skeleton
+      :rows="6"
+      animated
+      :loading="tableDate.length != 0 ? false : true"
+    />
+    <el-table
+      @row-dblclick="getCurrentMusicId"
+      size="small"
+      :data="tableDate"
+      :row-class-name="rowClassName"
+    >
+      <el-table-column
+        label="序号"
+        type="index"
+        :index="indexMethod"
+        align="center"
+      />
+      <el-table-column label="操作" width="70">
+        <template slot-scope="scope">
+          <i
+            :class="['iconFont', { 'icon-love': true }]"
+            type="selection"
+            :index="scope.row.index"
+          ></i>
+          <i
+            class="iconFont icon-down ml-10"
+            @click="downloadMusic(scope.row)"
+          ></i>
+        </template>
+      </el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        label="标题"
+        width="350"
+        class-name="title"
+      >
+        <template slot-scope="scope">
+          <div class="ellipsis">
+            <span class="name" :title="scope.row.name">{{
+              scope.row.name
+            }}</span>
+            <span class="name-tips" v-if="scope.row.alia.length != 0"
+              >({{ scope.row.alia[0] }})</span
+            >
+          </div>
+          <div class="right">
+            <span class="vip ml-10" v-if="scope.row.fee == 1">VIP</span>
+            <span
+              v-if="scope.row.mv != 0"
+              @click="getMv(scope.row)"
+              class="mv ml-5"
+              >MV<i class="el-icon-caret-right"></i
+            ></span>
+            <span
+              class="originType ml-5"
+              v-if="scope.row.originCoverType != 0"
+              >{{ scope.row.originCoverType == 1 ? "原唱" : "翻唱" }}</span
+            >
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column show-overflow-tooltip prop="ar[0].name" label="歌手" />
+      <el-table-column show-overflow-tooltip prop="al.name" label="专辑" />
+      <el-table-column label="时间" width="65">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.dt, "{i}:{s}") }}</span>
+        </template>
+      </el-table-column>
+    </el-table>
+  </div>
+  <!-- list列表组件 -->
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
+import { like } from "@/api/music/music";
 export default {
-    props: {
-        tableDate: {
-            type: Array,
-            require: true
-        },
-        total: {
-            type: Number,
-            require: 0,
-        },
+  props: {
+    tableDate: {
+      type: Array,
+      require: true,
     },
+    total: {
+      type: Number,
+      require: 0,
+    },
+  },
 
-    data() {
-        return {
-            rowId: 0,
-            params: {
-                index: 0,
-                ids: 0,
-                playlist: ''
-            }
-        }
+  data() {
+    return {
+      rowId: 0,
+      params: {
+        index: 0,
+        ids: 0,
+        playlist: "",
+      },
+      like: true,
+    };
+  },
+  watch: {
+    "player.params.id"(isPlayId) {
+      localStorage.setItem("isPlay", isPlayId);
+      this.rowId = localStorage.getItem("isPlay");
     },
-    watch: {
-        'player.params.id'(isPlayId) {
-            localStorage.setItem('isPlay', isPlayId);
-            this.rowId = localStorage.getItem('isPlay');
-        }
+  },
+  mounted() {
+    console.log(this.tableDate);
+    this.rowId = localStorage.getItem("isPlay");
+  },
+  methods: {
+    // 双击获取当前单曲id
+    getCurrentMusicId(row) {
+      this.params.index = this.tableDate.indexOf(row);
+      this.params.playlist = this.tableDate;
+      this.$store.dispatch("getCurrentMusicIsPlay", this.params);
     },
-    mounted() {
-        this.rowId = localStorage.getItem('isPlay');
+    indexMethod(index = 0) {
+      return index * 1 + 1;
     },
-    methods: {
-        // 双击获取当前单曲id
-        getCurrentMusicId(row) {
-            this.params.index = this.tableDate.indexOf(row);
-            this.params.playlist = this.tableDate;
-            this.$store.dispatch('getCurrentMusicIsPlay', this.params);
-        },
-        indexMethod(index = 0) {
-            return index * 1 + 1;
-        },
-        // 下载
-        downloadMusic(row) {
-            songUrl(row.id).then(res => {
-                const blob = new Blob([res.data])
-                const link = document.createElement('a')
-                link.href = window.URL.createObjectURL(blob)
-                link.download = res.data[0].url // 设置下载文件名
-                link.click() // 触发下载操作
-            })
-        },
-        rowClassName({ row }) {
-            return this.rowId == row.id ? "isPlay" : ''
-        }
+    // 下载
+    downloadMusic(row) {
+      songUrl(row.id).then((res) => {
+        const blob = new Blob([res.data]);
+        const link = document.createElement("a");
+        link.href = window.URL.createObjectURL(blob);
+        link.download = res.data[0].url; // 设置下载文件名
+        link.click(); // 触发下载操作
+      });
     },
-    computed: {
-        ...mapState({
-            player: state => state.player,
-        }),
-    }
-}
+    rowClassName({ row }) {
+      return this.rowId == row.id ? "isPlay" : "";
+    },
+  },
+  computed: {
+    ...mapState({
+      player: (state) => state.player,
+    }),
+  },
+};
 </script>
 <style lang="less" scoped>
+.icon-love-red:before {
+  content: "\e64e";
+}
 .song-list {
-    .mv {
-        display: inline-block;
-    }
+  .mv {
+    display: inline-block;
+  }
 
-    .name-tips {
-        font-size: 12px;
-        color: #a39c9c;
-    }
+  .name-tips {
+    font-size: 12px;
+    color: #a39c9c;
+  }
 
-    .icon-love-red {
-        color: red;
-    }
+  .icon-love-red {
+    color: red;
+  }
 
-    .hot {
-        background: red;
-    }
+  .hot {
+    background: red;
+  }
 }
 </style>
-
-
-

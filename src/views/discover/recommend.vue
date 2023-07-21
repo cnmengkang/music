@@ -77,7 +77,6 @@ export default {
     // 每日推荐歌单
     getPersonalized() {
       recommendResource(this.params).then((res) => {
-        console.log(res);
         this.personalized = res.recommend;
       });
     },

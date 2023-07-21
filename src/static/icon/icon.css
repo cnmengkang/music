@@ -49,11 +49,6 @@
 .icon-down-arrow:before {
   content: "\e801";
 }
-
-.icon-love-red:before {
-  content: "\e64e";
-}
-
 .icon-play-red:before {
   content: "\ea83";
   padding-left: 2px;
