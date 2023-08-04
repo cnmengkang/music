@@ -2,12 +2,12 @@
   <div class="aside-left">
     <ul class="menu_list cursor">
       <li
-        class="mb-5"
-        v-for="item in data"
-        @click="handActivePath(item.index)"
-        :key="item.id"
+        :class="['mb-5', selectedIndex == index ? 'active' : '']"
+        v-for="(item, index) in data"
+        @click="handActivePath(item, index)"
+        :key="index"
       >
-        <a>{{ item.name }}</a>
+        {{ item.name }}
       </li>
       <span class="font-12 my">创建歌单</span>
       <template v-if="isLogin">
@@ -49,11 +49,11 @@ export default {
     return {
       data: [
         { name: "发现音乐", index: "/discover" },
-        { name: "博客", index: "/podcast" },
         { name: "视频", index: "/video/全部视频" },
         { name: "私人漫游", index: "/private" },
       ],
       playlist: "",
+      selectedIndex: null,
     };
   },
   mounted() {
@@ -63,8 +63,9 @@ export default {
     handSelectIndex(res) {
       this.$router.push({ name: "detail", params: { id: res } });
     },
-    handActivePath(path) {
-      this.$router.push(path);
+    handActivePath(item, index) {
+      this.$router.push(item.index);
+      this.selectedIndex = index;
     },
     getUserPlaylist() {
       userPlaylist(this.uid).then((res) => {
@@ -95,20 +96,17 @@ export default {
     li {
       height: 35px;
       line-height: 35px;
-      transition: all 0.3s linear;
+      transition: hover 0.3s linear;
       border-radius: 4px;
-
-      a {
-        padding-left: 15px;
-      }
-
+      padding-left: 10px;
       &:hover {
         background: rgb(236, 94, 118);
+        color: #fff;
       }
-
-      &:active {
-        background: red;
-      }
+    }
+    .active {
+      background: rgb(236, 94, 118);
+      color: #fff;
     }
   }
 }

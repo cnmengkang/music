@@ -49,8 +49,8 @@ export default {
   position: relative;
   background: @backColor;
   overflow: hidden;
-  .el-aside{
-    margin-bottom:50px;
+  .el-aside {
+    margin-bottom: 50px;
   }
   .el-header {
     width: 100%;

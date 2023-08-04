@@ -5,7 +5,6 @@
         <div class="left mr-20">
           <el-image :src="src"></el-image>
         </div>
-
         <div class="right">
           <h1 class="mb-10">每日歌曲推荐</h1>
           <p class="font-12">根据你的音乐口味，每天6：00生成</p>
@@ -19,7 +18,6 @@
     <!-- 内容区域 -->
   </el-card>
 </template>
-
 <script>
 import SongList from "@/components/SongList";
 import { daySongs } from "@/api/discover/discover";

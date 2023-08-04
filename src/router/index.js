@@ -1,49 +1,50 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
-// layout
 import Layout from "@/layout";
 import dashboard from "@/views/dashboard";
 const routes = [
   {
-    path: "",
+    path: "/",
     component: Layout,
-    redirect: "/discover",
+    redirect: "discover",
     children: [
       {
         path: "/discover",
+        name: "Discover",
         component: () => import("@/views/discover"),
-        name: "discover",
+        meta: { label: "发现音乐" },
         children: [
           {
             path: "/discover",
-            name: "recommend",
             component: () => import("@/views/discover/recommend"),
-            // 个性推荐首页
-          },
-          {
-            path: "/discover/customization",
-            name: "customization",
-            component: () => import("@/views/discover/customization"),
-            // 专属定制
+            meta: { label: "个性推荐" },
+            children: [
+              {
+                path: "/discover/daysong",
+                name: "daysong",
+                component: () => import("@/views/discover/daysong"),
+                // 每日歌曲推荐
+              },
+            ],
           },
           {
             path: "/discover/playlist",
             name: "playlist",
             component: () => import("@/views/playlist"),
-            // 歌单
+            meta: { label: "歌单" },
           },
           {
             path: "/discover/toplist",
             name: "topList",
             component: () => import("@/views/discover/topList/"),
-            // 排行榜
+            meta: { label: "排行榜" },
           },
           {
             path: "/discover/topsong",
-            name: "topSong",
+            name: "TopSong",
             component: () => import("@/views/discover/topSong/"),
-            // 排行榜
+            meta: { label: "最新音乐" },
           },
         ],
       },
@@ -51,21 +52,8 @@ const routes = [
         path: "/detail/:id",
         name: "detail",
         component: () => import("@/views/discover/detail"),
-        // 个性推荐详情页
-      },
-      {
-        path: "daysong",
-        name: "daysong",
-        component: () => import("@/views/discover/daysong"),
-        // 每日歌曲推荐
       },
       // 发现音乐
-      {
-        path: "podcast",
-        component: () => import("@/views/podcast"),
-        name: "podcast",
-      },
-      // 博客
       {
         path: "private",
         component: () => import("@/views/private"),
@@ -92,10 +80,6 @@ const routes = [
         component: () => import("@/views/login/login"),
       },
       {
-        path: "/register",
-        component: () => import("@/views/login/register"),
-      },
-      {
         path: "/edit",
         name: "edit",
         component: () => import("@/views/user/edit"),
@@ -109,7 +93,7 @@ const routes = [
       {
         path: "/video/:name",
         component: () => import("@/views/videos"),
-        name: "video",
+        name: "Video",
       },
     ],
   },
@@ -134,16 +118,6 @@ const routes = [
 ];
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
   routes,
 });
-const originalPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch((err) => err);
-};
-
-const originalReplace = VueRouter.prototype.replace;
-VueRouter.prototype.replace = function replace(location) {
-  return originalReplace.call(this, location).catch((err) => err);
-};
 export default router;
