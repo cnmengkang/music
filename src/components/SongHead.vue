@@ -94,7 +94,7 @@ export default {
       return this.tableHead.coverImgUrl;
     },
     avatarUrl() {
-      return this.tableHead.creator.avatarUrl;
+      return this.tableHead.creator.avatarUrl + "?param=30y30";
     },
     nickname() {
       return this.tableHead.creator.nickname;

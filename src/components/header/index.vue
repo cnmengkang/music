@@ -24,7 +24,7 @@ export default {
 <style lang="less" scoped>
 .header {
   height: 60px;
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   .right {

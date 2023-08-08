@@ -5,7 +5,6 @@ export default {
   // 获取当前播放的音乐
   getCurrentMusicIsPlay({ state }, data) {
     state.player.createAudio(data);
-    console.log("new Audio success", state.player);
   },
   // 音乐左下角头像点击弹框打开关闭
   drawerOpen({ state }) {
@@ -23,7 +22,6 @@ export default {
     return new Promise((resolve, reject) => {
       loginStatus().then((res) => {
         const result = res.data;
-        console.log(result);
         if (result.account.status != 0) return;
         setUsername(result.profile.nickname);
         setUserAvatar(result.profile.avatarUrl);

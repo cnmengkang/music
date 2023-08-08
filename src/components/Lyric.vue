@@ -93,7 +93,7 @@ export default {
     overflow: auto;
 
     p {
-      color: #000;
+      color: #ccc;
       word-wrap: break-word;
       text-align: center;
       line-height: @height;

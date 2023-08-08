@@ -3,7 +3,7 @@
     <div
       class="drawer-background"
       append-to-body="true"
-      :style="{ backgroundImage: 'url(' + authorAvatar + ')' }"
+      :style="{ backgroundImage: 'url(' + authorAvatar + '?param=150y150)' }"
     ></div>
     <el-drawer
       :title="songName"
@@ -16,7 +16,7 @@
       <div class="footer_drawer flex">
         <div class="left flex justify-content-center">
           <div class="rotate" :style="{ transform: rotateStyle }">
-            <el-avatar circle :size="200" :src="authorAvatar" />
+            <el-avatar circle :size="200" :src="authorAvatar+'?param=200y200'" />
           </div>
         </div>
         <div class="right">

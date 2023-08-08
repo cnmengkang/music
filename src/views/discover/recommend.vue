@@ -1,15 +1,17 @@
 <template>
   <div id="discover-recommend mb-30">
+    <!-- banner -->
     <el-card class="mb-15">
-      <div class="recommend-banner" style="border-radius: 100%">
-        <el-carousel indicator-position="none" height="200px">
-          <el-carousel-item v-for="item in banners" :key="item.imageUrl">
-            <img :src="item.imageUrl" />
+      <div class="recommend-banner">
+        <el-carousel type="card" height="180px">
+          <el-carousel-item v-for="(item, index) in bannerList" :key="index">
+            <img :src="item.imageUrl" :alt="item.typeTitle" />
             <span :class="item.titleColor">{{ item.typeTitle }}</span>
           </el-carousel-item>
         </el-carousel>
       </div>
     </el-card>
+    <!-- banner -->
     <el-card>
       <h2 class="res-grid-title mb-15">
         <router-link to="/discover/playlist">
@@ -19,7 +21,7 @@
       <div class="grid">
         <div class="w-20 mb-15 item">
           <div class="play-img" @click="getDaySong">
-            <el-image fit="cover" :src="images" />
+            <el-image fit="cover" :src="images"  style="width: 150px; height: 150px"  />
             <el-button
               @click.stop="getPlayAllList()"
               circle
@@ -31,7 +33,7 @@
         </div>
         <!-- 每日推荐歌单 -->
         <play-grid
-          v-for="(item, index) in personalized"
+          v-for="(item, index) in filterPersonAlized"
           :key="index"
           :name="item.name"
           :picUrl="item.picUrl"
@@ -46,17 +48,21 @@
   </div>
 </template>
 <script>
-import { banner, recommendResource } from "@/api/discover/discover";
+import {
+  banner,
+  recommendResource,
+  personalized,
+} from "@/api/discover/discover";
 import playGrid from "@/components/PlayGrid";
 export default {
   name: "recommend",
   components: { playGrid },
   data() {
     return {
-      banners: "",
+      bannerList: [],
       personalized: [],
       params: {
-        limit: 0,
+        limit: 9,
         timestamp: new Date().getTime(),
       },
       images: require("../../static/images/day.jpg"),
@@ -69,25 +75,38 @@ export default {
   },
   methods: {
     // banner
-    getBanner() {
-      banner().then((res) => {
-        this.banners = res.banners;
-      });
+    async getBanner() {
+      let result = await banner();
+      this.bannerList = result.banners;
     },
     // 每日推荐歌单
     getPersonalized() {
-      recommendResource(this.params).then((res) => {
-        this.personalized = res.recommend;
-      });
+      if (true) {
+        recommendResource(this.params).then((res) => {
+          this.personalized = res.recommend;
+        });
+      } else {
+        console.log("false login 推荐");
+      }
     },
     // 获取每日推荐
     getDaySong() {
       this.$router.push("daysong");
     },
   },
+  computed: {
+    filterPersonAlized() {
+      return this.personalized.splice(0, 9);
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
+.recommend-banner {
+  img {
+    height: 100%;
+  }
+}
 .today {
   font-size: 5rem;
   position: absolute;

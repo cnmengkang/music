@@ -3,14 +3,16 @@
     <div class="playlist-head border-r-5 flex mb-15" v-if="quality">
       <div
         class="bgc"
-        :style="{ backgroundImage: 'url(' + quality.coverImgUrl + ')' }"
+        :style="{
+          backgroundImage: 'url(' + quality.coverImgUrl + '?param=150y150)',
+        }"
       ></div>
       <div class="left ml-15">
         <el-avatar
           shape="square"
           :size="150"
           fit="cover"
-          :src="quality.coverImgUrl"
+          :src="quality.coverImgUrl + '?param=150y150'"
         ></el-avatar>
       </div>
       <div class="right">

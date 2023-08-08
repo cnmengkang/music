@@ -10,7 +10,7 @@
         {{ item.name }}
       </li>
       <span class="font-12 my">创建歌单</span>
-      <template v-if="isLogin">
+ <template v-if="isLogin">
         <template v-for="item in playlist">
           <li
             class="font-14 mb-5 ellipsis"
@@ -70,6 +70,7 @@ export default {
     getUserPlaylist() {
       userPlaylist(this.uid).then((res) => {
         if (res.code != 200) return;
+        console.log(res);
         this.playlist = res.playlist;
       });
     },

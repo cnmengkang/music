@@ -151,7 +151,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  gap: 1.22%;
 }
 .text-left {
   text-align: left;
@@ -272,7 +271,7 @@ body {
   font-weight: bold;
 }
 #discover-music .grid .item {
-  width: 19%;
+  width: 20%;
 }
 #discover-music .grid .item .play-img {
   position: relative;

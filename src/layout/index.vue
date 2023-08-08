@@ -43,11 +43,10 @@ export default {
 <style lang="less">
 @border: 1px solid #ccc;
 @backColor: #ffffffe0;
-@width: 1140px;
+@width: 1200px;
 
 #app_index {
   position: relative;
-  background: @backColor;
   overflow: hidden;
   .el-aside {
     margin-bottom: 50px;

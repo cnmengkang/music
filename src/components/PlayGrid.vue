@@ -2,7 +2,7 @@
   <!-- grid列表 -->
   <div class="w-20 mb-15 item">
     <div class="play-img" @click="getDetail(id)">
-      <el-image fit="cover" lazy :src="picUrl || coverImgUrl" :alt="alg"></el-image>
+      <el-image fit="cover" lazy :src="picUrl+'?param=150y150'" :alt="alg"></el-image>
       <span class="playCount font-12">
         <i class="el-icon-caret-right"></i>{{ $playTime(playcount) }}</span
       >

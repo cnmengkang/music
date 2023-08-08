@@ -14,6 +14,13 @@ export function recommendResource(data) {
     params: data,
   });
 }
+// 没登陆推荐歌单
+export function personalized(data) {
+  return request({
+    url: "/personalized",
+    params: data,
+  });
+}
 // 获取每日推荐歌曲
 export function daySongs() {
   return request({

@@ -15,7 +15,7 @@
           </span>
           <div class="comment" v-for="(item, index) in comment" :key="index">
             <div class="user-avatarUrl cursor" @click="getUserInfo(item.user)">
-              <el-avatar :size="40" :src="item.user.avatarUrl"></el-avatar>
+              <el-avatar :size="40" :src="item.user.avatarUrl+'?param=40y40'"></el-avatar>
             </div>
             <div class="user-info">
               <span
