@@ -1,6 +1,6 @@
 <template>
   <div id="app_index">
-    <el-header>
+    <el-header :class="{transparent:drawer}">
       <headers />
     </el-header>
     <!-- 顶部 -->
@@ -36,6 +36,7 @@ export default {
   computed: {
     ...mapState({
       isFooterShow: (state) => state.player.isFooterShow,
+      drawer: (state) => state.drawer,
     }),
   },
 };
@@ -62,7 +63,11 @@ export default {
     top: 0px;
     z-index: 97;
   }
-
+  .transparent{
+    background-color: transparent;
+    z-index: 999;
+    box-shadow: none;
+  }
   .el-container {
     max-width: @width;
     margin: 0px auto 20px;

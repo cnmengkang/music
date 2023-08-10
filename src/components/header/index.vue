@@ -1,14 +1,14 @@
 <template>
   <div class="header">
     <div class="left flex">
-      <div class="header-logo">
+      <div class="header-logo" v-if="!drawer">
         <h1>
           <a href="#"></a>
         </h1>
       </div>
       <search />
     </div>
-    <div class="right flex">
+    <div class="right flex" v-if="!drawer">
       <user-info></user-info>
     </div>
   </div>
@@ -17,8 +17,14 @@
 import search from "./search.vue";
 import back from "./back.vue";
 import UserInfo from "./UserInfo.vue";
+import { mapState } from "vuex";
 export default {
   components: { search, back, UserInfo },
+  computed: {
+    ...mapState({
+      drawer: (state) => state.drawer,
+    }),
+  },
 };
 </script>
 <style lang="less" scoped>

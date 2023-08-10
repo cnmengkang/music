@@ -49,20 +49,24 @@
       <div class="flex" style="width: 25%">
         <sound></sound>
         <div class="btn_lyrics">
-          <span class="font-16 ml-10 cursor" @click="show = !show">词</span>
+          <span
+            :class="['font-16 ml-10 cursor', { lyric: show }]"
+            @click="show = !show"
+            >词</span
+          >
         </div>
       </div>
       <!-- 音量 -->
       <!-- 底部歌词 -->
       <transition name="el-zoom-in-bottom">
-        <div class="lyrics" v-show="show">
-          <lyric v-if="!drawer"></lyric>
+        <div class="lyrics" v-show="show" v-if="!drawer">
+          <lyric></lyric>
         </div>
       </transition>
       <!-- 底部歌词 -->
     </div>
     <!-- 弹出层包含歌词作者信息 -->
-      <drawer></drawer>
+    <drawer></drawer>
     <!-- 弹出层包含歌词作者信息 -->
   </div>
 </template>
@@ -80,10 +84,6 @@ export default {
     return {
       slidValue: 0,
       show: true,
-      loops: [
-        { id: "0", name: "循环" },
-        { id: "1", name: "随机" },
-      ],
     };
   },
   watch: {
@@ -129,5 +129,8 @@ export default {
   bottom: 60px;
   z-index: 999;
   overflow: hidden;
+}
+.lyric {
+  color: red;
 }
 </style>

@@ -1,7 +1,12 @@
 <template>
   <div class="author flex flex-wrap-nowrap">
     <div class="author-avatar mr-10" @click="drawerOpen">
-      <el-avatar shape="square" :size="50" :src="authorAvatar" />
+      <el-avatar
+        shape="square"
+        :size="50"
+        :src="authorAvatar + '?param=50y50'"
+      />
+      <i class=""></i>
     </div>
     <div class="author-singer">
       <div class="font-14 author-flex">
@@ -27,8 +32,7 @@ export default {
     ...mapState({
       player: (state) => state.player,
       songName: (state) => state.player.singer.songName,
-      authorAvatar: (state) =>
-        state.player.singer.authorAvatar + "?param=50y50",
+      authorAvatar: (state) => state.player.singer.authorAvatar,
       subName: (state) => state.player.singer.subName,
       author: (state) => state.player.singer.authorName,
     }),

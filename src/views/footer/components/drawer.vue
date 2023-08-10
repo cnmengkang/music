@@ -1,17 +1,21 @@
 <template>
   <el-drawer
-    :style="{
-      backgroundImage: 'url(' + bgcImage + ')',
-    }"
     :title="songName"
     :modal="false"
     size="100%"
     :direction="direction"
+    :with-header="false"
     :before-close="drawerOpen"
     :visible.sync="drawer"
     :destroy-on-close="drawer"
   >
-    <div class="footer_drawer flex">
+    <div
+      class="drawer-background"
+      :style="{
+        backgroundImage: 'url(' + authorAvatar + ')',
+      }"
+    ></div>
+    <div class="footer_drawer flex" v-if="drawer">
       <div class="left flex justify-content-center">
         <div class="rotate">
           <el-avatar
@@ -23,7 +27,8 @@
       </div>
       <div class="right">
         <div class="right-head">
-          <span class="font-14 ml-15 mr-15">歌手：{{ authorName }}</span>
+          <h1 class="songName text-center mb-10">{{ songName }}</h1>
+          <p class="font-14 ml-15 mr-15">歌手：{{ authorName }}</p>
         </div>
         <div class="right-body">
           <lyric></lyric>
@@ -50,8 +55,6 @@ export default {
       isPlaying: (state) => state.player.isPlaying,
       songName: (state) => state.player.singer.songName,
       authorAvatar: (state) => state.player.singer.authorAvatar,
-      bgcImage: (state) =>
-        state.player.singer.bgcImage + "?param=50y50",
       author: (state) => state.player.singer.authorName,
       drawer: (state) => state.drawer,
     }),
@@ -67,31 +70,21 @@ export default {
 <style lang="less" scoped>
 @height: 600px;
 @head: 80px;
-
-.drawer-index {
-  position: fixed;
+.drawer-background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
   top: 0px;
-  left: 0px;
+  z-index: -1;
   right: 0px;
-  bottom: 60px;
-  z-index: 999;
-  overflow: hidden;
-  .drawer-background {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0px;
-    z-index: 15;
-    right: 0px;
-    left: 0px;
-    bottom: 0px;
-    background-size: 100%;
-    background-position: center center;
-    transform: scale(1.5);
-    filter: brightness(0.7) blur(40px);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(50px);
-  }
+  left: 0px;
+  bottom: 0px;
+  background-size: 100%;
+  background-position: center center;
+  transform: scale(1.5);
+  filter: brightness(0.7) blur(40px);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(50px);
 }
 
 .rotate {
@@ -103,11 +96,11 @@ export default {
   background-size: 6000px;
   background-position: center center;
   .footer_drawer {
-    padding: 0px 5%;
+    padding: 4%;
     position: absolute;
-    top: 60px;
+    top: 0px;
     right: 0px;
-    bottom: 30px;
+    bottom: 0px;
     left: 0px;
     width: 100%;
     height: auto;
@@ -126,8 +119,8 @@ export default {
 
       .right-head {
         text-align: center;
-
-        span {
+        .songName,
+        p {
           color: #fff;
         }
       }

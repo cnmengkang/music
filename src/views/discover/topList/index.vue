@@ -8,15 +8,21 @@
         :key="index"
       >
         <TitleComponent title="全球榜" v-if="index == 4"></TitleComponent>
-        <div class="left list w-20" @click="btnDetail(item.id)">
+        <div class="left list" @click="btnDetail(item.id)">
           <img :src="item.coverImgUrl + '?param=140y140'" />
+          <el-button
+            @click.stop="getCurrentMusicId(item, (index = 0))"
+            size="medium"
+            circle
+            class="iconFont icon-play-red"
+          ></el-button>
         </div>
-        <div class="right list w-80" v-if="item.tracks.length >= 3">
+        <div class="right list w-80 ml-10" v-if="item.tracks.length >= 3">
           <ul>
             <li
               v-for="(items, index) in item.tracks"
               :key="index"
-              @click="getCurrentMusicId(item, index)"
+              @dblclick="getCurrentMusicId(item, index)"
             >
               <span class="title">{{ index + 1 }}</span>
               <div>{{ items.first }}</div>
@@ -41,12 +47,12 @@ export default {
   data() {
     return {
       topList: "",
-      topListDetail: "",
+      topListDetail: [],
       // 单曲播放调用
       params: {
         ids: 0,
         index: 0,
-        play: 1,
+        play: "all",
       },
     };
   },
@@ -55,24 +61,21 @@ export default {
     this.getTopListDetail();
   },
   methods: {
-    getTopList() {
-      topList().then((res) => {
-        this.topList = res.list;
-      });
+    async getTopList() {
+      let { list } = await topList();
+      this.topList = list;
     },
-    getTopListDetail() {
-      topListDetail().then((res) => {
-        this.topListDetail = res.list;
-      });
+    async getTopListDetail() {
+      let { list } = await topListDetail();
+      this.topListDetail = list;
     },
     btnDetail(id) {
       this.$router.push({ name: "detail", params: { id: id } });
     },
-    getCurrentMusicId(row, index) {
+    // 播放歌曲按钮
+    getCurrentMusicId(item, index) {
       this.params.index = index;
-      this.params.ids = row.id;
-      console.log(row.id);
-      console.log(index);
+      this.params.ids = item.id;
       this.$store.dispatch("getCurrentMusicIsPlay", this.params);
     },
   },
@@ -91,6 +94,20 @@ export default {
     }
     .left {
       border-radius: 10px;
+      position: relative;
+      .el-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: red;
+        display: none;
+      }
+      &:hover {
+        .el-button {
+          display: block;
+        }
+      }
       img {
         border-radius: 10px;
       }

@@ -21,9 +21,8 @@
       <el-table-column label="操作" width="70">
         <template slot-scope="scope">
           <i
-            :class="['iconFont', { 'icon-love': true }]"
+            class="iconFont icon-love"
             type="selection"
-            :index="scope.row.index"
           ></i>
           <i
             class="iconFont icon-down ml-10"
@@ -104,7 +103,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.tableDate);
     this.rowId = localStorage.getItem("isPlay");
   },
   methods: {
@@ -115,17 +113,19 @@ export default {
       this.$store.dispatch("getCurrentMusicIsPlay", this.params);
     },
     indexMethod(index = 0) {
-      return index * 1 + 1;
+      return String(index + 1).padStart(2, "0");
+      // 序号不够两位，补0 ，padStart
     },
     // 下载
     downloadMusic(row) {
-      songUrl(row.id).then((res) => {
-        const blob = new Blob([res.data]);
-        const link = document.createElement("a");
-        link.href = window.URL.createObjectURL(blob);
-        link.download = res.data[0].url; // 设置下载文件名
-        link.click(); // 触发下载操作
-      });
+      console.log("download");
+      // songUrl(row.id).then((res) => {
+      //   const blob = new Blob([res.data]);
+      //   const link = document.createElement("a");
+      //   link.href = window.URL.createObjectURL(blob);
+      //   link.download = res.data[0].url; // 设置下载文件名
+      //   link.click(); // 触发下载操作
+      // });
     },
     rowClassName({ row }) {
       return this.rowId == row.id ? "isPlay" : "";

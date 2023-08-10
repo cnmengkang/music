@@ -5,11 +5,9 @@ import {
   checkMusic,
   playTrackAll,
 } from "@/api/music/music";
-// 音频元素对象池
 const audioPool = {
-  pool: [], // 对象池
+  pool: [], 
   get() {
-    // 获取音频元素对象
     if (this.pool.length > 0) {
       return this.pool.shift();
     } else {
@@ -41,7 +39,6 @@ export default class MusicPlayer {
       authorAvatar: "",
       songName: "",
       authorAli: "",
-      bgcImage: "",
     };
     this.audio.addEventListener("ended", () => {
       this.getPrevNext("next");
@@ -106,10 +103,8 @@ export default class MusicPlayer {
   getCurrentMusicPlayDetail() {
     songDetail(this.params.id).then((res) => {
       const songs = res.songs;
-      console.log(songs);
       this.singer.songName = songs[0].name;
       this.singer.authorAvatar = songs[0].al.picUrl;
-      this.singer.bgcImage = songs[0].al.picUrl;
       this.singer.authorName = songs[0].ar;
       this.singer.authorAli = songs[0].alia[0];
     });
@@ -138,7 +133,6 @@ export default class MusicPlayer {
     playTrackAll(this.params).then((res) => {
       this.playlist = res.songs;
       this.params.id = this.playlist[this.index].id;
-      console.log(res);
       this.getCheckMusic();
     });
   }

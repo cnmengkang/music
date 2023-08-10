@@ -8,7 +8,7 @@
         @click="getVideoDetail(item)"
       >
         <template v-if="item.data">
-          <el-image class="border-r-5 wh" :src="item.data.coverUrl" lazy />
+          <el-image class="border-r-5 wh cursor" :src="item.data.coverUrl" lazy />
           <span class="playCount"
             ><i class="iconFont icon-play-count font-12 mr-5"></i
             >{{ $playTime(item.data.playTime) }}</span
