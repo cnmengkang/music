@@ -19,16 +19,18 @@
         </router-link>
       </h2>
       <div class="grid">
-        <div class="w-20 mb-15 item">
-          <div class="play-img" @click="getDaySong">
-            <el-image fit="cover" :src="images"  style="width: 150px; height: 150px"  />
-            <el-button
-              @click.stop="getPlayAllList()"
-              circle
-              class="iconFont icon-play-red"
-            ></el-button>
-            <h1 class="today">{{ today }}</h1>
-          </div>
+        <div class="item w-20">
+          <router-link to="/daysong">
+            <div class="play-img">
+              <el-image fit="cover" :src="images" />
+              <el-button
+                @click.stop="getPlayAllList()"
+                circle
+                class="iconFont icon-play-red"
+              ></el-button>
+              <h1 class="today">{{ today }}</h1>
+            </div>
+          </router-link>
           <p class="name">每日歌曲推荐</p>
         </div>
         <!-- 每日推荐歌单 -->
@@ -88,10 +90,6 @@ export default {
       } else {
         console.log("false login 推荐");
       }
-    },
-    // 获取每日推荐
-    getDaySong() {
-      this.$router.push("daysong");
     },
   },
   computed: {

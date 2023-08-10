@@ -41,7 +41,6 @@
             >
           </div>
           <div class="aa">
-            <span class="vip ml-10" v-if="scope.row.fee == 1">VIP</span>
             <span
               v-if="scope.row.mvid != 0"
               @click="getMv(scope.row)"

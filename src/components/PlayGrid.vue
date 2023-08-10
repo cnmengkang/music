@@ -1,8 +1,8 @@
 <template>
   <!-- grid列表 -->
-  <div class="w-20 mb-15 item">
-    <div class="play-img" @click="getDetail(id)">
-      <el-image fit="cover" lazy :src="picUrl+'?param=150y150'" :alt="alg"></el-image>
+  <div class="item w-20" @click="getDetail(id)">
+    <div class="play-img">
+      <el-image fit="cover" lazy :src="picUrl" :alt="alg"></el-image>
       <span class="playCount font-12">
         <i class="el-icon-caret-right"></i>{{ $playTime(playcount) }}</span
       >
@@ -13,7 +13,7 @@
         class="iconFont icon-play-red"
       ></el-button>
     </div>
-    <p class="name">{{ name }}</p>
+    <p class="name" style="width: 140px">{{ name }}</p>
   </div>
 </template>
 <script>
@@ -37,7 +37,6 @@ export default {
     id: {
       type: Number,
     },
-    
   },
   data() {
     return {
@@ -60,3 +59,11 @@ export default {
   },
 };
 </script>
+<style scoped>
+p.name {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+</style>

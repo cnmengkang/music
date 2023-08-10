@@ -53,7 +53,7 @@ export default {
         { name: "私人漫游", index: "/private" },
       ],
       playlist: "",
-      selectedIndex: null,
+      selectedIndex: 0,
     };
   },
   mounted() {

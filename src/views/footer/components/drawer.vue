@@ -1,36 +1,36 @@
 <template>
-  <div class="drawer-index">
-    <div
-      class="drawer-background"
-      append-to-body="true"
-      :style="{ backgroundImage: 'url(' + authorAvatar + '?param=150y150)' }"
-    ></div>
-    <el-drawer
-      :title="songName"
-      :modal="false"
-      size="100%"
-      :direction="direction"
-      :before-close="drawerOpen"
-      :visible.sync="drawer"
-    >
-      <div class="footer_drawer flex">
-        <div class="left flex justify-content-center">
-          <div class="rotate" :style="{ transform: rotateStyle }">
-            <el-avatar circle :size="200" :src="authorAvatar+'?param=200y200'" />
-          </div>
-        </div>
-        <div class="right">
-          <div class="right-head">
-            <span class="font-14 ml-15 mr-15">歌手：{{ authorName }}</span>
-            <!-- <span class="font-14">专辑：{{ subName }}</span> -->
-          </div>
-          <div class="right-body">
-            <lyric></lyric>
-          </div>
+  <el-drawer
+    :style="{
+      backgroundImage: 'url(' + bgcImage + ')',
+    }"
+    :title="songName"
+    :modal="false"
+    size="100%"
+    :direction="direction"
+    :before-close="drawerOpen"
+    :visible.sync="drawer"
+    :destroy-on-close="drawer"
+  >
+    <div class="footer_drawer flex">
+      <div class="left flex justify-content-center">
+        <div class="rotate">
+          <el-avatar
+            circle
+            :size="200"
+            :src="authorAvatar + '?param=200y200'"
+          />
         </div>
       </div>
-    </el-drawer>
-  </div>
+      <div class="right">
+        <div class="right-head">
+          <span class="font-14 ml-15 mr-15">歌手：{{ authorName }}</span>
+        </div>
+        <div class="right-body">
+          <lyric></lyric>
+        </div>
+      </div>
+    </div>
+  </el-drawer>
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
@@ -44,47 +44,23 @@ export default {
       rotateInterval: null, //旋转计时器
     };
   },
-  watch: {
-    // 监听当前播放时间，然后旋转图片
-    isPlaying: {
-      handler(isPlay) {
-        if (isPlay) {
-          this.getRotateAngle();
-        } else {
-          clearInterval(this.rotateInterval);
-        }
-      },
-      immediate: true,
-      deep: true,
-    },
-  },
   computed: {
     ...mapState({
       player: (state) => state.player,
       isPlaying: (state) => state.player.isPlaying,
       songName: (state) => state.player.singer.songName,
       authorAvatar: (state) => state.player.singer.authorAvatar,
-      subName: (state) => state.player.singer.subName,
+      bgcImage: (state) =>
+        state.player.singer.bgcImage + "?param=50y50",
       author: (state) => state.player.singer.authorName,
       drawer: (state) => state.drawer,
     }),
     authorName() {
       return [...this.author.map((obj) => obj.name)].join(" / ");
     },
-    rotateStyle() {
-      return `rotate(${this.rotateAngle}deg)`;
-    },
   },
   methods: {
     ...mapActions(["drawerOpen"]),
-    getRotateAngle() {
-      this.rotateInterval = setInterval(() => {
-        this.rotateAngle += 2;
-      }, 500);
-    },
-  },
-  beforeDestroy() {
-    clearInterval(this.rotateInterval); // 组件销毁前清除旋转计时器
   },
 };
 </script>
@@ -100,7 +76,6 @@ export default {
   bottom: 60px;
   z-index: 999;
   overflow: hidden;
-
   .drawer-background {
     width: 100%;
     height: 100%;
@@ -124,8 +99,9 @@ export default {
   border-radius: 50%;
 }
 .el-drawer__wrapper {
-  position: absolute;
-
+  bottom: 60px;
+  background-size: 6000px;
+  background-position: center center;
   .footer_drawer {
     padding: 0px 5%;
     position: absolute;

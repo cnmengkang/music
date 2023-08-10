@@ -10,7 +10,6 @@
                 </div>
                 <div class="user-vip-sex flex space-between">
                     <div class="user_sex">
-                        <span class="mr-10">Vip</span>
                         <span class="mr-10">{{ Level }}</span>
                         <span class="mr-10">{{ gender }}</span>
                     </div>

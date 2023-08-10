@@ -4,7 +4,7 @@
       <div
         class="bgc"
         :style="{
-          backgroundImage: 'url(' + quality.coverImgUrl + '?param=150y150)',
+          backgroundImage: 'url(' + quality.coverImgUrl + '?imageView&blur=40x20)',
         }"
       ></div>
       <div class="left ml-15">
@@ -12,7 +12,7 @@
           shape="square"
           :size="150"
           fit="cover"
-          :src="quality.coverImgUrl + '?param=150y150'"
+          :src="quality.coverImgUrl"
         ></el-avatar>
       </div>
       <div class="right">

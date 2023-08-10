@@ -41,9 +41,9 @@ export default class MusicPlayer {
       authorAvatar: "",
       songName: "",
       authorAli: "",
+      bgcImage: "",
     };
     this.audio.addEventListener("ended", () => {
-      console.log("当前播放结束，自动播放下一首");
       this.getPrevNext("next");
     });
     this.audio.addEventListener("loadedmetadata", () => {
@@ -69,7 +69,6 @@ export default class MusicPlayer {
   }
   // 创建音频
   createAudio(options) {
-    console.log(options);
     this.index = options.index;
     this.params.id = options.ids;
     if (options.play) {
@@ -107,8 +106,10 @@ export default class MusicPlayer {
   getCurrentMusicPlayDetail() {
     songDetail(this.params.id).then((res) => {
       const songs = res.songs;
+      console.log(songs);
       this.singer.songName = songs[0].name;
       this.singer.authorAvatar = songs[0].al.picUrl;
+      this.singer.bgcImage = songs[0].al.picUrl;
       this.singer.authorName = songs[0].ar;
       this.singer.authorAli = songs[0].alia[0];
     });
@@ -126,7 +127,7 @@ export default class MusicPlayer {
   async getCheckMusic() {
     const res = await checkMusic(this.params.id);
     if (!res.success) {
-      alert("无版权！");
+      alert("无版权！,自动切换下一首。。。");
       this.getPrevNext("next");
     } else {
       this.getCurrentMusicPlayDetail();
@@ -142,3 +143,17 @@ export default class MusicPlayer {
     });
   }
 }
+
+// 点击单曲传入方式
+// params: {
+//   ids: 0,
+//   index: 0,
+//   play: "1",
+// },
+
+// 播放全部按钮传入参数方式
+//  params: {
+//   index: 0,
+//   ids: 0,
+//   playlist: "",
+// },

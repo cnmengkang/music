@@ -4,7 +4,6 @@
         <song-list :tableDate="recentlyArray" :recently="recently" />
     </div>
 </template>
-
 <script>
 import { RecordRecentSong } from '@/api/user/user';
 import SongList from '@/components/SongList'

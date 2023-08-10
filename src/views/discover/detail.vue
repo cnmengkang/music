@@ -15,16 +15,16 @@
           </span>
           <div class="comment" v-for="(item, index) in comment" :key="index">
             <div class="user-avatarUrl cursor" @click="getUserInfo(item.user)">
-              <el-avatar :size="40" :src="item.user.avatarUrl+'?param=40y40'"></el-avatar>
+              <el-avatar
+                :size="40"
+                :src="item.user.avatarUrl + '?param=40y40'"
+              ></el-avatar>
             </div>
             <div class="user-info">
               <span
                 class="blue mb-5 inline-b cursor"
                 @click="getUserInfo(item.user)"
-                >{{ item.user.nickname
-                }}<span class="vip ml-5" v-if="item.user.vipType != 0"
-                  >VIP{{ item.user.vipRights.redVipLevel }}</span
-                >：</span
+                >{{ item.user.nickname }}:</span
               >
               <span>{{ item.content }}</span>
               <div
@@ -111,7 +111,7 @@ export default {
 <style scoped lang="less">
 .detail {
   // 内容区域
-  margin-bottom:50px;
+  margin-bottom: 50px;
   .detail-body {
     .comment {
       display: flex;
@@ -135,9 +135,7 @@ export default {
           line-height: 20px;
         }
 
-        .vip {
-          color: red;
-        }
+
       }
 
       .user-avatarUrl {

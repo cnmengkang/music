@@ -103,7 +103,7 @@ export default {
       this.related = data;
     },
     getTag(params) {
-      this.$router.push({ name: "video", params });
+      this.$router.push({ name: "Video", params });
     },
     getAllVideoDetail() {
       this.getVideoDetail();

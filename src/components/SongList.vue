@@ -47,7 +47,6 @@
             >
           </div>
           <div class="right">
-            <span class="vip ml-10" v-if="scope.row.fee == 1">VIP</span>
             <span
               v-if="scope.row.mv != 0"
               @click="getMv(scope.row)"
@@ -75,7 +74,6 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import { like } from "@/api/music/music";
 export default {
   props: {
     tableDate: {

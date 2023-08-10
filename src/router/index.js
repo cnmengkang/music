@@ -19,14 +19,12 @@ const routes = [
             path: "/discover",
             component: () => import("@/views/discover/recommend"),
             meta: { label: "个性推荐" },
-            children: [
-              {
-                path: "/discover/daysong",
-                name: "daysong",
-                component: () => import("@/views/discover/daysong"),
-                // 每日歌曲推荐
-              },
-            ],
+          },
+          {
+            path: "/discover/daysong",
+            name: "playlist",
+            component: () => import("@/views/discover/daysong"),
+            meta: { label: "每日推荐" },
           },
           {
             path: "/discover/playlist",
@@ -47,6 +45,12 @@ const routes = [
             meta: { label: "最新音乐" },
           },
         ],
+      },
+      {
+        path: "/daysong",
+        name: "DaySong",
+        component: () => import("@/views/discover/daysong"),
+        // 每日歌曲推荐
       },
       {
         path: "/detail/:id",

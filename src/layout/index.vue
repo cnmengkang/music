@@ -43,7 +43,7 @@ export default {
 <style lang="less">
 @border: 1px solid #ccc;
 @backColor: #ffffffe0;
-@width: 1200px;
+@width: 1140px;
 
 #app_index {
   position: relative;
@@ -65,7 +65,7 @@ export default {
 
   .el-container {
     max-width: @width;
-    margin: 0px auto 25px;
+    margin: 0px auto 20px;
     overflow: auto;
     height: 100vh;
   }

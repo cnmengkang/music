@@ -1,4 +1,4 @@
-# vue_demo
+# 仿网易云音乐播放器，仅供学习使用
 
 ## Project setup
 ```
