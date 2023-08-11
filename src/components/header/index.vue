@@ -8,15 +8,15 @@
       </div>
       <search />
     </div>
-    <div class="right flex" v-if="!drawer">
+    <div class="right flex">
       <user-info></user-info>
     </div>
   </div>
 </template>
 <script>
-import search from "./search.vue";
-import back from "./back.vue";
-import UserInfo from "./UserInfo.vue";
+import search from "./search";
+import back from "./back";
+import UserInfo from "./UserInfo";
 import { mapState } from "vuex";
 export default {
   components: { search, back, UserInfo },

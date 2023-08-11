@@ -8,6 +8,7 @@
     :before-close="drawerOpen"
     :visible.sync="drawer"
     :destroy-on-close="drawer"
+    :append-to-body="true"
   >
     <div
       class="drawer-background"
@@ -18,11 +19,7 @@
     <div class="footer_drawer flex" v-if="drawer">
       <div class="left flex justify-content-center">
         <div class="rotate">
-          <el-avatar
-            circle
-            :size="200"
-            :src="authorAvatar + '?param=200y200'"
-          />
+          <el-avatar circle :size="200" :src="authorAvatar" />
         </div>
       </div>
       <div class="right">

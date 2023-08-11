@@ -1,20 +1,18 @@
 <template>
-  <div id="app_index">
-    <el-header :class="{transparent:drawer}">
+  <el-container id="app_index">
+    <el-header :class="{ transparent: drawer }">
       <headers />
     </el-header>
     <!-- 顶部 -->
     <el-container class="mt-30">
-      <el-aside width="270px">
+      <el-aside width="270px" class="mr-15">
         <asideNav />
       </el-aside>
       <!-- 左侧菜单 -->
-      <el-container>
-        <el-main class="backTop ml-15">
-          <router-view />
-          <el-backtop target=".backTop" :bottom="120"></el-backtop>
-        </el-main>
-      </el-container>
+      <el-main class="backTop">
+        <router-view />
+        <el-backtop target=".backTop" :bottom="120"></el-backtop>
+      </el-main>
       <!-- 容器 -->
     </el-container>
     <!-- 底部 -->
@@ -23,7 +21,7 @@
         <footers />
       </el-footer>
     </transition>
-  </div>
+  </el-container>
 </template>
 <script>
 import headers from "@/components/header";
@@ -48,10 +46,6 @@ export default {
 
 #app_index {
   position: relative;
-  overflow: hidden;
-  .el-aside {
-    margin-bottom: 50px;
-  }
   .el-header {
     width: 100%;
     min-width: 960px;
@@ -63,14 +57,19 @@ export default {
     top: 0px;
     z-index: 97;
   }
-  .transparent{
+  .el-aside {
+    overflow: unset;
+    position: sticky;
+    top: 0px;
+  }
+  .transparent {
     background-color: transparent;
     z-index: 999;
     box-shadow: none;
   }
   .el-container {
     max-width: @width;
-    margin: 0px auto 20px;
+    margin: 0 auto;
     overflow: auto;
     height: 100vh;
   }

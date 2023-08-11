@@ -4,7 +4,7 @@
   </el-card>
 </template>
 <script>
-import asideLeft from "./asideLeft.vue";
+import asideLeft from "./asideLeft";
 export default {
   name: "index",
   components: {

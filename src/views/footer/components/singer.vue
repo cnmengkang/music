@@ -4,7 +4,7 @@
       <el-avatar
         shape="square"
         :size="50"
-        :src="authorAvatar + '?param=50y50'"
+        :src="authorAvatar"
       />
       <i class=""></i>
     </div>

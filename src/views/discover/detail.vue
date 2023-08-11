@@ -111,7 +111,6 @@ export default {
 <style scoped lang="less">
 .detail {
   // 内容区域
-  margin-bottom: 50px;
   .detail-body {
     .comment {
       display: flex;
