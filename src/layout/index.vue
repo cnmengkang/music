@@ -5,7 +5,7 @@
     </el-header>
     <!-- 顶部 -->
     <el-container class="mt-30">
-      <el-aside width="270px" class="mr-15">
+      <el-aside width="250px" class="mr-15">
         <asideNav />
       </el-aside>
       <!-- 左侧菜单 -->
@@ -42,8 +42,7 @@ export default {
 <style lang="less">
 @border: 1px solid #ccc;
 @backColor: #ffffffe0;
-@width: 1140px;
-
+@max-width: 1140px;
 #app_index {
   position: relative;
   .el-header {
@@ -68,16 +67,15 @@ export default {
     box-shadow: none;
   }
   .el-container {
-    max-width: @width;
+    max-width: @max-width;
     margin: 0 auto;
     overflow: auto;
     height: 100vh;
+    width: 100%;
   }
-
   .el-main {
     padding: 0px;
   }
-
   .el-footer {
     padding: 0px;
     position: fixed;

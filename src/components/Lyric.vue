@@ -21,7 +21,7 @@ export default {
     };
   },
   watch: {
-    // 监听当前播放歌曲时间,兵给index赋值
+    // 监听当前播放歌曲时间,并给index赋值
     currentTime(newTime) {
       const lyric = this.$refs.lyrics_p;
       for (let i = 0; i < lyric.length; i++) {
@@ -87,23 +87,23 @@ export default {
 // 弹出层歌词样式
 .right-body {
   .lyric-scroll {
-    margin: 30px auto;
     height: 100%;
     width: 100%;
     overflow: auto;
 
     p {
-      color: #ccc;
+      color: #989898;
       word-wrap: break-word;
       text-align: center;
+      font-size: 14px;
       line-height: @height;
       height: auto !important;
       height: @height;
       min-height: @height;
-      -webkit-transition: color 0.7s linear;
-      -moz-transition: color 0.7s linear;
-      -o-transition: color 0.7s linear;
-      transition: color 0.7s linear;
+      -webkit-transition: scale 0.7s linear;
+      -moz-transition: scale 0.7s linear;
+      -o-transition: scale 0.7s linear;
+      transition: scale 0.7s linear;
     }
 
     .lyric_active {

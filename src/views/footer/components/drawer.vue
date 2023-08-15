@@ -25,7 +25,7 @@
       <div class="right">
         <div class="right-head">
           <h1 class="songName text-center mb-10">{{ songName }}</h1>
-          <p class="font-14 ml-15 mr-15">歌手：{{ authorName }}</p>
+          <p class="font-14">歌手：{{ authorName }}</p>
         </div>
         <div class="right-body">
           <lyric></lyric>
@@ -124,8 +124,8 @@ export default {
 
       .right-body {
         width: 100%;
-        height: 100%;
-
+        height: 600px;
+        margin-top: 50px;
         ul {
           li {
             text-align: center;
