@@ -1,27 +1,18 @@
 <template>
   <div class="video-grid mt-20">
     <div class="wrapper" v-if="videoGroups.length != 0">
-      <div
-        class="cover border-r-5"
-        v-for="(item, index) in videoGroups"
-        :key="index"
-        @click="getVideoDetail(item)"
-      >
+      <div class="cover border-r-5 mb-20" v-for="(item, index) in videoGroups" :key="index" @click="getVideoDetail(item)">
         <template v-if="item.data">
-          <el-image class="border-r-5 wh cursor" :src="item.data.coverUrl" lazy />
-          <span class="playCount"
-            ><i class="iconFont icon-play-count font-12 mr-5"></i
-            >{{ $playTime(item.data.playTime) }}</span
-          >
-          <span class="playTime">{{
-            parseTime(item.data.durationms, "{i}:{s}")
-          }}</span>
+          <div class="relative">
+            <el-image class="border-r-5 wh cursor" :src="item.data.coverUrl" lazy />
+            <span class="playCount">{{ $playCount(item.data.playTime)
+            }}</span>
+            <span class="playTime">{{
+              $formatTime(item.data.durationms, "{i}:{s}")
+            }}</span>
+          </div>
           <p class="creator-title ellipsis">{{ item.data.title }}</p>
-          <p
-            class="creator-nickname"
-            v-if="item.data.creator"
-            @click="getDetailAuthor(item)"
-          >
+          <p class="creator-nickname" v-if="item.data.creator" @click="getDetailAuthor(item)">
             by {{ item.data.creator.nickname }}
           </p>
         </template>
@@ -64,28 +55,6 @@ export default {
   .cover {
     position: relative;
     width: 32%;
-
-    .playCount,
-    .playTime {
-      position: absolute;
-      right: 5px;
-      z-index: 1;
-      color: #fff;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .creator-title {
-      width: 270px;
-    }
-
-    .playCount {
-      top: 5px;
-    }
-
-    .playTime {
-      bottom: 50px;
-    }
   }
 }
 </style>

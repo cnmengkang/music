@@ -66,7 +66,7 @@
       <el-table-column label="时间" width="65">
         <template slot-scope="scope">
           <span v-if="scope.row.bMusic">{{
-            parseTime(scope.row.bMusic.playTime, "{i}:{s}")
+            $formatTime(scope.row.bMusic.playTime, "{i}:{s}")
           }}</span>
         </template>
       </el-table-column>

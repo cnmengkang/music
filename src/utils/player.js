@@ -6,7 +6,7 @@ import {
   playTrackAll,
 } from "@/api/music/music";
 const audioPool = {
-  pool: [], 
+  pool: [],
   get() {
     if (this.pool.length > 0) {
       return this.pool.shift();
@@ -73,7 +73,7 @@ export default class MusicPlayer {
     } else {
       this.playlist = options.playlist;
       this.params.id = this.playlist[this.index].id;
-      this.getCheckMusic();
+      this.getCurrentCheckMusic();
     }
   }
   isPlay(url) {
@@ -86,7 +86,7 @@ export default class MusicPlayer {
     player == "prev" ? this.index-- : this.index++;
     if (this.index == -1 || this.index == this.playlist.length) this.index = 0;
     this.params.id = this.playlist[this.index].id;
-    this.getCheckMusic();
+    this.getCurrentCheckMusic();
   }
   // 设置当前播放时间
   setCurrentTime(seconds) {
@@ -96,11 +96,21 @@ export default class MusicPlayer {
   setVolume(volume) {
     this.audio.volume = volume;
   }
+  // 音质
+  SetSoundQuality(level) {
+    this.params.level = level;
+    this.getCurrentMUsicUrl();
+  }
   // 弹出层歌曲
   isOpen(isOpen) {
     this.isOpen = isOpen;
   }
-  getCurrentMusicPlayDetail() {
+  getCurrentMusicAllInfo() {
+    this.getCurrentMusicDetail();
+    this.getCurrentMUsicUrl();
+    this.getCurrentMusicLyric();
+  }
+  getCurrentMusicDetail() {
     songDetail(this.params.id).then((res) => {
       const songs = res.songs;
       this.singer.songName = songs[0].name;
@@ -108,24 +118,29 @@ export default class MusicPlayer {
       this.singer.authorName = songs[0].ar;
       this.singer.authorAli = songs[0].alia[0];
     });
-    // 左侧歌曲信息
-    songUrlV1(this.params).then((res) => {
-      this.isPlay(res.data[0].url);
-    });
-    // 获取当前播放歌曲url
+    // 左侧头像信息
+  }
+  getCurrentMusicLyric() {
     lyric(this.params.id).then((res) => {
       this.lyric = res.lrc.lyric;
     });
     // 歌词
   }
+  getCurrentMUsicUrl() {
+    songUrlV1(this.params).then((res) => {
+      console.log(res.data[0]);
+      this.isPlay(res.data[0].url);
+    });
+    // 获取当前播放歌曲url
+  }
   // 检查音乐是否可用
-  async getCheckMusic() {
+  async getCurrentCheckMusic() {
     const res = await checkMusic(this.params.id);
     if (!res.success) {
       alert("无版权！,自动切换下一首。。。");
       this.getPrevNext("next");
     } else {
-      this.getCurrentMusicPlayDetail();
+      this.getCurrentMusicAllInfo();
     }
   }
   // 获取当前播放歌曲id
@@ -133,7 +148,7 @@ export default class MusicPlayer {
     playTrackAll(this.params).then((res) => {
       this.playlist = res.songs;
       this.params.id = this.playlist[this.index].id;
-      this.getCheckMusic();
+      this.getCurrentCheckMusic();
     });
   }
 }

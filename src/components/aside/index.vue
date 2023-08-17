@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <asideLeft />
+      <asideLeft />
   </el-card>
 </template>
 <script>

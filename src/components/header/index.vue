@@ -2,10 +2,11 @@
   <div class="header">
     <div class="left flex">
       <div class="header-logo" v-if="!drawer">
-        <h1>
-          <a href="#"></a>
-        </h1>
+        <a href="#">
+          <img src="../../static/images/logo.png" />
+        </a>
       </div>
+      <back/>
       <search />
     </div>
     <div class="right flex">
@@ -30,18 +31,26 @@ export default {
 <style lang="less" scoped>
 .header {
   height: 60px;
-  max-width: 1200px;
   margin: 0 auto;
   display: flex;
+  .left{
+    flex-wrap: nowrap;
+    gap: 15px;
+  }
   .right {
     justify-content: flex-end;
   }
+
   .header-logo {
-    width: 180px;
-    height: 60px;
-    background: url(../../static/images/topbar.png) no-repeat 0 9999px;
-    background-position: 0px -6px;
-    filter: contrast(0.5);
+
+    a {
+      width: 40px;
+      display: inline-block;
+
+      img {
+        width: 100%;
+      }
+    }
+
   }
-}
-</style>
+}</style>

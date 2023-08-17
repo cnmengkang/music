@@ -9,13 +9,12 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '@/static/styles/style.css'
 import '@/static/styles/reset.css'
 // 全局css样式表
-import { parseTime, formatTime, numCount } from '@/utils/formdate'
+import { formatTime, playCount } from '@/utils/formdate'
 // 中间件
 // 全局方法挂载
 // 时间日期格式化
-Vue.prototype.parseTime = parseTime
-Vue.prototype.formatTime = formatTime
-Vue.prototype.$playTime = numCount
+Vue.prototype.$formatTime = formatTime
+Vue.prototype.$playCount = playCount
 // 播放总量
 Vue.config.productionTip = false;
 Vue.use(Element, {

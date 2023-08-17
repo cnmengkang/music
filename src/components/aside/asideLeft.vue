@@ -1,43 +1,28 @@
 <template>
   <div class="aside-left">
-    <ul class="menu_list cursor">
-      <li
-        :class="['mb-5', selectedIndex == index ? 'active' : '']"
-        v-for="(item, index) in data"
-        @click="handActivePath(item, index)"
-        :key="index"
-      >
-        {{ item.name }}
-      </li>
-      <span class="font-12 my">创建歌单</span>
- <template v-if="isLogin">
-        <template v-for="item in playlist">
-          <li
-            class="font-14 mb-5 ellipsis"
-            :title="item.name"
-            v-if="!item.subscribed"
-            @click="handSelectIndex(item.id)"
-            :key="item.id"
-          >
-            <a>{{ item.name }}</a>
-          </li>
-        </template>
+    <el-menu :default-active="defaultActive" class="el-menu-vertical-demo" router>
+      <el-menu-item v-for="(item, index) in data" :index="item.index" :to="item.index" :key="index">
+        <i :class="item.icon"></i>
+        <span slot="title">{{ item.name }}</span>
+      </el-menu-item>
+      <template slot="title">
+        <i class="el-icon-location"></i>
+        <span>导航一</span>
       </template>
-      <span class="font-12 my">收藏歌单</span>
-      <template v-if="isLogin">
-        <template v-for="item in playlist">
-          <li
-            class="font-14 mb-5 ellipsis"
-            :title="item.name"
-            @click="handSelectIndex(item.id)"
-            v-if="item.subscribed"
-            :key="item.id"
-          >
-            <a>{{ item.name }}</a>
-          </li>
-        </template>
-      </template>
-    </ul>
+      <el-menu-item-group title="创建的歌单">
+        <el-menu-item v-for="item in createPlaylist" :index="'/detail/' + item.id" :key="item.id">
+          <i class="el-icon-grape"></i>
+          <span slot="title">{{ item.name }}</span>
+        </el-menu-item>
+      </el-menu-item-group>
+      <el-menu-item-group title="收藏的歌单">
+        <el-menu-item v-for="item in favoritePlaylist" :index="'/detail/' + item.id" :key="item.id">
+          <i class="el-icon-grape"></i>
+          <span slot="title" :title="item.name">{{ item.name }}</span>
+        </el-menu-item>
+      </el-menu-item-group>
+
+    </el-menu>
   </div>
 </template>
 <script>
@@ -48,52 +33,55 @@ export default {
   data() {
     return {
       data: [
-        { name: "发现音乐", index: "/discover" },
-        { name: "视频", index: "/video/全部视频" },
-        { name: "私人漫游", index: "/private" },
+        { name: "发现音乐", index: "/discover", icon: "el-icon-menu" },
+        { name: "视频", index: "/video/all", icon: "el-icon-menu" },
+        { name: "私人漫游", index: "/private", icon: "el-icon-menu" },
       ],
-      playlist: "",
-      selectedIndex: 0,
+      playlist: [],
+      defaultActive: "/discover",
     };
   },
   mounted() {
     this.getUserPlaylist();
+    let path = this.$route.path;
+    if (path.includes('/discover')) {
+      this.defaultActive = '/' + path.split('/')[1];
+    }else{
+      this.defaultActive = path;
+    }
   },
   methods: {
-    handSelectIndex(res) {
-      this.$router.push({ name: "detail", params: { id: res } });
-    },
-    handActivePath(item, index) {
-      this.$router.push(item.index);
-      this.selectedIndex = index;
-    },
-    getUserPlaylist() {
-      userPlaylist(this.uid).then((res) => {
-        if (res.code != 200) return;
-        console.log(res);
-        this.playlist = res.playlist;
-      });
+    async getUserPlaylist() {
+      let result = await userPlaylist(this.uid);
+      if (result.code != 200) return;
+      result.playlist[0].name = '我喜欢的音乐';
+      this.playlist = result.playlist;
     },
   },
   computed: {
     ...mapState({
-      isLogin: (state) => state.isLogin,
       uid: (state) => state.uid,
     }),
+    createPlaylist() {
+      return this.playlist.filter(item => !item.subscribed);
+    },
+    favoritePlaylist() {
+      return this.playlist.filter(item => item.subscribed);
+    },
   },
 };
 </script>
 <style scoped lang="less">
 .aside-left {
   width: 100%;
-
+  height: 100%;
+  overflow: auto;
   .menu_list {
     span {
       padding: 10px;
       display: block;
       color: #ccc;
     }
-
     li {
       height: 35px;
       line-height: 35px;
@@ -110,5 +98,8 @@ export default {
       color: #fff;
     }
   }
+}
+.el-menu {
+  border: none;
 }
 </style>

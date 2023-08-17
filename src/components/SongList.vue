@@ -64,7 +64,7 @@
       <el-table-column show-overflow-tooltip prop="al.name" label="专辑" />
       <el-table-column label="时间" width="65">
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.dt, "{i}:{s}") }}</span>
+          <span>{{ $formatTime(scope.row.dt, "{i}:{s}") }}</span>
         </template>
       </el-table-column>
     </el-table>

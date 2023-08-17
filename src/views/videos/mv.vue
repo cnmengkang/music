@@ -1,26 +1,101 @@
 <template>
     <div class="video-mv">
-        mv
+        <h4>全部MV</h4>
+        <div class="videoMv-head">
+            <div class="aaaa">
+                <div v-for="(item, index) in list" :key="index">
+                    {{ item.name }}
+                    <div v-for="(item, index) in item.children" :key="index">
+                        {{ item.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mv_grid">
+            <mv-grid :data="mvData"></mv-grid>
+        </div>
     </div>
 </template>
-
 <script>
+import { videoMv } from '@/api/video/mv';
+import Tabs from '@/components/Tabs';
+import mvGrid from '@/components/mvGrid';
 export default {
-    props: {},
+    components: { Tabs, mvGrid },
     data() {
         return {
-
+            // activeName: 'first',
+            list: [
+                {
+                    name: '地区',
+                    id: 1,
+                    children: [
+                        { name: '内地', },
+                        { name: '港台', },
+                        { name: '欧美', },
+                        { name: '日本', },
+                        { name: '韩国', },
+                    ]
+                },
+                {
+                    name: '类型',
+                    id: 1,
+                    children: [
+                        { name: '内地', },
+                        { name: '港台', },
+                        { name: '欧美', },
+                        { name: '日本', },
+                        { name: '韩国', },
+                    ]
+                },
+                {
+                    name: '排序',
+                    id: 1,
+                    children: [
+                        { name: '内地', },
+                        { name: '港台', },
+                        { name: '欧美', },
+                        { name: '日本', },
+                        { name: '韩国', },
+                    ]
+                },
+            ],
+            params: {
+                area: '内地',
+                limit: 9,
+                order: '最新',
+                offset: ''
+            },
+            mvData: []
         }
     },
-    created() {
-
-    },
     mounted() {
+        this.getALlMv();
+        console.log(this.list)
     },
     methods: {
-
+        async getALlMv() {
+            let result = await videoMv(this.params);
+            this.mvData = result.data;
+        },
+        handleClick(tab) {
+            console.log(tab.label)
+        }
     },
-    computed: {},
 };
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.video-mv {
+    .videoMv-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    .aaaa {
+        display: flex;
+    }
+
+}
+</style>

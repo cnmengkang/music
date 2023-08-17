@@ -246,7 +246,7 @@
 }
 
 .font-14 {
-    font-size: 14px;
+    font-size: 14px !important;
 }
 
 .font-12 {
@@ -613,3 +613,74 @@ body {
         position: relative;
     }
 }
+
+.SoundQuality {
+    padding: 0px 10px;
+
+    ul {
+        li {
+            border-radius: 2px;
+            padding: 3px 5px;
+            margin-bottom: 5px;
+
+            &:hover {
+                background-color: pink;
+                color: #000;
+            }
+        }
+
+        .active {
+            background-color: pink;
+            color: #000;
+        }
+
+    }
+}
+
+.el-menu-item-group__title {
+    padding-left: 5px !important;
+}
+
+.el-menu-item {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 40px;
+    line-height: 40px;
+    color: #000;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+
+}
+
+
+// video mv
+.relative{
+    position: relative;
+}
+.playCount,
+.playTime,
+.briefDesc {
+    position: absolute;
+    z-index: 1;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.playCount {
+    top: 10px;
+    right: 10px;
+}
+.playTime {
+    bottom: 10px;
+    right: 10px;
+}
+.briefDesc{
+    bottom: 5px;
+    left: 5px;
+}
+.mv_item {
+    width: 32%;
+}
+// video mv

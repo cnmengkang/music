@@ -4,7 +4,7 @@
     <div class="play-img">
       <el-image fit="cover" lazy :src="picUrl" :alt="alg"></el-image>
       <span class="playCount font-12">
-        <i class="el-icon-caret-right"></i>{{ $playTime(playcount) }}</span
+        <i class="el-icon-caret-right"></i>{{ $playCount(playcount) }}</span
       >
       <el-button
         @click.stop="getPlayAllList(id)"

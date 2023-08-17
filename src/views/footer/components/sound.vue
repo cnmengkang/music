@@ -1,42 +1,92 @@
 <template>
-  <div class="sound">
+  <div class="sound flex">
+    <el-popover placement="top"  trigger="hover">
+      <div class="SoundQuality">
+        <ul class="pl-15">
+          <li
+            :class="[' cursor', level==item.level?'active':'']"
+            v-for="(item, index) in params"
+            :key="index"
+            @click="handSoundQuality(item)"
+          >{{ item.text }}</li>
+        </ul>
+      </div>
+      <span class="soundText mr-10"  slot="reference" type="text">{{SoundQuality.text}}</span>
+    </el-popover>
     <el-popover placement="top-start" trigger="hover" class="popover">
-      <el-slider :show-tooltip="true" :format-tooltip="formatTooltip" @change="changeVolume" v-model="volume" vertical
-        height="80px">
+      <el-slider
+        :show-tooltip="true"
+        :format-tooltip="formatTooltip"
+        @change="changeVolume"
+        v-model="volume"
+        vertical
+        height="80px"
+      >
       </el-slider>
-      <span title="静音" slot="reference" v-if="isSound" class="font-30 iconFont icon-sound-start"
-        @click="setSound(false)"></span>
-      <span title="恢复音量" slot="reference" v-else class="font-30 iconFont icon-sound-close" @click="setSound(true)"></span>
+      <span
+        :title="isSound ? '静音' : '恢复音量'"
+        slot="reference"
+        :class="['font-30 iconFont', isSound ? 'icon-sound-start' : 'icon-sound-close']"
+        @click="handSound(isSound)"
+      ></span>
     </el-popover>
   </div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       isSound: true,
-      volume: 25,  //默认音量
-    }
+      volume: 25, //默认音量
+      params: [
+        {
+          level: "standard",
+          text: "标准音质",
+        },
+        {
+          level: "exhigh",
+          text: "极高音质",
+        },
+        {
+          level: "lossless",
+          text: "无损音质",
+        },
+        {
+          level: "hires",
+          text: "Hi-Res",
+        },
+        {
+          level: "jyeffect",
+          text: "高清环绕声",
+        },
+        {
+          level: "sky",
+          text: "沉浸环绕声",
+        },
+        {
+          level: "jymaster",
+          text: "超清母带",
+        },
+      ],
+    };
   },
   mounted() {
-    this.player.setVolume(this.volume / 100)
+    this.player.setVolume(this.volume / 100);
   },
   methods: {
     // 点击控制音量大小
-    setSound(e) {
-      if (e != true) {
-        localStorage.setItem('volume', this.volume);
-        this.player.setVolume(0)
+    handSound(sound) {
+      if (sound) {
+        localStorage.setItem("volume", this.volume);
+        this.player.setVolume(0);
         this.volume = 0;
-        this.isSound = false;
-      }
-      else {
-        const val = Number(localStorage.getItem('volume'));
+      } else {
+        const val = Number(localStorage.getItem("volume"));
         this.player.setVolume(val / 100);
-        this.isSound = true;
         this.volume = val;
       }
+      this.isSound = !this.isSound;
     },
     // 音量条toolTip
     formatTooltip(val) {
@@ -45,20 +95,41 @@ export default {
     // 滑动控制音量大小
     changeVolume(val = 0) {
       if (val == 0) {
-        this.player.setVolume(0)
+        this.player.setVolume(0);
         this.volume = 0;
         this.isSound = false;
       } else {
-        this.player.setVolume(val / 100)
+        this.player.setVolume(val / 100);
         this.volume = val;
         this.isSound = true;
       }
-    }
+    },
+    // 音质
+    handSoundQuality(item) {
+      this.player.SetSoundQuality(item.level);
+    },
   },
   computed: {
     ...mapState({
-      player: state => state.player,
-    })
+      player: (state) => state.player,
+      level: (state) => state.player.params.level,
+    }),
+    SoundQuality() {
+      return this.params.find((item) => item.level == this.level);
+    },
+  },
+};
+</script>
+<style lang="less" scoped>
+.sound {
+  padding: 10px;
+  .soundText{
+    border: 1px solid red;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 2px;
+    color: red;
   }
 }
-</script>
+</style>

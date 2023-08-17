@@ -75,8 +75,8 @@ export default {
   z-index: -1;
   right: 0px;
   left: 0px;
-  bottom: 0px;
-  background-size: 100%;
+  bottom: 62px;
+  background-size: 6000px;
   background-position: center center;
   transform: scale(1.5);
   filter: brightness(0.7) blur(40px);
@@ -90,8 +90,6 @@ export default {
 }
 .el-drawer__wrapper {
   bottom: 60px;
-  background-size: 6000px;
-  background-position: center center;
   .footer_drawer {
     padding: 4%;
     position: absolute;

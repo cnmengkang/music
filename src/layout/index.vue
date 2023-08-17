@@ -4,8 +4,8 @@
       <headers />
     </el-header>
     <!-- 顶部 -->
-    <el-container class="mt-30">
-      <el-aside width="250px" class="mr-15">
+    <el-container style="margin: 20px auto;">
+      <el-aside class="mr-15">
         <asideNav />
       </el-aside>
       <!-- 左侧菜单 -->
@@ -43,8 +43,11 @@ export default {
 @border: 1px solid #ccc;
 @backColor: #ffffffe0;
 @max-width: 1140px;
+@left-width: 210px;
+
 #app_index {
   position: relative;
+
   .el-header {
     width: 100%;
     min-width: 960px;
@@ -54,28 +57,41 @@ export default {
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0px;
-    z-index: 97;
+    z-index: 100;
+
+    .header {
+      width: @max-width;
+      .header-logo{
+        width: @left-width;
+      }
+    }
   }
+
   .el-aside {
     overflow: unset;
     position: sticky;
     top: 0px;
+    width: @left-width !important;
   }
+
   .transparent {
     background-color: transparent;
     z-index: 999;
     box-shadow: none;
   }
+
   .el-container {
     max-width: @max-width;
     margin: 0 auto;
     overflow: auto;
-    height: 100vh;
+    height: 90vh;
     width: 100%;
   }
+
   .el-main {
     padding: 0px;
   }
+
   .el-footer {
     padding: 0px;
     position: fixed;

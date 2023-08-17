@@ -4,7 +4,7 @@
       <el-tab-pane
         v-for="item in data"
         :key="item.id"
-        :name="item.name"
+        :name="item.path"
         :label="item.name"
         :path="item.path"
       ></el-tab-pane>
@@ -19,7 +19,7 @@ export default {
   components: { Tabs },
   data() {
     return {
-      tabsName: "个性推荐",
+      tabsName: "/discover",
       data: [
         { path: "/discover", name: "个性推荐", id: 0 },
         { path: "/discover/playlist", name: "歌单", id: 2 },
@@ -30,11 +30,13 @@ export default {
   },
   methods: {
     handleTabClick(tab) {
-      console.log(tab.name)
       this.tabsName = tab.name;
       this.$router.push(tab.$attrs.path);
     },
   },
+  mounted(){
+    this.tabsName = this.$route.path;
+  }
 };
 </script>
 <style lang="less" scoped>

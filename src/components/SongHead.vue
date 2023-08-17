@@ -21,7 +21,7 @@
             <span class="mr-5 blue">{{ nickname }}</span>
           </a>
           <div class="createTime">
-            {{ parseTime(tableHead.createTime, "{y}-{m}-{d}") }}创建
+            {{ $formatTime(tableHead.createTime, "{y}-{m}-{d}") }}创建
           </div>
         </div>
         <div class="flex">
@@ -46,7 +46,7 @@
         </div>
         <div class="font-14" style="width: 100%">
           <span class="mr-20">歌曲：{{ tableHead.trackCount }}</span>
-          <span>播放：{{ $playTime(tableHead.playCount) }}</span>
+          <span>播放：{{ $playCount(tableHead.playCount) }}</span>
         </div>
         <el-collapse-transition>
           <div

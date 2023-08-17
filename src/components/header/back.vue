@@ -1,8 +1,8 @@
 <template>
-    <div class="back mr-10 ml-30">
-        <el-button @click="goBack" circle size="mini" type="info" icon="el-icon-arrow-left"></el-button>
-        <el-button @click="goForward" circle size="mini" type="info" icon="el-icon-arrow-right"></el-button>
-    </div>
+    <el-button-group>
+        <el-button @click="goBack" size="small" plain icon="el-icon-arrow-left"></el-button>
+        <el-button @click="goForward" size="small" plain><i class="el-icon-arrow-right el-icon--right"></i></el-button>
+    </el-button-group>
 </template>
 <script>
 export default {

@@ -20,7 +20,7 @@
             <p class="mr-20">
               创建时间：{{ parseTime(publishTime, "{y}-{m}-{d}") }}
             </p>
-            <p>播放：{{ $playTime(playTime) }}</p>
+            <p>播放：{{ $playCount(playTime) }}</p>
           </div>
           <div class="videoGroup mb-15">
             <el-tag
@@ -50,7 +50,7 @@
           >
             <div class="related-left border-r-5">
               <el-image :src="item.coverUrl" :alg="item.alg" fit="cover" />
-              <span class="playTime">{{ $playTime(item.playTime) }}</span>
+              <span class="playTime">{{ $playCount(item.playTime) }}</span>
               <span class="duration">{{
                 parseTime(item.durationms, "{i}:{s}")
               }}</span>

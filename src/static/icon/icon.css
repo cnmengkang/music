@@ -1,9 +1,8 @@
 @font-face {
-  font-family: "iconFont";
-  /* Project id 3841370 */
-  src: url('//at.alicdn.com/t/c/font_3841370_xqfuqb1jh3.woff2?t=1675822432646') format('woff2'),
-    url('//at.alicdn.com/t/c/font_3841370_xqfuqb1jh3.woff?t=1675822432646') format('woff'),
-    url('//at.alicdn.com/t/c/font_3841370_xqfuqb1jh3.ttf?t=1675822432646') format('truetype');
+  font-family: "iconFont"; /* Project id 3841370 */
+  src: url('//at.alicdn.com/t/c/font_3841370_za1mpj9x8k.woff2?t=1692237822320') format('woff2'),
+       url('//at.alicdn.com/t/c/font_3841370_za1mpj9x8k.woff?t=1692237822320') format('woff'),
+       url('//at.alicdn.com/t/c/font_3841370_za1mpj9x8k.ttf?t=1692237822320') format('truetype');
 }
 
 .iconFont {
@@ -12,6 +11,18 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-logo:before {
+  content: "\e60b";
+}
+
+.icon-nan:before {
+  content: "\ea84";
+}
+
+.icon-nv:before {
+  content: "\e60d";
 }
 
 .icon-user_revise:before {
@@ -49,9 +60,13 @@
 .icon-down-arrow:before {
   content: "\e801";
 }
+
+.icon-love-red:before {
+  content: "\e64e";
+}
+
 .icon-play-red:before {
   content: "\ea83";
-  padding-left: 2px;
 }
 
 .icon-top_right:before {

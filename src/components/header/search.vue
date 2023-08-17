@@ -106,10 +106,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.auto_Width {
-    width: 350px;
-}
-
 .my-autocomplete {
     li {
         .name {

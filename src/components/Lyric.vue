@@ -1,12 +1,7 @@
 <template>
   <div class="lyric-scroll" ref="lyrics">
-    <p
-      :class="{ lyric_active: index == activeLine }"
-      ref="lyrics_p"
-      v-for="(item, index) in formattedLyrics"
-      :key="index"
-      :data-time="item.time"
-    >
+    <p :class="{ lyric_active: index == activeLine & item.text != '' }" ref="lyrics_p"
+      v-for="(item, index) in formattedLyrics" :key="index" :data-time="item.time">
       {{ item.text }}
     </p>
   </div>
@@ -64,6 +59,7 @@ export default {
 </script>
 <style scoped lang="less">
 @height: 35px;
+
 // 底部歌词样式
 .lyrics {
   .lyric-scroll {

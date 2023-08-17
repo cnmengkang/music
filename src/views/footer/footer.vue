@@ -26,6 +26,13 @@
                 class="icon-next"
                 @click="getPrevNext('next')"
               ></span>
+              <div class="btn_lyrics">
+          <span
+            :class="['font-14  cursor', { lyric: show }]"
+            @click="show = !show"
+            >词</span
+          >
+        </div>
             </div>
             <div
               class="audio-slider flex justify-content-center flex-wrap-nowrap"
@@ -48,13 +55,6 @@
       <!-- 音量 -->
       <div class="flex" style="width: 25%">
         <sound></sound>
-        <div class="btn_lyrics">
-          <span
-            :class="['font-16 ml-10 cursor', { lyric: show }]"
-            @click="show = !show"
-            >词</span
-          >
-        </div>
       </div>
       <!-- 音量 -->
       <!-- 底部歌词 -->
@@ -126,7 +126,7 @@ export default {
   top: 0px;
   left: 0px;
   right: 0px;
-  bottom: 60px;
+  bottom: 62px;
   z-index: 999;
   overflow: hidden;
 }
