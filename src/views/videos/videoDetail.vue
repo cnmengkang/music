@@ -3,56 +3,42 @@
     <div class="detail">
       <div class="detail-left mr-15" v-if="videoAuth">
         <el-card>
-          <TitleComponent
-            title="视频详情"
-            :showBackButton="true"
-          ></TitleComponent>
+          <TitleComponent title="视频详情" :showBackButton="true"></TitleComponent>
           <video-component :url="url"></video-component>
           <div class="video-author flex mb-15">
             <el-avatar :size="50" :src="avatar"></el-avatar>
             <p class="ml-10">{{ nickName }}</p>
-            <p class="time">{{ parseTime(duration, "{i}:{s}") }}</p>
+            <p class="time">{{ $formatTime(duration, "{i}:{s}") }}</p>
           </div>
           <div class="authorTitle mb-15">
             <h2>{{ AuthorTitle }}</h2>
           </div>
           <div class="author flex mb-15">
             <p class="mr-20">
-              创建时间：{{ parseTime(publishTime, "{y}-{m}-{d}") }}
+              创建时间：{{ $formatTime(publishTime, "{y}-{m}-{d}") }}
             </p>
             <p>播放：{{ $playCount(playTime) }}</p>
           </div>
           <div class="videoGroup mb-15">
-            <el-tag
-              class="mr-10 cursor mb-10"
-              @click="getTag(item)"
-              color="#f2f2f2f2"
-              v-for="item in videoGroup"
-              :key="item.id"
-              type="info"
-              effect="plain"
-              size="mini"
-            >
+            <el-tag class="mr-10 cursor mb-10" @click="getTag(item)" color="#f2f2f2f2" v-for="item in videoGroup"
+              :key="item.id" type="info" effect="plain" size="mini">
               {{ item.name }}
             </el-tag>
           </div>
+          <comp-reviews :commentType="commentType" @upDateReviews="getCommentVideo" :hotReviewsList="hotReviewsList"
+            :newReviewsList="newReviewsList" :reviewsTotal="reviewsTotal" />
         </el-card>
       </div>
       <el-empty v-else :image-size="200"></el-empty>
       <div class="detail-right">
         <el-card>
           <TitleComponent title="相关推荐"></TitleComponent>
-          <div
-            class="related flex cursor"
-            v-for="(item, index) in related"
-            :key="index"
-            @click="getRelatedVideo(item)"
-          >
+          <div class="related flex cursor" v-for="(item, index) in related" :key="index" @click="getRelatedVideo(item)">
             <div class="related-left border-r-5">
               <el-image :src="item.coverUrl" :alg="item.alg" fit="cover" />
               <span class="playTime">{{ $playCount(item.playTime) }}</span>
               <span class="duration">{{
-                parseTime(item.durationms, "{i}:{s}")
+                $formatTime(item.durationms, "{i}:{s}")
               }}</span>
               <span></span>
             </div>
@@ -69,23 +55,37 @@
 <script>
 import { videoUrl, videoDetail, relatedAllVideo } from "@/api/video/video";
 import { mapState } from "vuex";
+import { commentVideo } from '@/api/discover/reviews'
 import TitleComponent from "@/components/TitleComponent";
 import videoComponent from "@/components/video";
+import compReviews from "@/components/Reviews";
 export default {
   name: "detail",
-  components: { TitleComponent, videoComponent },
+  components: { TitleComponent, videoComponent, compReviews },
   data() {
     return {
       videoAuth: "",
       url: "",
       id: this.$route.params.id,
       related: "",
+      commentData: {
+        id: this.$route.params.id,
+        offset: '',
+        limit: ''
+        // 获取评论
+      },
+      commentType: 5,
+      newReviewsList: [],
+      hotReviewsList: [],
+      reviewsTotal: 0,
     };
   },
 
-  mounted() {
+  created() {
     this.player.pause();
     this.getAllVideoDetail();
+    this.getCommentVideo()
+
   },
   methods: {
     async getVideoUrl() {
@@ -114,6 +114,12 @@ export default {
       this.id = item.vid;
       this.getAllVideoDetail();
     },
+    async getCommentVideo() {
+      let result = await commentVideo(this.commentData);
+      this.newReviewsList = result.comments;
+      this.hotReviewsList = result.hotComments;
+      this.reviewsTotal = result.total;
+    }
   },
   computed: {
     nickName() {

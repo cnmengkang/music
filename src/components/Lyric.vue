@@ -1,13 +1,13 @@
 <template>
   <div class="lyric-scroll" ref="lyrics">
-    <p :class="{ lyric_active: index == activeLine & item.text != '' }" ref="lyrics_p"
-      v-for="(item, index) in formattedLyrics" :key="index" :data-time="item.time">
-      {{ item.text }}
-    </p>
+    <div :class="addLineClass(item, index)" ref="lyrics_p" v-for="(item, index) in lyricList" :key="index"
+      :data-time="item.timeInSeconds">
+      <div class="original-line" v-if="item.originalContent">{{ item.originalContent }}</div>
+      <div class="translate-line" v-if="item.translateContent">{{ item.translateContent }}</div>
+    </div>
   </div>
 </template>
 <script>
-import { formatLyrics } from "@/utils/formLyrics";
 import { mapState } from "vuex";
 export default {
   data() {
@@ -44,16 +44,19 @@ export default {
         container.scrollTop = activeLine.offsetTop - container.offsetTop;
       }
     },
+    addLineClass(item, index) {
+      return {
+        'lyrics-line': true,
+        lyric_active: (item.originalContent || item.translateContent) && this.activeLine == index
+      }
+    }
   },
   computed: {
     ...mapState({
       player: (state) => state.player,
-      lyrics: (state) => state.player.lyric,
+      lyricList: (state) => state.player.lyricList,
       currentTime: (state) => state.player.currentTime,
     }),
-    formattedLyrics() {
-      return formatLyrics(this.lyrics, this.space);
-    },
   },
 };
 </script>
@@ -63,20 +66,33 @@ export default {
 // 底部歌词样式
 .lyrics {
   .lyric-scroll {
-    overflow: hidden;
     height: @height;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    p {
-      text-align: center;
+
+    .lyrics-line {
+      color: #000;
+      display: flex;
+      align-items: center;
       font-size: 12px;
-      line-height: @height;
       height: auto;
-      letter-spacing: 2px;
-      -webkit-transition: color 0.7s linear;
-      -moz-transition: color 0.7s linear;
-      -o-transition: color 0.7s linear;
-      transition: color 0.7s linear;
+      min-height: 35px;
+      flex-wrap: wrap;
+      text-align: center;
+      justify-content: center;
+      align-content: center;
+      letter-spacing: 1px;
+
+      .original-line,
+      .translate-line {
+        width: 100%;
+        line-height: 1.2;
+      }
     }
+
   }
 }
 
@@ -87,7 +103,7 @@ export default {
     width: 100%;
     overflow: auto;
 
-    p {
+    .lyrics-line {
       color: #989898;
       word-wrap: break-word;
       text-align: center;

@@ -103,6 +103,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.tableDate)
     this.rowId = localStorage.getItem("isPlay");
   },
   methods: {

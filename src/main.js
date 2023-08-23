@@ -8,6 +8,7 @@ import '@/static/icon/icon.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/static/styles/style.css'
 import '@/static/styles/reset.css'
+import { Message } from 'element-ui';
 // 全局css样式表
 import { formatTime, playCount } from '@/utils/formdate'
 // 中间件
@@ -15,6 +16,7 @@ import { formatTime, playCount } from '@/utils/formdate'
 // 时间日期格式化
 Vue.prototype.$formatTime = formatTime
 Vue.prototype.$playCount = playCount
+Vue.prototype.$message = Message;
 // 播放总量
 Vue.config.productionTip = false;
 Vue.use(Element, {

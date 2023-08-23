@@ -98,8 +98,9 @@ export default {
     width: 100%;
     bottom: 0px;
     background-color: #fff;
-    border-top: 1px solid #ccc;
     z-index: 98;
+    border-top: 1px solid #ccc;
+    box-sizing: border-box;
   }
 }
 </style>

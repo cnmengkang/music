@@ -1,6 +1,6 @@
 <template>
     <div class="video mb-15">
-        <video :src="url" autoplay controls></video>
+        <!-- <video :src="url" autoplay controls></video> -->
     </div>
 </template>
 <script>

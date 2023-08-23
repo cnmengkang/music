@@ -2,14 +2,7 @@
     <div class="video-mv">
         <h4>全部MV</h4>
         <div class="videoMv-head">
-            <div class="aaaa">
-                <div v-for="(item, index) in list" :key="index">
-                    {{ item.name }}
-                    <div v-for="(item, index) in item.children" :key="index">
-                        {{ item.name }}
-                    </div>
-                </div>
-            </div>
+
         </div>
         <div class="mv_grid">
             <mv-grid :data="mvData"></mv-grid>
@@ -24,7 +17,6 @@ export default {
     components: { Tabs, mvGrid },
     data() {
         return {
-            // activeName: 'first',
             list: [
                 {
                     name: '地区',

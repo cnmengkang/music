@@ -41,7 +41,7 @@ export default {
       defaultActive: "/discover",
     };
   },
-  mounted() {
+  created() {
     this.getUserPlaylist();
     let path = this.$route.path;
     if (path.includes('/discover')) {

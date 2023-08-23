@@ -1,70 +1,57 @@
 <template>
   <div class="detail">
     <div class="detail-header">
-      <song-head :tableHead="playlist"></song-head>
+      <comp-song-head :tableHead="playlist" />
       <!-- 详情页顶部 -->
     </div>
     <el-card class="detail-body">
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="歌曲列表" name="song">
-          <song-list :tableDate="list" />
+          <!-- 歌曲列表 -->
+          <comp-song-list :tableDate="list" />
         </el-tab-pane>
         <el-tab-pane name="reviews">
-          <span slot="label"
-            >评论 <small style="font-size: 12px">({{ totalReview }})</small>
+          <!-- 歌曲评论 -->
+          <span slot="label">评论 <small style="font-size: 12px">({{ reviewsTotal }})</small>
           </span>
-          <div class="comment" v-for="(item, index) in comment" :key="index">
-            <div class="user-avatarUrl cursor" @click="getUserInfo(item.user)">
-              <el-avatar
-                :size="40"
-                :src="item.user.avatarUrl + '?param=40y40'"
-              ></el-avatar>
-            </div>
-            <div class="user-info">
-              <span
-                class="blue mb-5 inline-b cursor"
-                @click="getUserInfo(item.user)"
-                >{{ item.user.nickname }}:</span
-              >
-              <span>{{ item.content }}</span>
-              <div
-                class="reviews-2"
-                v-for="(items, index) in item.beReplied"
-                :key="index"
-              >
-                <a class="blue font-12" @click="getUserInfo(item.user)"
-                  >@{{ items.user.nickname }}:</a
-                >
-                <span class="ml-5">{{ items.content }}</span>
-              </div>
-              <div class="font-12 mt-5">{{ item.timeStr }}</div>
-            </div>
-          </div>
+          <comp-reviews :commentType="commentType" @upDateReviews="getAllComments" :hotReviewsList="hotReviewsList"
+            :newReviewsList="newReviewsList" :reviewsTotal="reviewsTotal" />
         </el-tab-pane>
       </el-tabs>
     </el-card>
   </div>
 </template>
 <script>
-import { playlistDetail, commentPlayList } from "@/api/discover/detail";
+import { playlistDetail } from "@/api/discover/detail";
+import { commentPlayList } from '@/api/discover/reviews'
 import { playTrackAll } from "@/api/music/music";
-import SongHead from "@/components/SongHead";
-import SongList from "@/components/SongList";
+import compSongHead from "@/components/SongHead";
+import compSongList from "@/components/SongList";
+import compReviews from "@/components/Reviews";
+
 export default {
-  components: { SongHead, SongList },
+  components: { compSongHead, compSongList, compReviews },
   name: "detail",
   data() {
     return {
       playlist: {},
-      params: {
-        id: this.$route.params.id,
-        limit: "",
-        offset: 0,
-      },
       activeName: "song", //默认选中
       list: [],
-      comment: "",
-      totalReview: "", //总评论数
+      params: {
+        id: this.$route.params.id,
+        limit: '',
+        offset: ''
+      },
+      newReviewsList: [],
+      hotReviewsList: [],
+      reviewsTotal: 0,
+      commentData: {
+        id: this.$route.params.id,
+        offset: '',
+        limit: ''
+        // 获取评论
+      },
+      commentType: 2
     };
   },
   // 监听id变化更改list & head 数据
@@ -72,77 +59,35 @@ export default {
     "$route.params.id": {
       immediate: true,
       handler(newId, oldId) {
-        this.params.id = newId;
+        this.params.id = newId
+        this.commentData.id = newId
         this.getPlayTrack();
-        this.getComment();
+        this.getAllComments()
       },
     },
   },
   methods: {
     // // 获取歌单所有歌曲
-    getPlayTrack() {
+    async getPlayTrack() {
       // 歌单顶部数据
-      playlistDetail(this.params).then((res) => {
-        this.playlist = res.playlist;
-      });
+      let playlist = await playlistDetail(this.params);
+      this.playlist = playlist.playlist;
       // 歌单list数据
-      playTrackAll(this.params).then((res) => {
-        this.list = res.songs;
-      });
+      let songs = await playTrackAll(this.params)
+      this.list = songs.songs;
+    },
+    // 获取歌单评论
+    async getAllComments() {
+      let result = await commentPlayList(this.commentData)
+      this.newReviewsList = result.comments;
+      this.hotReviewsList = result.hotComments;
+      this.reviewsTotal = result.total;
+      console.log(result)
     },
     // tab切换
     handleClick(tab) {
       console.log(tab);
     },
-    // 获取歌单评论
-    getComment() {
-      commentPlayList(this.params).then((res) => {
-        this.totalReview = res.total;
-        this.comment = res.comments;
-      });
-    },
-    // 获取用户详情
-    getUserInfo(item) {
-      this.$router.push({ name: "user", params: { uid: item.userId } });
-    },
   },
 };
 </script>
-<style scoped lang="less">
-.detail {
-  // 内容区域
-  .detail-body {
-    .comment {
-      display: flex;
-      border-bottom: 1px solid #eee;
-      padding: 15px 0px;
-
-      .user-info {
-        text-align: left;
-        margin-left: 10px;
-        width: calc(100% - 40px);
-
-        span {
-          font-size: 12px;
-        }
-
-        .reviews-2 {
-          background: #f2f2f2;
-          padding: 8px 10px;
-          border-radius: 5px;
-          margin: 5px 0px;
-          line-height: 20px;
-        }
-
-
-      }
-
-      .user-avatarUrl {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-      }
-    }
-  }
-}
-</style>

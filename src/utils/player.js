@@ -5,6 +5,7 @@ import {
   checkMusic,
   playTrackAll,
 } from "@/api/music/music";
+import { lyricProcessing } from "@/utils/formLyrics";
 const audioPool = {
   pool: [],
   get() {
@@ -32,7 +33,7 @@ export default class MusicPlayer {
     this.isPlaying = false;
     this.playSong = "";
     this.params = { id: 0, level: "exhigh" };
-    this.lyric = [];
+    this.lyricList = [];
     this.isFooterShow = false;
     this.singer = {
       authorName: "",
@@ -120,10 +121,10 @@ export default class MusicPlayer {
     });
     // 左侧头像信息
   }
-  getCurrentMusicLyric() {
-    lyric(this.params.id).then((res) => {
-      this.lyric = res.lrc.lyric;
-    });
+  async getCurrentMusicLyric() {
+    let result = await lyric(this.params.id);
+    this.lyricList = lyricProcessing(result);
+
     // 歌词
   }
   getCurrentMUsicUrl() {

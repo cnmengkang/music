@@ -11,6 +11,7 @@
         <div class="audio">
           <div class="audio-play flex">
             <div class="audio-top plays mb-5">
+              <div class="loop">循环</div>
               <span
                 title="上一首"
                 class="icon-prev"
