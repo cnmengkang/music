@@ -129,7 +129,6 @@ export default class MusicPlayer {
   }
   getCurrentMUsicUrl() {
     songUrlV1(this.params).then((res) => {
-      console.log(res.data[0]);
       this.isPlay(res.data[0].url);
     });
     // 获取当前播放歌曲url
@@ -138,7 +137,7 @@ export default class MusicPlayer {
   async getCurrentCheckMusic() {
     const res = await checkMusic(this.params.id);
     if (!res.success) {
-      alert("无版权！,自动切换下一首。。。");
+      alert("无版权！,自动切换下一首...");
       this.getPrevNext("next");
     } else {
       this.getCurrentMusicAllInfo();

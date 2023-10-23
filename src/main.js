@@ -6,6 +6,7 @@ import Element from 'element-ui'
 import Cookies from 'js-cookie'
 import '@/static/icon/icon.css'
 import 'element-ui/lib/theme-chalk/index.css'
+import 'element-ui/lib/theme-chalk/display.css';
 import '@/static/styles/style.css'
 import '@/static/styles/reset.css'
 import { Message } from 'element-ui';

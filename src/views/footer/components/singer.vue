@@ -1,12 +1,8 @@
 <template>
   <div class="author flex flex-wrap-nowrap">
     <div class="author-avatar mr-10" @click="drawerOpen">
-      <el-avatar
-        shape="square"
-        :size="50"
-        :src="authorAvatar"
-      />
-      <i class=""></i>
+      <el-avatar shape="square" :size="60" :src="authorAvatar" />
+      <i class="el-icon-rank"></i>
     </div>
     <div class="author-singer">
       <div class="font-14 author-flex">
@@ -62,10 +58,26 @@ export default {
   }
 
   .author-avatar {
+    cursor: pointer;
+    position: relative;
+    transition: all .1s linear;
+    i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 50px;
+      color: #fff;
+      font-weight: 500;
+      z-index: -1;
+    }
     &:hover {
-      cursor: pointer;
-      transition: all 0.2s linear;
-      opacity: 0.5;
+      span {
+        opacity: 0.5;
+      }
+      i {
+        z-index: 2;
+      }
     }
   }
 }

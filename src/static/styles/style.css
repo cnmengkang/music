@@ -393,7 +393,6 @@ body {
 .footer_info .footer .footer-audio .audio .start,
 .footer_info .footer .footer-audio .audio .end {
   width: 10%;
-  text-align: center;
   margin: 0px 10px;
 }
 .footer_info .footer .footer-audio .audio .plays {

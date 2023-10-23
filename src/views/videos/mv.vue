@@ -2,7 +2,6 @@
     <div class="video-mv">
         <h4>全部MV</h4>
         <div class="videoMv-head">
-
         </div>
         <div class="mv_grid">
             <mv-grid :data="mvData"></mv-grid>
@@ -63,7 +62,6 @@ export default {
     },
     mounted() {
         this.getALlMv();
-        console.log(this.list)
     },
     methods: {
         async getALlMv() {
@@ -72,7 +70,8 @@ export default {
         },
         handleClick(tab) {
             console.log(tab.label)
-        }
+        },
+
     },
 };
 </script>

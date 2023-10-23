@@ -33,6 +33,7 @@
       <div class="detail-right">
         <el-card>
           <TitleComponent title="相关推荐"></TitleComponent>
+          <p v-if="related.length == 0">暂无数据！！！</p>
           <div class="related flex cursor" v-for="(item, index) in related" :key="index" @click="getRelatedVideo(item)">
             <div class="related-left border-r-5">
               <el-image :src="item.coverUrl" :alg="item.alg" fit="cover" />
@@ -80,7 +81,6 @@ export default {
       reviewsTotal: 0,
     };
   },
-
   created() {
     this.player.pause();
     this.getAllVideoDetail();

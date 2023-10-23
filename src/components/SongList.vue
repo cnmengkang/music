@@ -12,18 +12,17 @@
       :data="tableDate"
       :row-class-name="rowClassName"
     >
-      <el-table-column
-        label="序号"
-        type="index"
-        :index="indexMethod"
-        align="center"
-      />
+      <el-table-column label="序号" width="50" align="center">
+        <template slot-scope="scope">
+          <span v-if="scope.row.id != rowId">{{
+            indexMethod(scope.row, scope.$index)
+          }}</span>
+          <i v-else class="el-icon-video-pause font-16"></i>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="70">
         <template slot-scope="scope">
-          <i
-            class="iconFont icon-love"
-            type="selection"
-          ></i>
+          <i class="iconFont icon-love" type="selection"></i>
           <i
             class="iconFont icon-down ml-10"
             @click="downloadMusic(scope.row)"
@@ -73,6 +72,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
+import { songDownloadUrl } from "@/api/music/music";
 export default {
   props: {
     tableDate: {
@@ -103,7 +103,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.tableDate)
     this.rowId = localStorage.getItem("isPlay");
   },
   methods: {
@@ -113,35 +112,40 @@ export default {
       this.params.playlist = this.tableDate;
       this.$store.dispatch("getCurrentMusicIsPlay", this.params);
     },
-    indexMethod(index = 0) {
+    indexMethod(row, index) {
       return String(index + 1).padStart(2, "0");
       // 序号不够两位，补0 ，padStart
     },
     // 下载
     downloadMusic(row) {
-      console.log("download");
-      // songUrl(row.id).then((res) => {
-      //   const blob = new Blob([res.data]);
-      //   const link = document.createElement("a");
-      //   link.href = window.URL.createObjectURL(blob);
-      //   link.download = res.data[0].url; // 设置下载文件名
-      //   link.click(); // 触发下载操作
-      // });
+      songDownloadUrl(row.id).then((res) => {
+        console.log(res)
+        const blob = new Blob([res.data.url],{type:res.data.type});
+        const link = document.createElement("a");
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `${row.ar[0].name}-${row.name}.${res.data.type}`;
+        link.click();
+      });
     },
     rowClassName({ row }) {
       return this.rowId == row.id ? "isPlay" : "";
     },
+    getMv(row) {
+      alert("暂无数据！！！");
+      console.log(row);
+    },
   },
   computed: {
-    ...mapState({
-      player: (state) => state.player,
-    }),
+    ...mapState({ player: (state) => state.player }),
   },
 };
 </script>
 <style lang="less" scoped>
 .icon-love-red:before {
   content: "\e64e";
+}
+.isPlay .isActive {
+  text-indent: -8888;
 }
 .song-list {
   .mv {
@@ -160,5 +164,8 @@ export default {
   .hot {
     background: red;
   }
+}
+.font-16 {
+  font-size: 16px;
 }
 </style>

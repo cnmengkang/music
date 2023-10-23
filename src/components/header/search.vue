@@ -137,8 +137,5 @@ export default {
 
     }
 
-    i {
-        cursor: pointer;
-    }
 }
 </style>

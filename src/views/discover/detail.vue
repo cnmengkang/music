@@ -39,7 +39,7 @@ export default {
       list: [],
       params: {
         id: this.$route.params.id,
-        limit: '',
+        limit: 50,
         offset: ''
       },
       newReviewsList: [],

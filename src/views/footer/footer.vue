@@ -134,4 +134,10 @@ export default {
 .lyric {
   color: red;
 }
+.start{
+  text-align: right;
+}
+.end{
+  text-align: left;
+}
 </style>

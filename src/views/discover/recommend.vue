@@ -43,6 +43,7 @@
           :trackCount="item.trackCount"
           :id="item.id"
           :alg="item.alg"
+          :loading="filterPersonAlized.length>0"
         />
         <!-- 每日推荐歌单 -->
       </div>

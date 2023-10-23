@@ -1,19 +1,11 @@
 <template>
   <div class="playlist">
     <div class="playlist-head border-r-5 flex mb-15" v-if="quality">
-      <div
-        class="bgc"
-        :style="{
-          backgroundImage: 'url(' + quality.coverImgUrl + '?imageView&blur=40x20)',
-        }"
-      ></div>
+      <div class="bgc" :style="{
+        backgroundImage: 'url(' + quality.coverImgUrl + '?imageView&blur=40x20)',
+      }"></div>
       <div class="left ml-15">
-        <el-avatar
-          shape="square"
-          :size="150"
-          fit="cover"
-          :src="quality.coverImgUrl"
-        ></el-avatar>
+        <el-avatar shape="square" :size="150" fit="cover" :src="quality.coverImgUrl"></el-avatar>
       </div>
       <div class="right">
         <el-button plain round class="mb-20">精品歌单</el-button>
@@ -22,39 +14,17 @@
     </div>
     <el-card class="playlist-list">
       <div class="playlist-tabs flex" style="justify-content: space-between">
-        <category
-          :tabsName="tabsName"
-          :all="all"
-          :categories="categories"
-          :sub="sub"
-          @myEvent="handleTabClickType"
-        >
+        <category :tabsName="tabsName" :all="all" :categories="categories" :sub="sub" @myEvent="handleTabClickType">
         </category>
         <tabs :tabsName="tabsName" @tab-click="handleTabClickType">
-          <el-tab-pane
-            v-for="(item, index) in tags"
-            :name="item.name"
-            :label="item.name"
-            :key="index"
-          />
+          <el-tab-pane v-for="(item, index) in tags" :name="item.name" :label="item.name" :key="index" />
         </tabs>
       </div>
       <div class="playlist-body mt-5 grid">
-        <play-grid
-          v-for="(item, index) in playlist"
-          :key="index"
-          :name="item.name"
-          :picUrl="item.picUrl || item.coverImgUrl"
-          :playcount="item.playcount || item.playCount"
-          :trackCount="item.trackCount"
-          :id="item.id"
-          :alg="item.alg"
-        />
-        <pagination
-          :total="totalPage"
-          :page-size="pageSize"
-          :current-page.sync="currentPage"
-        />
+        <play-grid v-for="(item, index) in playlist" :key="index" :name="item.name"
+          :picUrl="item.picUrl || item.coverImgUrl" :playcount="item.playcount || item.playCount"
+          :trackCount="item.trackCount" :id="item.id" :alg="item.alg" />
+        <pagination :total="totalPage" :page-size="pageSize" :current-page.sync="currentPage" />
       </div>
     </el-card>
   </div>
@@ -94,6 +64,7 @@ export default {
       categories: {},
       sub: [],
       tabsName: "",
+      loading: true
     };
   },
   mounted() {
@@ -114,6 +85,7 @@ export default {
       topPlaylist(this.params).then((res) => {
         this.totalPage = res.total;
         this.playlist = res.playlists;
+        this.loading = false
       });
     },
     // 获取热搜歌单

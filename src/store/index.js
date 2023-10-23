@@ -5,10 +5,12 @@ import MusicPlayer from '@/utils/player';
 import state from './state';
 import actions from './actions';
 import mutations from './mutations';
+import getters from './getters';
 Vue.use(Vuex);
 const options = {
   state,
   actions,
+  getters,
   mutations,
 }
 let store = new Vuex.Store(options);

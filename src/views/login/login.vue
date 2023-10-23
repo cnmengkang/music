@@ -136,7 +136,6 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         if (!valid) return;
         CheckVerify(this.loginForm).then((res) => {
-          console.log("res", res);
           if (res.code != 200) return;
           this.$router.push({ path: "/" });
         });

@@ -1,8 +1,8 @@
 <template>
     <ul class="mv_flex">
-        <li class="border-r-5 mv_item mb-20" v-for="(item, index) in data" :key="index">
+        <li class="border-r-5 mv_item mb-20" v-for="(item, index) in data" :key="index" @click="getVideoDetail(item)">
             <div class="relative">
-                <el-image class="border-r-5 cursor" :src="item.cover"/>
+                <el-image class="border-r-5 cursor" :src="item.cover" />
                 <span class="playCount">
                     {{ $playCount(item.playCount) }}</span>
                 <span class="playTime">{{ $formatTime(item.duration, "{i}:{s}") }}</span>
@@ -26,7 +26,12 @@ export default {
     },
     created() { },
     mounted() { },
-    methods: {},
+    methods: {
+        // 点击视频列表跳转
+        getVideoDetail(res) {
+            this.$router.push({ name: "videoDetail", params: { id: res.id } });
+        },
+    },
     computed: {},
 }
 </script>

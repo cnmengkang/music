@@ -10,20 +10,17 @@
                 </div>
                 <div class="user-vip-sex flex space-between">
                     <div class="user_sex">
-                        <span class="mr-10">{{ Level }}</span>
-                        <span class="mr-10">{{ gender }}</span>
+                        <span class="mr-10 level">Lv {{ Level }}</span>
+                        <span class="mr-10">{{ gender == 1 ? '男' : '女' }}</span>
                     </div>
-                    <div>
-                        <el-button @click="edit">编辑个人信息</el-button>
+                    <div v-if="params.uid == uid" class="edit">
+                        <el-button type="small" @click="edit">编辑个人信息</el-button>
                     </div>
                 </div>
-                <el-divider></el-divider>
-                <div class="user-info mb-10">
-                    <span>动态({{ eventCount }})</span>
-                    <el-divider direction="vertical"></el-divider>
-                    <span>关注({{ follows }})</span>
-                    <el-divider direction="vertical"></el-divider>
-                    <span>粉丝({{ followeds }})</span>
+                <div class="user-info mb-10 flex">
+                    <p class="eventCount"><strong>{{ eventCount }}</strong><br>动态</p>
+                    <p class="follows"><strong>{{ follows }}</strong><br>关注</p>
+                    <p class="followeds"><strong>{{ followeds }}</strong><br>粉丝</p>
                 </div>
                 <div class="user-city mb-10">
                     <p class="mb-5">所在地区:{{ city }}</p>
@@ -45,6 +42,7 @@
 <script>
 import Tabs from '@/components/Tabs';
 import { userDetail } from '@/api/user/user';
+import { mapState } from "vuex";
 export default {
     components: { Tabs },
     props: {},
@@ -98,8 +96,9 @@ export default {
         gender() {
             return this.profile.gender
         },
-
-
+        ...mapState({
+            uid: (state) => state.uid
+        }),
     }
 }
 </script>
@@ -107,6 +106,37 @@ export default {
 .user {
     .user-userInfo {
         width: calc(100% - 220px);
+    }
+
+    .user-info {
+        .eventCount{
+
+        }
+        p {
+            text-align: center;
+            line-height: 1.5;
+            width: 12%;
+            font-size: 12px;
+
+            strong {
+                font-size: 16px;
+            }
+        }
+        .follows{
+            border-left:1px solid #ccc ;
+            border-right:1px solid #ccc ;
+
+        }
+        .followeds{
+        }
+    }
+
+    .level {
+        padding: 2px 10px;
+        font-size: 10px;
+        background-color: #ccc;
+        color: #000;
+        border-radius: 10px;
     }
 }
 </style>

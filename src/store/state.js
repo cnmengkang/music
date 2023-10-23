@@ -13,10 +13,11 @@ export default {
   nickName: getUsername(),
   avatar: getUserAvatar(),
   uid: getUserId(),
+  playList: [],
   cloudsearch: {
     title: "",
     songCount: 0,
     searchList: [],
   },
-  qrLogin:false
+  qrLogin: false,
 };

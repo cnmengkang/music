@@ -89,7 +89,7 @@ export default {
   border-radius: 50%;
 }
 .el-drawer__wrapper {
-  bottom: 60px;
+  bottom: 75px;
   .footer_drawer {
     padding: 4%;
     position: absolute;

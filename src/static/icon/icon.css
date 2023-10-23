@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconFont"; /* Project id 3841370 */
-  src: url('//at.alicdn.com/t/c/font_3841370_oi2p6vdaos.woff2?t=1692431796211') format('woff2'),
-       url('//at.alicdn.com/t/c/font_3841370_oi2p6vdaos.woff?t=1692431796211') format('woff'),
-       url('//at.alicdn.com/t/c/font_3841370_oi2p6vdaos.ttf?t=1692431796211') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_3841370_b8x9trrzwof.woff2?t=1698028221021') format('woff2'),
+       url('//at.alicdn.com/t/c/font_3841370_b8x9trrzwof.woff?t=1698028221021') format('woff'),
+       url('//at.alicdn.com/t/c/font_3841370_b8x9trrzwof.ttf?t=1698028221021') format('truetype');
 }
 
 .iconFont {
@@ -11,6 +11,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-xiangshangjiantou:before {
+  content: "\e661";
 }
 
 .icon-liked_false:before {

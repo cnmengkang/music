@@ -4,7 +4,7 @@
       <headers />
     </el-header>
     <!-- 顶部 -->
-    <el-container style="margin: 20px auto;">
+    <el-container style="margin: 20px auto">
       <el-aside class="mr-15">
         <asideNav />
       </el-aside>
@@ -17,7 +17,7 @@
     </el-container>
     <!-- 底部 -->
     <transition name="el-zoom-in-bottom">
-      <el-footer class="flex" v-if="isFooterShow">
+      <el-footer class="flex" v-if="isFooterShow" style="height: 75px">
         <footers />
       </el-footer>
     </transition>
@@ -61,7 +61,7 @@ export default {
 
     .header {
       width: @max-width;
-      .header-logo{
+      .header-logo {
         width: @left-width;
       }
     }

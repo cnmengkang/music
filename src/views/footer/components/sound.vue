@@ -4,7 +4,7 @@
       <div class="SoundQuality">
         <ul class="pl-15">
           <li
-            :class="[' cursor', level==item.level?'active':'']"
+            :class="[item.level,'cursor', level==item.level?'active':'']"
             v-for="(item, index) in params"
             :key="index"
             @click="handSoundQuality(item)"
@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       isSound: true,
-      volume: 25, //默认音量
+      volume: 10, //默认音量
       params: [
         {
           level: "standard",

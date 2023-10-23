@@ -26,7 +26,6 @@
   </div>
 </template>
 <script>
-import { userPlaylist } from "@/api/user/user";
 import { mapState } from "vuex";
 export default {
   name: "asideLeft",
@@ -37,12 +36,10 @@ export default {
         { name: "视频", index: "/video/all", icon: "el-icon-menu" },
         { name: "私人漫游", index: "/private", icon: "el-icon-menu" },
       ],
-      playlist: [],
       defaultActive: "/discover",
     };
   },
   created() {
-    this.getUserPlaylist();
     let path = this.$route.path;
     if (path.includes('/discover')) {
       this.defaultActive = '/' + path.split('/')[1];
@@ -51,22 +48,22 @@ export default {
     }
   },
   methods: {
-    async getUserPlaylist() {
-      let result = await userPlaylist(this.uid);
-      if (result.code != 200) return;
-      result.playlist[0].name = '我喜欢的音乐';
-      this.playlist = result.playlist;
-    },
+    // async getUserPlaylist() {
+    //   let result = await userPlaylist(this.uid);
+    //   if (result.code != 200) return;
+    //   result.playlist[0].name = '我喜欢的音乐';
+    //   this.playlist = result.playlist;
+    // },
   },
   computed: {
     ...mapState({
-      uid: (state) => state.uid,
+      playList: (state) => state.playList,
     }),
     createPlaylist() {
-      return this.playlist.filter(item => !item.subscribed);
+      return this.playList.filter(item => !item.subscribed);
     },
     favoritePlaylist() {
-      return this.playlist.filter(item => item.subscribed);
+      return this.playList.filter(item => item.subscribed);
     },
   },
 };

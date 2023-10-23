@@ -39,4 +39,10 @@ export default {
   SET_QR_LOGIN(state, data) {
     state.qrLogin = data;
   },
+  DRAWER_OPEN(state, flag) {
+    state.drawer = flag;
+  },
+  SET_LEFT_MENU(state,data){
+    state.playList = data;
+  }
 };
